@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="{{asset('css/app.css')}}" />
         <title>{{config('app.name', 'STELLA')}}</title>
 
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+
     </head>
     <body>
         @yield('content')

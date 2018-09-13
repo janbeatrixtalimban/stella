@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use\App\Notifications\VerifyEmail;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -12,27 +13,36 @@ use Validator;
 
 
 
+
+
+
 class UserController extends Controller
 {
     //
 
-    public function userRegistration(){
-        return view('user.register');
+    public function userRegistration()
+    {
+        return view('phaseOne.register');
     }
     
    
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'lastName' => 'required|string',
-            'firstName' => 'required|string',
-            'middleName' => 'required|string',
-            'birthDate' => 'required',
-            'emailAddress' => 'required|string|email|unique:users',
-            'location' => 'required|string',
-            'aboutDescription' => 'required|string',
-            'password' => 'required|string|min:6|confirmed',
+            'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'firstName' => 'string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'middleName' => 'required|string|max:50||regex:/^[a-zA-Z_\-]+$/',
+            'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+            'birthDate' => 'required|before:18 years ago',
+            'emailAddress' => 'required|email|unique:users,emailAddress',
+            'location' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'company' => 'string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'aboutDescription',
+            'password' => 'required|string|min:6',
             'confirmpassword' => 'required|same:password',
+            'created_at',
+            'updated_at',
+            'token',
         ]);
     }
 
@@ -40,10 +50,26 @@ class UserController extends Controller
 
     public function create(request $request)
     {
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-        $input['typeID'] = '1';
-        $input['skillID'] = '1';
-        return User::create($input);
+
+        $skipper = "6LcGAHAUAAAAAK8eMIoIq8oHOUNcgi19wwhIZPgx";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+            'secret' => $skipper,
+            'response' => request('g-recaptcha-response'),
+            'remoteip' => $_SERVER['REMOTE_ADDR'],
+        ]);
+
+        $resp = json_decode(curl_exec($ch));
+        curl_close($ch);
+	
+        return  (string) $resp;
+       
+        
     }
 }
+
+
