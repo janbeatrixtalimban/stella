@@ -19,7 +19,8 @@ class User extends Authenticatable
     protected $fillable = [
         'lastName', 'firstName','middleName','birthDate','emailAddress',
         'contactNo', 'location', 'company', 'aboutDescription', 
-        'password', 'typeID', 'skillID','created_at', 'updated_at', 'token',
+        'password', 'typeID', 'skillID','created_at', 'updated_at', 'token',  
+        'filePath',
     ];
 
     /**
@@ -33,7 +34,7 @@ class User extends Authenticatable
 
     public function verified()
     {
-        return $this->token == null;
+        return $this->token ===  null;
     }
 
     public function sendVerifyAccount()

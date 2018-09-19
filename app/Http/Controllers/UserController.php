@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Twilio;
+use Mail;
+use App\Notifications\VerifyEmail;
 use App\User;
-use\App\Notifications\VerifyEmail;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Validator;
-
-
-
-
-
 
 class UserController extends Controller
 {
@@ -22,10 +17,9 @@ class UserController extends Controller
 
     public function userRegistration()
     {
-        return view('phaseOne.register');
+        return view('StellaHome.register');
     }
-    
-   
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -43,10 +37,9 @@ class UserController extends Controller
             'created_at',
             'updated_at',
             'token',
+            'filePath',
         ]);
     }
-
-     
 
     public function create(request $request)
     {
@@ -65,11 +58,50 @@ class UserController extends Controller
 
         $resp = json_decode(curl_exec($ch));
         curl_close($ch);
-	
-        return  (string) $resp;
-       
-        
+
+        if ($resp->success) {
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
+            $input['typeID'] = '1';
+            $input['skillID'] = '1';
+            $input['token'] = str_random(25);
+            $path=$request->file('filePath')->store('upload');
+            $user = User::create($input);
+            $user->sendVerifyAccount();
+
+            //$twilio->message('+639175501226', 'Pink Elephants and Happy Rainbows');
+            $this->basic_email($input['emailAddress']);
+            //lahat ng created pinalitan ko ng user
+            return view('StellaHome.login');
+        } else {
+            return "FAILED";
+        }
+
+    }
+
+    public function basic_email($email)
+    {
+        $data = array('name' => "Virat Gandhi");
+        //'text' => 'mail' :: loob ng () mail
+        Mail::send(['text' => 'mail'], $data, function ($message) use ($email) {
+            $message->to($email, $email)->subject
+                ('Laravel Basic Testing Mail');
+            $message->from('stella.model.ph@gmail.com', 'Stella PH');
+        });
+        echo "Registered! Email Sent. Check your inbox.";
+    }
+
+   
+
+    public function verify($token)
+    {
+            // verify user using token!!!! 
+            //404 errir ung firstOrFail
+
+        User::where('token', $token)->firstOrFail()->update(['token' => null]);
+
+        return redirect()
+        ->route('home')
+        ->with('success', 'account verified');
     }
 }
-
-

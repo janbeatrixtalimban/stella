@@ -1,10 +1,11 @@
+
 @extends('layout.app')
 
 @section('content')
 <h1> REGISTRATION </h1>
 <br/>
     <div class="form-group px-5">
-    <form class="" action="/register" method="post">
+    <form class="" action="/register" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
@@ -26,10 +27,11 @@
         Describe yourself: <input type="text" name="aboutDescription" id="aboutDescription" value="" placeholder="Describe yourself"> <br /><br />
         Password: <input type="password" name="password" id="password" value="" placeholder="Password"> <br /><br />
         Confirm password: <input type="password" name="confirmpassword" id="confirmpassword" value="" placeholder="Confirm Password"> <br /><br />
-        
+        Valid ID: <input type="file" name="filePath" value="">
         <div class="g-recaptcha" data-sitekey="6LcGAHAUAAAAAG5pXvyGGWTW0CgEg0o-9npi37Kb"></div>
-        
         <button type="submit" name="button">Register</button>
     </form>
     </div>
 @endsection
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
