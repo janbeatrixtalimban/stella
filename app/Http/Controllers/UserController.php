@@ -25,13 +25,11 @@ class UserController extends Controller
         return Validator::make($data, [
             'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
             'firstName' => 'string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'middleName' => 'required|string|max:50||regex:/^[a-zA-Z_\-]+$/',
             'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
             'birthDate' => 'required|before:18 years ago',
             'emailAddress' => 'required|email|unique:users,emailAddress',
             'location' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'company' => 'string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'aboutDescription',
+            'company',
             'password' => 'required|string|min:6',
             'confirmpassword' => 'required|same:password',
             'created_at',
@@ -64,6 +62,7 @@ class UserController extends Controller
             $input['password'] = Hash::make($input['password']);
             $input['typeID'] = '1';
             $input['skillID'] = '1';
+            $input['company'] = 'N/A';
             $input['token'] = str_random(25);
             $path=$request->file('filePath')->store('upload');
             $user = User::create($input);

@@ -31,9 +31,7 @@ Route::post('register', 'UserController@create');
 Route::get('/verify/{token}', 'VerifyController@verify')->name('verify');
 
 //Auth::routes();
-
 //Route::get('/home', 'HomeController@index')->name('home');
-
 //idk
 // Route::get('sendbasicemail','MailController@basic_email');
 // Route::get('sendhtmlemail','MailController@html_email');

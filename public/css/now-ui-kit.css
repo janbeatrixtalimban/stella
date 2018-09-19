@@ -7221,5 +7221,9 @@ img {
   }
 }
 
+.hidden{
+  display: none;
+}
+
 
 /*# sourceMappingURL=kit-free.css.map */
