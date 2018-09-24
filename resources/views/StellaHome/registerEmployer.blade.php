@@ -37,7 +37,7 @@
                         <div style="width: 200px;" class="logo-container">
                             <img src="<?php echo asset('img/logo_white.png')?>">
                         </div>
-                        <h3 class="h3-seo">Model Registration</h3>
+                        <h3 class="h3-seo">Employer Registration</h3>
                       </div>
                   </div>
               </div>
@@ -48,7 +48,7 @@
       
       <!-- Body Contents -->
             <!--Left column contents-->
-            <form class="" action="/register" method="post" enctype="multipart/form-data">
+            <form class="" action="/registerEmployer" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -66,7 +66,16 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                             <h4>Basic Information</h4>
-                            <!-- Model Form (fields) -->
+                            <!-- Employer Form (fields) -->
+                            <!--Comapny Name-->
+                            <div class="card card-login card-plain">
+                                <div class="input-group no-border input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="company" id="company" placeholder="Company Name" value="">
+                                </div>
                                   <!--First Name-->
                                   <div class="card card-login card-plain">
                                       <div class="input-group no-border input-lg">
@@ -237,13 +246,6 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="g-recaptcha" data-sitekey="6LcGAHAUAAAAAG5pXvyGGWTW0CgEg0o-9npi37Kb"></div>
                                 </div>
-                                <br><br>
-                            <!-- Register/submit button -->
-                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " style="float: right;">Register</button>
-                                <br>
-                                    <hc style="float: left;">
-                                        <a href="{{ url('/stellahome') }}" class="link">Cancel</a>
-                                    </hc>
                             </div> 
                         </div>
                     </div>
@@ -254,9 +256,17 @@
                     </div>
                 </div>
               
-                                                <!-- DO NOT REMOVE THIS CLASS -->
-                                                <div class="pull-left col-lg-6"></div>                      
+              <!-- Button -->
+              <div class="col-lg-12">
+<div class="col-lg-6"></div>
+                                    <div class="pull-right pull-left col-lg-6">
+                                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg ">Register</button>
+                                        <h6>
+                                        <a href="{{ url('/stellahome') }}" class="link">Cancel</a>
+                                        </h6>
+                                    </div></div>
                             
+
                 </form>
               </div>
       <!-- End Body Contents -->
@@ -282,4 +292,3 @@
       </div>
       
 @endsection
-

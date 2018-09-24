@@ -13,11 +13,9 @@ class loginController extends Controller
 
     public function Login(){
         
-        if(Auth::check()){
-            return view('StellaHome.homepage');
-        }else{
+      
             return view('StellaHome.login');
-        }
+        
         
 
      }
@@ -33,8 +31,9 @@ class loginController extends Controller
         if ($authenticate) {
             $accesstoken = request('accesstoken');
             $user = auth::user();
+           // dd($user);
         //    $success['token'] = $user->createToken('user', ['CommandCenter'])->accessToken;
-        return view('StellaHome.homepage');
+        return view('StellaModel.homepage');
 
         } else {
          
