@@ -49,10 +49,8 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('/editProfile/{id}', 'ModelController@edit');
             Route::post('/SaveEdit/{id}', 'ModelController@editNaModel'); 
             Route::get('/modelattribute', 'ModelController@attribute');
-            
-
             Route::get('/subscription', 'UserController@subscription');
-            Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
+            
             Route::get('/gopremium', 'UserController@paypal');
             Route::post('/status/{id}', 'UserController@editStatus');
 
@@ -61,10 +59,12 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
 
 
-            //prj
+            //Employer
             Route::resource('projects','EmployerController');
             Route::get('/employerprofile', 'EmployerController@employerProfile');
+            Route::get('/employerHome', 'EmployerController@Ehomepage');
             Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
+            Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
             
     });
 });

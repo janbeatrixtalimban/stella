@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\auditlogs;
 use App\Project;
 use Validator;
 
@@ -62,7 +63,21 @@ class ModelController extends Controller
                   
                 
             //return redirect()->back()->with('alert', 'Updated!');
-            return redirect()->to('/modelprofile')->with('alert', 'Updated!');
+
+                        $auditlogs = new auditlogs;
+                        $auditlogs->userID =  Auth::user()->userID;;
+                        $auditlogs->logType = 'Edit profile';
+                        
+                
+                        if ($auditlogs->save() && $user) 
+                        {
+                            return redirect()->to('/modelprofile')->with('alert', 'Updated!');
+                        } else 
+                        {
+                            return ('fail');
+                        }
+
+            
               }
               else {
                   return('fail');

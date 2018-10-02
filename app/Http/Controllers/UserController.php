@@ -66,10 +66,19 @@ class UserController extends Controller
 
 
             $transacdetail = transactiondetail::create($transac);
-            return redirect()->to('/subscription');
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID =  $user->userID;
+            $auditlogs->logType = 'Paid subcription';
+    
+            if ($auditlogs->save() && $transac) 
+            {
+                return redirect()->to('/subscription');
+            } else 
+            {
+                return ('fail');
+            }
             
-        } else {
-            return ('fail');
         }
          
       }

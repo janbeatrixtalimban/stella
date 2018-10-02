@@ -31,11 +31,12 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-header">Profile</a>
-                            <a class="dropdown-item" href="{{ url('/employerapplicants') }}">View Applicants</a>
-                            <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}">Subscription</a>
-                            <a class="dropdown-item" href="{{ url('/settings') }}">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ url('/employerHome') }}">Home</a>
+                        <a class="dropdown-item" href="{{ url('#') }}">View Applicants</a>
+                        <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}">Subscriptions</a>
+                        <a class="dropdown-item" href="{{ url('#') }}">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                       </div>
                 </div>
           </li>

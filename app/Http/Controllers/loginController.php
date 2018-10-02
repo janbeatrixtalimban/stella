@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\auditlogs;
 use App\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -35,15 +36,39 @@ class loginController extends Controller
 
                     $projects = Project::latest()->paginate(50);
 
-                    return view('StellaModel.homepage',compact('projects'))
-                        ->with('i', (request()->input('page', 1) - 1) * 5);
+                        $auditlogs = new auditlogs;
+                        $auditlogs->userID =  Auth::user()->userID;;
+                        $auditlogs->logType = 'login:model';
+                        
+                
+                        if ($auditlogs->save() && $projects) 
+                        {
+                            return view('StellaModel.homepage',compact('projects'))
+                            ->with('i', (request()->input('page', 1) - 1) * 5);
+                        } else 
+                        {
+                            return ('fail');
+                        }
+
                    }
                    
                    else{
 
                     $projects = Project::latest()->paginate(10);
-                    return view('StellaEmployer.employerProfile',compact('projects'))
-                    ->with('i', (request()->input('page', 1) - 1) * 5);
+
+                    $auditlogs = new auditlogs;
+                        $auditlogs->userID =  Auth::user()->userID;;
+                        $auditlogs->logType = 'login:employer';
+                        
+                
+                        if ($auditlogs->save() && $projects) 
+                        {
+                            return view('StellaEmployer.homepage');
+                        } else 
+                        {
+                            return ('fail');
+                        }
+                    
 
                    }
                                  

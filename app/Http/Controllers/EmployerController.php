@@ -89,5 +89,9 @@ class EmployerController extends Controller
         ->with('success','Project updated successfully.');
     }
 
+    public function Ehomepage()
+    {
+        return view('StellaEmployer.homepage');
+    }
    
 }

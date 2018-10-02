@@ -6,6 +6,7 @@ use App\bridge;
 use App\imgportfolio;
 use App\portfolio;
 use App\User;
+use App\auditlogs;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -54,26 +55,26 @@ class portfolioController extends Controller
     {
         
         	if (Auth::check()) {
-            $validator = Validator::make($request->all(), [
-                        'p_title' => 'required|string|max:50',
-                        'p_date' => 'required',
-                        'p_company' => 'required|string|max:50',
-                        'p_description' => 'required|string|max:100',
-                        'userID',
-                        'updated_at',
-                        'created_at',
+            // $validator = Validator::make($request->all(), [
+            //             'p_title' => 'required|string|max:50',
+            //             'p_date' => 'required',
+            //             'p_company' => 'required|string|max:50',
+            //             'p_description' => 'required|string|max:100',
+            //             'userID',
+            //             'updated_at',
+            //             'created_at',
                         
-                    ]);
+            //         ]);
 
                    
 
-                    if ($validator->fails()) {
-                        return redirect()->to($validator->errors());
+            //         if ($validator->fails()) {
+            //             return redirect()->to($validator->errors());
 
-                    }
-                        $input = $request->all();
-                        $input['userID'] = Auth::user()->userID;
-                        $portfolio = Portfolio::create($input);
+            //         }
+            //             $input = $request->all();
+            //             $input['userID'] = Auth::user()->userID;
+            //             $portfolio = Portfolio::create($input);
                         
                         // $path=$request->file('image')->store('upload');
                         //dito dapat array? hmm
@@ -94,7 +95,7 @@ class portfolioController extends Controller
         
                                 $input['image'] = $new_image_name;
                                 $input['caption'] = 'auqna';
-                                $input["portfolioID"] = $portfolio->id;
+                                // $input["portfolioID"] = $portfolio->id;
                                 $input['userID'] = Auth::user()->userID;
                                 //$path = Storage::putFile('uploads', $request->file('image'));
                                 $imgportfolio = Imgportfolio::create($input);
@@ -102,18 +103,31 @@ class portfolioController extends Controller
                        
                         
                         
-                        $input2["portfolioID"] = $portfolio->id;
-                        $input2["imageID"] = $imgportfolio->id;
-                        $bridge = Bridge::create($input2);
+                        // $input2["portfolioID"] = $portfolio->id;
+                        // $input2["imageID"] = $imgportfolio->id;
+                        // $bridge = Bridge::create($input2);
 
-            				if($portfolio)
-                    {    
-                       
-                        return view('StellaModel.modelprofile');
+                        $auditlogs = new auditlogs;
+                        $auditlogs->userID =  Auth::user()->userID;;
+                        $auditlogs->logType = 'Add photo to portfolio';
                         
-                    } else {
-                        return "FAILED";
-                    }
+                
+                        if ($auditlogs->save() && $imgportfolio) 
+                        {
+                            return redirect()->to('/modelprofile');
+                        } else 
+                        {
+                            return ('fail');
+                        }
+
+            		// 		if($portfolio)
+                    // {    
+                       
+                    //     return view('StellaModel.modelprofile');
+                        
+                    // } else {
+                    //     return "FAILED";
+                    // }
                 }
       else
       {                       

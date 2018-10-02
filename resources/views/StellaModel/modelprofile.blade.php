@@ -84,7 +84,7 @@
             <h4 class="title text-center">View My Portfolio</h4>
             {{-- I FRAME IS UNG PAG KUHA PHOTOS --}}
               <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:900px;width:900px;border:none;" scrolling="no"></iframe>
-            <div class="nav-align-center">
+            {{-- <div class="nav-align-center">
               <ul class="nav nav-pills nav-pills-maroon nav-pills-just-icons" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#profile" role="tablist">
@@ -97,52 +97,10 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> --}}
           </div>
           <!-- Tab panes -->
-          <div class="tab-content gallery">
-            <div class="tab-pane active" id="home" role="tabpanel">
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="<?php echo asset('img/background1.jpg')?>" alt="" class="img-raised">
-                    <img src="<?php echo asset('img/kendall.jpg')?>" alt="" class="img-raised">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="profile" role="tabpanel">
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="<?php echo asset('img/header.jpg')?>" class="img-raised">
-                    <img src="<?php echo asset('img/header2.jpg')?>" alt="" class="img-raised">
-                  </div>
-                  <div class="col-md-6">
-                    <img src="../assets/img/bg7.jpg" alt="" class="img-raised">
-                    <img src="../assets/img/bg8.jpg" alt="" class="img-raised">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="messages" role="tabpanel">
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="../assets/img/bg3.jpg" alt="" class="img-raised">
-                    <img src="../assets/img/bg8.jpg" alt="" class="img-raised">
-                  </div>
-                  <div class="col-md-6">
-                    <img src="../assets/img/bg7.jpg" alt="" class="img-raised">
-                    <img src="../assets/img/bg6.jpg" class="img-raised">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         
         </div>
       </div>
     </div>
