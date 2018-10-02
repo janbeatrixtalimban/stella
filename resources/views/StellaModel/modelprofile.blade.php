@@ -29,12 +29,12 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-header">Profile</a>
-                        <a class="dropdown-item" href="{{ url('/homepage') }}">Home</a>
-                        <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                        <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscriptions</a>
-                        <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Settings</a>
+                        <a class="dropdown-item" href="{{ url('/modelfeed') }}">Home</a>
+                        <a class="dropdown-item" href="{{ url('#') }}">View Job Offers</a>
+                        <a class="dropdown-item" href="{{ url('/subscription') }}">Subscriptions</a>
+                        <a class="dropdown-item" href="{{ url('#') }}">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                       </div>
                 </div>
           </li>
@@ -56,7 +56,7 @@
         <p class="category">(Skill Set)</p>
         <div class="content">
           <div class="social-description">
-              {{ Auth::user()->birthDate}} 
+              22
             {{-- <h4>22</h4> --}}
             <p>Years old</p>
           </div>
@@ -80,8 +80,10 @@
         <h3 class="title">About me</h3>
         <h5 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
         <div class="row">
-          <div class="col-md-6 ml-auto mr-auto">
+          <div class="container">
             <h4 class="title text-center">View My Portfolio</h4>
+            {{-- I FRAME IS UNG PAG KUHA PHOTOS --}}
+              <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:900px;width:900px;border:none;" scrolling="no"></iframe>
             <div class="nav-align-center">
               <ul class="nav nav-pills nav-pills-maroon nav-pills-just-icons" role="tablist">
                 <li class="nav-item">

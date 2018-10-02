@@ -1,13 +1,13 @@
 @extends('layouts.registerapp')
 
-<title>@yield('pageTitle') Register </title>
+<title>@yield('pageTitle') Register Employer</title>
 
 @section('content')
 
 <body class="login-page sidebar-collapse">
         
         <!-- Navigation bar -->
-        <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
+        <nav class="navbar navbar-expand-lg bg-black fixed-top navbar-transparent " color-on-scroll="400">
             <div class="container">
                 <div class="col-lg-1">
                 </div>
@@ -59,34 +59,25 @@
                                     </ul>
                                 </div>
                              @endif
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-2">
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                            <h4>Basic Information</h4>
+                            <h4>Employer Information</h4>
                             <!-- Employer Form (fields) -->
-                            <!--Comapny Name-->
-                            <div class="card card-login card-plain">
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control" name="company" id="company" placeholder="Company Name" value="">
-                                </div>
                                   <!--First Name-->
                                   <div class="card card-login card-plain">
-                                      <div class="input-group no-border input-lg">
+                                      <div class="input-group no-border input-sm">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" value="">
+                                          <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" value="" required>
                                       </div>
                                   <!--Last Name-->
-                                      <div class="input-group no-border input-lg">
+                                      <div class="input-group no-border input-sm">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>
@@ -94,21 +85,20 @@
                                           <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
                                       </div>
                                   <!-- Birthdate -->
-                                      <div class="input-group no-border input-lg">
+                                      <div class="input-group no-border input-sm">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>
                                           </div>
                                           <input type="text" name="birthDate" class="form-control date-picker" value="Birthdate :      mm/dd/yyyy" data-datepicker-color="red" required>
                                       </div>
-                                      <br>
                                   <!-- Location dropdown -->
-                                        <div class="input-group no-border input-lg">
+                                        <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="location" id="location" required>
+                                            <select size="0.4" class="form-control" name="location" id="location" required>
                                                 <option value="" selected disabled>Select your location..</option>
                                                 <optgroup label="Luzon" style="color: black;">
                                                     <option value="abra">Abra</option>
@@ -186,16 +176,17 @@
                                             </select>
                                         </div>
                                     <!--Contact number-->
-                                        <div class="input-group no-border input-lg">
+                                        <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
                                         </div>
+                                        <br>
                                     <!-- Valid ID -->
-                                        <label for="validId"><b>Valid Government ID</b></label>
-                                          <div class="input-group no-border input-lg">
+                                        <label for="validId"><b>Valid Government Company Document</b></label>
+                                          <div class="input-group no-border input-sm">
                                               <div class="input-group-prepend">
                                                   <span class="input-group-text">
                                                     <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
@@ -214,11 +205,30 @@
                
                     <!-- Right Column Contents -->
                     <div class="col-sm-4">
-                        <div class="form group">
+                        <div class="form-group">
+                        <h4>Company Information</h4>
+                            <!-- Employer Form (fields) -->
+                                <!--Company Name-->
+                                <div class="card card-login card-plain">
+                                      <div class="input-group no-border input-sm">
+                                          <div class="input-group-prepend">
+                                              <span class="input-group-text">
+                                              </span>
+                                          </div>
+                                          <input type="text" class="form-control" name="company" id="company" placeholder="Company Name" value="" required>
+                                </div>
+                                <!-- Position -->
+                                <div class="card card-login card-plain">
+                                      <div class="input-group no-border input-sm">
+                                          <div class="input-group-prepend">
+                                              <span class="input-group-text">
+                                              </span>
+                                          </div>
+                                          <input type="text" class="form-control" name="position" id="position" placeholder="Position" value="" required>
+                                </div>
                           <h4>Log In Credentials</h4>
-                          <div class="card card-login card-plain">
                             <!--Email-->
-                                <div class="input-group no-border input-lg">
+                                <div class="input-group no-border input-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                     </span>
@@ -226,7 +236,7 @@
                                 <input type="text" class="form-control" name="emailAddress" placeholder="Enter your E-mail" required>
                                 </div>
                             <!-- Password -->
-                                <div class="input-group no-border input-lg">
+                                <div class="input-group no-border input-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                     </span>
@@ -234,7 +244,7 @@
                                 <input type="password" class="form-control" name="password" placeholder="Enter your Password" required>
                                 </div>
                             <!-- Repeat Password -->
-                                <div class="input-group no-border input-lg">
+                                <div class="input-group no-border input-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                     </span>
@@ -246,6 +256,14 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="g-recaptcha" data-sitekey="6LcGAHAUAAAAAG5pXvyGGWTW0CgEg0o-9npi37Kb"></div>
                                 </div>
+                                <br><br>
+                            <!-- Register/submit button -->
+                            <input type="checkbox" name="tnc" value="1" > I agree with the <a data-toggle="modal" href="#termsandconditions" style="color:black;" required>terms and conditions</a>
+                            <br><br>
+                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Register</button>
+                                    <hc>
+                                        <a href="{{ url('/stellahome') }}" class="link" style="padding:10px;">Cancel</a>
+                                    </hc>
                             </div> 
                         </div>
                     </div>
@@ -256,39 +274,44 @@
                     </div>
                 </div>
               
-              <!-- Button -->
-              <div class="col-lg-12">
-<div class="col-lg-6"></div>
-                                    <div class="pull-right pull-left col-lg-6">
-                                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg ">Register</button>
-                                        <h6>
-                                        <a href="{{ url('/stellahome') }}" class="link">Cancel</a>
-                                        </h6>
-                                    </div></div>
+                                                <!-- DO NOT REMOVE THIS CLASS -->
+                                                <div class="pull-left col-lg-6"></div>                      
                             
-
                 </form>
               </div>
       <!-- End Body Contents -->
       
       <!-- T&C Modal -->
-      <div id="termsandconditions" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-      
+      <div id="termsandconditions" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog tncmodal" role="document">
+
           <!-- Modal content-->
-          <div class="modal-content">
+          <div class="modal-content" style="color:black;">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Terms and Conditions</h4>
               </div>
               <div class="modal-body">
-                <p>Some text in the modal.</p>
+                <ul>
+                    <li>
+                        <h0>Employers will be held liable if they fail to provide legitimate project details.</h0>
+                    </li>
+                    <li>
+                        <h0>Stella only allows physical projects that will take place in the Philippines.</h0>
+                    </li>
+                    <li>
+                        <h0>Stella reserves the right to take down content that surpases our community guidelines.</h0>
+                    </li>
+                </ul>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Dismiss</button>
               </div>
             </div>
         </div>
+        <!-- End of Modal -->
+
+
       </div>
-      
 @endsection
+

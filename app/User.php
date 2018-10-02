@@ -23,7 +23,7 @@ class User extends Authenticatable
         'lastName', 'firstName','birthDate','emailAddress',
         'contactNo', 'location', 'company', 'password', 'typeID', 'skillID',
         'created_at', 'updated_at', 'token',  
-        'filePath',
+        'filePath', 'status', 'tnc', 'position',
     ];
 
     /**
@@ -31,17 +31,6 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    
 
-    public function verified()
-    {
-        return $this->token ===  null;
-    }
-
-    public function sendVerifyAccount()
-    {
-        $this->notify(new VerifyEmail($this));
-    }
 }

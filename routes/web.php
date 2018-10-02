@@ -40,14 +40,31 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['middleware' => 'auth'], function () {
       
-            //Model side /admin/view_admin/{{$in->id}}
+            //Model side 
             Route::get('/addPortfolio', 'portfolioController@create');
             Route::post('/createPortfolio', 'portfolioController@store');
             Route::get('/modelprofile', 'ModelController@modelProfile');
             Route::get('/modelfeed', 'ModelController@modelHomepage');
             Route::get('/modeleditprofile', 'ModelController@modelEditProfile');
             Route::get('/editProfile/{id}', 'ModelController@edit');
-            Route::post('/SaveEdit/{id}', 'ModelController@editNaModel'); //ito talaga post ginaya ko lang inyo tas nabobo na ko
+            Route::post('/SaveEdit/{id}', 'ModelController@editNaModel'); 
+            Route::get('/modelattribute', 'ModelController@attribute');
+            
+
+            Route::get('/subscription', 'UserController@subscription');
+            Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
+            Route::get('/gopremium', 'UserController@paypal');
+            Route::post('/status/{id}', 'UserController@editStatus');
+
+            //jusss                     
+            //gallery
+            Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
+
+
+            //prj
+            Route::resource('projects','EmployerController');
+            Route::get('/employerprofile', 'EmployerController@employerProfile');
+            Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
             
     });
 });

@@ -22,6 +22,34 @@ class portfolioController extends Controller
         return view('StellaModel.createPortfolio');
     }
 
+    public function index()
+     {
+        
+        $images = imgportfolio::get();
+        
+        return view('createPortfolio',compact('images'));
+        
+    }
+
+    public function viewindex(Request $request, $id)
+    {
+        $user = user::find($id);
+        
+        if (Auth::check()) {
+                  
+            //$images = imgportfolio::get();
+            $images = DB::table('imgportfolios')->select('image')->where('userID', $id)->get();
+            //$user = $images;
+            return view('imagegalleryview',compact('images'));
+          
+              }
+              else {
+                  return('fail');
+              }
+        
+        
+    }
+
     public function store(Request $request)
     {
         
@@ -36,6 +64,9 @@ class portfolioController extends Controller
                         'created_at',
                         
                     ]);
+
+                   
+
                     if ($validator->fails()) {
                         return redirect()->to($validator->errors());
 
@@ -43,10 +74,32 @@ class portfolioController extends Controller
                         $input = $request->all();
                         $input['userID'] = Auth::user()->userID;
                         $portfolio = Portfolio::create($input);
-                        $input['caption'] = 'auqna';
+                        
                         // $path=$request->file('image')->store('upload');
-                        $path = Storage::putFile('uploads', $request->file('image'));
-                        $imgportfolio = Imgportfolio::create($input);
+                        //dito dapat array? hmm
+
+                       
+                        $image_array = $request->file('image');
+                        $array_len = count($image_array);
+    
+                            for (
+                                $i=0; $i<$array_len; $i++
+                            )
+                            {
+                                $image_ext = $image_array[$i]->GetClientOriginalExtension();
+                                $new_image_name = rand(123456,999999999).".".$image_ext;
+        
+                                $destination_path = public_path('uploads');
+                                $image_array[$i]->move($destination_path,$new_image_name);
+        
+                                $input['image'] = $new_image_name;
+                                $input['caption'] = 'auqna';
+                                $input["portfolioID"] = $portfolio->id;
+                                $input['userID'] = Auth::user()->userID;
+                                //$path = Storage::putFile('uploads', $request->file('image'));
+                                $imgportfolio = Imgportfolio::create($input);
+                            }
+                       
                         
                         
                         $input2["portfolioID"] = $portfolio->id;
@@ -56,14 +109,15 @@ class portfolioController extends Controller
             				if($portfolio)
                     {    
                        
-                        return $portfolio;
+                        return view('StellaModel.modelprofile');
                         
                     } else {
                         return "FAILED";
                     }
                 }
       else
-      {                        return "FAILED Authentication";        
+      {                       
+           return "FAILED Authentication";        
       }
             }
             

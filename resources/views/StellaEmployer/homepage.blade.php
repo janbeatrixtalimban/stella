@@ -1,4 +1,5 @@
-@extends('layouts.modelapp')
+
+@extends('layouts.employerapp')
 
 <title>@yield('pageTitle') Welcome {{ Auth::user()->firstName}}! </title>
 
@@ -10,8 +11,7 @@
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" href="" rel="tooltip" title="Browse now" data-placement="bottom"
-                      target="_blank">
+                    <a class="navbar-brand" href="{{ url('/employerfeed') }}" rel="tooltip" title="Browse now" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,13 +25,37 @@
                 </div>
 
             <!-- Search Bar -->
-                  <div class="col-sm-6">
+                  <div class="col-sm-4">
                       <form action="" method="">
                             {{ csrf_field() }}
                                 <div class="input-group no-border" style="padding-top:10px;" >
                                     <input name="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
                                 </div>
                   </div>
+                  <div class="col-sm-2">
+                                <div class="input-group no-border input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <select size="0.4" class="form-control" name="role" id="role" required>
+                                                <option value="" selected disabled>Select role of model..</option>
+                                                    <option value="Fashion">Fashion(Editorial) model</option>
+                                                    <option value="Runway">Runway model</option>
+                                                    <option value="Commercial">Commercial model</option>
+                                                    <option value="Plus size">Plus size model</option>
+                                                    <option value="Petite">Petite model</option>
+                                                    <option value="Swimsuit">Swimsuit Model</option>
+                                                    <option value="Lingerie">Lingerie Model</option>
+                                                    <option value="Glamour">Glamour Model</option>
+                                                    <option value="Fitness">Fitness Model</option>
+                                                    <option value="Fitting">Fitting Model</option>
+                                                    <option value="Parts">Parts Model</option>
+                                                    <option value="Promotional">Promitional Model</option>
+                                                    <option value="Mature">Mature Model</option>
+                                            </select>
+                                        </div>
+                </div>
                             <button type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_zoom-bold"></i></button>
                       </form>
 
@@ -43,7 +67,7 @@
 
                     <ul class="navbar-nav">
                       <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
+                        <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
                           <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
@@ -56,13 +80,13 @@
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-header">Homepage</a>
-                            <a class="dropdown-item" href="{{ url('/modelprofile') }}">
+                            <a class="dropdown-item" href="{{ url('/employerprofile') }}">
                             <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                            <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                            <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscriptions</a>
-                            <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Settings</a>
+                            <a class="dropdown-item" href="{{ url('/employerapplicants') }}">View Applicants</a>
+                            <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}">Subscription</a>
+                            <a class="dropdown-item" href="{{ url('/settings') }}">Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                           </div>
                         </div>
                       </li>
@@ -86,24 +110,59 @@
             <div class="row">
                 <div class="col-sm-1"><!--space-->
                 </div>
-                <div class="col-sm-6">
 
-                        @foreach ($projects as $project)
-                    <div id="jobpost" class="card text-center">
+            <!-- Left column model display -->
+                <div class="col-sm-3">
+                    <div id="model" class="card text-center">
                       <div class="card-body" style="color:#1b1b1b;">
-                        <h4 class="card-title">{{ $project->prjTitle }}</h4>
-                        <p class="card-text">{{ $project->jobDescription }}</p>
-                        <a data-toggle="modal" href="#jobdetails" class="btn btn-maroon btn-round">View more details</a>
-                        <a data-toggle="modal" href="#confirmapply" class="btn btn-info btn-round">Apply</a>
+                        <h4 class="card-title">Kendall Jenner</h4>
+                        <img src="<?php echo asset('img/kendall.jpg')?>" alt="" class="img-raised" width="200">
+                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
+                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
                       </div>
                       <div class="card-footer text-muted mb-2">
-                         15 hours ago
+                         Commercial Model
                       </div>
                     </div>
-                        @endforeach
+                    <div id="model" class="card text-center">
+                      <div class="card-body" style="color:#1b1b1b;">
+                        <h4 class="card-title">Pia Wurtzbach</h4>
+                        <img src="<?php echo asset('img/pia.jpg')?>" alt="" class="img-raised" width="200">
+                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
+                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
+                      </div>
+                      <div class="card-footer text-muted mb-2">
+                         Commercial Model
+                      </div>
+                    </div>
+                </div><!-- col-sm-3 closing tag -->
+        <!-- End of left column display -->
 
-                    
-                    
+
+        <!-- Right Column model display -->
+                <div class="col-sm-3">
+                    <div id="model" class="card text-center">
+                      <div class="card-body" style="color:#1b1b1b;">
+                        <h4 class="card-title">Kelsey Merritt</h4>
+                        <img src="<?php echo asset('img/kelsey.png')?>" alt="" class="img-raised" width="200">
+                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
+                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
+                      </div>
+                      <div class="card-footer text-muted mb-2">
+                         Runway Model
+                      </div>
+                    </div>
+                    <div id="model" class="card text-center">
+                      <div class="card-body" style="color:#1b1b1b;">
+                        <h4 class="card-title">Gigi Hadid</h4>
+                        <img src="<?php echo asset('img/gigi.jpg')?>" alt="" class="img-raised" width="200">
+                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
+                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
+                      </div>
+                      <div class="card-footer text-muted mb-2">
+                         Commercial Model
+                      </div>
+                    </div>
                 </div><!-- col-sm-6 closing tag -->
 
                 <div class="col-sm-1"><!--space-->
@@ -122,9 +181,9 @@
                         <div class="card-body" style="color:#1b1b1b;">
                           <h5 class="card-title"><i class="now-ui-icons ui-1_bell-53"></i>  Notifications<i class="now-ui-icons arrows-1_refresh-69" rel="tooltip" title="Refresh Notifications" style="float:right;" ></i></h5>
                             <ul class="list-group list-group-flush">
-                              <li class="list-group-item" href="#" class="card-link">Bench wants to hire you</li>
-                              <li class="list-group-item">Penshoppe has viewed your application</li>
-                              <li class="list-group-item">Victoria secret rejected your application</li>
+                              <li class="list-group-item" href="#" class="card-link">Kendall Jenner applied to your job post</li>
+                              <li class="list-group-item">Gigi Hadid sent you a message</li>
+                              <li class="list-group-item">Kelsey Meritt left you a feedback</li>
                             </ul>
                             <br>
                             <h6a style="float:right;">See all notifications..</h6a>
@@ -183,31 +242,44 @@
 
 
 
-  <!-- View Job detials Modal -->
-          <div id="jobdetails" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+  <!-- View model attributes Modal -->
+          <div id="viewattributes" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Job Title</h4>
+                      <h4 class="modal-title">(Model Name Here)</h4>
                     </div>
                     <div class="modal-body">
-                      <p>Job description....</p>
+                      <p></p>
 
-                      <p>Details</p>
+                      <p>Attributes</p>
                       <ul>
                           <li>
-                              <h0>Detail 1.</h0>
+                              <h0>Eye Color</h0>
                           </li>
                           <li>
-                              <h0>Detail 2.</h0>
+                              <h0>Hair Color</h0>
+                          </li>
+                          <li>
+                              <h0>Hair Length</h0>
+                          </li>
+                          <li>
+                              <h0>Weight</h0>
+                          </li>
+                          <li>
+                              <h0>Height</h0>
+                          </li>
+                          <li>
+                              <h0>Skin Color</h0>
                           </li>
                       </ul>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Dismiss</button>
+                      <button type="button" class="btn btn-info btn-round" href="{{ url('/modelProfile') }}" target="_blank">View Profile</button>
                     </div>
                 </div>
               </div>
@@ -217,14 +289,14 @@
 
 
           <!-- Apply to job confirmation Modal -->
-                <div id="confirmapply" class="modal fade" tabindex="-1" role="dialog">
+                <div id="confirmhire" class="modal fade" tabindex="-1" role="dialog">
                     <div class="modal-dialog confirmapplymodal" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to apply?</h4>
+                            <h4 class="modal-title">Are you sure you want to hire (model name)?</h4>
                           </div>
                           <div class="modal-body">
                           </div>
@@ -244,11 +316,5 @@
             </div>
       
     </div>
-
-
-  
-    {!! $projects->links() !!}
-      
-
 @endsection
 </div>

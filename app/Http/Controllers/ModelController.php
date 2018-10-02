@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Project;
 use Validator;
 
 class ModelController extends Controller
@@ -17,13 +18,21 @@ class ModelController extends Controller
 
     public function modelHomepage()
     {
-        return view('StellaModel.homepage');
+        $projects = Project::latest()->paginate(10);
+        return view('StellaModel.homepage',compact('projects'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
+
     } 
 
     public function modelEditProfile()
     {
        
         return view('StellaModel.editProfile');
+    }
+
+    public function attribute()
+    {
+        return view('StellaModel.modelattributes');
     }
 
 
@@ -52,7 +61,8 @@ class ModelController extends Controller
                   //return view('StellaModel.homepage');
                   
                 
-            return redirect()->back()->with('alert', 'Updated!');
+            //return redirect()->back()->with('alert', 'Updated!');
+            return redirect()->to('/modelprofile')->with('alert', 'Updated!');
               }
               else {
                   return('fail');

@@ -252,3 +252,9 @@
 
 @endsection
 </div>
+
+
+ 
+@section('content')
+    
+@endsection
