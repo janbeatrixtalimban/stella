@@ -45,7 +45,7 @@
                             <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscription</a>
                             <a class="dropdown-item" href="{{ url('/modelsetting') }}">Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                           </div>
                         </div>
                       </li>
@@ -91,136 +91,102 @@
                 <div class="col-sm-4">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                            <form method="POST" action="/editAttributes">
+                            <form method="POST" action="{{ url('/updateAttribute/'.Auth::user()->userID) }}">
                             {{ csrf_field() }}
 
                             <h3>Edit Profile</h3>
                                 <h4>Your Attributes</h4>
                                 <!-- Eye Color -->
-                                      <div class="input-group input-lg">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <select size="0.5" class="form-control" name="eyeColor" id="eyeColor" required>
-                                                <option value="" selected disabled>Eye Color..</option>
-                                                    <option value="brown">Brown</option>
-                                                    <option value="hazel">Hazel</option>
-                                                    <option value="blue">Blue</option>
-                                                    <option value="green">Green</option>
-                                                    <option value="grey">Grey</option>
-                                                    <option value="amber">Amber</option>
-                                            </select>
-                                        </div>
+                                <div class="form-group">
+                                        <label>Eye Color</label>
+                                        <input type="text" class="form-control" name="eyeColor" value="{{$details->eyeColor}}"  readonly="true">
+                                    </div>
                                 <!-- Hair Color -->
+                                <label>Hair Color</label>
                                 <div class="input-group input-lg">
+                                        
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
                                             <select size="0.5" class="form-control" name="hairColor" id="hairColor" required>
-                                                <option value="" selected disabled>Hair Color..</option>
-                                                    <option value="black">Black</option>
-                                                    <option value="brown">Brown</option>
-                                                    <option value="blonde">Blonde</option>
-                                                    <option value="ombre">Ombre</option>
-                                                    <option value="orange">Orange</option>
-                                                    <option value="pink">Pink</option>
-                                                    <option value="purple">Purple</option>
-                                                    <option value="red">Red</option>
-                                                    <option value="blue">Blue</option>
-                                                    <option value="green">Green</option>
-                                                    <option value="grey">Grey</option>
-                                                    <option value="highlights">Highlights</option>
+                                                <option value="" selected disabled> {{$details->hairColor}} </option>
+                                                    <option value="black">black</option>
+                                                    <option value="brown">brown</option>
+                                                    <option value="blonde">blonde</option>
+                                                    <option value="ombre">ombre</option>
+                                                    <option value="orange">orange</option>
+                                                    <option value="pink">pink</option>
+                                                    <option value="purple">purple</option>
+                                                    <option value="red">red</option>
+                                                    <option value="blue">blue</option>
+                                                    <option value="green">green</option>
+                                                    <option value="grey">grey</option>
+                                                    <option value="highlights">highlights</option>
                                             </select>
                                         </div> 
                                 <!-- Hair Length -->
+                                <label>Hair Length</label>
                                         <div class="input-group input-lg">
+                                                
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="hairLength" id="hairLength" required>
-                                                <option value="" selected disabled>Hair Length..</option>
-                                                    <option value="bald">Bald</option>
-                                                    <option value="boy cut">Boy Cut</option>
-                                                    <option value="short bob">Short Bob</option>
-                                                    <option value="shoulder length">Shoulder Length</option>
-                                                    <option value="medium">Medium Length</option>
-                                                    <option value="long">Long</option>
+                                            <select size="0.5" class="form-control" name="hairLength" id="hairLength" value="{{$details->hairLength}}" required>
+                                                <option value="" selected disabled>{{$details->hairLength}}.</option>
+                                                    <option value="bald">bald</option>
+                                                    <option value="boy cut">boy Cut</option>
+                                                    <option value="short bob">short Bob</option>
+                                                    <option value="shoulder length">shoulder Length</option>
+                                                    <option value="medium">medium Length</option>
+                                                    <option value="long">long</option>
                                             </select>
                                         </div>
                                 <!--Weight-->
+                                <label>Weight</label>
                                 <div class="input-group input-lg">
+                                        
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="weight" placeholder="Weight in pounds" required>
+                                            <input type="text" class="form-control" name="weight" value="{{$details->weight}}" placeholder="Weight in pounds" required>
                                         </div>
                                 <!--Height-->
+                                <label>Height</label>
                                 <div class="input-group input-lg">
                                         <div class="input-group-prepend">
+                                                
                                             <span class="input-group-text">
+                                                    
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="height" placeholder="Height in cm" required>
+                                            <input type="text" class="form-control" name="height" value="{{$details->height}}" placeholder="Height in cm" required>
                                         </div>
-                                <!-- Skin Color -->
-                                        <div class="input-group input-lg">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <select size="0.5" class="form-control" name="skinColor" id="skinColor">
-                                                <option value="" selected disabled>Skin Color..</option>
-                                                    <option value="fair">Fair</option>
-                                                    <option value="light beige">Light Beige</option>
-                                                    <option value="medium beige">Medium Beige</option>
-                                                    <option value="tanned">Tanned</option>
-                                                    <option value="morena">Morena</option>
-                                            </select>
+                                <!--Waist-->
+                                <label>Waist</label>
+                                <div class="input-group input-lg">
+                                        <div class="input-group-prepend">
+                                                
+                                            <span class="input-group-text">
+                                                    
+                                            </span>
                                         </div>
-                                <!-- Gender -->
-                                      <div class="input-group input-lg">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <select size="0.5" class="form-control" name="gender" id="gender">
-                                                <option value="" selected disabled>Gender..</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="transgender male">Transgender Male</option>
-                                                    <option value="transgender female">Transgender Female</option>
-                                            </select>
+                                            <input type="text" class="form-control" name="waist" value="{{$details->waist}}" placeholder="Waist in cm" required>
                                         </div>
-                                <!-- Skill -->
-                                        <div class="input-group input-lg">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <select size="0.4" class="form-control" name="skill" id="role" required>
-                                                <option value="" selected disabled>Choose your specialization..</option>
-                                                    <option value="Fashion Model">Fashion(Editorial) model</option>
-                                                    <option value="Runway Model">Runway model</option>
-                                                    <option value="Commercial Model">Commercial model</option>
-                                                    <option value="Plus Size Model">Plus size model</option>
-                                                    <option value="Petite Model">Petite model</option>
-                                                    <option value="Swimsuit Model">Swimsuit Model</option>
-                                                    <option value="Lingerie Model">Lingerie Model</option>
-                                                    <option value="Glamour Model">Glamour Model</option>
-                                                    <option value="Fitness Model">Fitness Model</option>
-                                                    <option value="Fitting Model">Fitting Model</option>
-                                                    <option value="Parts Model">Parts Model</option>
-                                                    <option value="Promotional Model">Promitional Model</option>
-                                                    <option value="Mature Model">Mature Model</option>
-                                            </select>
+                                <!--hips-->
+                                <label>Hips</label>
+                                <div class="input-group input-lg">
+                                        <div class="input-group-prepend">
+                                                
+                                            <span class="input-group-text">
+                                                    
+                                            </span>
                                         </div>
-                                <!-- Save button -->
-                                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
-                            </form>
+                                            <input type="text" class="form-control" name="hips" value="{{$details->hips}}" placeholder="Hips in cm" required>
+                                        </div>
+                                
                         </div>
                     </div>
                 </div><!-- col-sm-6 closing tag -->
@@ -233,48 +199,74 @@
         <!-- Right Column contents -->
 
             <div class="col-sm-3">
-                <div class="column">
-
-
-                  <!-- Ads Card and carousel -->
-                      <div class="card">
-                        <div class="card-body" style="color:#1b1b1b; height: 18rem;">
-                        <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" style="width: 18rem;" class="text-center carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/background1.jpg')?>" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 1</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item active">
-                                <img class="d-block" src="<?php echo asset('img/header.jpg')?>" alt="Second slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 2</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/header2.jpg')?>" alt="Third slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad Title 3</h5>
-                                </div>
-                              </div>
+                <div class="cointainer" style="color:black;">
+                        <!-- Skin Color -->
+                        <label>Complexion</label>
+                        <div class="input-group input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                </span>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                              <i class="now-ui-icons arrows-1_minimal-left"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                              <i class="now-ui-icons arrows-1_minimal-right"></i>
-                            </a>
-                          </div>
+                            <select size="0.5" class="form-control" name="complexion" id="complexion">
+                                <option value="" selected disabled>{{$details->complexion}}</option>
+                                    <option value="fair">fair</option>
+                                    <option value="light beige">light beige</option>
+                                    <option value="medium beige">medium beige</option>
+                                    <option value="tanned">tanned</option>
+                                    <option value="morena">morena</option>
+                                    <option value="brown">brown</option>
+                                    <option value="black">black</option>
+                            </select>
                         </div>
-                      </div>
+                         <!--chest-->
+                         <label>Chest</label>
+                <div class="input-group input-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                            </span>
+                        </div>
+                            <input type="text" class="form-control" name="chest" value="{{$details->chest}}" placeholder="Chest in cm" required>
+                        </div>
+                <!-- Gender -->
+                <label>Gender</label>
+                      <div class="input-group input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                </span>
+                            </div>
+                            <select size="0.5" class="form-control" name="gender" id="gender" >
+                                <option value="" selected disabled>{{$details->gender}}</option>
+                                    <option value="male">male</option>
+                                    <option value="female">female</option>
+                                    <option value="transgender male">transgender male</option>
+                                    <option value="transgender female">transgender female</option>
+                            </select>
+                        </div>
+                <!--Shoe-->
+                <label>Shoe Size</label>
+                <div class="input-group input-lg">
+                        <div class="input-group-prepend">
+                                
+                            <span class="input-group-text">
+                                    
+                            </span>
+                        </div>
+                            <input type="text" class="form-control" name="shoeSize" value="{{$details->shoeSize}}" placeholder="shoe size" required>
+                        </div>
+                <!--Tatto-->
+                <label>Tattoos/Scars</label>
+                <div class="input-group input-lg">
+                        <div class="input-group-prepend">
+                                
+                            <span class="input-group-text">
+                                    
+                            </span>
+                        </div>
+                            <input type="text" class="form-control" name="tatoo" value="{{$details->tatoo}}" placeholder="Tattoo/Scars" required>
+                        </div>
+                <!-- Save button -->
+                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
+            </form>
 
                 </div><!-- column closing tag -->
             </div><!-- sm-3 closing tag -->

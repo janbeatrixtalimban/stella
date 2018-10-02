@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\attribute;
 use App\auditlogs;
 use App\Project;
 use Validator;
@@ -14,7 +15,17 @@ class ModelController extends Controller
 {
     public function modelProfile()
     {
-        return view('StellaModel.modelProfile');
+        // $details = attribute::latest();
+        // return view('StellaModel.modelProfile', compact('details'));
+       
+        if (Auth::check()) {
+            
+
+            $details = attribute::where('userID', auth::user()->userID)->first();
+            
+            return view('StellaModel.modelProfile')->with('details', $details);
+        }
+          
     }
 
     public function modelHomepage()
@@ -84,4 +95,83 @@ class ModelController extends Controller
               }
          
       }
+
+
+
+    
+
+    public function viewDetails()
+    {
+       
+        if (Auth::check()) {
+            $details = attribute::where('userID', auth::user()->userID)->first();
+            return view('StellaModel.modelattributes')->with('details', $details);
+        }
+   
+    }
+
+    public function updateAttributes(Request $request, $id)
+    {
+
+        $user = user::find($id);
+        if (Auth::check()) {
+            $validator = Validator::make($request->all(), [
+                'hairColor', 
+                'hairLength', 
+                'weight', 
+                'height',
+                'complexion', 
+                'gender', 
+                'chest', 
+                'waist', 
+                'hips', 
+                'shoeSize',
+                'tatoo', 
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+    
+            }
+            $hairColor = $request->input('hairColor');
+            $hairLength = $request->input('hairLength');
+            $weight = $request->input('weight');
+            $height = $request->input('height');
+            $complexion = $request->input('complexion');
+            $gender = $request->input('gender');
+            $chest = $request->input('chest');
+            $waist = $request->input('waist');
+            $hips = $request->input('hips');
+            $shoeSize = $request->input('shoeSize');
+            $tatoo = $request->input('tatoo');
+            
+
+            $attribute = attribute::where('userID', auth::user()->userID)
+            ->update(['hairColor' => $hairColor, 'hairLength' => $hairLength,
+            'weight' => $weight, 'height' => $height,
+            'complexion' => $complexion, 'gender' => $gender,
+            'chest' => $chest, 'waist' => $waist,
+            'hips' => $hips, 'shoeSize' => $shoeSize, 'tatoo' => $tatoo]);
+    
+
+                  $auditlogs = new auditlogs;
+                  $auditlogs->userID =  Auth::user()->userID;;
+                  $auditlogs->logType = 'Edit attributes';
+                  
+          
+                  if ($auditlogs->save() && $user) 
+                  {
+                      return redirect()->to('/modelprofile')->with('alert', 'Updated!');
+                  } else 
+                  {
+                      return ('fail');
+                  }
+
+      
+        }
+        else {
+            return('fail');
+        }
+
+    }
 }

@@ -85,8 +85,9 @@ class loginController extends Controller
 
     public function logout()
     {
+        
         Auth::logout();
-        return view('StellaHome.login');
+        return redirect()->to('/loginUser');  
     }
     
 }

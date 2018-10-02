@@ -77,8 +77,24 @@
           <a href="{{ url('/modeleditprofile') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
           <a href="{{ url('/addPortfolio') }}" class="btn btn-maroon btn-round btn-lg">Create Portfolio</a>
         </div>
-        <h3 class="title">About me</h3>
-        <h5 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
+        <div class="container">
+          <h4 class="title text-center">Attributes</h4>
+            <div class="center-block">
+              <h6>Gender: {{$details->gender}} </h6>
+              <h6>Eye Color: {{$details->eyeColor}}</h6>
+              <h6>Hair Color: {{$details->hairColor}}</h6>
+              <h6>Hair Length: {{$details->hairLength}}</h6>
+              <h6>Weight: {{$details->weight}}</h6>
+              <h6>Height: {{$details->height}}</h6>
+              <h6>Chest: {{$details->chest}}</h6>
+              <h6>Waist: {{$details->waist}}</h6>
+              <h6>Hips: {{$details->hips}}</h6>
+              <h6>Complexion: {{$details->complexion}}</h6>
+              <h6>Shoe size: {{$details->shoeSize}}</h6>
+              <h6>Tattoo or Scars: {{$details->tatoo}}</h6>
+            </div>
+         
+        </div>
         <div class="row">
           <div class="container">
             <h4 class="title text-center">View My Portfolio</h4>

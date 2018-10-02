@@ -8,6 +8,7 @@ use App\Notifications\VerifyEmail;
 use App\User;
 use App\auditlogs;
 use App\transactiondetail;
+use App\attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -131,10 +132,24 @@ class UserController extends Controller
             $path=$request->file('filePath')->store('upload');
             $user = User::create($input);
             //$user->sendVerifyAccount();
-
             //Twilio::message($input['contactNo'], 'Welcome to Stella');
             //$this->basic_email($input['emailAddress']);
             //lahat ng created pinalitan ko ng user
+
+            $input2['eyeColor'] = 'N/A';
+            $input2['hairColor'] = 'N/A';
+            $input2['hairLength'] = 'N/A';
+            $input2['weight'] = 'N/A';
+            $input2['height'] = 'N/A';
+            $input2['complexion'] = 'N/A';
+            $input2['gender'] = 'N/A';
+            $input2['chest'] = 'N/A';
+            $input2['waist'] = 'N/A';
+            $input2['hips'] = 'N/A';
+            $input2['shoeSize'] = 'N/A';
+            $input2['tatoo'] = 'N/A';
+            $input2['userID'] = $user->userID;
+            $attribute = attribute::create($input2);
 
             
             $auditlogs = new auditlogs;

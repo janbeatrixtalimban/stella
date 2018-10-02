@@ -59,10 +59,10 @@
                             <a class="dropdown-item" href="{{ url('/modelprofile') }}">
                             <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                             <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                            <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscriptions</a>
-                            <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Settings</a>
+                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscriptions</a>
+                            <a class="dropdown-item" href="{{ url('/#') }}">Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                           </div>
                         </div>
                       </li>

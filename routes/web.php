@@ -48,7 +48,8 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('/modeleditprofile', 'ModelController@modelEditProfile');
             Route::get('/editProfile/{id}', 'ModelController@edit');
             Route::post('/SaveEdit/{id}', 'ModelController@editNaModel'); 
-            Route::get('/modelattribute', 'ModelController@attribute');
+            Route::get('/modelattribute', 'ModelController@viewDetails');
+            Route::post('/updateAttribute/{id}', 'ModelController@updateAttributes');
             Route::get('/subscription', 'UserController@subscription');
             
             Route::get('/gopremium', 'UserController@paypal');
