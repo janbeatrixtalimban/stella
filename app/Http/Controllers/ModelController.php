@@ -76,7 +76,7 @@ class ModelController extends Controller
             //return redirect()->back()->with('alert', 'Updated!');
 
                         $auditlogs = new auditlogs;
-                        $auditlogs->userID =  Auth::user()->userID;;
+                        $auditlogs->userID =  Auth::user()->userID;
                         $auditlogs->logType = 'Edit profile';
                         
                 
@@ -155,7 +155,7 @@ class ModelController extends Controller
     
 
                   $auditlogs = new auditlogs;
-                  $auditlogs->userID =  Auth::user()->userID;;
+                  $auditlogs->userID =  Auth::user()->userID;
                   $auditlogs->logType = 'Edit attributes';
                   
           

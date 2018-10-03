@@ -18,9 +18,23 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        $projects = Project::latest()->paginate(10);
-        return view('StellaEmployer.employerProfile',compact('projects'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+        
+        // $projects = Project::latest()->paginate(10);
+        // return view('StellaEmployer.employerProfile',compact('projects'))
+        // ->with('i', (request()->input('page', 1) - 1) * 5);
+
+        if (Auth::check()) {
+                  
+            $projects = Project::where('userID', Auth::user()->userID)->get();
+            //dd($projects);
+            //$projects = Project::where('userID', Auth::user()->userID)->latest()->paginate(10);
+            return view('StellaEmployer.employerProfile')->with('projects', $projects);
+          
+              }
+              else {
+                  return('fail');
+              }
+       
     }
 
     /**
@@ -31,9 +45,20 @@ class EmployerController extends Controller
 
     public function employerProfile()
     {
-        $projects = Project::latest()->paginate(10);
-        return view('StellaEmployer.employerProfile',compact('projects'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+        //$user = user::find($id);
+        
+        if (Auth::check()) {
+                  
+            $projects = Project::where('userID', Auth::user()->userID)->get();
+            //dd($projects);
+            return view('StellaEmployer.employerProfile')->with('projects', $projects);
+          
+              }
+              else {
+                  return('fail');
+              }
+        
+
     }
     public function employerCreateJob()
     {
@@ -57,6 +82,7 @@ class EmployerController extends Controller
    
         return redirect()->route('projects.index')
                         ->with('success','Project posted successfully.');
+       
     }
 
 

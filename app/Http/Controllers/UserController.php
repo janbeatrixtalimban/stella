@@ -69,12 +69,20 @@ class UserController extends Controller
             $transacdetail = transactiondetail::create($transac);
 
             $auditlogs = new auditlogs;
-            $auditlogs->userID =  $user->userID;
+            $auditlogs->userID =  Auth::user()->userID;
             $auditlogs->logType = 'Paid subcription';
     
             if ($auditlogs->save() && $transac) 
             {
-                return redirect()->to('/subscription');
+                if (Auth::user()->typeID== 3)
+                {
+                    return redirect()->to('/subscription');
+                }
+                else
+                {
+                    return redirect()->to('/subscriptionEmployer');
+                }
+
             } else 
             {
                 return ('fail');
@@ -195,7 +203,7 @@ class UserController extends Controller
             $input['token'] = str_random(25);
             $path=$request->file('filePath')->store('upload');
             $user = User::create($input);
-            $user->sendVerifyAccount();
+            //$user->sendVerifyAccount();
 
             //Twilio::message($input['contactNo'], 'Welcome to Stella');
             //$this->basic_email($input['emailAddress']);

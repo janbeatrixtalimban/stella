@@ -120,4 +120,6 @@ class ProjectController extends Controller
         return redirect()->route('StellEmployer.index')
                         ->with('success','Project deleted successfully');
     }
+
+    
 }

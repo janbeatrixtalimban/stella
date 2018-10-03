@@ -108,7 +108,7 @@ class portfolioController extends Controller
                         // $bridge = Bridge::create($input2);
 
                         $auditlogs = new auditlogs;
-                        $auditlogs->userID =  Auth::user()->userID;;
+                        $auditlogs->userID =  Auth::user()->userID;
                         $auditlogs->logType = 'Add photo to portfolio';
                         
                 

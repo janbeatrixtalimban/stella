@@ -81,21 +81,22 @@
 
             <div class="row">
 
-                    @foreach ($projects as $project)
-                    @if($project->hidden > 0)         
+                    @foreach ($projects as $projects)
+                    {{-- @if($project->hidden > 0)          --}}
                     <div class="col-sm-6">
                         <div id="jobdesc" class="card text-center">
                             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
-                                <h4 class="title">{{ $project->prjTitle }}</h4>
-                                <p class="description">{{ $project->jobDescription }}</p>
+                                <h4 class="title">{{ $projects->prjTitle }}</h4>
+                                <p class="description">{{ $projects->jobDescription }}</p>
                                 <a data-toggle="modal" href="#viewdetails" class="btn btn-maroon btn-round">View Job Post</a>
-                                <a class="btn btn-info btn-round" href="{{ route('projects.edit',$project->projectID) }}">Edit Post</a>
+                                <a class="btn btn-info btn-round" href="">Edit Post</a>
+                                {{-- {{ route('project.edit',$projects->projectID) }} --}}
                             </div>
                         </div>
                     </div> 
                     
-                    @else      
-                    @endif
+                    {{-- @else       --}}
+                    {{-- @endif --}}
                      
                     @endforeach
             

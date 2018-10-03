@@ -41,8 +41,8 @@
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-header">Edit Profile</a>
-                            <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                            <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscription</a>
+                            <a class="dropdown-item" href="{{ url('#') }}">View Job Offers</a>
+                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
                             <a class="dropdown-item" href="{{ url('/modelsetting') }}">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
@@ -91,7 +91,7 @@
                 <div class="col-sm-4">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                            <form method="POST" action="{{ url('/updateAttribute/'.Auth::user()->userID) }}">
+                            <form method="POST" action="{{ url('/SaveEdit/'.Auth::user()->userID) }}">
                                 {{ csrf_field() }}
                                 
                                 <div class="form-group">
