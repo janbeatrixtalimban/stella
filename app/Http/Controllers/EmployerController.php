@@ -110,6 +110,7 @@ class EmployerController extends Controller
         ]);
   
         $project->update($request->all());
+        
   
         return redirect()->route('projects.index')
         ->with('success','Project updated successfully.');

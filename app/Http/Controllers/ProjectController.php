@@ -46,6 +46,7 @@ class ProjectController extends Controller
             'role' => 'required',
             'talentFee' => 'required',
             'skillID' => 'required',
+            'hidden' => '1',
             'userID' => 'required',
         ]);
   
@@ -77,7 +78,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('StellEmployer.edit',compact('project'));
+        return view('StellaEmployer.editJobPost',compact('project'));
     }
   
     /**

@@ -62,11 +62,13 @@ Route::group(['middleware' => 'web'], function () {
 
             //Employer
             Route::resource('projects','EmployerController');
+            Route::get('/projects/{project}/edit', 'EmployerController@edit');
             Route::get('/employerprofile', 'EmployerController@employerProfile');
             Route::get('/employerHome', 'EmployerController@Ehomepage');
             Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
             Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
-            
+            Route::get('/editPost/{project}', 'EmployerController@edit');
+            Route::post('/SaveEdit/{id}', 'ProjectController@update'); 
     });
 });
 
