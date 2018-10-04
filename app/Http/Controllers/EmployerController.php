@@ -26,7 +26,11 @@ class EmployerController extends Controller
             $projects = Project::where('userID', Auth::user()->userID)->get();
             //dd($projects);
             //$projects = Project::where('userID', Auth::user()->userID)->latest()->paginate(10);
-            return view('StellaEmployer.employerProfile')->with('projects', $projects);
+            $details = company::where('userID', auth::user()->userID)->first();
+          
+            
+            return view('StellaEmployer.employerProfile')->with('details', $details)->with('projects', $projects);
+            // return view('StellaEmployer.employerProfile')->with('projects', $projects);
           
               }
               else {
@@ -41,15 +45,11 @@ class EmployerController extends Controller
         //$user = user::find($id);
         
         if (Auth::check()) {
-            
-            
                
             $projects = Project::where('userID', Auth::user()->userID)->get();
-            $details = company::where('userID', auth::user()->userID)->first();
-          
-           
+            $company = company::where('userID', auth::user()->userID)->first();
             
-            return view('StellaEmployer.employerProfile')->with('details', $details)->with('projects', $projects);
+            return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
           
               }
               else {
@@ -58,60 +58,87 @@ class EmployerController extends Controller
         
 
     }
-    public function employerCreateJob()
+    
+    public function createPost()
     {
         return view('StellaEmployer.createJobPost');
     }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-
-            'prjTitle' => 'required',
-            'jobDescription' => 'required',
-            'location' => 'required',
-            'role' => 'required',
-            'talentFee' => 'required',
-            'hidden' => '',
-            'userID' => 'required',
-        ]);
   
-        Project::create($request->all());
    
-        return redirect()->route('projects.index')
-                        ->with('success','Project posted successfully.');
-       
-    }
-
-
-    public function show($id)
+    public function storePost(Request $request)
     {
-        //
+
+        if (Auth::check()) {
+            $validator = Validator::make($request->all(), [
+                
+                'prjTitle' => 'required',
+                'jobDescription' => 'required',
+                'location' => 'required',
+                'role' => 'required',
+                'talentFee' => 'required',
+                'updated_at',
+
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+    
+            }
+            $input = $request->all();
+            $input['userID'] = Auth::user()->userID;
+            $input['hidden'] = '1';
+            Project::create($input);
+
+            $projects = Project::where('userID', Auth::user()->userID)->get();
+            $company = company::where('userID', auth::user()->userID)->first();
+            return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
+        }
+        else {
+            return('fail');
+        }
     }
+   
 
-
-    public function edit(Project $project)
+    public function showProj(Project $project)
     {
-        return view('StellaEmployer.editJobPost',compact('project'));
+        $projects = Project::where('userID', Auth::user()->userID)->get();
+        return view('StellaEmployer.editJobPost')->with('projects', $projects);
     }
-    public function update(Request $request, Project $project)
-    {
-        $request->validate([
-
-            'prjTitle' => 'required',
-            'jobDescription' => 'required',
-            'location' => 'required',
-            'role' => 'required',
-            'talentFee' => 'required',
-            'hidden' => '',
-            'userID' => 'required',
-        ]);
   
-        $project->update($request->all());
+
+    public function updateProj(Request $request, Project $project)
+    {
         
-  
-        return redirect()->route('projects.index')
-        ->with('success','Project updated successfully.');
+        if (Auth::check()) {
+                  $validator = Validator::make($request->all(), [
+                      
+                    'prjTitle' => 'required',
+                    'jobDescription' => 'required',
+                    'location' => 'required',
+                    'role' => 'required',
+                    'talentFee' => 'required',
+    
+                  ]);
+                  if ($validator->fails()) {
+                      return redirect()->to($validator->errors());
+          
+                  }
+                  $prjTitle = $request->input('prjTitle');
+                  $jobDescription = $request->input('jobDescription');
+                  $location = $request->input('location');
+                  $role = $request->input('role');
+                  $talentFee = $request->input('talentFee');
+                  $hidden = $request->input('hidden');
+
+
+                  $project = pproject::where('userID',Auth::user()->userID)
+                  ->update(['prjTitle' => $prjTitle, 'jobDescription' => $jobDescription, 
+                  'location' => $location, 'role' => $role,
+                  'talentFee' => $talentFee, 'hidden' => $hidden,]);
+        
+                }
+                else {
+                    return('fail');
+                }
     }
 
     public function Ehomepage()

@@ -44,8 +44,8 @@ class ProjectController extends Controller
         ]);
   
         Project::create($request->all());
-        $details = company::where('userID', auth::user()->userID)->first();
-        return view('StellaEmployer.employerProfile')->with('details', $details);
+        $company = company::where('userID', auth::user()->userID)->first();
+        return view('StellaEmployer.employerProfile')->with('company', $company);
     }
    
     

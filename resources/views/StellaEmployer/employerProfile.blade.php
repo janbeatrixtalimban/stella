@@ -63,13 +63,13 @@
       <div class="container">
         <div class="button-container">
           <a href="{{ url('/editProfileEmp') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
-          <a href="{{ url('/employercreatejob') }}" class="btn btn-maroon btn-round btn-lg">Create Job Post</a>
+          <a href="{{ url('/addJob') }}" class="btn btn-maroon btn-round btn-lg">Create Job Post</a>
         </div> 
         <br><br>
         <div id="companydesc" class="card text-center">
             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
-                <h3 class="title">{{$details->name}}</h3>
-                <p class="description">{{ $details->description}}</p>
+                <h3 class="title">{{$company->name}}</h3>
+                <p class="description">{{ $company->description}}</p>
             </div>
         </div>
         <div class="section">
@@ -89,7 +89,7 @@
                                 <h4 class="title">{{ $projects->prjTitle }}</h4>
                                 <p class="description">{{ $projects->jobDescription }}</p>
                                 <a data-toggle="modal" href="#viewdetails" class="btn btn-maroon btn-round">View Job Post</a>
-                                <a class="btn btn-info btn-round" href="{{ url('/editPost') }}">Edit Post</a>
+                                <a class="btn btn-info btn-round" href="{{ url('/editPost/'.$projects->projectID )}}">Edit Post</a>
                                 {{-- {{ route('project.edit',$projects->projectID) }} --}}
                             </div>
                         </div>

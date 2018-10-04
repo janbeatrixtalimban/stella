@@ -22,7 +22,7 @@
         </div>
     @endif
   
-    <form action="{{ route('projects.update',$project->projectID) }}" method="POST">
+    <form method="POST" action="{{ url('/saveProj/'.$projects->projectID )}}">
         @csrf
         @method('PUT')
          <div class="row">

@@ -113,45 +113,34 @@ echo asset('img/default-profile-pic.png');
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Project Title:</strong>
-                <input type="text" name="prjTitle" class="form-control" placeholder="Project Title">
+                <input type="text" name="prjTitle" id="prjTitle" class="form-control" placeholder="Project Title">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
-                <textarea class="form-control" style="height:150px" name="jobDescription" placeholder="Detail"></textarea>
+                <textarea class="form-control" style="height:150px" name="jobDescription" id="jobDescription" placeholder="Detail"></textarea>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Location:</strong>
-                <input type="text" name="location" class="form-control" placeholder="Location">
+                <input type="text" name="location" id="location" class="form-control" placeholder="Location">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Role</strong>
-                <input type="text" name="role" class="form-control" placeholder="Role">
+                <input type="text" name="role" id="role" class="form-control" placeholder="Role">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Talent Fee</strong>
-                <input type="text" name="talentFee" class="form-control" placeholder="Enter amount of Talent Fee">
+                <input type="text" name="talentFee" id="talentFee" class="form-control" placeholder="Enter amount of Talent Fee">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12" style="display: none;">
-            <div class="form-group">
-                <strong>Hidden?:</strong>
-                <input type="text" name="hidden" class="form-control" placeholder="Skill" value="1">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12" style="display: none;">
-            <div class="form-group">
-                <strong>User ID</strong>
-                <input type="text" name="userID" class="form-control" placeholder="{{ Auth::user()->userID}}" value="{{ Auth::user()->userID}}">
-            </div>
-        </div>
+       
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
         </div>
