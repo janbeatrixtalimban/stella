@@ -62,7 +62,7 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-          <a href="{{ url('/editProfile') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
+          <a href="{{ url('/editProfileEmp') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
           <a href="{{ url('/employercreatejob') }}" class="btn btn-maroon btn-round btn-lg">Create Job Post</a>
         </div> 
         <br><br>

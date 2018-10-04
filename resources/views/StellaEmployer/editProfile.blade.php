@@ -91,7 +91,7 @@
                 <div class="col-sm-4">
                         <div class="cointainer" style="color:black;">
                                 <div class="card card-plain">
-                                    <form method="POST" action="{{ url('/SaveEdit/'.Auth::user()->userID) }}">
+                                    <form method="POST" action="{{ url('/SaveEditEmp/'.Auth::user()->userID) }}">
                                         {{ csrf_field() }}
                                         
                                         <div class="form-group">
