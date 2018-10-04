@@ -215,7 +215,7 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="company" id="company" placeholder="Company Name" value="" required>
+                                          <input type="text" class="form-control" name="name" id="name" placeholder="Company Name" value="" required>
                                 </div>
                                 <!-- Position -->
                                 <div class="card card-login card-plain">

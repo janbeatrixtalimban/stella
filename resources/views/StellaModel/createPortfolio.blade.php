@@ -65,26 +65,7 @@
         <div class="row">
             <div class="form-group px-4">
                
-                    <div class="form-group px-5">
-                        <label for="p_title"></label>
-                        <input type="text" class="form-control" id="p_title" name="p_title">
-                    </div> 
-                    <div class="form-group px-5">
-                        <label for="p_date"></label>
-                        <input type="date" class="form-control" id="p_date" name="p_date">
-                    </div>   
-                    <div class="form-group px-5">
-                        <label for="p_company"></label>
-                        <input type="text" class="form-control" id="p_company" name="p_company">
-                    </div>
-                    <div class="form-group px-5">
-                        <label for="p_description"></label>
-                        <input type="text" class="form-control" id="p_description" name="p_description">
-                    </div> 
-                    <div class="form-group px-5">
-                        <label for="caption"></label>
-                        <input type="text" class="form-control" id="caption" name="caption">
-                    </div> 
+                  
             <div class="form-group px-5">
                 <strong>Image:</strong>
                 <input type="file" name="image[]" class="form-control" multiple>

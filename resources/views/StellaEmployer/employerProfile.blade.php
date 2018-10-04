@@ -62,14 +62,14 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-          <a href="{{ url('/employereditprofile') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
+          <a href="{{ url('/editProfile') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
           <a href="{{ url('/employercreatejob') }}" class="btn btn-maroon btn-round btn-lg">Create Job Post</a>
         </div> 
         <br><br>
         <div id="companydesc" class="card text-center">
             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
-                <h3 class="title">About {{ Auth::user()->company}}</h3>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h3 class="title">{{$details->name}}</h3>
+                <p class="description">{{ $details->description}}</p>
             </div>
         </div>
         <div class="section">

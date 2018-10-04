@@ -62,6 +62,8 @@ Route::group(['middleware' => 'web'], function () {
 
             //Employer
             Route::resource('projects','EmployerController');
+            Route::get('/addJob','EmployerController@create');
+            Route::post('/addPost', 'EmployerController@store');
             Route::get('/projects/{project}/edit', 'EmployerController@edit');
             Route::get('/employerprofile', 'EmployerController@employerProfile');
             Route::get('/employerHome', 'EmployerController@Ehomepage');
@@ -69,6 +71,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
             Route::get('/editPost/{project}', 'EmployerController@edit');
             Route::post('/SaveEdit/{id}', 'ProjectController@update'); 
+            //profile
+            Route::get('/editProfile', 'EmployerController@getProfile');
+            Route::post('/SaveEdit/{id}', 'EmployerController@editEmployer'); 
+            Route::get('/editCompany', 'EmployerController@viewDetails');
+            Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
     });
 });
 

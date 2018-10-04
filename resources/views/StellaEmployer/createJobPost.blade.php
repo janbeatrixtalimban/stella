@@ -106,7 +106,7 @@ echo asset('img/default-profile-pic.png');
     </div>
 @endif
    
-<form action="{{ route('projects.store') }}" method="POST">
+<form action="/addPost" method="POST">
     @csrf
   
      <div class="row">

@@ -53,17 +53,21 @@ class loginController extends Controller
                    }
                    
                    else{
+                    $num = 3;
+                    $user = User::where('typeID', $num)->latest()->paginate(10);
 
-                    $projects = Project::latest()->paginate(10);
-
+                    
+                   // $user = User::where('typeID', $num)->get();
+                   
                     $auditlogs = new auditlogs;
                         $auditlogs->userID =  Auth::user()->userID;;
                         $auditlogs->logType = 'login:employer';
                         
                 
-                        if ($auditlogs->save() && $projects) 
+                        if ($auditlogs->save() && $user) 
                         {
-                            return view('StellaEmployer.homepage');
+                            return view('StellaEmployer.homepage',compact('user'))
+                        ->with('i', (request()->input('page', 1) - 1) * 5);
                         } else 
                         {
                             return ('fail');

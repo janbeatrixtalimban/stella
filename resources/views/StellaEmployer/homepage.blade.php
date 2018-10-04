@@ -112,35 +112,37 @@
                 </div>
 
             <!-- Left column model display -->
-                <div class="col-sm-3">
-                    <div id="model" class="card text-center">
+            <div class="row">
+              <div class="col-sm-1"><!--space-->
+              </div>
+            
+              <div class="col-sm-4">
+                  @foreach ($user as $user)
+                  <div id="model" class="card text-center">
                       <div class="card-body" style="color:#1b1b1b;">
-                        <h4 class="card-title">Kendall Jenner</h4>
-                        <img src="<?php echo asset('img/kendall.jpg')?>" alt="" class="img-raised" width="200">
-                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
+                        <h4 class="card-title">{{ $user->firstName }} {{ $user->lastName }}</h4>
+                        
+                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">Attribute</a>
+                        <a data-toggle="modal" href="#viewattributes" class="btn btn-black btn-round">Profile</a> 
                         <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
                       </div>
                       <div class="card-footer text-muted mb-2">
-                         Commercial Model
+                         Runway Model
                       </div>
                     </div>
-                    <div id="model" class="card text-center">
-                      <div class="card-body" style="color:#1b1b1b;">
-                        <h4 class="card-title">Pia Wurtzbach</h4>
-                        <img src="<?php echo asset('img/pia.jpg')?>" alt="" class="img-raised" width="200">
-                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
-                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
-                      </div>
-                      <div class="card-footer text-muted mb-2">
-                         Commercial Model
-                      </div>
-                    </div>
-                </div><!-- col-sm-3 closing tag -->
+                  @endforeach
+   
+              </div>
+
+             
+              </div> <!-- row / end -->
+          </div> <!-- container / end -->    
+            <!-- col-sm-3 closing tag -->
         <!-- End of left column display -->
 
 
         <!-- Right Column model display -->
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div id="model" class="card text-center">
                       <div class="card-body" style="color:#1b1b1b;">
                         <h4 class="card-title">Kelsey Merritt</h4>

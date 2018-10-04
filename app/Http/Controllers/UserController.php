@@ -6,6 +6,7 @@ use Twilio;
 use Mail;
 use App\Notifications\VerifyEmail;
 use App\User;
+use App\company;
 use App\auditlogs;
 use App\transactiondetail;
 use App\attribute;
@@ -101,7 +102,7 @@ class UserController extends Controller
             'birthDate' => 'required|before:18 years ago',
             'emailAddress' => 'required|email|unique:users,emailAddress',
             'location' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'company',
+            
             'password' => 'required|string|min:6',
             'confirmpassword' => 'required|same:password',
             'created_at',
@@ -133,8 +134,8 @@ class UserController extends Controller
             $input['password'] = Hash::make($input['password']);
             $input['typeID'] = '3';
             $input['skillID'] = '1';
-            $input['company'] = 'N/A';
-            $input['position'] = 'N/A';
+            //$input['company'] = 'N/A';
+            //$input['position'] = 'N/A';
             $input['status'] = '0';
             $input['token'] = str_random(25);
             $path=$request->file('filePath')->store('upload');
@@ -203,7 +204,10 @@ class UserController extends Controller
             $input['token'] = str_random(25);
             $path=$request->file('filePath')->store('upload');
             $user = User::create($input);
-            //$user->sendVerifyAccount();
+            
+            $input['userID'] =  $user->userID;
+            $input['description'] = 'N/A';
+            $company = company::create($input);
 
             //Twilio::message($input['contactNo'], 'Welcome to Stella');
             //$this->basic_email($input['emailAddress']);
