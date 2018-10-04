@@ -89,7 +89,7 @@
                                 <h4 class="title">{{ $projects->prjTitle }}</h4>
                                 <p class="description">{{ $projects->jobDescription }}</p>
                                 <a data-toggle="modal" href="#viewdetails" class="btn btn-maroon btn-round">View Job Post</a>
-                                <a class="btn btn-info btn-round" href="{{ url('/editPost/'.$projects->projectID )}}">Edit Post</a>
+                                <a class="btn btn-info btn-round" href="{{ url('/editPost/'.$projects->projectID)}}">Edit Post</a>
                                 {{-- {{ route('project.edit',$projects->projectID) }} --}}
                             </div>
                         </div>

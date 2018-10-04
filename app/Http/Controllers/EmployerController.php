@@ -98,14 +98,14 @@ class EmployerController extends Controller
     }
    
 
-    public function showProj(Project $project)
+    public function showProj($projectID)
     {
-        $projects = Project::where('userID', Auth::user()->userID)->get();
-        return view('StellaEmployer.editJobPost')->with('projects', $projects);
+        $projects = Project::where('projectID', $projectID)->get();
+        //dd($projects);
+        return view('StellaEmployer.editJobPost')->with('projects', $projectID);
     }
-  
 
-    public function updateProj(Request $request, Project $project)
+    public function updateProj(Request $request, $projectID)
     {
         
         if (Auth::check()) {
@@ -129,8 +129,9 @@ class EmployerController extends Controller
                   $talentFee = $request->input('talentFee');
                   $hidden = $request->input('hidden');
 
+                  $projectID = $request->get('projectID');
 
-                  $project = pproject::where('userID',Auth::user()->userID)
+                  $project = project::where('projectID', $projectID)
                   ->update(['prjTitle' => $prjTitle, 'jobDescription' => $jobDescription, 
                   'location' => $location, 'role' => $role,
                   'talentFee' => $talentFee, 'hidden' => $hidden,]);
