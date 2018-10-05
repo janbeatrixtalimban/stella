@@ -38,6 +38,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['middleware' => 'auth'], function () {
 
+<<<<<<< HEAD
         //Model side
         Route::get('/addPortfolio', 'portfolioController@create');
         Route::post('/createPortfolio', 'portfolioController@store');
@@ -73,6 +74,25 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer');
         Route::get('/editCompany', 'EmployerController@viewDetails');
         Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
+=======
+
+            //Employer
+            Route::resource('projects','EmployerController');
+            Route::get('/addJob','EmployerController@create');
+            Route::post('/addPost', 'EmployerController@store');
+            //Route::get('/projects/{project}/edit', 'EmployerController@edit');
+            Route::get('/employerprofile', 'EmployerController@employerProfile');
+            Route::get('/employerHome', 'EmployerController@Ehomepage');
+            Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
+            Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
+            Route::get('/editPost/{project}', 'EmployerController@edit');
+            //Route::post('/SaveEdit/{id}', 'ProjectController@update'); 
+            //profile
+           Route::get('/editProfileEmp', 'EmployerController@getProfile');
+            Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer'); 
+            Route::get('/editCompany', 'EmployerController@viewDetails');
+            Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
+>>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     });
 });
 

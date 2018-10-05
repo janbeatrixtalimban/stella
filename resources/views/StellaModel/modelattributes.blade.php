@@ -50,8 +50,7 @@
                         </div>
                       </li>
                     </ul>
-              </div>
-
+                </div>
 					</div><!-- nav container closing tag -->
 	</nav>
   
@@ -88,65 +87,75 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-4">
+
+                <div class="col-sm-3">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
                             <form method="POST" action="{{ url('/updateAttribute/'.Auth::user()->userID) }}">
                             {{ csrf_field() }}
 
-                            <h3>Edit Profile</h3>
-                                <h4>Your Attributes</h4>
+                            <h3>Edit Your Attributes</h3>
                                 <!-- Eye Color -->
-                                <div class="form-group">
-                                        <label>Eye Color</label>
-                                        <input type="text" class="form-control" name="eyeColor" value="{{$details->eyeColor}}"  readonly="true">
-                                    </div>
+                                <label>Eye Color</label>
+                                <div class="input-group input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <select size="0.5" class="form-control" name="eyeColor" id="eyeColor" value="{{$details->eyeColor}}" required>
+                                                <option value="" selected disabled>{{$details->eyeColor}}</option>
+                                                    <option value="Brown">Brown</option>
+                                                    <option value="Hazel">Hazel</option>
+                                                    <option value="Blue">Blue</option>
+                                                    <option value="Green">Green</option>
+                                                    <option value="Grey">Grey</option>
+                                                    <option value="Amber">Amber</option>
+                                            </select>
+                                        </div>
                                 <!-- Hair Color -->
                                 <label>Hair Color</label>
-                                <div class="input-group input-lg">
-                                        
+                                <div class="input-group input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
                                             <select size="0.5" class="form-control" name="hairColor" id="hairColor" required>
                                                 <option value="" selected disabled> {{$details->hairColor}} </option>
-                                                    <option value="black">black</option>
-                                                    <option value="brown">brown</option>
-                                                    <option value="blonde">blonde</option>
-                                                    <option value="ombre">ombre</option>
-                                                    <option value="orange">orange</option>
-                                                    <option value="pink">pink</option>
-                                                    <option value="purple">purple</option>
-                                                    <option value="red">red</option>
-                                                    <option value="blue">blue</option>
-                                                    <option value="green">green</option>
-                                                    <option value="grey">grey</option>
-                                                    <option value="highlights">highlights</option>
+                                                    <option value="Black">Black</option>
+                                                    <option value="Brown">Brown</option>
+                                                    <option value="Blonde">Blonde</option>
+                                                    <option value="Ombre">Ombre</option>
+                                                    <option value="Orange">Orange</option>
+                                                    <option value="Pink">Pink</option>
+                                                    <option value="Purple">Purple</option>
+                                                    <option value="Red">Red</option>
+                                                    <option value="Blue">Blue</option>
+                                                    <option value="Green">Green</option>
+                                                    <option value="Grey">Grey</option>
+                                                    <option value="Highlights">Highlights</option>
                                             </select>
                                         </div> 
                                 <!-- Hair Length -->
                                 <label>Hair Length</label>
-                                        <div class="input-group input-lg">
+                                        <div class="input-group input-sm">
                                                 
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
                                             <select size="0.5" class="form-control" name="hairLength" id="hairLength" value="{{$details->hairLength}}" required>
-                                                <option value="" selected disabled>{{$details->hairLength}}.</option>
-                                                    <option value="bald">bald</option>
-                                                    <option value="boy cut">boy Cut</option>
-                                                    <option value="short bob">short Bob</option>
-                                                    <option value="shoulder length">shoulder Length</option>
-                                                    <option value="medium">medium Length</option>
-                                                    <option value="long">long</option>
+                                                <option value="" selected disabled>{{$details->hairLength}} </option>
+                                                    <option value="Bald">Bald</option>
+                                                    <option value="Boy Cut">Boy Cut</option>
+                                                    <option value="Short Bob">Short Bob</option>
+                                                    <option value="Shoulder Length">Shoulder Length</option>
+                                                    <option value="Medium Length">Medium Length</option>
+                                                    <option value="Long">Long</option>
                                             </select>
                                         </div>
                                 <!--Weight-->
-                                <label>Weight</label>
-                                <div class="input-group input-lg">
-                                        
+                                <label>Weight (lbs)</label>
+                                <div class="input-group input-sm">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                             </span>
@@ -154,34 +163,28 @@
                                             <input type="text" class="form-control" name="weight" value="{{$details->weight}}" placeholder="Weight in pounds" required>
                                         </div>
                                 <!--Height-->
-                                <label>Height</label>
-                                <div class="input-group input-lg">
+                                <label>Height (cm)</label>
+                                <div class="input-group input-sm">
                                         <div class="input-group-prepend">
-                                                
                                             <span class="input-group-text">
-                                                    
                                             </span>
                                         </div>
                                             <input type="text" class="form-control" name="height" value="{{$details->height}}" placeholder="Height in cm" required>
                                         </div>
                                 <!--Waist-->
-                                <label>Waist</label>
-                                <div class="input-group input-lg">
+                                <label>Waist (inch)</label>
+                                <div class="input-group input-sm">
                                         <div class="input-group-prepend">
-                                                
                                             <span class="input-group-text">
-                                                    
                                             </span>
                                         </div>
                                             <input type="text" class="form-control" name="waist" value="{{$details->waist}}" placeholder="Waist in cm" required>
                                         </div>
                                 <!--hips-->
-                                <label>Hips</label>
-                                <div class="input-group input-lg">
+                                <label>Hips (inch)</label>
+                                <div class="input-group input-sm">
                                         <div class="input-group-prepend">
-                                                
                                             <span class="input-group-text">
-                                                    
                                             </span>
                                         </div>
                                             <input type="text" class="form-control" name="hips" value="{{$details->hips}}" placeholder="Hips in cm" required>
@@ -197,72 +200,73 @@
 
 
         <!-- Right Column contents -->
-
             <div class="col-sm-3">
                 <div class="cointainer" style="color:black;">
-                        <!-- Skin Color -->
+                    <!-- Skin Color -->
+                        <br><br>
                         <label>Complexion</label>
-                        <div class="input-group input-lg">
+                        <div class="input-group input-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                 </span>
                             </div>
-                            <select size="0.5" class="form-control" name="complexion" id="complexion">
+                            <select size="0.5" class="form-control" name="complexion" id="complexion" required>
                                 <option value="" selected disabled>{{$details->complexion}}</option>
-                                    <option value="fair">fair</option>
-                                    <option value="light beige">light beige</option>
-                                    <option value="medium beige">medium beige</option>
-                                    <option value="tanned">tanned</option>
-                                    <option value="morena">morena</option>
-                                    <option value="brown">brown</option>
-                                    <option value="black">black</option>
+                                    <option value="Fair">Fair</option>
+                                    <option value="Light Beige">Light Beige</option>
+                                    <option value="Medium Beige">Medium Beige</option>
+                                    <option value="Tanned">Tanned</option>
+                                    <option value="Morena">Morena</option>
+                                    <option value="Brown">Brown</option>
+                                    <option value="Black">Black</option>
                             </select>
                         </div>
-                         <!--chest-->
-                         <label>Chest</label>
-                <div class="input-group input-lg">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                            </span>
-                        </div>
-                            <input type="text" class="form-control" name="chest" value="{{$details->chest}}" placeholder="Chest in cm" required>
-                        </div>
-                <!-- Gender -->
-                <label>Gender</label>
-                      <div class="input-group input-lg">
+                    <!-- Chest-->
+                         <label>Chest (inch)</label>
+                            <div class="input-group input-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" name="chest" value="{{$details->chest}}" placeholder="Chest in cm" required>
+                            </div>
+                    <!-- Gender -->
+                        <label>Gender</label>
+                            <div class="input-group input-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <select size="0.5" class="form-control" name="gender" id="gender" required>
+                                    <option value="" selected disabled>{{$details->gender}}</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Transgender Male">Transgender Male</option>
+                                        <option value="Transgender Female">Transgender Female</option>
+                                </select>
+                            </div>
+                    <!--Shoe-->
+                        <label>Shoe Size (US)</label>
+                        <div class="input-group input-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                 </span>
                             </div>
-                            <select size="0.5" class="form-control" name="gender" id="gender" >
-                                <option value="" selected disabled>{{$details->gender}}</option>
-                                    <option value="male">male</option>
-                                    <option value="female">female</option>
-                                    <option value="transgender male">transgender male</option>
-                                    <option value="transgender female">transgender female</option>
-                            </select>
-                        </div>
-                <!--Shoe-->
-                <label>Shoe Size</label>
-                <div class="input-group input-lg">
-                        <div class="input-group-prepend">
-                                
-                            <span class="input-group-text">
-                                    
-                            </span>
-                        </div>
-                            <input type="text" class="form-control" name="shoeSize" value="{{$details->shoeSize}}" placeholder="shoe size" required>
-                        </div>
+                                <input type="text" class="form-control" name="shoeSize" value="{{$details->shoeSize}}" placeholder="shoe size" required>
+                            </div>
                 <!--Tatto-->
-                <label>Tattoos/Scars</label>
-                <div class="input-group input-lg">
-                        <div class="input-group-prepend">
-                                
-                            <span class="input-group-text">
-                                    
-                            </span>
-                        </div>
-                            <input type="text" class="form-control" name="tatoo" value="{{$details->tatoo}}" placeholder="Tattoo/Scars" required>
+                        <label>Tattoos/Scars</label>
+                        <div class="input-group input-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                </span>
+                            </div>
+                            <select size="0.5" class="form-control" name="tatoo" id="tatoo" required>
+                                    <option value="" selected disabled>{{$details->tatoo}}</option>
+                                    <option value="Tatooed">Tatoo/s</option>
+                                    <option value="Scarred">Scar/s</option>
+                                    <option value="None">None</option>
+                            </select>
                         </div>
                 <!-- Save button -->
                     <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
@@ -270,6 +274,7 @@
 
                 </div><!-- column closing tag -->
             </div><!-- sm-3 closing tag -->
+
 
             <div class="col-sm-1"><!--space-->
             </div>
