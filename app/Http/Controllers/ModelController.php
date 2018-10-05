@@ -163,11 +163,18 @@ class ModelController extends Controller
                     'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 ]);
          
+                $avatar = $request->file('avatar');
+                $image_ext = $avatar->GetClientOriginalExtension();
+                $new_avatar_name = rand(123456,999999999).".".$image_ext;
                 $destination_path = public_path('uploads');
-                    $avatar->move($destination_path,$new_avatar);
-                    $input['avatar'] = $new_avatar;
-                    $input['userID'] = Auth::user()->userID;
+                    $avatar->move($destination_path,$new_avatar_name);
+                    $input = $new_avatar_name;
+                    //$input['userID'] = Auth::user()->userID;
+
+            
+                    $user = user::where('userID', Auth::user()->userID)->update(['avatar' => $input ]);
          
+
                 return back()
                     ->with('success','You have successfully upload image.');
          

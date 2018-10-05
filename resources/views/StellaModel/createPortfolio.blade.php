@@ -97,38 +97,7 @@
         				@endif
 
                             <h3>Create Portfolio</h3>
-                                <!-- Title -->
-                                    <div class="input-group input-lg">
-                                          <div class="input-group-prepend">
-                                              <span class="input-group-text">
-                                              </span>
-                                          </div>
-                                          <input type="text" class="form-control" name="p_title" id="p_title" placeholder="Title" value="">
-                                      </div>
-                                <!-- Company -->
-                                    <div class="input-group input-lg">
-                                          <div class="input-group-prepend">
-                                              <span class="input-group-text">
-                                              </span>
-                                          </div>
-                                          <input type="text" class="form-control" name="p_company" id="p_company" placeholder="Company" value="">
-                                      </div>
-                                <!-- Date of Project/Shoot -->
-                                      <div class="input-group input-lg">
-                                          <div class="input-group-prepend">
-                                              <span class="input-group-text">
-                                              </span>
-                                          </div>
-                                          <input type="date" id="p_date" name="p_date" class="form-control" required>
-                                      </div>
-                                <!-- Description -->
-                                    <div class="input-group input-lg">
-                                        <textarea class="form-control" id="p_description" rows="3" placeholder="Portfolio Description.."></textarea>
-                                    </div>
-				<!-- Caption -->
-                                    <div class="input-group input-lg">
-                                        <textarea class="form-control" id="caption" rows="3" placeholder="Photo Caption.."></textarea>
-                                    </div>
+                               
                                 <!-- Upload Image -->
 				<div class="input-group input-lg">
                                           <div class="input-group-prepend">

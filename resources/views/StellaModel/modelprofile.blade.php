@@ -29,11 +29,11 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-header">Profile</a>
-                        <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                        <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscription</a>
-                        <a class="dropdown-item" href="{{ url('/modelsettings') }}">Settings</a>
+                        <a class="dropdown-item" href="#">View Job Offers</a>
+                        <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
+                        <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                       </div>
                 </div>
           </li>
@@ -80,7 +80,7 @@
         </div>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-2">
+            {{-- <div class="col-sm-2">
                 <h4 class="title">My Attributes</h4>
                 <h5 class="description text-left" style="color:#1b1b1b;">
                   <b>Eye Color:</b> {{$details->eyeColor}}<br>
@@ -95,8 +95,8 @@
                   <b>Shoe size:</b> {{$details->shoeSize}}<br>
                   <b>Tattoo or Scars:</b> {{$details->tatoo}}<br>
                 </h5>
-            </div>
-            <div class="col-sm-10">
+            </div> --}}
+            <div class="col-sm-12">
                 <h4 class="title text-center">View My Portfolio</h4>
                 <!-- Portfolio Viewer -->
                 <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:900px;width:900px;border:none;" scrolling="no"></iframe>
@@ -119,7 +119,7 @@
                 <h4 class="modal-title">Upload Profile Picture</h4>
               </div>
               <div class="modal-body">
-                  <form action="{{ url('/avatar/'.Auth::user()->userID) }}" method="post" enctype="">
+                  <form action="{{ url('/avatarupload') }}" method="post" enctype="multipart/form-data">
                   {{ csrf_field() }}
                           <div class="input-group no-border input-sm">
                             <div class="input-group-prepend">

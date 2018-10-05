@@ -51,6 +51,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/gopremium', 'UserController@paypal');
         Route::post('/status/{id}', 'UserController@editStatus');
 
+        Route::post('/avatarupload', 'ModelController@storeAvatar');
+
         //jusss
         //gallery
         Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
@@ -71,6 +73,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer');
         Route::get('/editCompany', 'EmployerController@viewDetails');
         Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
+    });
+
+    Route::get('/imagegalleryview', function(){
+        return view('/StellaModel/imagegalleryview');
     });
 });
 
