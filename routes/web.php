@@ -42,6 +42,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/modelprofile', 'ModelController@modelProfile');
         Route::get('/modelfeed', 'ModelController@modelHomepage');
         Route::get('/modeleditprofile', 'ModelController@modelEditProfile');
+
+        //avatar
+        Route::post('/avatar/{id}', 'ModelController@storeAvatar');
+        
         //Route::get('/editProfile/{id}', 'ModelController@edit');
         Route::post('/SaveEdit/{id}', 'ModelController@editNaModel');
         Route::get('/modelattribute', 'ModelController@viewDetails');

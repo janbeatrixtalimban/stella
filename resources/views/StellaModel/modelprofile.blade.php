@@ -52,7 +52,19 @@
           <img src="<?php echo asset('img/default-profile-pic.png')?>" alt="">
         </div>
         <div class="row justify-content-center">
-          <a data-toggle="modal" href="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
+            <form action="{{ url('/avatar/'.Auth::user()->userID) }}" method="post" enctype="">
+                  {{ csrf_field() }}
+                          <div class="input-group no-border input-sm">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                              </span>
+                            </div>
+                            <input type="file" class="form-control" name="avatar" id="avatar">
+                          </div>
+                          <button type="submit" class="btn btn-success btn-round">Upload</button>
+                          <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
+                  </form>
+          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
         </div>
         <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
         <p class="category">(Skill Set)</p>
