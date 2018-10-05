@@ -88,21 +88,20 @@
                 </div>
                 <div class="col-sm-6">
 
-                        @foreach ($projects as $project)
-                    <div id="jobpost" class="card text-center">
-                      <div class="card-body" style="color:#1b1b1b;">
-                        <h4 class="card-title">{{ $project->prjTitle }}</h4>
-                        <p class="card-text">{{ $project->jobDescription }}</p>
-                        <a data-toggle="modal" href="#jobdetails" class="btn btn-maroon btn-round">View more details</a>
-                        <a data-toggle="modal" href="#confirmapply" class="btn btn-info btn-round">Apply</a>
-                      </div>
-                      <div class="card-footer text-muted mb-2">
-                         15 hours ago
-                      </div>
-                    </div>
-                        @endforeach
+                      @foreach ($projects as $project)
+                        <div id="jobpost" class="card text-center">
+                          <div class="card-body" style="color:#1b1b1b;">
+                            <h4 class="card-title">{{ $project->prjTitle }}</h4>
+                            <p class="card-text">{{ $project->jobDescription }}</p>
+                            <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
+                            <a data-toggle="modal" href="#confirmapply" class="btn btn-info btn-round">Apply</a>
+                          </div>
+                          <div class="card-footer text-muted mb-2">
+                            {{ $project->created_at->diffForHumans() }}
+                          </div>
+                        </div>
+                      @endforeach
 
-                    
                     
                 </div><!-- col-sm-6 closing tag -->
 
@@ -115,21 +114,6 @@
 
             <div class="col-sm-3">
                 <div class="column">
-
-
-                  <!-- Notifications card -->
-                      <div class="card">
-                        <div class="card-body" style="color:#1b1b1b;">
-                          <h5 class="card-title"><i class="now-ui-icons ui-1_bell-53"></i>  Notifications<i class="now-ui-icons arrows-1_refresh-69" rel="tooltip" title="Refresh Notifications" style="float:right;" ></i></h5>
-                            <ul class="list-group list-group-flush">
-                              <li class="list-group-item" href="#" class="card-link">Bench wants to hire you</li>
-                              <li class="list-group-item">Penshoppe has viewed your application</li>
-                              <li class="list-group-item">Victoria secret rejected your application</li>
-                            </ul>
-                            <br>
-                            <h6a style="float:right;">See all notifications..</h6a>
-                        </div>
-                      </div>
 
 
                   <!-- Ads Card and carousel -->
@@ -183,36 +167,44 @@
 
 
 
+ @foreach ($projects as $project)
   <!-- View Job detials Modal -->
-          <div id="jobdetails" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+          <div id="{{$project->projectID}}" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Job Title</h4>
+                      <div class="column">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">{{ $project->prjTitle }}</h4>
+                          <h0>Posted {{ $project->created_at->diffForHumans() }} <h0>
+                      </div>
                     </div>
                     <div class="modal-body">
-                      <p>Job description....</p>
+                      <p>{{ $project->jobDescription }}</p>
 
-                      <p>Details</p>
+                      <h5>Project Details</h5>
                       <ul>
                           <li>
-                              <h0>Detail 1.</h0>
+                              <h0>Location: {{ $project->location }}</h0>
                           </li>
                           <li>
-                              <h0>Detail 2.</h0>
+                              <h0>Model Type: {{ $project->role }}</h0>
+                          </li>
+                          <li>
+                              <h0>Talent Fee: P{{ $project->talentFee }}.00</h0>
                           </li>
                       </ul>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Dismiss</button>
+                      <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Close</button>
                     </div>
                 </div>
               </div>
             </div>
           <!-- End of Modal -->
+          @endforeach
 
 
 
@@ -244,7 +236,6 @@
             </div>
       
     </div>
-
 
   
     {!! $projects->links() !!}

@@ -62,15 +62,15 @@ Route::group(['middleware' => 'web'], function () {
 
             //Employer
             Route::resource('projects','EmployerController');
-            Route::get('/addJob','EmployerController@createPost');
-            Route::post('/addPost', 'EmployerController@storePost');
+            Route::get('/addJob','EmployerController@create');
+            Route::post('/addPost', 'EmployerController@store');
             //Route::get('/projects/{project}/edit', 'EmployerController@edit');
             Route::get('/employerprofile', 'EmployerController@employerProfile');
             Route::get('/employerHome', 'EmployerController@Ehomepage');
             Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
             Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
-            Route::get('/editPost/{id}', 'EmployerController@showProj');
-            Route::post('/SaveProj/{id}', 'EmployerController@updateProj'); 
+            Route::get('/editPost/{project}', 'EmployerController@edit');
+            //Route::post('/SaveEdit/{id}', 'ProjectController@update'); 
             //profile
            Route::get('/editProfileEmp', 'EmployerController@getProfile');
             Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer'); 

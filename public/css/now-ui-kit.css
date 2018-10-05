@@ -2705,7 +2705,7 @@ fieldset[disabled] .btn-link.active {
 
 .form-group.no-border .input-group-text,
 .input-group.no-border .input-group-text {
-  padding: 11px 0 11px 19px;
+  padding: 13px 0 12px 20px;
 }
 
 .form-group .form-control,
@@ -2823,7 +2823,7 @@ fieldset[disabled] .btn-link.active {
 
 .input-group,
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   position: relative;
 }
 
@@ -2904,14 +2904,13 @@ textarea.form-control {
   resize: none;
   border: none;
   border-bottom: 1px solid #E3E3E3;
-  border-radius: 0;
+  border-radius: 20;
   line-height: 2;
 }
 
 textarea.form-control:focus,
 textarea.form-control:active {
   border-left: none;
-  border-top: none;
   border-right: none;
 }
 
@@ -2934,7 +2933,7 @@ textarea.form-control:active {
 }
 
 .form-group input[type=file] {
-  opacity: 0;
+  opacity: 50;
   position: absolute;
   top: 0;
   right: 0;
@@ -3452,7 +3451,7 @@ h2,
 h3,
 .h3 {
   font-size: 1.825em;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   line-height: 1.4em;
 }
 
@@ -3460,7 +3459,7 @@ h4,
 .h4 {
   font-size: 1.5em;
   line-height: 1.45em;
-  margin-top: 30px;
+  margin-top: 5px;
   margin-bottom: 15px;
 }
 
@@ -3522,6 +3521,11 @@ p {
 .title {
   font-weight: 700;
   padding-top: 30px;
+}
+
+.headtitle {
+  font-weight: 700;
+  padding-top: 15px;
 }
 
 .title.title-up {
@@ -5693,6 +5697,11 @@ img {
   margin-top: 30px;
 }
 
+.profile-page .headtitle {
+  text-align: center;
+  margin-top: 25px;
+}
+
 .profile-page .description,
 .profile-page .category {
   text-align: center;
@@ -5979,7 +5988,6 @@ img {
 
 .page-header {
   min-height: 100vh;
-  max-height: 999px;
   padding: 0;
   color: #FFFFFF;
   position: relative;
@@ -5995,6 +6003,11 @@ img {
 .page-header.page-header-small {
   min-height: 60vh;
   max-height: 440px;
+}
+
+.page-header.page-header-model {
+  min-height: 60vh;
+  max-height: 500px;
 }
 
 .page-header:before {

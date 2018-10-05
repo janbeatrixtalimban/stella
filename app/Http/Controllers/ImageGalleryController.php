@@ -11,12 +11,6 @@ use App\ImageGallery;
 class ImageGalleryController extends Controller
 {
 
-
-    /**
-     * Listing Of images gallery
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
     	$images = ImageGallery::get();
@@ -30,11 +24,6 @@ class ImageGalleryController extends Controller
     }
 
 
-    /**
-     * Upload image function
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function upload(Request $request)
     {
         /*
@@ -77,11 +66,6 @@ class ImageGalleryController extends Controller
     }
 
 
-    /**
-     * Remove Image function
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
     	ImageGallery::find($id)->delete();

@@ -90,10 +90,10 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" name="birthDate" class="form-control date-picker" value="Birthdate :      mm/dd/yyyy" data-datepicker-color="red" required>
+                                          <input type="date" class="form-control" name="birthDate" value="" required>
                                       </div>
                                   <!-- Location dropdown -->
-                                        <div class="input-group no-border input-sm">
+                                  <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
@@ -101,77 +101,77 @@
                                             <select size="0.4" class="form-control" name="location" id="location" required>
                                                 <option value="" selected disabled>Select your location..</option>
                                                 <optgroup label="Luzon" style="color: black;">
-                                                    <option value="abra">Abra</option>
-                                                    <option value="albay">Albay</option>
-                                                    <option value="apayo">Apayo</option>
-                                                    <option value="aurora">Aurora</ option>
-                                                    <option value="bataan">Bataan</option>
-                                                    <option value="batanes">Batanes</option>
-                                                    <option value="batangas">Batangas</option>
-                                                    <option value="benguet">Benguet</option>
-                                                    <option value="bulacan">Bulacan</option>
-                                                    <option value="cagayan">Cagayan</option>
-                                                    <option value="camarines">Camarines</option>
-                                                    <option value="catanduanes">Catanduanes</option>
-                                                    <option value="cavite">Cavite</option>
-                                                    <option value="ifugao">Ifugao</option>
-                                                    <option value="ilocos">Ilocos</option>
-                                                    <option value="isabela">Isabela</option>
-                                                    <option value="kalinga">Kalinga</option> 
-                                                    <option value="lu">La Union</option>
-                                                    <option value="laguna">Laguna</option>
-                                                    <option value="marinduque">Marinduque</option>
-                                                    <option value="masbate">Masbate</option>
-                                                    <option value="mm">Metro Manila</option>
-                                                    <option value="mp">Mountain Province</option>
-                                                    <option value="nueveja">Nueva Ecija</option>
-                                                    <option value="nuevviz">Nueva Vizcaya</option>
-                                                    <option value="mindoro">Mindoro</option>
-                                                    <option value="palawan">Palawan</option>
-                                                    <option value="pampanga">Pampanga</option>
-                                                    <option value="pangasinan">Pangasinan</option>
-                                                    <option value="rizal">Rizal</option>
-                                                    <option value="romblon">Romblon</option>
-                                                    <option value="quezon">Quezon</option>
-                                                    <option value="quirino">Quirino</option>
-                                                    <option value="sorsogon">Sorsogon</option>
-                                                    <option value="tarlac">Tarlac</option>
-                                                    <option value="zamba">Zambales</option>
+                                                    <option value="Abra">Abra</option>
+                                                    <option value="Albay">Albay</option>
+                                                    <option value="Apayo">Apayo</option>
+                                                    <option value="Aurora">Aurora</option>
+                                                    <option value="Bataan">Bataan</option>
+                                                    <option value="Batanes">Batanes</option>
+                                                    <option value="Batangas">Batangas</option>
+                                                    <option value="Benguet">Benguet</option>
+                                                    <option value="Bulacan">Bulacan</option>
+                                                    <option value="Cagayan">Cagayan</option>
+                                                    <option value="Camarines">Camarines</option>
+                                                    <option value="Catanduanes">Catanduanes</option>
+                                                    <option value="Cavite">Cavite</option>
+                                                    <option value="Ifugao">Ifugao</option>
+                                                    <option value="Ilocos">Ilocos</option>
+                                                    <option value="Isabela">Isabela</option>
+                                                    <option value="Kalinga">Kalinga</option> 
+                                                    <option value="La Union">La Union</option>
+                                                    <option value="Laguna">Laguna</option>
+                                                    <option value="Marinduque">Marinduque</option>
+                                                    <option value="Masbate">Masbate</option>
+                                                    <option value="Metro Manila">Metro Manila</option>
+                                                    <option value="Mountain Province">Mountain Province</option>
+                                                    <option value="Nueva Ecija">Nueva Ecija</option>
+                                                    <option value="Nueva Vizcaya">Nueva Vizcaya</option>
+                                                    <option value="Mindoro">Mindoro</option>
+                                                    <option value="Palawan">Palawan</option>
+                                                    <option value="Pampanga">Pampanga</option>
+                                                    <option value="Pangasinan">Pangasinan</option>
+                                                    <option value="Rizal">Rizal</option>
+                                                    <option value="Romblon">Romblon</option>
+                                                    <option value="Quezon">Quezon</option>
+                                                    <option value="Quirino">Quirino</option>
+                                                    <option value="Sorsogon">Sorsogon</option>
+                                                    <option value="Tarlac">Tarlac</option>
+                                                    <option value="Zambales">Zambales</option>
                                                 </optgroup>
                                                 <optgroup label="Visayas" style="color: black;">
-                                                    <option value="aklan">Aklan</option>
-                                                    <option value="antique">Antique</option>
-                                                    <option value="biliran">Biliran</option>
-                                                    <option value="bohol">Bohol</option>
-                                                    <option value="capiz">Capiz</option>
-                                                    <option value="cebu">Cebu</option>
-                                                    <option value="es">Eastern Samar</option>
-                                                    <option value="guimaras">Guimaras</option>
-                                                    <option value="iloilo">Iloilo</option>
-                                                    <option value="leyte">Leyte</option>
-                                                    <option value="negros">Negros</option>
-                                                    <option value="samar">Samar</option>
-                                                    <option value="siquijor">Siquijor</option>
+                                                    <option value="Aklan">Aklan</option>
+                                                    <option value="Antique">Antique</option>
+                                                    <option value="Biliran">Biliran</option>
+                                                    <option value="Bohol">Bohol</option>
+                                                    <option value="Capiz">Capiz</option>
+                                                    <option value="Cebu">Cebu</option>
+                                                    <option value="Eastern Samar">Eastern Samar</option>
+                                                    <option value="Guimaras">Guimaras</option>
+                                                    <option value="Iloilo">Iloilo</option>
+                                                    <option value="Leyte">Leyte</option>
+                                                    <option value="Negros">Negros</option>
+                                                    <option value="Samar">Samar</option>
+                                                    <option value="Siquijor">Siquijor</option>
                                                 </optgroup>
-                                                <optgroup label="Mindnao" >
-                                                <option value="agusan">Agusan</option>
-                                                    <option value="basilan">Basilan</option>
-                                                    <option value="bukidnon">Bukidnon</option>
-                                                    <option value="camiguin">Camiguin</option>
-                                                    <option value="compvalley">Compostela Valley</option>
-                                                    <option value="cotabato">Cotabato</option>
-                                                    <option value="cebu">Cebu</option>
-                                                    <option value="davao">Davao</option>
-                                                    <option value="di">Dinagat Islands</option>
-                                                    <option value="lanao">Lanao</option>
-                                                    <option value="mindanao">Maguindanao</option>
-                                                    <option value="misamis">Misamis</option>
-                                                    <option value="sarangani">Sarangani</option>
-                                                    <option value="sulkud">Sultan Kudarat</option>
-                                                    <option value="sulu">Sulu</option>
-                                                    <option value="surigao">Surigao</option>
-                                                    <option value="tt">Tawi-Tawi</option>
-                                                    <option value="zambo">Zamboanga</option>
+                                                <optgroup label="Mindnao" style="color: black;">
+                                                <option value="Agusan">Agusan</option>
+                                                    <option value="Basilan">Basilan</option>
+                                                    <option value="Bukidnon">Bukidnon</option>
+                                                    <option value="Camiguin">Camiguin</option>
+                                                    <option value="Compostela Valley">Compostela Valley</option>
+                                                    <option value="Cotabato">Cotabato</option>
+                                                    <option value="Cebu">Cebu</option>
+                                                    <option value="Davao">Davao</option>
+                                                    <option value="Dinagat Islands">Dinagat Islands</option>
+                                                    <option value="Lanao">Lanao</option>
+                                                    <option value="Maguindanao">Maguindanao</option>
+                                                    <option value="Misamis">Misamis</option>
+                                                    <option value="Sarangani">Sarangani</option>
+                                                    <option value="Sultan Kudarat">Sultan Kudarat</option>
+                                                    <option value="Sulu">Sulu</option>
+                                                    <option value="Surigao">Surigao</option>
+                                                    <option value="Tawi-Tawi">Tawi-Tawi</option>
+                                                    <option value="Zamboanga">Zamboanga</option>
                                                 </optgroup>
                                             </select>
                                         </div>
@@ -187,14 +187,11 @@
                                     <!-- Valid ID -->
                                         <label for="validId"><b>Valid Government Company Document</b></label>
                                           <div class="input-group no-border input-sm">
-                                              <div class="input-group-prepend">
+                                            <div class="input-group-prepend">
                                                   <span class="input-group-text">
                                                     <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
                                                   </span>
-                                              </div>
-                                              <div class="form-control">
-                                                Click to upload
-                                                <input size="0.5" type="file" name="filePath" class="form-control" accept="image/jpeg, image/png">
+                                                    <input size="0.5" type="file" name="filePath" class="form-control" accept="image/jpeg, image/png" required>
                                               </div>
                                           </div>
                                       </div>
@@ -258,8 +255,8 @@
                                 </div>
                                 <br><br>
                             <!-- Register/submit button -->
-                            <input type="checkbox" name="tnc" value="1" > I agree with the <a data-toggle="modal" href="#termsandconditions" style="color:black;" required>terms and conditions</a>
-                            <br><br>
+                                <input type="checkbox" name="tnc" value="1" required> I agree with the <a data-toggle="modal" href="#termsandconditions" style="color:black;">terms and conditions</a>
+                                <br>
                                 <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Register</button>
                                     <hc>
                                         <a href="{{ url('/stellahome') }}" class="link" style="padding:10px;">Cancel</a>
@@ -279,6 +276,7 @@
                             
                 </form>
               </div>
+    </div>
       <!-- End Body Contents -->
       
       <!-- T&C Modal -->

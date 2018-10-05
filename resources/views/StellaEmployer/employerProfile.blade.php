@@ -1,5 +1,3 @@
-
-
 @extends('layouts.employerapp')
 
 <title>@yield('pageTitle') {{ Auth::user()->firstName}} {{ Auth::user()->lastName}} </title>
@@ -31,12 +29,11 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-header">Profile</a>
-                        <a class="dropdown-item" href="{{ url('/employerHome') }}">Home</a>
-                        <a class="dropdown-item" href="{{ url('#') }}">View Applicants</a>
-                        <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}">Subscriptions</a>
-                        <a class="dropdown-item" href="{{ url('#') }}">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ url('/employerapplicants') }}">View Applicants</a>
+                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
+                            <a class="dropdown-item" href="{{ url('/settings') }}">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
                       </div>
                 </div>
           </li>
@@ -54,9 +51,12 @@
         <div class="photo-container">
           <img src="<?php echo asset('img/default-profile-pic.png')?>" alt="">
         </div>
-        <h3 class="title">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
-        <p class="category">{{ Auth::user()->company}}</p>
-        <h6 class="category">{{ Auth::user()->position}}</h6>
+        <div class="row justify-content-center">
+          <a data-toggle="modal" href="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
+        </div>
+        <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
+        <h4 class="category">{{ Auth::user()->company}}</h4>
+        <h5 class="category">{{ Auth::user()->position}}</h5>
       </div>
     </div>
     <div class="section">
@@ -81,23 +81,24 @@
 
             <div class="row">
 
-                    @foreach ($projects as $projects)
-                    @if($projects->hidden > 0)         
+                   @foreach ($projects->reverse() as $project)
+                    @if($project->hidden > 0)         
                     <div class="col-sm-6">
                         <div id="jobdesc" class="card text-center">
                             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
-                                <h4 class="title">{{ $projects->prjTitle }}</h4>
-                                <p class="description">{{ $projects->jobDescription }}</p>
-                                <a data-toggle="modal" href="#viewdetails" class="btn btn-maroon btn-round">View Job Post</a>
-                                <a class="btn btn-info btn-round" href="{{ url('/editPost/'.$projects->projectID)}}">Edit Post</a>
-                                {{-- {{ route('project.edit',$projects->projectID) }} --}}
+                                <h4 class="title">{{ $project->prjTitle }}</h4>
+                                <p class="description">{{ $project->jobDescription }}</p>
+                                <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;" class="btn btn-maroon btn-round">View Job Post</a>
+                                <a class="btn btn-info btn-round" href="{{ route('projects.edit',$project->projectID) }}">Edit Post</a>
+                            </div>
+                            <div class="card-footer text-muted mb-2">
+                                {{ $project->created_at->diffForHumans() }}
                             </div>
                         </div>
                     </div> 
                     
-                     @else   
-
-                     @endif 
+                    @else      
+                    @endif
                      
                     @endforeach
             
@@ -105,45 +106,44 @@
 </div>
 </div>
 
-        <!-- View Job detials Modal -->
-        <div id="viewdetails" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+  @foreach ($projects as $project)
+  <!-- View Job detials Modal -->
+          <div id="{{$project->projectID}}" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">(Job Title)</h4>
+                      <div class="column">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">{{ $project->prjTitle }}</h4>
+                          <h0>Posted {{ $project->created_at->diffForHumans() }} <h0>
+                      </div>
                     </div>
                     <div class="modal-body">
-                      <p></p>
+                      <p>{{ $project->jobDescription }}</p>
 
-                      <p>Job Description</p>
+                      <h5>Project Details</h5>
                       <ul>
                           <li>
-                              <h0>Location</h0>
+                              <h0>Location: {{ $project->location }}</h0>
                           </li>
                           <li>
-                              <h0>Date</h0>
+                              <h0>Model Type: {{ $project->role }}</h0>
                           </li>
                           <li>
-                              <h0>Time</h0>
-                          </li>
-                          <li>
-                              <h0>Role</h0>
-                          </li>
-                          <li>
-                              <h0>Talent Fee</h0>
+                              <h0>Talent Fee: P{{ $project->talentFee }}.00</h0>
                           </li>
                       </ul>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Dismiss</button>
+                      <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Close</button>
                     </div>
                 </div>
               </div>
             </div>
           <!-- End of Modal -->
+          @endforeach
 
       </div>
     </div>
