@@ -19,6 +19,7 @@ class EmployerController extends Controller
         // $projects = Project::latest()->paginate(10);
         // return view('StellaEmployer.employerProfile',compact('projects'))
         // ->with('i', (request()->input('page', 1) - 1) * 5);
+
         if (Auth::check()) {
 
             $projects = Project::where('userID', Auth::user()->userID)->get();
@@ -34,11 +35,7 @@ class EmployerController extends Controller
         }
 
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     public function employerProfile()
     {
         //$user = user::find($id);
@@ -49,20 +46,11 @@ class EmployerController extends Controller
             $company = company::where('userID', auth::user()->userID)->first();
 
             return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
-<<<<<<< HEAD
 
         } else {
             return ('fail');
         }
 
-=======
-          
-              }
-              else {
-                  return('fail');
-              }
-        
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     }
 
     public function createPost()
@@ -72,6 +60,7 @@ class EmployerController extends Controller
 
     public function storePost(Request $request)
     {
+
         if (Auth::check()) {
             $validator = Validator::make($request->all(), [
 
@@ -81,6 +70,7 @@ class EmployerController extends Controller
                 'role' => 'required',
                 'talentFee' => 'required',
                 'updated_at',
+
             ]);
             if ($validator->fails()) {
                 return redirect()->to($validator->errors());
@@ -90,6 +80,7 @@ class EmployerController extends Controller
             $input['userID'] = Auth::user()->userID;
             $input['hidden'] = '1';
             Project::create($input);
+
             $projects = Project::where('userID', Auth::user()->userID)->get();
             $company = company::where('userID', auth::user()->userID)->first();
             return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
@@ -97,27 +88,18 @@ class EmployerController extends Controller
             return ('fail');
         }
     }
-<<<<<<< HEAD
 
-=======
-   
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     public function showProj($projectID)
     {
         $projects = Project::where('projectID', $projectID)->first();
         // dd($projects);
         return view('StellaEmployer.editJobPost')->with('projects', $projects);
     }
-<<<<<<< HEAD
 
     public function updateProj(Request $request)
-=======
-    public function updateProj(Request $request, $projectID)
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     {
 
         if (Auth::check()) {
-<<<<<<< HEAD
             $validator = Validator::make($request->all(), [
 
                 'prjTitle' => 'required',
@@ -146,53 +128,15 @@ class EmployerController extends Controller
                     'location' => $location, 'role' => $role,
                     'talentFee' => $talentFee]);
 
-                    $auditlogs = new auditlogs;
-                    $auditlogs->userID = Auth::user()->userID;
-                    $auditlogs->logType = 'Edit project details';
-
-            if ($auditlogs->save() && $project) {
-                $projects = Project::where('projectID', $projectID)->first();
-                return view('StellaEmployer.editJobPost')->with('projects', $projects);
-            } else {
-                return ('fail');
-            }
-
+                    $projects = Project::where('projectID', $projectID)->first();
+                    // dd($projects);
+                    return view('StellaEmployer.editJobPost')->with('projects', $projects);
 
         } else {
             return ('fail');
         }
-=======
-                  $validator = Validator::make($request->all(), [
-                      
-                    'prjTitle' => 'required',
-                    'jobDescription' => 'required',
-                    'location' => 'required',
-                    'role' => 'required',
-                    'talentFee' => 'required',
-    
-                  ]);
-                  if ($validator->fails()) {
-                      return redirect()->to($validator->errors());
-          
-                  }
-                  $prjTitle = $request->input('prjTitle');
-                  $jobDescription = $request->input('jobDescription');
-                  $location = $request->input('location');
-                  $role = $request->input('role');
-                  $talentFee = $request->input('talentFee');
-                  $hidden = $request->input('hidden');
-                  $projectID = $request->get('projectID');
-                  $project = project::where('projectID', $projectID)
-                  ->update(['prjTitle' => $prjTitle, 'jobDescription' => $jobDescription, 
-                  'location' => $location, 'role' => $role,
-                  'talentFee' => $talentFee, 'hidden' => $hidden,]);
-        
-                }
-                else {
-                    return('fail');
-                }
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     }
+
     public function Ehomepage()
     {
         $num = 3;
@@ -201,16 +145,9 @@ class EmployerController extends Controller
         //dd($user);
         return view('StellaEmployer.homepage', compact('user'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
-<<<<<<< HEAD
 
     }
 
-=======
-        
-        
-    }
-    
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     public function viewModels()
     {
         $user = User::where('typeID' == 3)->get();
@@ -218,20 +155,18 @@ class EmployerController extends Controller
         //$projects = Project::where('userID', Auth::user()->userID)->latest()->paginate(10);
         return view('StellaEmployer.employerProfile')->with('user', $user);
     }
+
     public function getProfile()
     {
+
         return view('StellaEmployer.editProfile');
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     public function getCompany()
     {
+
         return view('StellaEmployer.editCompany');
     }
-<<<<<<< HEAD
 
     public function editEmployer(Request $request, $id)
     {
@@ -275,50 +210,6 @@ class EmployerController extends Controller
     }
 
     public function viewDetails()
-=======
-    public function editEmployer(Request $request, $id){
-        // dd(Auth::user());
-        $user = user::find($id);
-        if (Auth::check()) {
-                  $validator = Validator::make($request->all(), [
-                      
-                      'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
-                      'location' => 'required',
-                      'updated_at',
-                  ]);
-                  if ($validator->fails()) {
-                      return redirect()->to($validator->errors());
-          
-                  }
-                  $contactNo = $request->input('contactNo');
-                  $location = $request->input('location');
-                  $user = user::where('userID', $id)->update(['contactNo' => $contactNo, 'location' => $location]);
-          
-                  //return view('StellaModel.homepage');
-                  
-                
-            //return redirect()->back()->with('alert', 'Updated!');
-                        $auditlogs = new auditlogs;
-                        $auditlogs->userID =  Auth::user()->userID;
-                        $auditlogs->logType = 'Edit profile';
-                        
-                
-                        if ($auditlogs->save() && $user) 
-                        {
-                            return redirect()->to('/employerprofile')->with('alert', 'Updated!');
-                        } else 
-                        {
-                            return ('fail');
-                        }
-            
-              }
-              else {
-                  return('fail');
-              }
-         
-      }
-      public function viewDetails()
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
     {
 
         if (Auth::check()) {
@@ -327,16 +218,10 @@ class EmployerController extends Controller
         }
 
     }
-<<<<<<< HEAD
 
     public function auqNa(Request $request, $id)
     {
 
-=======
-      public function auqNa(Request $request, $id)
-      {
-  
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
         $user = user::find($id);
         if (Auth::check()) {
             $validator = Validator::make($request->all(), [
@@ -352,7 +237,6 @@ class EmployerController extends Controller
             $name = $request->input('name');
             $position = $request->input('position');
             $description = $request->input('description');
-<<<<<<< HEAD
 
             $company = company::where('userID', auth::user()->userID)
                 ->update(['name' => $name, 'position' => $position,
@@ -373,30 +257,4 @@ class EmployerController extends Controller
         }
     }
 
-=======
-           
-            
-            $company = company::where('userID', auth::user()->userID)
-            ->update(['name' => $name, 'position' => $position,
-            'description' => $description]);
-    
-                  $auditlogs = new auditlogs;
-                  $auditlogs->userID =  Auth::user()->userID;
-                  $auditlogs->logType = 'Edit company details';
-                  
-          
-                  if ($auditlogs->save() && $company) 
-                  {
-                      return redirect()->to('/employerprofile')->with('alert', 'Updated!');
-                  } else 
-                  {
-                      return ('fail');
-                  }
-      
-        }
-        else {
-            return('fail');
-        }
-      } 
->>>>>>> f6184c6a14470a20cd8f944eb6d5bee9886d0d6c
 }

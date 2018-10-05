@@ -81,7 +81,7 @@
                 <div class="col-sm-6">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                        <form action="{{ route('projects.store') }}" method="post">
+                        <form action="/addPost" method="post">
                             {{ csrf_field() }}
                             <br>
                                     @if ($errors->any())
@@ -219,23 +219,9 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="talentFee" id="prjTitle" placeholder="Talent Fee in PHP" value="">
+                                          <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Talent Fee in PHP" value="">
                                     </div>
-                                <!-- hidden field count for showing on timeline/profile--> 
-                                    <div class="input-group input-lg" style="display: none;">
-                                          <div class="input-group-prepend">
-                                              <span class="input-group-text">
-                                              </span>
-                                          </div>
-                                          <input type="text" name="hidden" class="form-control" placeholder="Skill" value="1">
-                                    </div>
-                                <!--hidden field for getting user ID-->
-                                    <div class="col-xs-12 col-sm-12 col-md-12" style="display: none;">
-                                        <div class="form-group">
-                                            <strong>User ID</strong>
-                                            <input type="text" name="userID" class="form-control" placeholder="{{ Auth::user()->userID}}" value="{{ Auth::user()->userID}}">
-                                        </div>
-                                    </div>
+                                
                                 <!-- Create button -->
                                     <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Create</button><br>
                                     <a class="link" href="{{ url('/employerprofile') }}">Cancel</a>

@@ -9,7 +9,7 @@
   <nav class="navbar navbar-expand-lg bg-black fixed-top navbar-transparent " color-on-scroll="400">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="{{ url('/employerfeed') }}" rel="tooltip" title="Return to Feed" data-placement="bottom">
+        <a class="navbar-brand" href="{{ url('/employerHome') }}" rel="tooltip" title="Return to Feed" data-placement="bottom">
             <img src="<?php echo asset('img/logo_white.png')?>" width="100">
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,11 +29,11 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-header">Profile</a>
-                            <a class="dropdown-item" href="{{ url('/employerapplicants') }}">View Applicants</a>
-                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
-                            <a class="dropdown-item" href="{{ url('/settings') }}">Settings</a>
+                            <a class="dropdown-item" href="#s">View Applicants</a>
+                            <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}">Subscription</a>
+                            <a class="dropdown-item" href="#">Settings</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                       </div>
                 </div>
           </li>
@@ -81,18 +81,18 @@
 
             <div class="row">
 
-                   @foreach ($projects->reverse() as $project)
-                    @if($project->hidden > 0)         
+                   @foreach ($projects->reverse() as $projects)
+                    @if($projects->hidden > 0)         
                     <div class="col-sm-6">
                         <div id="jobdesc" class="card text-center">
                             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
-                                <h4 class="title">{{ $project->prjTitle }}</h4>
-                                <p class="description">{{ $project->jobDescription }}</p>
-                                <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;" class="btn btn-maroon btn-round">View Job Post</a>
-                                <a class="btn btn-info btn-round" href="{{ route('projects.edit',$project->projectID) }}">Edit Post</a>
+                                <h4 class="title">{{ $projects->prjTitle }}</h4>
+                                <p class="description">{{ $projects->jobDescription }}</p>
+                                <a data-toggle="modal" data-target="{{$projects->projectID}}" style="color:white;" class="btn btn-maroon btn-round">View Job Post</a>
+                                <a class="btn btn-info btn-round" href={{ url('/editPost/'.$projects->projectID) }}>Edit Post</a>
                             </div>
                             <div class="card-footer text-muted mb-2">
-                                {{ $project->created_at->diffForHumans() }}
+                               
                             </div>
                         </div>
                     </div> 
@@ -106,9 +106,9 @@
 </div>
 </div>
 
-  @foreach ($projects as $project)
+  @foreach ($projects as $projects)
   <!-- View Job detials Modal -->
-          <div id="{{$project->projectID}}" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+          <div id="" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
@@ -116,23 +116,23 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">{{ $project->prjTitle }}</h4>
-                          <h0>Posted {{ $project->created_at->diffForHumans() }} <h0>
+                          <h4 class="modal-title"></h4>
+                          <h0>Posted <h0>
                       </div>
                     </div>
                     <div class="modal-body">
-                      <p>{{ $project->jobDescription }}</p>
+                      <p></p>
 
                       <h5>Project Details</h5>
                       <ul>
                           <li>
-                              <h0>Location: {{ $project->location }}</h0>
+                              <h0>Location:</h0>
                           </li>
                           <li>
-                              <h0>Model Type: {{ $project->role }}</h0>
+                              <h0>Model Type: </h0>
                           </li>
                           <li>
-                              <h0>Talent Fee: P{{ $project->talentFee }}.00</h0>
+                              <h0>Talent Fee: </h0>
                           </li>
                       </ul>
                     </div>
