@@ -249,6 +249,8 @@
                                 <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required>
                                 </div> 
                                 <br>
+                            <!--hidden avatar field -->
+                                <input type="hidden" name="avatar" id="avatar" value="default.png" required>
                           <!-- ReCaptcha-->
                                 <div class="d-flex justify-content-center">
                                     <div class="g-recaptcha" data-sitekey="6LcGAHAUAAAAAG5pXvyGGWTW0CgEg0o-9npi37Kb"></div>

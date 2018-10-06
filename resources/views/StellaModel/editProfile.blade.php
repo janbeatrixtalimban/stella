@@ -27,9 +27,14 @@
               <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
                     <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="navbar-brand" href="{{ url('/modelfeed ') }}" data-placement="bottom">
+                                    Home
+                            </a>
+                        </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                          <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
                       <li class="nav-item">
@@ -88,25 +93,32 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-4">
+        <!-- Form -->
+                <div class="col-sm-4" style="color:black;">
+                    <h3>Edit Your Information</h3><br>
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
                             <form method="POST" action="{{ url('/SaveEdit/'.Auth::user()->userID) }}">
                                 {{ csrf_field() }}
-                                
+
+                        <!-- First Name -->
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <input type="text" class="form-control" name="firstName" value="{{ Auth::user()->firstName}}" readonly="true">
                                 </div>
+                        <!-- Last Name -->
                                 <div class="form-group">
                                     <label>Last Name</label>
                                     <input type="text" class="form-control" name="lastName" value="{{ Auth::user()->lastName}}"  readonly="true">
                                 </div>
+                        <!-- Contact Number -->
                                 <div class="form-group">
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" id="contactNo" name="contactNo" required>
                                 </div>
-                                <div class="input-group no-border input-sm">
+                        <!-- Location -->
+                                <label>Location</label>
+                                <div class="input-group input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
@@ -188,22 +200,26 @@
                                                 </optgroup>
                                             </select>
                                         </div>
+                        <!-- Birthday -->
                                 <div class="form-group">
                                     <label>Birthday</label>
                                     <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true">
                                 </div>
+                        <!-- Email -->
                                 <div class="form-group">    
                                     <label>Email</label>   
                                     <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="{{ Auth::user()->emailAddress}}"  readonly="true"> 
                                 </div> 
-                                
-                                <a href="/modelfeed" class="btn btn-rounded float-right animated pulse btn-warning">Back</a>
-                                <button type="submit" class="btn btn-rounded float-right animated pulse btn-success">Save</button>
+                        <!-- Save button -->
+                            <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
+
                             </form>
                         </div>
                     </div>
                 </div><!-- col-sm-6 closing tag -->
 
+        <!--End of form -->
+        
                 <div class="col-sm-1"><!--space-->
                 </div>
 

@@ -20,6 +20,11 @@
       </div>
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
         <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+              <a class="navbar-brand" href="{{ url('/modelfeed ') }}" data-placement="bottom">
+                    Home
+              </a>
+          </li>
           <li class="nav-item">
                 <div class="dropdown button-dropdown">
                       <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
@@ -29,11 +34,11 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-header">Profile</a>
-                        <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                        <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscription</a>
-                        <a class="dropdown-item" href="{{ url('/modelsettings') }}">Settings</a>
+                        <a class="dropdown-item" href="#">View Job Offers</a>
+                        <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
+                        <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/stellahome') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                       </div>
                 </div>
           </li>
@@ -45,25 +50,14 @@
   
   <div class="wrapper">
     <div class="page-header page-header-model clear-filter" filter-color="orange">
-      <div class="page-header-image" data-parallax="true" style="background-image:url('../assets/img/bg5.jpg');">
+      <div class="page-header-image" data-parallax="true" style="background-image:url('');">
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="<?php echo asset('img/default-profile-pic.png')?>" alt="">
+          <img src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="">
         </div>
         <div class="row justify-content-center">
-            <form action="{{ url('/avatar/'.Auth::user()->userID) }}" method="post" enctype="">
-                  {{ csrf_field() }}
-                          <div class="input-group no-border input-sm">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                              </span>
-                            </div>
-                            <input type="file" class="form-control" name="avatar" id="avatar">
-                          </div>
-                          <button type="submit" class="btn btn-success btn-round">Upload</button>
-                          <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
-                  </form>
+            
           <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
         </div>
         <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
@@ -107,7 +101,7 @@
                   <b>Shoe size:</b> {{$details->shoeSize}}<br>
                   <b>Tattoo or Scars:</b> {{$details->tatoo}}<br>
                 </h5>
-            </div>
+            </div> 
             <div class="col-sm-10">
                 <h4 class="title text-center">View My Portfolio</h4>
                 <!-- Portfolio Viewer -->
@@ -131,8 +125,18 @@
                 <h4 class="modal-title">Upload Profile Picture</h4>
               </div>
               <div class="modal-body">
-                  <form action="{{ url('/avatar/'.Auth::user()->userID) }}" method="post" enctype="">
+                  <form action="{{ url('/avatarupload') }}" method="post" enctype="multipart/form-data">
                   {{ csrf_field() }}
+                      @if (count($errors) > 0)
+                          <div class="alert alert-danger">
+                              <strong>Oh no!</strong> It appears that your image file is too large, please choose a smaller image size.<br><br>
+                                  <ul>
+                                      @foreach ($errors->all() as $error)
+                                          <li>{{ $error }}</li>
+                                      @endforeach
+                                  </ul>
+                            </div>
+                      @endif
                           <div class="input-group no-border input-sm">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
@@ -140,6 +144,7 @@
                             </div>
                             <input type="file" class="form-control" name="avatar" id="avatar">
                           </div>
+                      <a>*Max image size of 3.15 MB</a>
                           <button type="submit" class="btn btn-success btn-round">Upload</button>
                           <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
                   </form>

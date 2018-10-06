@@ -5,10 +5,13 @@
   <meta charset="utf-8" />
   <link rel="icon" type="image/png" href="<?php echo asset('img/stella icon logo.png')?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
   <title>
-        @yield('pageTitle')
-  </title>
+          @yield('pageTitle')
+    </title>
+
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+
   <!-- bootstrap and stylesheets -->
   <link href="<?php echo asset('https://fonts.googleapis.com/css?family=Montserrat:400,700,200')?>" rel="stylesheet" />
   <link href="<?php echo asset('https://use.fontawesome.com/releases/v5.0.6/css/all.css')?>" rel="stylesheet">
@@ -22,15 +25,6 @@
 
 <footer class="footer">
       <div class="container">
-        <nav>
-          <ul>
-            <li>
-              <a href="">
-                About Us
-              </a>
-            </li>
-          </ul>
-        </nav>
         <div class="copyright" id="copyright">
           &copy;
           <script>
@@ -54,6 +48,17 @@
     <script src="<?php echo asset('https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE')?>"></script>
     <script src="<?php echo asset('js/now-ui-kit.js?v=1.2.0')?>" type="text/javascript"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{--<script type="text/javascript">
+      (function (g) {
+        var s = document.createElement('script'),
+        t = document.getElementsByTagName('script')[0];
+        s.async = true;
+        s.src = g + '?v=' + (new Date()).getTime();
+        s.charset = 'UTF-8';
+        s.setAttribute('crossorigin', '*');
+        t.parentNode.insertBefore(s, t);
+        })('https://www.canvasflip.com/plugins/vi/vi.min.js');
+    </script>--}}
 </body>
 
 </html>

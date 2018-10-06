@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Image;
 
 class EmployerController extends Controller
 {
@@ -52,6 +53,7 @@ class EmployerController extends Controller
         }
 
     }
+
 
     public function createPost()
     {
@@ -140,12 +142,15 @@ class EmployerController extends Controller
     public function Ehomepage()
     {
         $num = 3;
-        //$projects = Project::where('userID', Auth::user()->userID)->get();
         $user = User::where('typeID', $num)->get();
         //dd($user);
         return view('StellaEmployer.homepage', compact('user'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
 
+        
+        //$models = User::latest()->paginate(6);
+        //return view('StellaEmployer.homepage', compact('models'))
+            //->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function viewModels()
@@ -154,6 +159,8 @@ class EmployerController extends Controller
         //dd($projects);
         //$projects = Project::where('userID', Auth::user()->userID)->latest()->paginate(10);
         return view('StellaEmployer.employerProfile')->with('user', $user);
+
+
     }
 
     public function getProfile()
@@ -255,6 +262,39 @@ class EmployerController extends Controller
         } else {
             return ('fail');
         }
+    }
+
+    public function EstoreAvatar(Request $request)
+    {
+        
+        	if ($request->hasFile('avatar')) {
+
+                $request->validate([
+                    'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+         
+                $avatar = $request->file('avatar');
+                $image_ext = $avatar->GetClientOriginalExtension();
+                $new_avatar_name = time() . '.' .$image_ext;
+                Image::make($avatar)->resize(200,200)->save( public_path('/uploads/avatars'.$image_ext) );
+                $destination_path = public_path('/uploads/avatars');
+                    $avatar->move($destination_path,$new_avatar_name);
+                    $input = $new_avatar_name;
+                    //$input['userID'] = Auth::user()->userID;
+
+            
+                    $user = user::where('userID', Auth::user()->userID)->update(['avatar' => $input ]);
+         
+
+                    return back()
+                    ->with('Success','You have successfully upload image.');
+         
+                }
+            else
+            {                       
+                return "Image too large, please upload a smaller image size";        
+            }
+            
     }
 
 }

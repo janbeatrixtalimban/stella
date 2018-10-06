@@ -10,7 +10,7 @@
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" rel="tooltip" title="Click to go Home" href="{{ url('/employerfeed') }}" data-placement="bottom">
+                    <a class="navbar-brand" rel="tooltip" title="Click to go Home" href="{{ url('/employerHome') }}" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>"  width="90">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,8 +28,13 @@
 
                     <ul class="navbar-nav">
                       <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                          <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <a class="navbar-brand" href="{{ url('/employerHome ') }}" data-placement="bottom">
+                            Home
+                        </a>
+                        </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link" href="{{ url('/employerprofile') }}" rel="tooltip" title="Go to profile" role="button">
+                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
                       <li class="nav-item">
@@ -42,7 +47,7 @@
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-header">Edit Profile</a>
                             <a class="dropdown-item" href="{{ url('/employerapplicants') }}">View Applicants</a>
-                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
+                            <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}">Subscription</a>
                             <a class="dropdown-item" href="{{ url('/#') }}">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
@@ -75,7 +80,7 @@
                         <br>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/editProfile') }}">Edit Profile</a>
+                                <a class="nav-link" href="{{ url('/editProfileEmp') }}">Edit Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/editCompany') }}">Edit Company Details</a>

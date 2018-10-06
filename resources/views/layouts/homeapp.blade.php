@@ -25,15 +25,6 @@
 
 <footer class="footer">
       <div class="container">
-        <nav>
-          <ul>
-            <li>
-              <a href="">
-                About Us
-              </a>
-            </li>
-          </ul>
-        </nav>
         <div class="copyright" id="copyright">
           &copy;
           <script>

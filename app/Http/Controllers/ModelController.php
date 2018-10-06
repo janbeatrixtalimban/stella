@@ -10,6 +10,7 @@ use App\attribute;
 use App\auditlogs;
 use App\Project;
 use Validator;
+use Image;
 
 class ModelController extends Controller
 {
@@ -26,21 +27,29 @@ class ModelController extends Controller
         }
           
     }
+
+    
     public function modelHomepage()
     {
-        $projects = Project::latest()->paginate(10);
+        $projects = Project::latest()->paginate(5);
         return view('StellaModel.homepage',compact('projects'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
     } 
+
+
     public function modelEditProfile()
     {
-       
+
         return view('StellaModel.editProfile');
     }
+
+
     public function attribute()
     {
         return view('StellaModel.modelattributes');
     }
+
+
     public function editNaModel(Request $request, $id){
         // dd(Auth::user());
         $user = user::find($id);
@@ -83,6 +92,7 @@ class ModelController extends Controller
          
       }
     
+
     public function viewDetails()
     {
        
@@ -98,6 +108,7 @@ class ModelController extends Controller
         $user = user::find($id);
         if (Auth::check()) {
             $validator = Validator::make($request->all(), [
+                'eyeColor', 
                 'hairColor', 
                 'hairLength', 
                 'weight', 
@@ -115,6 +126,7 @@ class ModelController extends Controller
                 return redirect()->to($validator->errors());
     
             }
+            $eyeColor = $request->input('eyeColor');
             $hairColor = $request->input('hairColor');
             $hairLength = $request->input('hairLength');
             $weight = $request->input('weight');
@@ -128,7 +140,7 @@ class ModelController extends Controller
             $tatoo = $request->input('tatoo');
             
             $attribute = attribute::where('userID', auth::user()->userID)
-            ->update(['hairColor' => $hairColor, 'hairLength' => $hairLength,
+            ->update(['eyeColor' => $eyeColor, 'hairColor' => $hairColor, 'hairLength' => $hairLength,
             'weight' => $weight, 'height' => $height,
             'complexion' => $complexion, 'gender' => $gender,
             'chest' => $chest, 'waist' => $waist,
@@ -157,7 +169,7 @@ class ModelController extends Controller
     public function storeAvatar(Request $request)
     {
         
-        	if (Auth::check()) {
+        	if ($request->hasFile('avatar')) {
 
                 $request->validate([
                     'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -165,47 +177,26 @@ class ModelController extends Controller
          
                 $avatar = $request->file('avatar');
                 $image_ext = $avatar->GetClientOriginalExtension();
-                $new_avatar_name = rand(123456,999999999).".".$image_ext;
-                $destination_path = public_path('uploads');
+                $new_avatar_name = time() . '.' .$image_ext;
+                Image::make($avatar)->resize(200,200)->save( public_path('/uploads/avatars'.$image_ext) );
+                $destination_path = public_path('/uploads/avatars');
                     $avatar->move($destination_path,$new_avatar_name);
-                    $input['avatar'] = $new_avatar_name;
+                    $input = $new_avatar_name;
                     //$input['userID'] = Auth::user()->userID;
 
-                    $avatar = $request->input('avatar');
-                
-                    $user = user::where('userID', Auth::user()->userID)->update(['avatar' => $avatar]);
+            
+                    $user = user::where('userID', Auth::user()->userID)->update(['avatar' => $input ]);
          
 
-                return back()
+                    return back()
                     ->with('success','You have successfully upload image.');
          
                 }
             else
             {                       
-                return "FAILED Authentication";        
+                return "Image too large, please upload a smaller image size";        
             }
-    }
 
-    public function avatar()
-    {
-        return view('modelprofile',compact('avatar'));
-
-    }
-
-    public function viewAvatar(Request $request, $id)
-    {
-        $user = user::find($id);
-        
-        if (Auth::check()) {
-                  
-            $avatar = DB::table('users')->select('avatar')->where('userID', $id)->get();
-            
-            return view('modelprofile',compact('avatar'));
-          
-              }
-              else {
-                  return('fail');
-              }
     }
 
     

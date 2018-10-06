@@ -44,7 +44,7 @@
                     <ul class="navbar-nav">
                       <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                          <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
                       <li class="nav-item">
@@ -234,10 +234,8 @@
               <!-- End of Modal -->
 
             </div>
-      
     </div>
 
-  
     {!! $projects->links() !!}
       
 

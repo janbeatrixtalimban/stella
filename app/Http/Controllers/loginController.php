@@ -15,10 +15,7 @@ class loginController extends Controller
 
     public function Login(){
         
-      
             return view('StellaHome.login');
-        
-        
 
      }
 

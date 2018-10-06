@@ -35,7 +35,7 @@
                         </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                          <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
                       <li class="nav-item">
@@ -85,18 +85,20 @@
                         <form action="/createPortfolio" class="form-image-upload" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-					@if (count($errors) > 0)
-            					<div class="alert alert-danger">
-                					<strong>Whoops!</strong> There were some problems with your input.<br><br>
-                					<ul>
-                    						@foreach ($errors->all() as $error)
-                        					<li>{{ $error }}</li>
-                    						@endforeach
-                					</ul>
-            					</div>
-        				@endif
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                        <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
-                            <h3>Add Picture to Portfolio</h3>
+                            <br>
+                            <h3>Add Picture to Portfolio</h3><br>
+                            <p>You may add up to 12 of your best photos to the portfolio</p>
                                 <!-- Upload Image -->
 				                    <div class="input-group input-lg">
                                           <div class="input-group-prepend">

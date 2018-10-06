@@ -10,7 +10,7 @@
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" rel="tooltip" title="Click to go Home" href="{{ url('/employerfeed') }}" data-placement="bottom">
+                    <a class="navbar-brand" rel="tooltip" title="Click to go Home" href="{{ url('/employerHome') }}" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>"  width="90">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,9 +27,14 @@
               <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
                     <ul class="navbar-nav">
-                      <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
+                        <a class="navbar-brand" href="{{ url('/employerHome ') }}" data-placement="bottom">
+                            Home
+                        </a>
+                        </li>
+                    <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                          <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
                       <li class="nav-item">
@@ -75,7 +80,7 @@
                         <br>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/editProfile') }}">Edit Profile</a>
+                                <a class="nav-link" href="{{ url('/editProfileEmp') }}">Edit Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/editCompany') }}">Edit Company Details</a>
@@ -88,117 +93,128 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                        <div class="cointainer" style="color:black;">
-                                <div class="card card-plain">
-                                    <form method="POST" action="{{ url('/SaveEditEmp/'.Auth::user()->userID) }}">
-                                        {{ csrf_field() }}
-                                        
-                                        <div class="form-group">
-                                            <label>First Name</label>
-                                            <input type="text" class="form-control" name="firstName" value="{{ Auth::user()->firstName}}" readonly="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Last Name</label>
-                                            <input type="text" class="form-control" name="lastName" value="{{ Auth::user()->lastName}}"  readonly="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Contact Number</label>
-                                            <input type="text" class="form-control" id="contactNo" value="{{ Auth::user()->contactNo}}" name="contactNo" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Location</label>
-                                            <select size="0.5" class="form-control" name="location" id="location" required>
-                                                    <option value="" selected disabled>Select your location..</option>
-                                                    <optgroup label="Luzon" style="color: black;">
-                                                        <option value="abra">Abra</option>
-                                                        <option value="albay">Albay</option>
-                                                        <option value="apayo">Apayo</option>
-                                                        <option value="aurora">Aurora</ option>
-                                                        <option value="bataan">Bataan</option>
-                                                        <option value="batanes">Batanes</option>
-                                                        <option value="batangas">Batangas</option>
-                                                        <option value="benguet">Benguet</option>
-                                                        <option value="bulacan">Bulacan</option>
-                                                        <option value="cagayan">Cagayan</option>
-                                                        <option value="camarines">Camarines</option>
-                                                        <option value="catanduanes">Catanduanes</option>
-                                                        <option value="cavite">Cavite</option>
-                                                        <option value="ifugao">Ifugao</option>
-                                                        <option value="ilocos">Ilocos</option>
-                                                        <option value="isabela">Isabela</option>
-                                                        <option value="kalinga">Kalinga</option> 
-                                                        <option value="lu">La Union</option>
-                                                        <option value="laguna">Laguna</option>
-                                                        <option value="marinduque">Marinduque</option>
-                                                        <option value="masbate">Masbate</option>
-                                                        <option value="mm">Metro Manila</option>
-                                                        <option value="mp">Mountain Province</option>
-                                                        <option value="nueveja">Nueva Ecija</option>
-                                                        <option value="nuevviz">Nueva Vizcaya</option>
-                                                        <option value="mindoro">Mindoro</option>
-                                                        <option value="palawan">Palawan</option>
-                                                        <option value="pampanga">Pampanga</option>
-                                                        <option value="pangasinan">Pangasinan</option>
-                                                        <option value="rizal">Rizal</option>
-                                                        <option value="romblon">Romblon</option>
-                                                        <option value="quezon">Quezon</option>
-                                                        <option value="quirino">Quirino</option>
-                                                        <option value="sorsogon">Sorsogon</option>
-                                                        <option value="tarlac">Tarlac</option>
-                                                        <option value="zamba">Zambales</option>
-                                                    </optgroup>
-                                                    <optgroup label="Visayas" style="color: black;">
-                                                        <option value="aklan">Aklan</option>
-                                                        <option value="antique">Antique</option>
-                                                        <option value="biliran">Biliran</option>
-                                                        <option value="bohol">Bohol</option>
-                                                        <option value="capiz">Capiz</option>
-                                                        <option value="cebu">Cebu</option>
-                                                        <option value="es">Eastern Samar</option>
-                                                        <option value="guimaras">Guimaras</option>
-                                                        <option value="iloilo">Iloilo</option>
-                                                        <option value="leyte">Leyte</option>
-                                                        <option value="negros">Negros</option>
-                                                        <option value="samar">Samar</option>
-                                                        <option value="siquijor">Siquijor</option>
-                                                    </optgroup>
-                                                    <optgroup label="Mindnao" >
-                                                    <option value="agusan">Agusan</option>
-                                                        <option value="basilan">Basilan</option>
-                                                        <option value="bukidnon">Bukidnon</option>
-                                                        <option value="camiguin">Camiguin</option>
-                                                        <option value="compvalley">Compostela Valley</option>
-                                                        <option value="cotabato">Cotabato</option>
-                                                        <option value="cebu">Cebu</option>
-                                                        <option value="davao">Davao</option>
-                                                        <option value="di">Dinagat Islands</option>
-                                                        <option value="lanao">Lanao</option>
-                                                        <option value="mindanao">Maguindanao</option>
-                                                        <option value="misamis">Misamis</option>
-                                                        <option value="sarangani">Sarangani</option>
-                                                        <option value="sulkud">Sultan Kudarat</option>
-                                                        <option value="sulu">Sulu</option>
-                                                        <option value="surigao">Surigao</option>
-                                                        <option value="tt">Tawi-Tawi</option>
-                                                        <option value="zambo">Zamboanga</option>
-                                                    </optgroup>
-                                                </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Birthday</label>
-                                            <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true">
-                                        </div>
-                                        <div class="form-group">    
-                                            <label>Email</label>   
-                                            <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="{{ Auth::user()->emailAddress}}"  readonly="true"> 
-                                        </div> 
-                                        
-                                        <a href="/employerHome" class="btn btn-rounded float-right animated pulse btn-warning">Back</a>
-                                        <button type="submit" class="btn btn-rounded float-right animated pulse btn-success">Save</button>
-                                    </form>
+                <div class="col-sm-4" style="color:black;">
+                    <h3>Edit Your Information</h3><br>
+                    <div class="cointainer" style="color:black;">
+                        <div class="card card-plain">
+                            <form method="POST" action="{{ url('/SaveEdit/'.Auth::user()->userID) }}">
+                                {{ csrf_field() }}
+
+                        <!-- First Name -->
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" name="firstName" value="{{ Auth::user()->firstName}}" readonly="true">
                                 </div>
-                            </div>
+                        <!-- Last Name -->
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" name="lastName" value="{{ Auth::user()->lastName}}"  readonly="true">
+                                </div>
+                        <!-- Contact Number -->
+                                <div class="form-group">
+                                    <label>Contact Number</label>
+                                    <input type="text" class="form-control" id="contactNo" name="contactNo" value="{{ Auth::user()->contactNo}}" required>
+                                </div>
+                        <!-- Location -->
+                                <label>Location</label>
+                                <div class="input-group input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <select size="0.4" class="form-control" name="location" id="location" required>
+                                                <option value="" selected disabled>Select your location..</option>
+                                                <optgroup label="Luzon" style="color: black;">
+                                                    <option value="Abra">Abra</option>
+                                                    <option value="Albay">Albay</option>
+                                                    <option value="Apayo">Apayo</option>
+                                                    <option value="Aurora">Aurora</option>
+                                                    <option value="Bataan">Bataan</option>
+                                                    <option value="Batanes">Batanes</option>
+                                                    <option value="Batangas">Batangas</option>
+                                                    <option value="Benguet">Benguet</option>
+                                                    <option value="Bulacan">Bulacan</option>
+                                                    <option value="Cagayan">Cagayan</option>
+                                                    <option value="Camarines">Camarines</option>
+                                                    <option value="Catanduanes">Catanduanes</option>
+                                                    <option value="Cavite">Cavite</option>
+                                                    <option value="Ifugao">Ifugao</option>
+                                                    <option value="Ilocos">Ilocos</option>
+                                                    <option value="Isabela">Isabela</option>
+                                                    <option value="Kalinga">Kalinga</option> 
+                                                    <option value="La Union">La Union</option>
+                                                    <option value="Laguna">Laguna</option>
+                                                    <option value="Marinduque">Marinduque</option>
+                                                    <option value="Masbate">Masbate</option>
+                                                    <option value="Metro Manila">Metro Manila</option>
+                                                    <option value="Mountain Province">Mountain Province</option>
+                                                    <option value="Nueva Ecija">Nueva Ecija</option>
+                                                    <option value="Nueva Vizcaya">Nueva Vizcaya</option>
+                                                    <option value="Mindoro">Mindoro</option>
+                                                    <option value="Palawan">Palawan</option>
+                                                    <option value="Pampanga">Pampanga</option>
+                                                    <option value="Pangasinan">Pangasinan</option>
+                                                    <option value="Rizal">Rizal</option>
+                                                    <option value="Romblon">Romblon</option>
+                                                    <option value="Quezon">Quezon</option>
+                                                    <option value="Quirino">Quirino</option>
+                                                    <option value="Sorsogon">Sorsogon</option>
+                                                    <option value="Tarlac">Tarlac</option>
+                                                    <option value="Zambales">Zambales</option>
+                                                </optgroup>
+                                                <optgroup label="Visayas" style="color: black;">
+                                                    <option value="Aklan">Aklan</option>
+                                                    <option value="Antique">Antique</option>
+                                                    <option value="Biliran">Biliran</option>
+                                                    <option value="Bohol">Bohol</option>
+                                                    <option value="Capiz">Capiz</option>
+                                                    <option value="Cebu">Cebu</option>
+                                                    <option value="Eastern Samar">Eastern Samar</option>
+                                                    <option value="Guimaras">Guimaras</option>
+                                                    <option value="Iloilo">Iloilo</option>
+                                                    <option value="Leyte">Leyte</option>
+                                                    <option value="Negros">Negros</option>
+                                                    <option value="Samar">Samar</option>
+                                                    <option value="Siquijor">Siquijor</option>
+                                                </optgroup>
+                                                <optgroup label="Mindnao" style="color: black;">
+                                                <option value="Agusan">Agusan</option>
+                                                    <option value="Basilan">Basilan</option>
+                                                    <option value="Bukidnon">Bukidnon</option>
+                                                    <option value="Camiguin">Camiguin</option>
+                                                    <option value="Compostela Valley">Compostela Valley</option>
+                                                    <option value="Cotabato">Cotabato</option>
+                                                    <option value="Cebu">Cebu</option>
+                                                    <option value="Davao">Davao</option>
+                                                    <option value="Dinagat Islands">Dinagat Islands</option>
+                                                    <option value="Lanao">Lanao</option>
+                                                    <option value="Maguindanao">Maguindanao</option>
+                                                    <option value="Misamis">Misamis</option>
+                                                    <option value="Sarangani">Sarangani</option>
+                                                    <option value="Sultan Kudarat">Sultan Kudarat</option>
+                                                    <option value="Sulu">Sulu</option>
+                                                    <option value="Surigao">Surigao</option>
+                                                    <option value="Tawi-Tawi">Tawi-Tawi</option>
+                                                    <option value="Zamboanga">Zamboanga</option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                        <!-- Birthday -->
+                                <div class="form-group">
+                                    <label>Birthday</label>
+                                    <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true">
+                                </div>
+                        <!-- Email -->
+                                <div class="form-group">    
+                                    <label>Email</label>   
+                                    <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="{{ Auth::user()->emailAddress}}"  readonly="true"> 
+                                </div> 
+                        <!-- Save button -->
+                            <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
+
+                            </form>
+                        </div>
+                    </div>
                 </div><!-- col-sm-6 closing tag -->
 
                 <div class="col-sm-1"><!--space-->

@@ -42,10 +42,6 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/modelprofile', 'ModelController@modelProfile');
         Route::get('/modelfeed', 'ModelController@modelHomepage');
         Route::get('/modeleditprofile', 'ModelController@modelEditProfile');
-
-        //avatar
-        Route::post('/avatar/{id}', 'ModelController@storeAvatar');
-        
         //Route::get('/editProfile/{id}', 'ModelController@edit');
         Route::post('/SaveEdit/{id}', 'ModelController@editNaModel');
         Route::get('/modelattribute', 'ModelController@viewDetails');
@@ -55,6 +51,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/gopremium', 'UserController@paypal');
         Route::post('/status/{id}', 'UserController@editStatus');
 
+        //avatar
+        Route::post('/avatarupload', 'ModelController@storeAvatar');
+        Route::post('/eavatarupload', 'EmployerController@EstoreAvatar');
+        
         //jusss
         //gallery
         Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
@@ -75,6 +75,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer');
         Route::get('/editCompany', 'EmployerController@viewDetails');
         Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
+    });
+
+    Route::get('/imagegalleryview', function(){
+        return view('/StellaModel/imagegalleryview');
     });
 });
 

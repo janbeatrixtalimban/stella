@@ -55,31 +55,7 @@ class portfolioController extends Controller
     {
         
         	if (Auth::check()) {
-            // $validator = Validator::make($request->all(), [
-            //             'p_title' => 'required|string|max:50',
-            //             'p_date' => 'required',
-            //             'p_company' => 'required|string|max:50',
-            //             'p_description' => 'required|string|max:100',
-            //             'userID',
-            //             'updated_at',
-            //             'created_at',
-                        
-            //         ]);
-
-                   
-
-            //         if ($validator->fails()) {
-            //             return redirect()->to($validator->errors());
-
-            //         }
-            //             $input = $request->all();
-            //             $input['userID'] = Auth::user()->userID;
-            //             $portfolio = Portfolio::create($input);
-                        
-                        // $path=$request->file('image')->store('upload');
-                        //dito dapat array? hmm
-
-                       
+       
                         $image_array = $request->file('image');
                         $array_len = count($image_array);
     
@@ -95,18 +71,10 @@ class portfolioController extends Controller
         
                                 $input['image'] = $new_image_name;
                                 $input['caption'] = 'new Image';
-                                // $input["portfolioID"] = $portfolio->id;
                                 $input['userID'] = Auth::user()->userID;
-                                //$path = Storage::putFile('uploads', $request->file('image'));
                                 $imgportfolio = Imgportfolio::create($input);
                             }
                        
-                        
-                        
-                        // $input2["portfolioID"] = $portfolio->id;
-                        // $input2["imageID"] = $imgportfolio->id;
-                        // $bridge = Bridge::create($input2);
-
                         $auditlogs = new auditlogs;
                         $auditlogs->userID =  Auth::user()->userID;
                         $auditlogs->logType = 'Add photo to portfolio';
@@ -120,14 +88,6 @@ class portfolioController extends Controller
                             return ('fail');
                         }
 
-            		// 		if($portfolio)
-                    // {    
-                       
-                    //     return view('StellaModel.modelprofile');
-                        
-                    // } else {
-                    //     return "FAILED";
-                    // }
                 }
       else
       {                       

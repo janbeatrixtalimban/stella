@@ -11,7 +11,7 @@
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" href="{{ url('/employerfeed') }}" rel="tooltip" title="Browse now" data-placement="bottom">
+                    <a class="navbar-brand" href="{{ url('/employerHome') }}" rel="tooltip" title="Browse now" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,16 +68,16 @@
                     <ul class="navbar-nav">
                       <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                          <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
                       <li class="nav-item">
-                        <div class="dropdown button-dropdown">
-                          <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                          </a>
+                      <div class="dropdown button-dropdown">
+                            <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+                              <span class="button-bar"></span>
+                              <span class="button-bar"></span>
+                              <span class="button-bar"></span>
+                            </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-header">Homepage</a>
                             <a class="dropdown-item" href="{{ url('/employerprofile') }}">
@@ -110,88 +110,34 @@
             <div class="row">
                 <div class="col-sm-1"><!--space-->
                 </div>
-
-            <!-- Left column model display -->
-            <div class="row">
-              <div class="col-sm-1"><!--space-->
-              </div>
+   
+            <!-- Two Column Display loop of Models Shown-->
+            @foreach($user->chunk(2) as $user)
+            <div class="column">
             
-              <div class="col-sm-4">
-                  @foreach ($user as $user)
-                  <div id="model" class="card text-center">
-                      <div class="card-body" style="color:#1b1b1b;">
-                        <h4 class="card-title">{{ $user->firstName }} {{ $user->lastName }}</h4>
-                        
-                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">Attribute</a>
-                        <a data-toggle="modal" href="#viewattributes" class="btn btn-black btn-round">Profile</a> 
-                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
-                      </div>
-                      <div class="card-footer text-muted mb-2">
-                         Runway Model
+              @foreach ($user as $user)
+                  <div class="col-sm-12">
+                    <div id="model" class="card text-center">
+                        <div class="card-body" style="color:#1b1b1b;">
+                          <h4 class="card-title">{{ $user->firstName }} {{ $user->lastName }}</h4>
+                            <img src="/uploads/avatars/{{ $user ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
+                          <!--Buttons with icons -->
+                            <a data-toggle="modal" data-target="#{{ $user->userID }} " style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                            <a data-toggle="modal" href="#viewattributes" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                            <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
+                        </div>
+                        <div class="card-footer text-muted mb-2">
+                          (Skill Set)
+                        </div>
                       </div>
                     </div>
                   @endforeach
-   
-              </div>
-
-             
-              </div> <!-- row / end -->
-          </div> <!-- container / end -->    
-            <!-- col-sm-3 closing tag -->
-        <!-- End of left column display -->
-
-
-        <!-- Right Column model display -->
-                <div class="col-sm-4">
-                    <div id="model" class="card text-center">
-                      <div class="card-body" style="color:#1b1b1b;">
-                        <h4 class="card-title">Kelsey Merritt</h4>
-                        <img src="<?php echo asset('img/kelsey.png')?>" alt="" class="img-raised" width="200">
-                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
-                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
-                      </div>
-                      <div class="card-footer text-muted mb-2">
-                         Runway Model
-                      </div>
-                    </div>
-                    <div id="model" class="card text-center">
-                      <div class="card-body" style="color:#1b1b1b;">
-                        <h4 class="card-title">Gigi Hadid</h4>
-                        <img src="<?php echo asset('img/gigi.jpg')?>" alt="" class="img-raised" width="200">
-                        <a data-toggle="modal" href="#viewattributes" class="btn btn-maroon btn-round">View Profile</a>
-                        <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round">Hire</a>
-                      </div>
-                      <div class="card-footer text-muted mb-2">
-                         Commercial Model
-                      </div>
-                    </div>
-                </div><!-- col-sm-6 closing tag -->
-
-                <div class="col-sm-1"><!--space-->
                 </div>
+              @endforeach
 
-
-
-        <!-- Right Column contents -->
-
+          <!-- Right Column contents -->
             <div class="col-sm-3">
                 <div class="column">
-
-
-                  <!-- Notifications card -->
-                      <div class="card">
-                        <div class="card-body" style="color:#1b1b1b;">
-                          <h5 class="card-title"><i class="now-ui-icons ui-1_bell-53"></i>  Notifications<i class="now-ui-icons arrows-1_refresh-69" rel="tooltip" title="Refresh Notifications" style="float:right;" ></i></h5>
-                            <ul class="list-group list-group-flush">
-                              <li class="list-group-item" href="#" class="card-link">Kendall Jenner applied to your job post</li>
-                              <li class="list-group-item">Gigi Hadid sent you a message</li>
-                              <li class="list-group-item">Kelsey Meritt left you a feedback</li>
-                            </ul>
-                            <br>
-                            <h6a style="float:right;">See all notifications..</h6a>
-                        </div>
-                      </div>
-
 
                   <!-- Ads Card and carousel -->
                       <div class="card">
@@ -236,23 +182,21 @@
                 </div><!-- column closing tag -->
             </div><!-- sm-3 closing tag -->
 
-            <div class="col-sm-1"><!--space-->
-            </div>
 
           </div><!--feed content row closing tag -->
       </div><!-- container fluid closing tag-->
 
 
-
-  <!-- View model attributes Modal -->
-          <div id="viewattributes" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+    @foreach ($user as $user)
+      <!-- View model attributes Modal -->
+          <div id="" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">(Model Name Here)</h4>
+                      <h4 class="modal-title"></h4>
                     </div>
                     <div class="modal-body">
                       <p></p>
@@ -287,8 +231,7 @@
               </div>
             </div>
           <!-- End of Modal -->
-
-
+    @endforeach
 
           <!-- Apply to job confirmation Modal -->
                 <div id="confirmhire" class="modal fade" tabindex="-1" role="dialog">
@@ -298,7 +241,7 @@
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to hire (model name)?</h4>
+                            <h4 class="modal-title">Are you sure you want to hire (Model Name)?</h4>
                           </div>
                           <div class="modal-body">
                           </div>
@@ -315,8 +258,10 @@
                 </div>
               <!-- End of Modal -->
 
+
             </div>
-      
     </div>
+
+
 @endsection
 </div>

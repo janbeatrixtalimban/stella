@@ -36,11 +36,11 @@
           <div class="card card-login card-plain">
             <form class="form" method="POST" action="/loginUser">
                 {{ csrf_field() }}
-        @if (\Session::has('failure'))
-        <div class="alert alert-danger" role="alert">
-        {!! \Session::get('failure') !!}
-        </div>
-        @endif
+                    @if (\Session::has('failure'))
+                        <div class="alert alert-danger" role="alert">
+                        {!! \Session::get('failure') !!}
+                        </div>
+                    @endif
               <div class="card-header text-center">
                 <div style="width: 250px;" class="logo-container">
                   <img src="<?php echo asset('img/logo_white.png')?>" width="500">
