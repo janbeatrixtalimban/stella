@@ -47,7 +47,7 @@
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-header">Edit Profile</a>
                             <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                            <a class="dropdown-item" href="{{ url('/modelsubscription') }}">Subscription</a>
+                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
                             <a class="dropdown-item" href="{{ url('/modelsetting') }}">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>

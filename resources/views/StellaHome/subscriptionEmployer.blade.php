@@ -28,7 +28,7 @@
 
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                        <a class="navbar-brand" href="{{ url('/employerfeed ') }}" data-placement="bottom">
+                        <a class="navbar-brand" href="{{ url('/employerHome ') }}" data-placement="bottom">
                             Home
                         </a>
                         </li>

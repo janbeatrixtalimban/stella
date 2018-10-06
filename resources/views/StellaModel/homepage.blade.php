@@ -10,8 +10,7 @@
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" href="" rel="tooltip" title="Browse now" data-placement="bottom"
-                      target="_blank">
+                    <a class="navbar-brand" href="{{ url('/modelfeed ') }}" rel="tooltip" title="Browse now" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

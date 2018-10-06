@@ -82,7 +82,7 @@
         <div class="container">
             <div class="col-md-6 ml-auto mr-auto">
                 <h3 class="title text-center">Job Posts</h3>
-            </div>
+            </div><br>
 
 
             <div class="row">
