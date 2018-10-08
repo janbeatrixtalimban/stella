@@ -101,6 +101,15 @@
                                             </div>
                                             <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description..">{{ $projects->jobDescription }}</textarea>
                                         </div>
+                                        <!-- ModelNo -->
+                                        <label>Number of Models Needed:</label>
+                                <div class="input-group input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="modelNo" value="{{ $projects->modelNo }}" required >
+                              </div>
                                     <!-- Location -->
                                     <label>Location</label>
                                         <div class="input-group input-sm">
@@ -218,6 +227,32 @@
                                             </div>
                                             <input type="text" name="talentFee" class="form-control" value="{{ $projects->talentFee }}" >
                                         </div>
+
+                                         <!-- HEight -->
+                                         <label>Height Requirement:</label>
+                                <div class="input-group input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="height"  value="{{ $projects->height }}">
+                              </div>
+
+                               <!-- body built -->
+                               <label>Body Built:</label>
+                               <div class="input-group input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <select size="0.4" class="form-control" name="bodyBuilt" id="bodyBuilt" required>
+                                    <option value="" selected disabled>Select Body Built</option>
+                                        <option value="Petite">Petite</option>
+                                        <option value="Slim">Slim</option>
+                                        <option value="Athletic">Athletic</option>
+                                        <option value="Plus Size">Plus Size</option>
+                                </select>
+                            </div>
                                     
                                     <!-- Edit Button -->
                                         <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Edit Job Post</button><br>

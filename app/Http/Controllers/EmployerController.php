@@ -6,6 +6,9 @@ use App\auditlogs;
 use App\company;
 use App\Project;
 use App\User;
+use App\attribute;
+use App\hire;
+use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -71,7 +74,12 @@ class EmployerController extends Controller
                 'location' => 'required',
                 'role' => 'required',
                 'talentFee' => 'required',
+                'modelNo' => 'required',
+                'bodyBuilt' => 'required',
+                'height' => 'required',
                 'updated_at',
+                
+
 
             ]);
             if ($validator->fails()) {
@@ -295,6 +303,55 @@ class EmployerController extends Controller
                 return "Image too large, please upload a smaller image size";        
             }
             
+    }
+
+     
+    public function hireModel(Request $request)
+    {
+       
+        if (Auth::check()) {
+
+            $userID = $request->get('userID');            
+            $user = user::where('userID', $userID)
+            ->first();
+            $input['status'] = '0';
+            $input['userID'] = Auth::user()->userID;
+            $input['modelID'] = $request->input('userID');
+            $input['emailAddress'] = $user->emailAddress;
+            $hire = hire::create($input);
+
+            $this->emailNotifHireModel($input['emailAddress']);
+           //dd($projects);
+           
+    
+                  $auditlogs = new auditlogs;
+                  $auditlogs->userID =  Auth::user()->userID;
+                  $auditlogs->logType = 'Offered a model';
+                  
+                  if ($auditlogs->save() && $hire) 
+                  {
+                      return redirect()->to('/employerHome')->with('alert', 'Updated!');
+                  } else 
+                  {
+                      return ('fail');
+                  }
+        }
+        else {
+            return('fail');
+        }
+   
+    }
+
+    public function emailNotifHireModel($email)
+    {
+        $data = array('name' => "Virat Gandhi");
+        //'text' => 'mail' :: loob ng () mail
+        Mail::send(['text' => 'mail'], $data, function ($message) use ($email) {
+            $message->to($email, $email)->subject
+                ('STELLA Email Notification');
+            $message->from('stella.model.ph@gmail.com', 'Stella PH');
+        });
+        //echo "Registered! Email Sent. Check your inbox.";
     }
 
 }

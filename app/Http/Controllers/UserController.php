@@ -210,7 +210,7 @@ class UserController extends Controller
             $company = company::create($input);
 
             //Twilio::message($input['contactNo'], 'Welcome to Stella');
-            //$this->basic_email($input['emailAddress']);
+            $this->basic_email($input['emailAddress']);
             //lahat ng created pinalitan ko ng user
 
             $auditlogs = new auditlogs;

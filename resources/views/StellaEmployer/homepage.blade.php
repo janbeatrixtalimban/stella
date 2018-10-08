@@ -124,8 +124,13 @@
                           <!--Buttons with icons -->
                             <a data-toggle="modal" data-target="#{{ $user->userID }} " style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
                             <a data-toggle="modal" href="#viewattributes" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
-                            <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
-                        </div>
+                            {{-- <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a> --}}
+                            <form class="" action="/employer/hire" method="post">
+                              {{ csrf_field() }}
+                              <input style="hidden" text="hidden" name="userID" id="userID" value="{{$user->userID}}" readonly>
+                              <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Hire</button>
+                            </form>
+                          </div>
                         <div class="card-footer text-muted mb-2">
                           (Skill Set)
                         </div>

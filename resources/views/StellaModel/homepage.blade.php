@@ -93,7 +93,12 @@
                             <h4 class="card-title">{{ $project->prjTitle }}</h4>
                             <p class="card-text">{{ $project->jobDescription }}</p>
                             <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
-                            <a data-toggle="modal" href="#confirmapply" class="btn btn-info btn-round">Apply</a>
+                            {{-- <a data-toggle="modal"   href="#confirmapply" class="btn btn-info btn-round">Apply</a> --}}
+                            <form class="" action="/model/apply" method="post">
+                              {{ csrf_field() }}
+                              <input style="hidden" text="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+                              <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Apply</button>
+                            </form>
                           </div>
                           <div class="card-footer text-muted mb-2">
                             {{ $project->created_at->diffForHumans() }}
@@ -212,6 +217,8 @@
                     <div class="modal-dialog confirmapplymodal" role="document">
 
                   <!-- Modal content-->
+                  <form method="POST" action="/model/apply">
+                    {{ csrf_field() }}
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -223,13 +230,15 @@
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <button type="button" class="btn btn-success btn-round" data-dismiss="modal">Yes</button>
+                             
+                              <button type="submit" class="btn btn-success btn-round" data-dismiss="modal" >Yes</button>
                               <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
                             </div>
                           </div>
                       </div>
                     </div>
                 </div>
+              </form>
               <!-- End of Modal -->
 
             </div>

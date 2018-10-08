@@ -107,6 +107,14 @@
                                     <div class="input-group input-lg">
                                         <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."></textarea>
                                       </div>
+                                <!-- ModelNo -->
+                                <div class="input-group input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="modelNo" id="modelNo" placeholder="Number of Models needed" value="">
+                              </div>
                                 <!-- Location dropdown -->
                                     <div class="input-group input-lg">
                                             <div class="input-group-prepend">
@@ -221,7 +229,30 @@
                                           </div>
                                           <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Talent Fee in PHP" value="">
                                     </div>
-                                
+
+                                <!-- HEight -->
+                                <div class="input-group input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="height" id="height" placeholder="Height requirement" value="">
+                              </div>
+
+                               <!-- body built -->
+                               <div class="input-group input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <select size="0.4" class="form-control" name="bodyBuilt" id="bodyBuilt" required>
+                                    <option value="" selected disabled>Select Body Buikt</option>
+                                        <option value="Petite">Petite</option>
+                                        <option value="Slim">Slim</option>
+                                        <option value="Athletic">Athletic</option>
+                                        <option value="Plus Size">Plus Size</option>
+                                </select>
+                            </div>
                                 <!-- Create button -->
                                     <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Create</button><br>
                                     <a class="link" href="{{ url('/employerprofile') }}">Cancel</a>

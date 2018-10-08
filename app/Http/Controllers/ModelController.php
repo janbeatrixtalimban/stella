@@ -9,7 +9,9 @@ use App\User;
 use App\attribute;
 use App\auditlogs;
 use App\Project;
+use App\applicant;
 use Validator;
+use Mail;
 use Image;
 
 class ModelController extends Controller
@@ -178,7 +180,7 @@ class ModelController extends Controller
                 $avatar = $request->file('avatar');
                 $image_ext = $avatar->GetClientOriginalExtension();
                 $new_avatar_name = time() . '.' .$image_ext;
-                Image::make($avatar)->resize(200,200)->save( public_path('/uploads/avatars'.$image_ext) );
+               // Image::make($avatar)->resize(200,200)->save( public_path('/uploads/avatars'.$image_ext) );
                 $destination_path = public_path('/uploads/avatars');
                     $avatar->move($destination_path,$new_avatar_name);
                     $input = $new_avatar_name;
@@ -200,6 +202,56 @@ class ModelController extends Controller
     }
 
     
+    public function applyJobPost(Request $request)
+    {
+       
+        // $projects = Project::where('projectID', $projectID)->first();
+        // $projectID = $request->get('projectID');
+        if (Auth::check()) {
 
+            $projectID = $request->get('projectID');            
+            $projects = project::where('projectID', $projectID)->join('users', 'users.userID', '=', 'projects.userID')
+            ->first();
+            $input['status'] = '0';
+            $input['userID'] = Auth::user()->userID;
+            $input['projectID'] = $request->input('projectID');
+            $input['emailAddress'] = $projects->emailAddress;
+            $applicant = applicant::create($input);
+
+            //$user = user::find(Auth::user()->userID)->join('projects', 'users.userID', '=', 'projects.userID')->first();
+
+            $this->emailNotifApplyJob($input['emailAddress']);
+           //dd($projects);
+           
+    
+                  $auditlogs = new auditlogs;
+                  $auditlogs->userID =  Auth::user()->userID;
+                  $auditlogs->logType = 'Applied job';
+                  
+                  if ($auditlogs->save() && $applicant) 
+                  {
+                      return redirect()->to('/modelfeed')->with('alert', 'Updated!');
+                  } else 
+                  {
+                      return ('fail');
+                  }
+        }
+        else {
+            return('fail');
+        }
+   
+    }
+
+    public function emailNotifApplyJob($email)
+    {
+        $data = array('name' => "Virat Gandhi");
+        //'text' => 'mail' :: loob ng () mail
+        Mail::send(['text' => 'mail'], $data, function ($message) use ($email) {
+            $message->to($email, $email)->subject
+                ('STELLA Email Notification');
+            $message->from('stella.model.ph@gmail.com', 'Stella PH');
+        });
+        //echo "Registered! Email Sent. Check your inbox.";
+    }
 
 }
