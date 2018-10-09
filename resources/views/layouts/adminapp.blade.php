@@ -55,6 +55,12 @@
             </a>
           </li>
           <li>
+              <a href="/admin/addAdmin">
+                <i class="now-ui-icons users_single-02"></i>
+                <p>Add Admin</p>
+              </a>
+            </li>
+          <li>
             <a href="./tables.html">
               <i class="now-ui-icons users_single-02"></i>
               <p>Users</p>

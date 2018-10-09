@@ -8,9 +8,16 @@ use App\auditlogs;
 use App\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Validator;
 
 class adminController extends Controller
 {
+    public function getDashboard()
+    {
+        return view('StellaAdmin.dashboard');
+    }
+
     public function Login()
     {
         return view('StellaAdmin.adminlogin');
@@ -52,11 +59,75 @@ class adminController extends Controller
         
     }
 
-
     public function adminlogout()
     {
         
         Auth::logout();
         return redirect()->to('/admin/login');  
     }
+
+    // ADD ADMIN
+    public function getAddAdmin()
+    {
+        return view('StellaAdmin.addAdmin');
+    }
+
+    public function createAdmin(request $request)
+    {
+
+            if (Auth::check()) 
+            {
+                $validator = Validator::make($request->all(), [
+                    'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+                    'firstName' => 'string|max:50|regex:/^[a-zA-Z_\-]+$/',
+                    'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+                    'birthDate' => 'required|before:18 years ago',
+                    'emailAddress' => 'required|email|unique:users,emailAddress',
+                    'location' => 'required',
+                    'password' => 'required|string|min:6',
+                    'confirmpassword' => 'required|same:password',
+                    'zipcode',
+                    'created_at',
+                    'updated_at',
+                    'token',
+                    'filePath',
+                ]);
+                if ($validator->fails()) {
+                    return redirect()->to($validator->errors());
+        
+                }
+                    $input = $request->all();
+                    $input['password'] = Hash::make($input['password']);
+                    $input['typeID'] = '1';
+                    $input['skillID'] = '1';
+                    $input['status'] = '0';
+                    $input['token'] = '';
+                    $input['filePath'] = 'N/A';
+                    $input['tnc'] = '1';
+                    $input['avatar'] = 'N/A';
+                    $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
+                
+                    $user = User::create($input);
+                    
+                    $auditlogs = new auditlogs;
+                    $auditlogs->userID =   Auth::user()->userID;
+                    $auditlogs->logType = "Added new admin";
+                    
+            
+                    if ($auditlogs->save() && $user) 
+                    {
+                        return redirect()->to('/admin/dashboard');
+                    }
+                    else 
+                    {
+                        "FAIL :(((";
+                    }
+
+        }  else 
+        {
+            "FAIL :(((";
+        }
+         
+    }
+
 }

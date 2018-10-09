@@ -19,6 +19,7 @@ return view('welcome');
  //ADMIN LOGIN
  Route::get('/admin/login', 'adminController@Login');
  Route::post('/admin/adminlogin', 'adminController@AdminLogin');
+ Route::get('/admin/logout', 'adminController@adminlogout');
 
 //login and logout
 Route::get('/loginUser', 'loginController@Login');
@@ -83,6 +84,12 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer');
         Route::get('/editCompany', 'EmployerController@viewDetails');
         Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
+
+
+        //ADMIN SIDE!!!!
+        Route::get('/admin/dashboard', 'adminController@getDashboard');
+        Route::get('/admin/addAdmin', 'adminController@getAddAdmin');
+        Route::post('/admin/addAdmin', 'adminController@createAdmin');
     });
 
     Route::get('/imagegalleryview', function(){
