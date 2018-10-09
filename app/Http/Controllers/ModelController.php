@@ -244,9 +244,10 @@ class ModelController extends Controller
 
     public function emailNotifApplyJob($email)
     {
+          
         $data = array('name' => "Virat Gandhi");
         //'text' => 'mail' :: loob ng () mail
-        Mail::send(['text' => 'mail'], $data, function ($message) use ($email) {
+        Mail::send(['html' => 'application'], $data, function ($message) use ($email) {
             $message->to($email, $email)->subject
                 ('STELLA Email Notification');
             $message->from('stella.model.ph@gmail.com', 'Stella PH');

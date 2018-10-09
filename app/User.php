@@ -18,7 +18,7 @@ class User extends Authenticatable
         'lastName', 'firstName','birthDate','emailAddress',
         'contactNo', 'location',  'password', 'typeID', 'skillID',
         'created_at', 'updated_at', 'token',  
-        'filePath', 'avatar', 'status', 'tnc',
+        'filePath', 'avatar', 'status', 'tnc', 'address', 'zipcode',
     ];
 
 }

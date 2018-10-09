@@ -20,24 +20,17 @@ class EmployerController extends Controller
     public function index()
     {
 
-        // $projects = Project::latest()->paginate(10);
-        // return view('StellaEmployer.employerProfile',compact('projects'))
-        // ->with('i', (request()->input('page', 1) - 1) * 5);
-
         if (Auth::check()) {
 
             $projects = Project::where('userID', Auth::user()->userID)->get();
             //dd($projects);
-            //$projects = Project::where('userID', Auth::user()->userID)->latest()->paginate(10);
             $details = company::where('userID', auth::user()->userID)->first();
 
             return view('StellaEmployer.employerProfile')->with('details', $details)->with('projects', $projects);
-            // return view('StellaEmployer.employerProfile')->with('projects', $projects);
 
         } else {
             return ('fail');
         }
-
     }
 
     public function employerProfile()
@@ -89,11 +82,25 @@ class EmployerController extends Controller
             $input = $request->all();
             $input['userID'] = Auth::user()->userID;
             $input['hidden'] = '1';
-            Project::create($input);
+            $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
+            $project = Project::create($input);
 
-            $projects = Project::where('userID', Auth::user()->userID)->get();
-            $company = company::where('userID', auth::user()->userID)->first();
-            return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
+            $auditlogs = new auditlogs;
+            $auditlogs->userID =   Auth::user()->userID;
+            $auditlogs->logType = 'Register:employer';
+            
+    
+            if ($auditlogs->save() && $project) 
+            {
+                $projects = Project::where('userID', Auth::user()->userID)->get();
+                 $company = company::where('userID', auth::user()->userID)->first();
+                return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
+            } else 
+            {
+                return redirect()->to('/');
+            }
+
+            
         } else {
             return ('fail');
         }
@@ -346,7 +353,7 @@ class EmployerController extends Controller
     {
         $data = array('name' => "Virat Gandhi");
         //'text' => 'mail' :: loob ng () mail
-        Mail::send(['text' => 'mail'], $data, function ($message) use ($email) {
+        Mail::send(['text' => 'hire'], $data, function ($message) use ($email) {
             $message->to($email, $email)->subject
                 ('STELLA Email Notification');
             $message->from('stella.model.ph@gmail.com', 'Stella PH');

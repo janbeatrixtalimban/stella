@@ -16,7 +16,11 @@ return view('welcome');
 
  */
 
-//login and logoout
+ //ADMIN LOGIN
+ Route::get('/admin/login', 'adminController@Login');
+ Route::post('/admin/adminlogin', 'adminController@AdminLogin');
+
+//login and logout
 Route::get('/loginUser', 'loginController@Login');
 Route::post('loginUser', 'loginController@userLogin');
 Route::get('/logout', 'loginController@logout');

@@ -5964,6 +5964,162 @@ img {
   text-decoration: none;
 }
 
+
+.adminlogin-page .page-header:before,
+.adminprofile-page .page-header:before {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  left: 0;
+  top: 0;
+  content: "";
+  background-color: rgba(33, 37, 41, 1);
+}
+
+.adminlogin-page .card-login {
+  border-radius: 0.25rem;
+  padding-bottom: 0.7rem;
+  max-width: 320px;
+}
+
+.adminlogin-page .card-login .btn-wd {
+  min-width: 180px;
+}
+
+.adminlogin-page .card-login .logo-container {
+  width: 65px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+.adminlogin-page .card-login .logo-container img {
+  width: 100%;
+}
+
+.adminlogin-page .card-login .input-group:last-child {
+  margin-bottom: 40px;
+}
+
+.adminlogin-page .card-login.card-plain .form-control::-moz-placeholder {
+  color: #ebebeb;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.adminlogin-page .card-login.card-plain .form-control:-moz-placeholder {
+  color: #ebebeb;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.adminlogin-page .card-login.card-plain .form-control::-webkit-input-placeholder {
+  color: #ebebeb;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.adminlogin-page .card-login.card-plain .form-control:-ms-input-placeholder {
+  color: #ebebeb;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.adminlogin-page .card-login.card-plain .form-control {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .form-control:focus {
+  border-color: #FFFFFF;
+  background-color: transparent;
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .has-success:after,
+.adminlogin-page .card-login.card-plain .has-danger:after {
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .has-danger .form-control {
+  background-color: transparent;
+}
+
+.adminlogin-page .card-login.card-plain .input-group-text {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .input-group-focus .input-group-text {
+  background-color: transparent;
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control:focus,
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control:active,
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control:active,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control:focus,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control:active,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control+.input-group-text,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control+.input-group-text {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control+.input-group-text:focus,
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control+.input-group-text:active,
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control+.input-group-text:active,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control+.input-group-text:focus,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control+.input-group-text:active,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control+.input-group-text:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .form-group.no-border .form-control:focus+.input-group-text,
+.adminlogin-page .card-login.card-plain .input-group.no-border .form-control:focus+.input-group-text {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .form-group.no-border .input-group-text,
+.adminlogin-page .card-login.card-plain .input-group.no-border .input-group-text {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .form-group.no-border.input-group-focus .input-group-text,
+.adminlogin-page .card-login.card-plain .input-group.no-border.input-group-focus .input-group-text {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+.adminlogin-page .card-login.card-plain .input-group-text,
+.adminlogin-page .card-login.card-plain .form-group.no-border .input-group-text,
+.adminlogin-page .card-login.card-plain .input-group.no-border .input-group-text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.adminlogin-page .link {
+  font-size: 10px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
 .section {
   padding: 70px 0;
   position: relative;

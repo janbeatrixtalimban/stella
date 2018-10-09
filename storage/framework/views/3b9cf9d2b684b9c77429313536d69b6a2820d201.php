@@ -95,6 +95,7 @@
                                     <?php endif; ?>
                             <h3>Create Job Post</h3><br>
                                 <!-- Title -->
+                                <label>Project Title:</label>
                                     <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
@@ -103,10 +104,12 @@
                                           <input type="text" class="form-control" name="prjTitle" id="prjTitle" placeholder="Project Title" value="">
                                       </div>
                                 <!-- Job Description -->
+                                <label>Job Description:</label>
                                     <div class="input-group input-lg">
                                         <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."></textarea>
                                       </div>
                                 <!-- ModelNo -->
+                                <label>Number of Models needed:</label>
                                 <div class="input-group input-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -114,14 +117,26 @@
                                     </div>
                                     <input type="text" class="form-control" name="modelNo" id="modelNo" placeholder="Number of Models needed" value="">
                               </div>
+                              <!-- Address -->
+                              <label>Address:</label>
+                              <div class="input-group input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="unitNo" id="unitNo" placeholder="Unit No." value="">
+                                    <input type="text" class="form-control" name="street" id="street" placeholder="Street" value="">
+                                    <input type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="">
+                              </div>
                                 <!-- Location dropdown -->
                                     <div class="input-group input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
+                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" value="">
                                             <select size="0.4" class="form-control" name="location" id="location" required>
-                                                <option value="" selected disabled>Select your location..</option>
+                                                <option value="" selected disabled>Select your province..</option>
                                                 <optgroup label="Luzon" style="color: black;">
                                                     <option value="Abra">Abra</option>
                                                     <option value="Albay">Albay</option>
@@ -196,8 +211,10 @@
                                                     <option value="Zamboanga">Zamboanga</option>
                                                 </optgroup>
                                             </select>
+                                            <input type="text" class="form-control" name="zipCode" id="zipCode" placeholder="Zip Code" value="">
                                         </div>
                                 <!-- Role -->
+                                <label>Role:</label>
                                         <div class="input-group input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -221,6 +238,7 @@
                                             </select>
                                         </div>
                                 <!-- Talent Fee -->
+                                <label>Talent Fee:</label>
                                     <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
@@ -230,6 +248,7 @@
                                     </div>
 
                                 <!-- HEight -->
+                                <label>Height:</label>
                                 <div class="input-group input-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -239,6 +258,7 @@
                               </div>
 
                                <!-- body built -->
+                               <label>Body Built:</label>
                                <div class="input-group input-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">

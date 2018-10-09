@@ -138,11 +138,12 @@ class UserController extends Controller
             //$input['position'] = 'N/A';
             $input['status'] = '0';
             $input['token'] = str_random(25);
+            $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             $path=$request->file('filePath')->store('upload');
             $user = User::create($input);
             //$user->sendVerifyAccount();
             //Twilio::message($input['contactNo'], 'Welcome to Stella');
-            //$this->basic_email($input['emailAddress']);
+            $this->basic_email($input['emailAddress']);
             //lahat ng created pinalitan ko ng user
 
             $input2['eyeColor'] = 'N/A';
@@ -200,6 +201,7 @@ class UserController extends Controller
             $input['password'] = Hash::make($input['password']);
             $input['typeID'] = '2';
             $input['skillID'] = '1';
+            $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             // $input['company'] = 'N/A';
             $input['token'] = str_random(25);
             $path=$request->file('filePath')->store('upload');
@@ -233,9 +235,10 @@ class UserController extends Controller
 
     public function basic_email($email)
     {
-        $data = array('name' => "Virat Gandhi");
-        //'text' => 'mail' :: loob ng () mail
-        Mail::send(['text' => 'mail'], $data, function ($message) use ($email) {
+        //$user = $request->get('emailAddress');
+       
+        $data = array('name' => "hello world");
+        Mail::send(['html' => 'mail'], $data, function ($message) use ($email) {
             $message->to($email, $email)->subject
                 ('STELLA Account');
             $message->from('stella.model.ph@gmail.com', 'Stella PH');
@@ -244,16 +247,5 @@ class UserController extends Controller
     }
 
    
-
-    public function verify($token)
-    {
-            // verify user using token!!!! 
-            //404 errir ung firstOrFail
-
-        User::where('token', $token)->firstOrFail()->update(['token' => null]);
-
-        return redirect()
-        ->route('home')
-        ->with('success', 'account verified');
-    }
 }
+

@@ -92,12 +92,23 @@
                                           </div>
                                           <input type="date" class="form-control" name="birthDate" value="" required>
                                       </div>
+                                       <!-- address -->
+                                      <div class="input-group no-border input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" name="unitNo" id="unitNo" placeholder="Unit No." value="">
+                                            <input type="text" class="form-control" name="street" id="street" placeholder="Street" value="">
+                                            <input type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="">
+                                        </div>
                                   <!-- Location dropdown -->
                                         <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
+                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" value="">
                                             <select size="0.4" class="form-control" name="location" id="location" required>
                                                 <option value="" selected disabled>Select your location..</option>
                                                 <optgroup label="Luzon" style="color: black;">
@@ -174,6 +185,7 @@
                                                     <option value="Zamboanga">Zamboanga</option>
                                                 </optgroup>
                                             </select>
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
                                         </div>
                                     <!--Contact number-->
                                         <div class="input-group no-border input-sm">
