@@ -66,13 +66,17 @@ class ModelController extends Controller
                       return redirect()->to($validator->errors());
           
                   }
-                  $contactNo = $request->input('contactNo');
-                  $location = $request->input('location');
-                  $user = user::where('userID', $id)->update(['contactNo' => $contactNo, 'location' => $location]);
+                    $firstName = $request->input('firstName');
+                    $lastName = $request->input('lastName');
+                    $contactNo = $request->input('contactNo');
+                    $address = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
+                    $location = $request->input('location');
+                    $zipcode = $request->input('zipcode');
+
+                    $user = user::where('userID', $id)->update(['contactNo' => $contactNo, 'location' => $location,
+                    'firstName' => $firstName, 'lastName' => $lastName, 'address' => $address, 'zipcode' => $zipcode]);
           
-                  //return view('StellaModel.homepage');
-                  
-                
+
             //return redirect()->back()->with('alert', 'Updated!');
                         $auditlogs = new auditlogs;
                         $auditlogs->userID =  Auth::user()->userID;
@@ -245,7 +249,7 @@ class ModelController extends Controller
     public function emailNotifApplyJob($email)
     {
           
-        $data = array('name' => "Virat Gandhi");
+        $data = array('name' => "ello");
         //'text' => 'mail' :: loob ng () mail
         Mail::send(['html' => 'application'], $data, function ($message) use ($email) {
             $message->to($email, $email)->subject

@@ -103,25 +103,37 @@
                         <!-- First Name -->
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" class="form-control" name="firstName" value="<?php echo e(Auth::user()->firstName); ?>" readonly="true">
+                                    <input type="text" class="form-control" name="firstName" value="<?php echo e(Auth::user()->firstName); ?>" required>
                                 </div>
                         <!-- Last Name -->
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" class="form-control" name="lastName" value="<?php echo e(Auth::user()->lastName); ?>"  readonly="true">
+                                    <input type="text" class="form-control" name="lastName" value="<?php echo e(Auth::user()->lastName); ?>"  required>
                                 </div>
                         <!-- Contact Number -->
                                 <div class="form-group">
                                     <label>Contact Number</label>
-                                    <input type="text" class="form-control" id="contactNo" name="contactNo" required>
+                                    <input type="text" class="form-control" id="contactNo" name="contactNo" value="<?php echo e(Auth::user()->contactNo); ?>" required>
+                                </div>
+                                 <!-- Address -->
+                                <label>Address</label>
+                                 <div class="input-group no-border input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" name="unitNo" id="unitNo" placeholder="Unit No." value="" required>
+                                    <input type="text" class="form-control" name="street" id="street" placeholder="Street" value="" required>
+                                    <input type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="" required>
                                 </div>
                         <!-- Location -->
-                                <label>Location</label>
+                                
                                 <div class="input-group input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
+                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" value="" required>
                                             <select size="0.4" class="form-control" name="location" id="location" required>
                                                 <option value="" selected disabled>Select your location..</option>
                                                 <optgroup label="Luzon" style="color: black;">
@@ -198,6 +210,7 @@
                                                     <option value="Zamboanga">Zamboanga</option>
                                                 </optgroup>
                                             </select>
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="" required>
                                         </div>
                         <!-- Birthday -->
                                 <div class="form-group">

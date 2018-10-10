@@ -132,7 +132,9 @@ class EmployerController extends Controller
             }
             $prjTitle = $request->input('prjTitle');
             $jobDescription = $request->input('jobDescription');
+            $address = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             $location = $request->input('location');
+            $zipCode = $request->input('zipCode');
             $role = $request->input('role');
             $talentFee = $request->input('talentFee');
            // $hidden = $request->input('hidden');
@@ -143,7 +145,7 @@ class EmployerController extends Controller
             $project = project::where('projectID', $projectID)
                 ->update(['prjTitle' => $prjTitle, 'jobDescription' => $jobDescription,
                     'location' => $location, 'role' => $role,
-                    'talentFee' => $talentFee]);
+                    'talentFee' => $talentFee, 'address' => $address, 'zipCode' => $zipCode]);
 
                     $projects = Project::where('projectID', $projectID)->first();
                     // dd($projects);
@@ -206,10 +208,15 @@ class EmployerController extends Controller
                 return redirect()->to($validator->errors());
 
             }
+            $firstName = $request->input('firstName');
+            $lastName = $request->input('lastName');
             $contactNo = $request->input('contactNo');
+            $address = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             $location = $request->input('location');
+            $zipcode = $request->input('zipcode');
 
-            $user = user::where('userID', $id)->update(['contactNo' => $contactNo, 'location' => $location]);
+            $user = user::where('userID', $id)->update(['contactNo' => $contactNo, 'location' => $location,
+            'firstName' => $firstName, 'lastName' => $lastName, 'address' => $address, 'zipcode' => $zipcode]);
 
             //return view('StellaModel.homepage');
 
@@ -351,7 +358,7 @@ class EmployerController extends Controller
 
     public function emailNotifHireModel($email)
     {
-        $data = array('name' => "Virat Gandhi");
+        $data = array('name' => "ello");
         //'text' => 'mail' :: loob ng () mail
         Mail::send(['text' => 'hire'], $data, function ($message) use ($email) {
             $message->to($email, $email)->subject

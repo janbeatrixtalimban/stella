@@ -32,7 +32,7 @@
                         </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link" href="<?php echo e(url('/modelprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                          <img src="<?php echo asset('img/default-profile-pic.png')?>" width="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
                       <li class="nav-item">
@@ -83,21 +83,22 @@
                             <?php echo e(csrf_field()); ?>
 
 
-					<?php if(count($errors) > 0): ?>
-            					<div class="alert alert-danger">
-                					<strong>Whoops!</strong> There were some problems with your input.<br><br>
-                					<ul>
-                    						<?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        					<li><?php echo e($error); ?></li>
-                    						<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                					</ul>
-            					</div>
-        				<?php endif; ?>
+                                <?php if(count($errors) > 0): ?>
+                                    <div class="alert alert-danger">
+                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                        <ul>
+                                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <li><?php echo e($error); ?></li>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
 
-                            <h3>Create Portfolio</h3>
-                               
+                            <br>
+                            <h3>Add Picture to Portfolio</h3><br>
+                            <p>You may add up to 12 of your best photos to the portfolio</p>
                                 <!-- Upload Image -->
-				<div class="input-group input-lg">
+				                    <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>
