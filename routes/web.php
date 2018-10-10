@@ -76,6 +76,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/employerprofile', 'EmployerController@employerProfile');
         Route::get('/employerHome', 'EmployerController@Ehomepage');
         Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
+        Route::post('/employer/archive', 'EmployerController@archiveJobPost');
         Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
         Route::get('/editPost/{id}', 'EmployerController@showProj');
         Route::post('/SaveProj', 'EmployerController@updateProj');

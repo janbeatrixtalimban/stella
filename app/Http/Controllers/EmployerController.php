@@ -156,15 +156,40 @@ class EmployerController extends Controller
         }
     }
 
-    public function Ehomepage()
+    public function archiveJobPost(Request $request)
+    {
+        if (Auth::check()) {
+    
+            $hidden = '0';
+
+            $projectID = $request->get('projectID');
+            // dd($projectID);
+
+            $project = project::where('projectID', $projectID)
+                ->update(['hidden' => $hidden]);
+
+                $projects = Project::where('userID', Auth::user()->userID)->get();
+                $company = company::where('userID', auth::user()->userID)->first();
+    
+                return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
+    
+
+        } else {
+            return ('fail');
+        }
+    }
+
+    public function Ehomepage(Request $request)
     {
         $num = 3;
         $user = User::where('typeID', $num)->get();
-        //dd($user);
+        $userID =  $request->get('userID'); 
+        $details = User::where('typeID', $num)->where('users.userID', $user[0]->userID)->join('attributes', 'attributes.userID', '=', 'users.userID')
+        ->get();
+        //dd($details);
         return view('StellaEmployer.homepage', compact('user'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
 
-        
         //$models = User::latest()->paginate(6);
         //return view('StellaEmployer.homepage', compact('models'))
             //->with('i', (request()->input('page', 1) - 1) * 5);

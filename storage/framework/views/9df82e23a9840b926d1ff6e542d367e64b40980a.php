@@ -109,35 +109,42 @@
                 <div class="col-sm-1"><!--space-->
                 </div>
    
-            <!-- Two Column Display loop of Models Shown-->
-            <?php $__currentLoopData = $user->chunk(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="column">
-            
-              <?php $__currentLoopData = $user; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <div class="col-sm-12">
-                    <div id="model" class="card text-center">
-                        <div class="card-body" style="color:#1b1b1b;">
-                          <h4 class="card-title"><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></h4>
-                            <img src="/uploads/avatars/<?php echo e($user ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
-                          <!--Buttons with icons -->
-                            <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?> " style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                            <a data-toggle="modal" href="#viewattributes" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
-                            
-                            <form class="" action="/employer/hire" method="post">
-                              <?php echo e(csrf_field()); ?>
+<!-- Two Column Display loop of Models Shown-->
+<div class="column">
+  <table>
+      <?php $__currentLoopData = $user->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <tr>
+              <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <td>
+                    <div class="col-sm-12">
+                      <div id="model" class="card text-center">
+                          <div class="card-body" style="color:#1b1b1b;">
+                            <h4 class="card-title"><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></h4>
+                              <img src="/uploads/avatars/<?php echo e($user ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
+                            <!--Buttons with icons -->
+                              <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                              <a data-toggle="modal" href="#viewattributes" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                              <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a> 
+                               <form class="" action="/employer/hire" method="post">
+                                  <?php echo e(csrf_field()); ?>
 
-                              <input style="hidden" text="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
-                              <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Hire</button>
-                            </form>
+                                  <input style="hidden" text="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
+                                  <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Hire</button>
+                                </form>
                           </div>
-                        <div class="card-footer text-muted mb-2">
-                          (Skill Set)
+                          <div class="card-footer text-muted mb-2">
+                            (Skill Set)
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </div>
+                  </td>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </tr>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+  </table>
+</div>
+
+            
 
           <!-- Right Column contents -->
             <div class="col-sm-3">
@@ -191,9 +198,9 @@
       </div><!-- container fluid closing tag-->
 
 
-    <?php $__currentLoopData = $user; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <!-- View model attributes Modal -->
-          <div id="" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+          <div id="<?php echo e($details->userID); ?>" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
@@ -208,10 +215,10 @@
                       <p>Attributes</p>
                       <ul>
                           <li>
-                              <h0>Eye Color</h0>
+                              <h0>Eye Color: </h0>
                           </li>
                           <li>
-                              <h0>Hair Color</h0>
+                              <h0>Hair Color:<?php echo e($details->hairColor); ?> </h0>
                           </li>
                           <li>
                               <h0>Hair Length</h0>
@@ -252,8 +259,12 @@
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
-                              </div>
-                              <button type="button" class="btn btn-success btn-round" data-dismiss="modal">Yes</button>
+                              </div><form class="" action="/employer/hire" method="post">
+                                <?php echo e(csrf_field()); ?>
+
+                                <input type="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
+                                <button type="submit" name="button" class="btn btn-maroon btn-round" data-dismiss="modal">Hire</button>
+                              </form>
                               <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
                             </div>
                           </div>

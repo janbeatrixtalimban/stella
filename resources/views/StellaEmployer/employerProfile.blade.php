@@ -96,7 +96,12 @@
                                 <p class="description">{{ $projects->jobDescription }}</p>
                                 <a data-toggle="modal" data-target="{{$projects->projectID}}" style="color:white;" class="btn btn-maroon btn-round">View Job Post</a>
                                 <a class="btn btn-info btn-round" href={{ url('/editPost/'.$projects->projectID) }}>Edit Post</a>
-                            </div>
+                                <form class="" action="/employer/archive" method="post">
+                                  {{ csrf_field() }}
+                                  <input style="hidden" text="hidden" name="projectID" id="projectID" value="{{$projects->projectID}}" readonly>
+                                  <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Archive</button>
+                                </form>
+                              </div>
                             <div class="card-footer text-muted mb-2">
                             </div>
                         </div>

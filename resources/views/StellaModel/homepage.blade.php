@@ -88,6 +88,7 @@
                 <div class="col-sm-6">
 
                       @foreach ($projects as $project)
+                      @if($project->hidden > 0) 
                         <div id="jobpost" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
                             <h4 class="card-title">{{ $project->prjTitle }}</h4>
@@ -104,6 +105,8 @@
                             {{ $project->created_at->diffForHumans() }}
                           </div>
                         </div>
+                        @else      
+                    @endif
                       @endforeach
 
                     

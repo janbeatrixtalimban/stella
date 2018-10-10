@@ -87,6 +87,7 @@
                 <div class="col-sm-6">
 
                       <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <?php if($project->hidden > 0): ?> 
                         <div id="jobpost" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
                             <h4 class="card-title"><?php echo e($project->prjTitle); ?></h4>
@@ -105,6 +106,8 @@
 
                           </div>
                         </div>
+                        <?php else: ?>      
+                    <?php endif; ?>
                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     
