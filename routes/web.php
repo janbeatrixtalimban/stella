@@ -52,6 +52,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/modelattribute', 'ModelController@viewDetails');
         Route::post('/updateAttribute/{id}', 'ModelController@updateAttributes');
         Route::get('/subscription', 'UserController@subscription');
+        Route::get('/model/viewPortfolio', 'ModelController@viewPortfolio');
 
         Route::get('/gopremium', 'UserController@paypal');
         Route::post('/status/{id}', 'UserController@editStatus');
@@ -67,6 +68,7 @@ Route::group(['middleware' => 'web'], function () {
         //jusss
         //gallery
         Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
+        Route::get('viewviewimage/{id}', 'portfolioController@viewimage');
 
         //Employer
         Route::resource('projects', 'EmployerController');
@@ -91,6 +93,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/admin/dashboard', 'adminController@getDashboard');
         Route::get('/admin/addAdmin', 'adminController@getAddAdmin');
         Route::post('/admin/addAdmin', 'adminController@createAdmin');
+        Route::get('/admin/ViewModel', 'adminController@viewModel');
+        Route::get('/admin/ViewEmployer', 'adminController@viewEmployer');
+        Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
     });
 
     Route::get('/imagegalleryview', function(){

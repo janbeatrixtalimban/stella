@@ -37,7 +37,7 @@
             </a>
           </li>
           <li>
-            <a href="./map.html">
+            <a href="/admin/ViewAuditLog">
               <i class="now-ui-icons files_paper"></i>
               <p>Audit Log</p>
             </a>
@@ -61,9 +61,16 @@
               </a>
             </li>
           <li>
-            <a href="./tables.html">
+            <a href="/admin/ViewModel">
               <i class="now-ui-icons users_single-02"></i>
-              <p>Users</p>
+              <p>Models</p>
+            </a>
+          </li>
+          <li>
+          <li>
+            <a href="/admin/ViewEmployer">
+           <i class="now-ui-icons users_single-02"></i>
+            <p>Employers</p>
             </a>
           </li>
           <li>

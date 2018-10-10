@@ -53,9 +53,8 @@ class loginController extends Controller
                     $num = 3;
                     $user = User::where('typeID', $num)->get();
                     $userID =  $request->get('userID'); 
-                    $details = User::where('typeID', $num)->where('users.userID', $user->userID)->join('attributes', 'attributes.userID', '=', 'users.userID')
-                    ->first();
-
+                    $details = User::where('typeID', $num)->join('attributes', 'attributes.userID', '=', 'users.userID')
+                    ->get();
                     
                    // $user = User::where('typeID', $num)->get();
                    

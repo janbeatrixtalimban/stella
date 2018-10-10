@@ -259,4 +259,11 @@ class ModelController extends Controller
         //echo "Registered! Email Sent. Check your inbox.";
     }
 
+    public function viewPortfolio()
+    {
+        
+            return view('StellaModel.updatePortfolio');
+    }
+          
+
 }

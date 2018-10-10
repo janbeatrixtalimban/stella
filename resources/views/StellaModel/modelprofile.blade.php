@@ -102,8 +102,11 @@
                   <b>Tattoo or Scars:</b> {{$details->tatoo}}<br>
                 </h5>
             </div> 
-            <div class="col-sm-10">
-                <h4 class="title text-center">View My Portfolio</h4>
+            <div class="col-sm-10 text-center">
+              <div style="display:inline;">
+                <h4 class="title">View My Portfolio</h4>
+                <a href="{{ url('/model/viewPortfolio') }}" rel="tooltip" title="Edit Portfolio" >[Edit]</a><br><br>
+              </div>
                 <!-- Portfolio Viewer -->
                 <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:900px;width:900px;border:none;" scrolling="no"></iframe>
             </div>

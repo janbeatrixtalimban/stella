@@ -129,5 +129,40 @@ class adminController extends Controller
         }
          
     }
+    
+
+    //VIEW USERS (employers and models)
+    public function viewModel(Request $request)
+    {
+        $num = 3;
+        $user = User::where('typeID', $num)->get();
+        $userID =  $request->get('userID'); 
+        // $details = User::where('typeID', $num)->where('users.userID', $user->userID)->join('attributes', 'attributes.userID', '=', 'users.userID')
+        // ->get();
+        return view('StellaAdmin.viewModels', compact('user'))
+           ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function viewEmployer(Request $request)
+    {
+        $num = 2;
+        $user = User::where('typeID', $num)->get();
+        $userID =  $request->get('userID'); 
+        $details = User::where('typeID', $num)
+        ->join('companies', 'companies.userID', '=', 'users.userID')
+        ->get();
+    //    dd($details);
+        return view('StellaAdmin.viewEmployers', compact('user'))
+           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
+           
+    }
+
+    public function viewAuditLog()
+    {
+
+        $audit = DB::table('auditlogs')->get();
+
+        return view('StellaAdmin.viewAuditLog', ['audit' => $audit]);
+    }
 
 }

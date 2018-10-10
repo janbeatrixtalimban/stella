@@ -51,6 +51,25 @@ class portfolioController extends Controller
         
     }
 
+    public function viewimage(Request $request, $id)
+    {
+        $user = user::find($id);
+        
+        if (Auth::check()) {
+                  
+            //$images = imgportfolio::get();
+            $images = DB::table('imgportfolios')->select('image')->where('userID', $id)->get();
+            //$user = $images;
+            return view('viewviewimage',compact('images'));
+          
+              }
+              else {
+                  return('fail');
+              }
+        
+        
+    }
+
     public function store(Request $request)
     {
         

@@ -184,9 +184,10 @@ class EmployerController extends Controller
         $num = 3;
         $user = User::where('typeID', $num)->get();
         $userID =  $request->get('userID'); 
-        $details = User::where('typeID', $num)->where('users.userID', $user[0]->userID)->join('attributes', 'attributes.userID', '=', 'users.userID')
+        $details = User::where('typeID', $num)
+        ->join('attributes', 'attributes.userID', '=', 'users.userID')
         ->get();
-        //dd($details);
+        // dd($details);
         return view('StellaEmployer.homepage', compact('user'))
            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
 
