@@ -26,11 +26,11 @@
 
             <!-- Search Bar -->
                   <div class="col-sm-4">
-                      <form action="" method="">
+                      <form action="/find" method="get">
                             {{ csrf_field() }}
                                 <div class="input-group no-border" style="padding-top:10px;" >
-                                    <input name="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
-                                </div>
+                                    <input name="find" id="find" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
+                                  </div>
                   </div>
                   <div class="col-sm-2">
                                 <div class="input-group no-border input-sm">
@@ -38,7 +38,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.4" class="form-control" name="role" id="role" required>
+                                            <select size="0.4" class="form-control" name="searchtype" id="searchtype" required>
                                                 <option value="" selected disabled>Select role of model..</option>
                                                     <option value="Fashion">Fashion(Editorial) model</option>
                                                     <option value="Runway">Runway model</option>
@@ -118,6 +118,9 @@
           <tr>
               @foreach($chunk as $user)
                   <td>
+                    @if($user->typeID == 2)
+                      <div style="display: none;">
+                        @else
                     <div class="col-sm-12">
                       <div id="model" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
@@ -125,7 +128,7 @@
                               <img src="/uploads/avatars/{{ $user ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
                             <!--Buttons with icons -->
                               <a data-toggle="modal" data-target="#{{ $user->userID }}" style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                              <a data-toggle="modal" href="#viewattributes" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                              <a href="{{url('/profile/view/'.$user->userID)}}" target="__blank" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a>
                               <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a> 
                                <form class="" action="/employer/hire" method="post">
                                   {{ csrf_field() }}
@@ -138,7 +141,7 @@
                           </div>
                         </div>
                       </div>
-                  </td>
+                      @endif</div></td>
               @endforeach
           </tr>
       @endforeach

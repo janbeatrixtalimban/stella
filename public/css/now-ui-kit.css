@@ -5819,13 +5819,13 @@ img {
   left: 0;
   top: 0;
   content: "";
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(54, 4, 4, 0.767);
 }
 
 .login-page .card-login {
   border-radius: 0.25rem;
   padding-bottom: 0.7rem;
-  max-width: 320px;
+  max-width: 380px;
 }
 
 .login-page .card-login .btn-wd {

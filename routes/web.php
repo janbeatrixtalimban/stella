@@ -36,6 +36,10 @@ Route::get('/verify/{token}', 'VerifyController@verify')->name('verify');
 Route::get('/registerEmployer', 'UserController@employerRegistration');
 Route::post('registerEmployer', 'UserController@addEmployer');
 
+//SEARCH
+route::get('/search','UserController@search'); //for the model's page
+route::get('/find','UserController@find'); //for the employer's page
+
 Route::group(['middleware' => 'web'], function () {
     //Route::group(['middleware' => 'scope:CommandCenter'], function () {
 
@@ -69,6 +73,8 @@ Route::group(['middleware' => 'web'], function () {
         //gallery
         Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
         Route::get('viewviewimage/{id}', 'portfolioController@viewimage');
+        Route::resource('feedbacks','FeedbackController');
+        Route::get('/leavefeedback', 'FeedbackController@leavefeedback');
 
         //Employer
         Route::resource('projects', 'EmployerController');
@@ -79,6 +85,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/employerHome', 'EmployerController@Ehomepage');
         Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
         Route::post('/employer/archive', 'EmployerController@archiveJobPost');
+        //viewing the model's profile as an employer
+        Route::get('/profile/view/{userID}','UserController@singleView');
         Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
         Route::get('/editPost/{id}', 'EmployerController@showProj');
         Route::post('/SaveProj', 'EmployerController@updateProj');
@@ -100,6 +108,22 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/imagegalleryview', function(){
         return view('/StellaModel/imagegalleryview');
+    });
+
+    Route::get('/home', function(){
+        return view('/StellaHome/home');
+    });
+
+    Route::get('/viewjoboffers', function(){
+        return view('/StellaModel/viewJobOffers');
+    });
+
+    Route::get('/viewapplicants', function(){
+        return view('/StellaEmployer/viewapplicants');
+    });
+
+    Route::get('/viewhaggles', function(){
+        return view('/StellaEmployer/viewHaggleFee');
     });
 });
 

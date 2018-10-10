@@ -86,7 +86,7 @@
                                     Subscribe to Stella Premium today to enjoy more!<br><br>
                                 </p>
                                 <h5><b>Get for P250 monthly</b></h5>
-                                <a href="/gopremium" class="btn btn-maroon btn-round btn-lg">Subscribe</a><br>
+                                <a href="/gopremium" target="_blank" class="btn btn-maroon btn-round btn-lg">Subscribe</a><br>
                                 <a href="/employerHome">No thanks</a>
                             </div>
                             <div class="card-footer text-muted mb-2">

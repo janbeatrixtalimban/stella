@@ -6,6 +6,8 @@ use Twilio;
 use Mail;
 use App\Notifications\VerifyEmail;
 use App\User;
+use DB;
+use App\feedback;
 use App\company;
 use App\auditlogs;
 use App\transactiondetail;
@@ -128,6 +130,61 @@ class UserController extends Controller
         ]);
         $resp = json_decode(curl_exec($ch));
         curl_close($ch);
+
+        //Validators
+        $otherValidator = Validator::make($request->all(), [
+
+            'lastName' => 'required|string|max:50|',
+            'firstName'  => 'required|string|max:50|',
+            'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+            'location' => 'required|string|max:50',
+            'created_at',
+            'updated_at',
+            'token',
+            'filePath',
+        ]);
+
+        $birthdateValidator = Validator::make($request->all(), [
+             
+            'birthDate' => 'required|before:18 years ago',     
+
+        ]);
+
+        $emailValidator = Validator::make($request->all(), [
+                      
+            'emailAddress' => 'required|email|unique:users,emailAddress',
+
+        ]);
+
+        $passwordValidator = Validator::make($request->all(), [
+                      
+            'password' => 'required|string|min:6',
+            'confirmpassword' => 'required|same:password',
+
+        ]);
+        
+                //error messages if validation fails
+                if ($birthdateValidator->fails()) {
+                    $errormsg = "Oops. You have to be 18 years old or older to register with Stella.";
+                    return redirect()->back()->with('failure', $errormsg);
+
+                } 
+                
+                else if ($otherValidator->fails()) {
+                    $errormsg = "Oops. Something went wrong with your registration.";
+                    return redirect()->back()->with('failure', $errormsg);
+                }
+
+                else if ($emailValidator->fails()) {
+                    $errormsg = "Oops. That email is already registered with Stella.";
+                    return redirect()->back()->with('failure', $errormsg);
+                } 
+                
+                else if ($passwordValidator->fails()) {
+                    $errormsg = "Oops. Your passwords do not match.";
+                    return redirect()->back()->with('failure', $errormsg);
+                }
+                
         if ($resp->success) 
         {
             $input = $request->all();
@@ -232,6 +289,39 @@ class UserController extends Controller
         //     return "FAILED";
         }
     }
+    	    //SEARCH
+   	    //searching for jobs
+   	    public function search(Request $request) 
+    	    {
+   	        $search = $request->get('search');
+   	        $searchtype = $request->get('searchtype');
+            $projects = DB::table('projects')->where('role', 'like', '%'.$searchtype.'%')->where('jobDescription', 'like', '%'.$search.'%')->orWhere('prjTitle', 'like', '%'.$search.'%')->paginate(5);
+   	        
+    	        return view('StellaModel.homepage', ['projects' => $projects]);                    
+   	    }
+    	    //searching for models
+    	    public function find(Request $request)
+    	    {
+                $num = 3;
+                $details = User::where('typeID', $num)->join('attributes', 'attributes.userID', '=', 'users.userID')
+                    ->get();
+    	        $find = $request->get('find');
+   	        $searchtype = $request->get('searchtype');
+    	        $user = DB::table('users')->where('firstName', 'like', '%'.$find.'%')->orWhere('lastName', 'like', '%'.$find.'%')->paginate(5);
+    	        
+                //return view('StellaEmployer.homepage', ['user' => $user]);    
+                return view('StellaEmployer.homepage', compact('user'))
+           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);                
+        }
+    	    //VIEWING A MODEL'S PROFILE
+    	    public function singleView($userID)
+    	    {
+    	        $user = User::where('userID', $userID)->first();
+    	        $details = attribute::where('userID', $user->userID)->first();
+    	        $feedback = feedback::where('reciever', $user->userID)->paginate(5);
+    	        //dd($feedback);
+    	        return view('StellaModel.singleView', compact('user'))->with('details', $details)->with('feedback', $feedback);
+            }
 
     public function basic_email($email)
     {

@@ -35,7 +35,7 @@
                         <div style="width: 200px;" class="logo-container">
                             <img src="<?php echo asset('img/logo_white.png')?>">
                         </div>
-                        <h3 class="h3-seo">Employer Registration</h3>
+                        <h3 class="h3-seo">Employer Registration</h3><br>
                       </div>
                   </div>
               </div>
@@ -49,20 +49,17 @@
             <form class="" action="/registerEmployer" method="post" enctype="multipart/form-data">
                 <?php echo e(csrf_field()); ?>
 
-                            <?php if($errors->any()): ?>
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <li><?php echo e($error); ?></li>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </ul>
+                            <?php if(\Session::has('failure')): ?>
+                                <div class="alert alert-danger" role="alert">
+                                <?php echo \Session::get('failure'); ?>
+
                                 </div>
-                             <?php endif; ?>
+                            <?php endif; ?>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <div class="form-group">
                             <h4>Employer Information</h4>
                             <!-- Employer Form (fields) -->
@@ -91,7 +88,16 @@
                                           </div>
                                           <input type="date" class="form-control" name="birthDate" value="" required>
                                       </div>
-                                      <!-- address -->
+                                      <!--Contact number-->
+                                      <div class="input-group no-border input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
+                                        </div><br>
+                                <!-- Address line 1 -->
+                                    <label for="address"><b>Full Address</b></label>
                                       <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -101,15 +107,15 @@
                                             <input type="text" class="form-control" name="street" id="street" placeholder="Street" value="">
                                             <input type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="">
                                         </div>
-                                  <!-- Location dropdown -->
-                                  <div class="input-group no-border input-sm">
+                                  <!-- Address line 2 dropdown -->
+                                        <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" value="">
-                                            <select size="0.4" class="form-control" name="location" id="location" required>
-                                                <option value="" selected disabled>Select your location..</option>
+                                        <!--Province-->
+                                        <select size="0.4" class="form-control" name="location" id="location" required>
+                                                <option value="" selected disabled>Province..</option>
                                                 <optgroup label="Luzon" style="color: black;">
                                                     <option value="Abra">Abra</option>
                                                     <option value="Albay">Albay</option>
@@ -184,17 +190,244 @@
                                                     <option value="Zamboanga">Zamboanga</option>
                                                 </optgroup>
                                             </select>
+                                        <!-- City -->
+                                            <select size="0.4" class="form-control" name="city" id="city" required>
+                                                <option value="" selected disabled>City..</option>
+                                                <optgroup label="Pangasinan" style="color: black;">
+                                                    <option value="Alaminos City">Alaminos City</option>
+                                                    <option value="Dagupan City">Dagupan City</option>
+                                                    <option value="San Carlos City">San Carlos City</option>
+                                                    <option value="Urdaneta City">Urdaneta City</option>
+                                                </optgroup>
+                                                <optgroup label="Pampanga" style="color: black;">
+                                                    <option value="Angeles City">Angeles City</option>
+                                                    <option value="Mabalacat City">Mabalacat City</option>
+                                                    <option value="San Fernando City">San Fernando City</option>
+                                                </optgroup>
+                                                <optgroup label="Rizal" style="color: black;">
+                                                    <option value="Antipolo City">Antipolo City</option>
+                                                </optgroup>
+                                                <optgroup label="Cavite" style="color: black;">
+                                                    <option value="Bacoor City">Bacoor City</option>
+                                                    <option value="Cavite City">Cavite City</option>
+                                                    <option value="Dasmarinas City">Dasmarinas City</option>
+                                                    <option value="General Trias City">General Trias City</option>
+                                                    <option value="Imus City">Imus City</option>
+                                                    <option value="Tagaytay City">Tagaytay City</option>
+                                                    <option value="Trece Martires City">Trece Martires City</option>
+                                                </optgroup>
+                                                <optgroup label="Benguet" style="color: black;">
+                                                    <option value="Baguio City">Baguio City</option>
+                                                </optgroup>
+                                                <optgroup label="Bataan" style="color: black;">
+                                                    <option value="Balanga City">Balanga City</option>
+                                                </optgroup>
+                                                <optgroup label="Ilocos" style="color: black;">
+                                                    <option value="Candon City">Candon City</option>
+                                                    <option value="Laoag City">Laoag City</option>
+                                                    <option value="Vigan City">Vigan City</option>
+                                                </optgroup>
+                                                <optgroup label="Batangas" style="color: black;">
+                                                    <option value="Batangas City">Batangas City</option>
+                                                    <option value="Lipa City">Lipa City</option>
+                                                    <option value="Tanauan City">Tanauan City</option>
+                                                </optgroup>
+                                                <optgroup label="Laguna" style="color: black;">
+                                                    <option value="Binan City">Binan City</option>
+                                                    <option value="Cabuyao City">Cabuyao City</option>
+                                                    <option value="Calamba City">Calamba City</option>
+                                                    <option value="San Pablo City">San Pablo City</option>
+                                                    <option value="San Pedro City">San Pedro City</option>
+                                                    <option value="Santa Rosa City">Santa Rosa City</option>
+                                                </optgroup>
+                                                <optgroup label="Nueva Ecija" style="color: black;">
+                                                    <option value="Cabanatuan City">Cabanatuan City</option>
+                                                    <option value="Gapan City">Gapan City</option>
+                                                    <option value="Munoz City">Munoz City</option>
+                                                    <option value="San Jose City">San Jose City</option>
+                                                    <option value="Palayan City">Palayan City</option>
+                                                </optgroup>   
+                                                <optgroup label="Mindoro" style="color: black;">
+                                                    <option value="Calapan City">Calapan City</option>
+                                                </optgroup>   
+                                                <optgroup label="Metro Manila" style="color: black;">
+                                                    <option value="Caloocan City">Caloocan City</option>
+                                                    <option value="Las Pinas City">Las Pinas City</option>
+                                                    <option value="Makati City">Makati City</option>
+                                                    <option value="Malabon City">Malabon City</option>
+                                                    <option value="Mandaluyong City">Mandaluyong City</option>
+                                                    <option value="Manila City">Manila City</option>
+                                                    <option value="Marikina City">Marikina City</option>
+                                                    <option value="Muntinlupa City">Muntinlupa City</option>
+                                                    <option value="Navotas City">Navotas City</option>
+                                                    <option value="Paranaque City">Paranaque City</option>
+                                                    <option value="Pasay City">Pasay City</option>
+                                                    <option value="Pasig City">Pasig City</option>
+                                                    <option value="Quezon City">Quezon City</option>
+                                                    <option value="San Juan City">San Juan City</option>
+                                                    <option value="Taguig City">Taguig City</option>
+                                                    <option value="Valenzuela City">Valenzuela City</option>
+                                                </optgroup>   
+                                                <optgroup label="Isabela" style="color: black;">
+                                                    <option value="Cauayan City">Cauayan City</option>
+                                                    <option value="Ilagan City">Ilagan City</option>
+                                                    <option value="Santiago City">Santiago City</option>
+                                                </optgroup>  
+                                                <optgroup label="Camarines" style="color: black;">
+                                                    <option value="Iriga City">Iriga City</option>
+                                                    <option value="Naga City">Naga City</option>
+                                                </optgroup> 
+                                                <optgroup label="Albay" style="color: black;">
+                                                    <option value="Legazpi City">Legazpi City</option>
+                                                    <option value="Ligao City">Ligao City</option>
+                                                    <option value="Tabaco City">Tabaco City</option>
+                                                </optgroup> 
+                                                <optgroup label="Quezon" style="color: black;">  
+                                                    <option value="Lucena City">Lucena City</option>
+                                                    <option value="Tayabas City">Tayabas City</option>
+                                                </optgroup>    
+                                                <optgroup label="Bulacan" style="color: black;">  
+                                                    <option value="Malolos City">Malolos City</option>
+                                                    <option value="Meycauayan City">Meycauayan City</option>
+                                                    <option value="San Jose del Monte City">San Jose del Monte City</option>
+                                                </optgroup>  
+                                                <optgroup label="Masbate" style="color: black;">  
+                                                    <option value="Masbate City">Masbate City</option>
+                                                </optgroup>   
+                                                <optgroup label="Zambales" style="color: black;">  
+                                                    <option value="Olongapo City">Olongapo City</option>
+                                                </optgroup>   
+                                                <optgroup label="Palawan" style="color: black;">  
+                                                    <option value="Puerta Princesa City">Puerta Princesa City</option>
+                                                </optgroup>    
+                                                <optgroup label="Sorsogon" style="color: black;">  
+                                                    <option value="Sorsogon City">Sorsogon City</option>
+                                                </optgroup> 
+                                                <optgroup label="Kalinga" style="color: black;">  
+                                                    <option value="Tabuk City">Tabuk City</option>
+                                                </optgroup>
+                                                <optgroup label="Tarlac" style="color: black;">  
+                                                    <option value="Tarlac City">Tarlac City</option>
+                                                </optgroup>
+                                                <optgroup label="Cagayan" style="color: black;">  
+                                                    <option value="Tuguegarao City">Tuguegarao City</option>
+                                                </optgroup>
+                                                <optgroup label="Negros" style="color: black;">
+                                                    <option value="Bacolod City">Bacolod City</option>
+                                                    <option value="Bago City">Bago City</option>
+                                                    <option value="Bais City">Bais City</option>
+                                                    <option value="Bayawan City">Bayawan City</option>
+                                                    <option value="Cadiz City">Cadiz City</option>
+                                                    <option value="Canlaon City">Canlaon City</option>
+                                                    <option value="Dumaguete City">Dumaguete City</option>
+                                                    <option value="Escalante City">Escalante City</option>
+                                                    <option value="Guihulngan City">Guihulngan City</option>
+                                                    <option value="Himamaylan City">Himamaylan City</option>
+                                                    <option value="Kabankalan City">Kabankalan City</option>
+                                                    <option value="La Carlota City">La Carlota City</option>
+                                                    <option value="Sagay City">Sagay City</option>
+                                                    <option value="San Carlos City">San Carlos City</option>
+                                                    <option value="Silay City">Silay City</option>
+                                                    <option value="Sipalay City">Sipalay City</option>
+                                                    <option value="Talisay City">Talisay City</option>
+                                                    <option value="Tanjay City">Tanjay City</option>
+                                                    <option value="Victorias City">Victorias City</option>
+                                                </optgroup>
+                                                <optgroup label="Leyte" style="color: black;">
+                                                    <option value="Baybay City">Baybay City</option>
+                                                    <option value="Ormoc City">Ormoc City</option>
+                                                    <option value="Tacloban City">Tacloban City</option>
+                                                </optgroup>
+                                                <optgroup label="Samar" style="color: black;">
+                                                    <option value="Borongan City">Borongan City</option>
+                                                    <option value="Calbayog City">Calbayog City</option>
+                                                    <option value="Calbayog City">Catbalogan City</option>
+                                                </optgroup>
+                                                <optgroup label="Cebu" style="color: black;">
+                                                    <option value="Carcar City">Carcar City</option>
+                                                    <option value="Toledo City">Toledo City</option>
+                                                    <option value="Cebu City">Cebu City</option>
+                                                    <option value="Danao City">Danao City</option>
+                                                    <option value="Lapu-Lapu City">Lapu-Lapu City</option>
+                                                    <option value="Mandaue City">Mandaue City</option>
+                                                    <option value="Naga City">Naga City</option>
+                                                    <option value="Toledo City">Toledo City</option>
+                                                    <option value="Bogo City">Bogo City</option>
+                                                </optgroup>
+                                                <optgroup label="Iloilo" style="color: black;">
+                                                    <option value="Iloilo City">Iloilo City</option>
+                                                    <option value="Passi City">Passi City</option>
+                                                </optgroup>
+                                                <optgroup label="Leyte" style="color: black;">
+                                                    <option value="Maasin City">Maasin City</option>
+                                                </optgroup>
+                                                <optgroup label="Capiz" style="color: black;">
+                                                    <option value="Roxas City">Roxas City</option>
+                                                </optgroup>
+                                                <optgroup label="Bohol" style="color: black;">
+                                                    <option value="Tagbilaran City">Tagbilaran City</option>
+                                                </optgroup>
+                                                <optgroup label="Agusan" style="color: black;">
+                                                    <option value="Bayugan City">Bayugan City</option>
+                                                    <option value="Butuan City">Butuan City</option>
+                                                    <option value="Cabadbaran City">Cabadbaran City</option>
+                                                </optgroup>
+                                                <optgroup label="Surigao" style="color: black;">
+                                                    <option value="Bislig City">Bislig City</option>
+                                                </optgroup>
+                                                <optgroup label="Misamis" style="color: black;">
+                                                    <option value="Cagayan de Oro City">Cagayan de Oro City</option>
+                                                    <option value="El Salvador City">El Salvador City</option>
+                                                    <option value="Gingoog City">Gingoog City</option>
+                                                    <option value="Oroquieta City">Oroquieta City</option>
+                                                    <option value="Ozamiz City">Ozamiz City</option>
+                                                    <option value="Tangub City">Tangub City</option>
+                                                </optgroup>
+                                                <optgroup label="Maguindanao" style="color: black;">
+                                                    <option value="Cotabato City">Cotabato City</option>
+                                                </optgroup>
+                                                <optgroup label="Zamboanga" style="color: black;">
+                                                    <option value="Dapitan City">Dapitan City</option>
+                                                    <option value="Dipolog City">Dipolog City</option>
+                                                    <option value="Pagadian City">Pagadian City</option>
+                                                    <option value="Zamboanga City">Zamboanga City</option>
+                                                </optgroup>
+                                                <optgroup label="Davao" style="color: black;">
+                                                    <option value="Davao City">Davao City</option>
+                                                    <option value="Digos City">Digos City</option>
+                                                    <option value="Mati City">Mati City</option>
+                                                    <option value="Panabo City">Panabo City</option>
+                                                    <option value="Samal City">Samal City</option>
+                                                    <option value="Tagum City">Tagum City</option>
+                                                </optgroup>
+                                                <optgroup label="Cotabato" style="color: black;">
+                                                    <option value="General Santos City">General Santos City</option>
+                                                    <option value="Kidapawan City">Kidapawan City</option>
+                                                    <option value="Koronadal City">Koronadal City</option>
+                                                </optgroup>
+                                                <optgroup label="Lanao" style="color: black;">
+                                                    <option value="Iligan City">Iligan City</option>
+                                                    <option value="Marawi City">Marawi City</option>
+                                                </optgroup>
+                                                <optgroup label="Basilan" style="color: black;">
+                                                    <option value="Isabela City">Isabela City</option>
+                                                    <option value="Lamitan City">Lamitan City</option>
+                                                </optgroup>
+                                                <optgroup label="Bukidnon" style="color: black;">
+                                                    <option value="Malaybalay City">Malaybalay City</option>
+                                                    <option value="Valencia City">Valencia City</option>
+                                                </optgroup>
+                                                <optgroup label="Surigao" style="color: black;">
+                                                    <option value="Surigao City">Surigao City</option>
+                                                    <option value="Tandag City">Tandag City</option>
+                                                </optgroup>
+                                                <optgroup label="Sultan Kudarat" style="color: black;">
+                                                    <option value="Tacurong City">Tacurong City</option>
+                                                </optgroup>
+                                            </select>
+                                        <!--Zip Code-->
                                             <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
-                                        </div>
-                                    <!--Contact number-->
-                                        <div class="input-group no-border input-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
-                                        </div>
-                                        <br>
+                                        </div><br>
                                     <!-- Valid ID -->
                                         <label for="validId"><b>Valid Government Company Document</b></label>
                                           <div class="input-group no-border input-sm">
@@ -212,7 +445,7 @@
                     <!-- End of left Column -->
                
                     <!-- Right Column Contents -->
-                    <div class="col-sm-4">
+                    <div class="col-sm-5">
                         <div class="form-group">
                         <h4>Company Information</h4>
                             <!-- Employer Form (fields) -->
@@ -233,7 +466,7 @@
                                               </span>
                                           </div>
                                           <input type="text" class="form-control" name="position" id="position" placeholder="Position" value="" required>
-                                </div>
+                                </div><br>
                           <h4>Log In Credentials</h4>
                             <!--Email-->
                                 <div class="input-group no-border input-sm">
@@ -260,7 +493,7 @@
                                 <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required>
                                 </div> 
                                 <br>
-                            <!--hidden avatar field -->
+                            <!--Hidden avatar field -->
                                 <input type="hidden" name="avatar" id="avatar" value="default.png" required>
                           <!-- ReCaptcha-->
                                 <div class="d-flex justify-content-center">
@@ -268,16 +501,16 @@
                                 </div>
                                 <br><br>
                             <!-- Register/submit button -->
-                                <input type="checkbox" name="tnc" value="1" required> I agree with the <a data-toggle="modal" href="#termsandconditions" style="color:black;">terms and conditions</a>
+                                <input type="checkbox" name="tnc" value="1" required> I agree with the <a data-toggle="modal" href="#termsandconditions" style="color:black;">terms and conditions</a><br>
                                 <br>
                                 <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Register</button>
                                     <hc>
-                                        <a href="<?php echo e(url('/stellahome')); ?>" class="link" style="padding:10px;">Cancel</a>
+                                        <a href="<?php echo e(url('/home')); ?>" class="link" style="padding:10px;">Cancel</a>
                                     </hc>
                             </div> 
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1">
                     </div>
                     <!-- End of Right column -->  
             

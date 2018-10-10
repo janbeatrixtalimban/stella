@@ -23,15 +23,18 @@
 
             <!-- Search Bar -->
                   <div class="col-sm-6">
-                      <form action="" method="">
+                      <form action="/search" method="get">
                             <?php echo e(csrf_field()); ?>
 
                                 <div class="input-group no-border" style="padding-top:10px;" >
-                                    <input name="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
-                                </div>
-                  </div>
-                            <button type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_zoom-bold"></i></button>
+                                    <input name="search" type="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
+                                  <br>
+
+                                  <span class="input-group-prepend">
+                                      <button type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_zoom-bold"></i></button>
+                                  </span></div>
                       </form>
+                  </div>
 
                 <div class="col-sm-1">
                 </div>
@@ -92,17 +95,17 @@
                           <div class="card-body" style="color:#1b1b1b;">
                             <h4 class="card-title"><?php echo e($project->prjTitle); ?></h4>
                             <p class="card-text"><?php echo e($project->jobDescription); ?></p>
-                            <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
                             
                             <form class="" action="/model/apply" method="post">
                               <?php echo e(csrf_field()); ?>
 
-                              <input style="hidden" text="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
-                              <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Apply</button>
+                              <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
+                              <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
+                              <button type="submit" name="button" class="btn btn-info btn-round" >Apply</button>
                             </form>
                           </div>
                           <div class="card-footer text-muted mb-2">
-                            <?php echo e($project->created_at->diffForHumans()); ?>
+                            <?php echo e($project->created_at); ?>
 
                           </div>
                         </div>
@@ -186,7 +189,7 @@
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title"><?php echo e($project->prjTitle); ?></h4>
-                          <h0>Posted <?php echo e($project->created_at->diffForHumans()); ?> <h0>
+                          <h0>Posted <?php echo e($project->created_at); ?> <h0>
                       </div>
                     </div>
                     <div class="modal-body">
