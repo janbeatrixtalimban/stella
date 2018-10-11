@@ -111,13 +111,20 @@
                                       </div>
                                 <!-- ModelNo -->
                                 <label>Number of Models needed:</label>
-                                <div class="input-group input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control" name="modelNo" id="modelNo" placeholder="Number of Models needed" value="">
-                              </div><br>
+                               <div class="input-group input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <select size="0.4" class="form-control" name="modelNo" id="modelNo" required>
+                                    <option value="" selected disabled>Select Number of Models..</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                </select>
+                            </div><br>
                               <!-- Address line 1 -->
                               <label for="address">Full Address</label>
                               <div class="input-group input-sm">
@@ -505,7 +512,7 @@
                                     </span>
                                 </div>
                                 <select size="0.4" class="form-control" name="bodyBuilt" id="bodyBuilt" required>
-                                    <option value="" selected disabled>Select Body Buikt</option>
+                                    <option value="" selected disabled>Select Body Built</option>
                                         <option value="Petite">Petite</option>
                                         <option value="Slim">Slim</option>
                                         <option value="Athletic">Athletic</option>

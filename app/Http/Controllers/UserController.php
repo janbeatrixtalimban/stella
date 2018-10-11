@@ -138,6 +138,7 @@ class UserController extends Controller
             'firstName'  => 'required|string|max:50|',
             'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
             'location' => 'required|string|max:50',
+            'skill' => 'required|string|max:50',
             'created_at',
             'updated_at',
             'token',
@@ -253,6 +254,63 @@ class UserController extends Controller
         ]);
         $resp = json_decode(curl_exec($ch));
         curl_close($ch);
+
+        //Validators
+        $otherValidator = Validator::make($request->all(), [
+
+            'lastName' => 'required|string|max:50|',
+            'firstName'  => 'required|string|max:50|',
+            'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+            'location' => 'required|string|max:50',
+            'name' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'position' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'created_at',
+            'updated_at',
+            'token',
+            'filePath',
+        ]);
+
+        $birthdateValidator = Validator::make($request->all(), [
+             
+            'birthDate' => 'required|before:18 years ago',     
+
+        ]);
+
+        $emailValidator = Validator::make($request->all(), [
+                      
+            'emailAddress' => 'required|email|unique:users,emailAddress',
+
+        ]);
+
+        $passwordValidator = Validator::make($request->all(), [
+                      
+            'password' => 'required|string|min:6',
+            'confirmpassword' => 'required|same:password',
+
+        ]);
+        
+                //error messages if validation fails
+                if ($birthdateValidator->fails()) {
+                    $errormsg = "Oops. You have to be 18 years old or older to register with Stella.";
+                    return redirect()->back()->with('failure', $errormsg);
+
+                } 
+                
+                else if ($otherValidator->fails()) {
+                    $errormsg = "Oops. Something went wrong with your registration.";
+                    return redirect()->back()->with('failure', $errormsg);
+                }
+
+                else if ($emailValidator->fails()) {
+                    $errormsg = "Oops. That email is already registered with Stella.";
+                    return redirect()->back()->with('failure', $errormsg);
+                } 
+                
+                else if ($passwordValidator->fails()) {
+                    $errormsg = "Oops. Your passwords do not match.";
+                    return redirect()->back()->with('failure', $errormsg);
+                }
+
         if ($resp->success) {
             $input = $request->all();
             $input['password'] = Hash::make($input['password']);

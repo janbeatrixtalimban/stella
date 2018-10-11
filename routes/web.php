@@ -63,7 +63,7 @@ Route::group(['middleware' => 'web'], function () {
 
         //avatar
         Route::post('/avatarupload', 'ModelController@storeAvatar');
-       // Route::post('/eavatarupload', 'EmployerController@EstoreAvatar');
+        Route::post('/eavatarupload', 'EmployerController@EstoreAvatar');
 
         //application (model to employer)
         Route::post('/model/apply', 'ModelController@applyJobPost');

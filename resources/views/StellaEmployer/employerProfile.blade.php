@@ -94,12 +94,12 @@
                             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
                                 <h4 class="title">{{ $projects->prjTitle }}</h4>
                                 <p class="description">{{ $projects->jobDescription }}</p>
-                                <a data-toggle="modal" data-target="{{$projects->projectID}}" style="color:white;" class="btn btn-maroon btn-round">View Job Post</a>
-                                <a class="btn btn-info btn-round" href={{ url('/editPost/'.$projects->projectID) }}>Edit Post</a>
                                 <form class="" action="/employer/archive" method="post">
                                   {{ csrf_field() }}
-                                  <input style="hidden" text="hidden" name="projectID" id="projectID" value="{{$projects->projectID}}" readonly>
-                                  <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Archive</button>
+                                  <a data-toggle="modal" data-target="#{{$projects->projectID}}" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
+                                  <a class="btn btn-info btn-round" href={{ url('/editPost/'.$projects->projectID) }}>Edit Post</a>
+                                  <input type="hidden" name="projectID" id="projectID" value="{{$projects->projectID}}" readonly>
+                                  <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">

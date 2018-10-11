@@ -57,7 +57,8 @@ class ModelController extends Controller
         $user = user::find($id);
         if (Auth::check()) {
                   $validator = Validator::make($request->all(), [
-                      
+
+                      'skill' => 'required|string|max:50',
                       'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
                       'location' => 'required',
                       'updated_at',
@@ -69,12 +70,12 @@ class ModelController extends Controller
                     $firstName = $request->input('firstName');
                     $lastName = $request->input('lastName');
                     $contactNo = $request->input('contactNo');
+                    $skill = $request->input('skill');
                     $address = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
                     $location = $request->input('location');
                     $zipcode = $request->input('zipcode');
 
-                    $user = user::where('userID', $id)->update(['contactNo' => $contactNo, 'location' => $location,
-                    'firstName' => $firstName, 'lastName' => $lastName, 'address' => $address, 'zipcode' => $zipcode]);
+                    $user = user::where('userID', $id)->update(['contactNo' => $contactNo, 'location' => $location,'skill' => $skill, 'firstName' => $firstName, 'lastName' => $lastName, 'address' => $address, 'zipcode' => $zipcode]);
           
 
             //return redirect()->back()->with('alert', 'Updated!');

@@ -24,16 +24,13 @@
                 </div>
 
             <!-- Search Bar -->
-                  <div class="col-sm-6">
-                      <form action="/search" method="get">
+                  <div class="col-sm-6" style="padding-top:10px;">
+                      <form class="form-inline" action="/search" method="get">
                             {{ csrf_field() }}
-                                <div class="input-group no-border" style="padding-top:10px;" >
+                            <div class="input-group no-border input-sm">
                                     <input name="search" type="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
-                                  <br>
-
-                                  <span class="input-group-prepend">
-                                      <button type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_zoom-bold"></i></button>
-                                  </span></div>
+                            </div>
+                                <button type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_zoom-bold"></i></button>
                       </form>
                   </div>
 

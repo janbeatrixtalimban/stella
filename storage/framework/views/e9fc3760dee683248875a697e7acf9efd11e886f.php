@@ -92,13 +92,13 @@
                             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
                                 <h4 class="title"><?php echo e($projects->prjTitle); ?></h4>
                                 <p class="description"><?php echo e($projects->jobDescription); ?></p>
-                                <a data-toggle="modal" data-target="<?php echo e($projects->projectID); ?>" style="color:white;" class="btn btn-maroon btn-round">View Job Post</a>
-                                <a class="btn btn-info btn-round" href=<?php echo e(url('/editPost/'.$projects->projectID)); ?>>Edit Post</a>
                                 <form class="" action="/employer/archive" method="post">
                                   <?php echo e(csrf_field()); ?>
 
-                                  <input style="hidden" text="hidden" name="projectID" id="projectID" value="<?php echo e($projects->projectID); ?>" readonly>
-                                  <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Archive</button>
+                                  <a data-toggle="modal" data-target="#<?php echo e($projects->projectID); ?>" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
+                                  <a class="btn btn-info btn-round" href=<?php echo e(url('/editPost/'.$projects->projectID)); ?>>Edit Post</a>
+                                  <input type="hidden" name="projectID" id="projectID" value="<?php echo e($projects->projectID); ?>" readonly>
+                                  <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">

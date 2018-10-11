@@ -5,7 +5,7 @@
 </head>
 <body>
  
-<p>You have a job offering waiting! pls check your Stella Account</p>
+<p>You have an applicant on your job post waiting! pls check your Stella Account</p>
 
 </body>
 </html>

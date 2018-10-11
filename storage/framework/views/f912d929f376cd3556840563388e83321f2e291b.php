@@ -106,7 +106,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="eyeColor" id="eyeColor" value="<?php echo e($details->eyeColor); ?>" required>
+                                            <select size="0.5" class="form-control" name="eyeColor" id="eyeColor" required>
                                                 <option value="" selected disabled><?php echo e($details->eyeColor); ?></option>
                                                     <option value="Brown">Brown</option>
                                                     <option value="Hazel">Hazel</option>
@@ -147,7 +147,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="hairLength" id="hairLength" value="<?php echo e($details->hairLength); ?>" required>
+                                            <select size="0.5" class="form-control" name="hairLength" id="hairLength" required>
                                                 <option value="" selected disabled><?php echo e($details->hairLength); ?> </option>
                                                     <option value="Bald">Bald</option>
                                                     <option value="Boy Cut">Boy Cut</option>
@@ -164,7 +164,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="weight" value="<?php echo e($details->weight); ?>" placeholder="Weight in pounds" required>
+                                            <input type="text" class="form-control" name="weight" value="<?php echo e($details->weight); ?>" placeholder="Weight in pounds">
                                         </div>
                                 <!--Height-->
                                 <label>Height (cm)</label>
@@ -173,7 +173,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="height" value="<?php echo e($details->height); ?>" placeholder="Height in cm" required>
+                                            <input type="text" class="form-control" name="height" value="<?php echo e($details->height); ?>" placeholder="Height in cm">
                                         </div>
                                 <!--Waist-->
                                 <label>Waist (inch)</label>
@@ -182,7 +182,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="waist" value="<?php echo e($details->waist); ?>" placeholder="Waist in cm" required>
+                                            <input type="text" class="form-control" name="waist" value="<?php echo e($details->waist); ?>" placeholder="Waist in cm">
                                         </div>
                                 <!--hips-->
                                 <label>Hips (inch)</label>
@@ -191,7 +191,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="hips" value="<?php echo e($details->hips); ?>" placeholder="Hips in cm" required>
+                                            <input type="text" class="form-control" name="hips" value="<?php echo e($details->hips); ?>" placeholder="Hips in cm">
                                         </div>
                                 
                         </div>

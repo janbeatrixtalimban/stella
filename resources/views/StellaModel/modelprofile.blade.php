@@ -61,7 +61,7 @@
           <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
         </div>
         <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
-        <p class="category">(Skill Set)</p>
+        <p class="category">{{ Auth::user()->skill}}</p>
         <div class="content">
           <div class="social-description">
             <h5>{{ Auth::user()->birthDate}}</h5>

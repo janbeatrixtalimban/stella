@@ -107,7 +107,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="eyeColor" id="eyeColor" value="{{$details->eyeColor}}" required>
+                                            <select size="0.5" class="form-control" name="eyeColor" id="eyeColor" required>
                                                 <option value="" selected disabled>{{$details->eyeColor}}</option>
                                                     <option value="Brown">Brown</option>
                                                     <option value="Hazel">Hazel</option>
@@ -148,7 +148,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="hairLength" id="hairLength" value="{{$details->hairLength}}" required>
+                                            <select size="0.5" class="form-control" name="hairLength" id="hairLength" required>
                                                 <option value="" selected disabled>{{$details->hairLength}} </option>
                                                     <option value="Bald">Bald</option>
                                                     <option value="Boy Cut">Boy Cut</option>
@@ -165,7 +165,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="weight" value="{{$details->weight}}" placeholder="Weight in pounds" required>
+                                            <input type="text" class="form-control" name="weight" value="{{$details->weight}}" placeholder="Weight in pounds">
                                         </div>
                                 <!--Height-->
                                 <label>Height (cm)</label>
@@ -174,7 +174,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="height" value="{{$details->height}}" placeholder="Height in cm" required>
+                                            <input type="text" class="form-control" name="height" value="{{$details->height}}" placeholder="Height in cm">
                                         </div>
                                 <!--Waist-->
                                 <label>Waist (inch)</label>
@@ -183,7 +183,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="waist" value="{{$details->waist}}" placeholder="Waist in cm" required>
+                                            <input type="text" class="form-control" name="waist" value="{{$details->waist}}" placeholder="Waist in cm">
                                         </div>
                                 <!--hips-->
                                 <label>Hips (inch)</label>
@@ -192,7 +192,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="hips" value="{{$details->hips}}" placeholder="Hips in cm" required>
+                                            <input type="text" class="form-control" name="hips" value="{{$details->hips}}" placeholder="Hips in cm">
                                         </div>
                                 
                         </div>

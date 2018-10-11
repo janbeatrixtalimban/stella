@@ -36,7 +36,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.4" class="form-control" name="searchtype" id="searchtype" required>
+                                            <select size="0.4" class="form-control" name="searchtype" id="searchtype">
                                                 <option value="" selected disabled>Select role of model..</option>
                                                     <option value="Fashion">Fashion(Editorial) model</option>
                                                     <option value="Runway">Runway model</option>
@@ -125,18 +125,18 @@
                             <h4 class="card-title"><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></h4>
                               <img src="/uploads/avatars/<?php echo e($user ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
                             <!--Buttons with icons -->
-                              <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                              <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="__blank" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a>
-                              <a data-toggle="modal" href="#confirmhire" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a> 
                                <form class="" action="/employer/hire" method="post">
                                   <?php echo e(csrf_field()); ?>
 
-                                  <input style="hidden" text="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
-                                  <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Hire</button>
+                                  <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                  <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                                  <input type="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
+                                  <button type="submit" name="button" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></button>
                                 </form>
                           </div>
                           <div class="card-footer text-muted mb-2">
-                            (Skill Set)
+                            <?php echo e($user ->skill); ?>
+
                           </div>
                         </div>
                       </div>
@@ -210,30 +210,32 @@
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title"></h4>
+                      <h4 class="modal-title"><?php echo e($details->firstName); ?> <?php echo e($details->lastName); ?></h4>
                     </div>
                     <div class="modal-body">
-                      <p></p>
-
+                      <h6><?php echo e($details->skill); ?></h6><br>
                       <p>Attributes</p>
                       <ul>
                           <li>
-                              <h0>Eye Color: </h0>
+                              <h0>Gender: <b><?php echo e($details->gender); ?><b></h0>
                           </li>
                           <li>
-                              <h0>Hair Color:<?php echo e($details->hairColor); ?> </h0>
+                              <h0>Eye Color: <b><?php echo e($details->eyeColor); ?><b></h0>
                           </li>
                           <li>
-                              <h0>Hair Length</h0>
+                              <h0>Hair Color: <b><?php echo e($details->hairColor); ?><b> </h0>
                           </li>
                           <li>
-                              <h0>Weight</h0>
+                              <h0>Hair Length: <b><?php echo e($details->hairLength); ?><b> </h0>
                           </li>
                           <li>
-                              <h0>Height</h0>
+                              <h0>Weight: <b><?php echo e($details->weight); ?> lbs<b></h0>
                           </li>
                           <li>
-                              <h0>Skin Color</h0>
+                              <h0>Height: <b><?php echo e($details->height); ?> cm<b></h0>
+                          </li>
+                          <li>
+                              <h0>Skin Color: <b><?php echo e($details->complexion); ?><b></h0>
                           </li>
                       </ul>
                     </div>

@@ -115,7 +115,33 @@
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" id="contactNo" name="contactNo" value="<?php echo e(Auth::user()->contactNo); ?>" required>
                                 </div>
-                                  <!-- Address line 1 -->
+                        <!-- Skill -->
+                        <label>Skill</label>
+                                <div class="input-group input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <select size="0.4" class="form-control" name="skill" id="skill">
+                                                <optgroup style="color: black;">
+                                                <option value="" selected disabled style="color: black;"><?php echo e(Auth::user()->skill); ?></option>
+                                                    <option value="Fashion Model">Fashion(Editorial) model</option>
+                                                    <option value="Runway Model">Runway model</option>
+                                                    <option value="Commercial Model">Commercial model</option>
+                                                    <option value="Plus Size Model">Plus size model</option>
+                                                    <option value="Petite Model">Petite model</option>
+                                                    <option value="Swimsuit Model">Swimsuit Model</option>
+                                                    <option value="Lingerie Model">Lingerie Model</option>
+                                                    <option value="Glamour Model">Glamour Model</option>
+                                                    <option value="Fitness Model">Fitness Model</option>
+                                                    <option value="Fitting Model">Fitting Model</option>
+                                                    <option value="Parts Model">Parts Model</option>
+                                                    <option value="Promotional Model">Promitional Model</option>
+                                                    <option value="Mature Model">Mature Model</option>
+                                                </optgroup>
+                                            </select>
+                                        </div><br>
+                        <!-- Address line 1 -->
                               <label for="address">Full Address</label>
                               <div class="input-group input-sm">
                                     <div class="input-group-prepend">
@@ -213,7 +239,7 @@
                                         </optgroup>
                                     </select>
                                 <!-- City -->
-                                    <select size="0.4" class="form-control" name="city" id="city" required>
+                                    <select size="0.4" class="form-control" name="city" id="city">
                                         <option value="" selected disabled>City..</option>
                                         <optgroup label="Pangasinan" style="color: black;">
                                             <option value="Alaminos City">Alaminos City</option>

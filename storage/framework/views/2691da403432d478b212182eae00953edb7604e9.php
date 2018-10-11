@@ -106,7 +106,7 @@
                                           <input type="file" name="image[]" class="form-control" multiple required>
                                       </div>
                                 <!-- Create button -->
-                                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Create</button><br>
+                                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Add</button><br>
                                     <a class="link" href="<?php echo e(url('/modelprofile')); ?>">Cancel</a>
                             </form>
                         </div>
