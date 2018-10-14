@@ -28,7 +28,7 @@
                         <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         </a>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item dropdown">
                       <div class="dropdown button-dropdown">
                             <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
                               <span class="button-bar"></span>
@@ -60,10 +60,6 @@
       <div class="container">
         <div class="photo-container">
           <img src="/uploads/avatars/<?php echo e($user->avatar); ?>" alt="">
-        </div>
-        <div class="row justify-content-center">
-            
-          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
         </div>
         <h3 class="headtitle"><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></h3>
         <p class="category"></p>
@@ -204,57 +200,12 @@
             <div class="col-sm-10">
                 <h4 class="title text-center">View My Portfolio</h4>
                 <!-- Portfolio Viewer -->
-                <iframe src="<?php echo e(url('/imagegalleryview/'.$user->userID)); ?>" style="height:900px;width:900px;border:none;" scrolling="no"></iframe>
+                <iframe src="<?php echo e(url('/imagegalleryview/'.$user->userID)); ?>" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
             </div>
         </div>
         <div class="row">
           <div class="container">
           </div>
-          
-
-
-    <!-- Upload Profile Picture Modal -->
-      <div id="profilepic" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog tncmodal" role="document">
-
-          <!-- Modal content-->
-          <div class="modal-content" style="color:black;">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Upload Profile Picture</h4>
-              </div>
-              <div class="modal-body">
-                  <form action="<?php echo e(url('/avatarupload')); ?>" method="post" enctype="multipart/form-data">
-                  <?php echo e(csrf_field()); ?>
-
-                      <?php if(count($errors) > 0): ?>
-                          <div class="alert alert-danger">
-                              <strong>Oh no!</strong> It appears that your image file is too large, please choose a smaller image size.<br><br>
-                                  <ul>
-                                      <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <li><?php echo e($error); ?></li>
-                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                  </ul>
-                            </div>
-                      <?php endif; ?>
-                          <div class="input-group no-border input-sm">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">
-                              </span>
-                            </div>
-                            <input type="file" class="form-control" name="avatar" id="avatar">
-                          </div>
-                      <a>*Max image size of 3.15 MB</a>
-                          <button type="submit" class="btn btn-success btn-round">Upload</button>
-                          <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
-                  </form>
-              </div>
-              <div class="modal-footer">
-              </div>
-            </div>
-        </div>
-        <!-- End of Modal -->
-         
 
 
         </div>

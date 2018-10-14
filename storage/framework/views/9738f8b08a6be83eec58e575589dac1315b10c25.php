@@ -31,14 +31,15 @@
       </div>
     </div>
   </nav>
+  
   <!-- MAIN HOMEPAGE CONTENT -->
   <div class="wrapper">
     <div class="page-header clear-filter" filter-color="orange">
       <div class="page-header-image" data-parallax="true" style="background-image:url('<?php echo asset('img/header2.jpg')?>">
       </div>
-      <div class="container">
+      <div class="container-fluid">
         <div class="content-center brand">
-          <img src="<?php echo asset('img/logo_white.png')?>" width="500">
+          <img src="<?php echo asset('img/logo_white.png')?>" s>
           <h1 class="h1-seo">Start your journey</h1>
             <a href="<?php echo e(url('/register')); ?>" class="btn btn-maroon btn-round btn-lg" >I am a Model</a>
             <a href="<?php echo e(url('/registerEmployer')); ?>" class="btn btn-maroon btn-round btn-lg" >I am an Employer</a>

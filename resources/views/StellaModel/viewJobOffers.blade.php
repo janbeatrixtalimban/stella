@@ -6,18 +6,18 @@
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
             <!-- Navigation bar hehe -->
-            <nav class="navbar navbar-expand navbar-dark bg-black flex-column flex-md-row bd-navbar">
+            <nav class="navbar navbar-expand-sm flex-column flex-md-row bd-navbar navbar-dark bg-black" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" rel="tooltip" title="Click to go Home" href="{{ url('/employerHome') }}" data-placement="bottom">
-                        <img src="<?php echo asset('img/logo_white.png')?>"  width="90">
+                    <a class="navbar-brand" href="{{ url('/modelfeed ') }}" rel="tooltip" title="Browse now" data-placement="bottom">
+                        <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-bar bar1"></span>
-                      <span class="navbar-toggler-bar bar2"></span>
-                      <span class="navbar-toggler-bar bar3"></span>
-                    </button>
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                      </button>
                 </div>
 
                 <div class="col-sm-1">

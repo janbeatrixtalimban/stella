@@ -534,16 +534,16 @@
       <!-- End Body Contents -->
       
       <!-- T&C Modal -->
-      <div id="termsandconditions" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog tncmodal" role="document">
+      <div id="termsandconditions" class="modal fade" tabindex="-1" role="dialog" style="width:100%;">
+        <div class="modal-dialog" role="document" style="width:100%; top: 150;">
 
           <!-- Modal content-->
-          <div class="modal-content" style="color:black;">
-              <div class="modal-header">
+          <div class="modal-content" style="color:black;" style="width:100%;">
+              <div class="modal-header" style="width:100%;">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Terms and Conditions</h4>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="width:100%;">
                 <ul>
                     <li>
                         <h0>Models have to be 18 years old and above to join the Stella community.</h0>
@@ -556,7 +556,7 @@
                     </li>
                 </ul>
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer" style="width:100%;">
                 <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Dismiss</button>
               </div>
             </div>

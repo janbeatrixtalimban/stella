@@ -527,7 +527,7 @@
       
       <!-- T&C Modal -->
       <div id="termsandconditions" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog tncmodal" role="document">
+        <div class="modal-dialog" role="document" style="width:100%; top: 150;">
 
           <!-- Modal content-->
           <div class="modal-content" style="color:black;">

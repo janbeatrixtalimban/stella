@@ -7,7 +7,7 @@
   <nav class="navbar navbar-expand-lg bg-black fixed-top navbar-transparent " color-on-scroll="400">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="<?php echo e(url('/employerHome')); ?>" rel="tooltip" title="Return to Feed" data-placement="bottom">
+        <a class="navbar-brand" href="<?php echo e(url('/employerHome')); ?>" rel="tooltip" title="Go to Homepage" data-placement="bottom">
             <img src="<?php echo asset('img/logo_white.png')?>" width="100">
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,31 +16,46 @@
           <span class="navbar-toggler-bar bottom-bar"></span>
         </button>
       </div>
+
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
-        <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                        <a class="navbar-brand" href="<?php echo e(url('/employerHome')); ?>" data-placement="bottom">
-                            Home
-                        </a>
-                        </li>
-              <li class="nav-item">
-                <div class="dropdown button-dropdown">
-                      <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                        <span class="button-bar"></span>
-                        <span class="button-bar"></span>
-                        <span class="button-bar"></span>
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-header">Profile</a>
-                            <a class="dropdown-item" href="#s">View Applicants</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>">Subscription</a>
-                            <a class="dropdown-item" href="#">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
-                      </div>
-                </div>
-          </li>
-        </ul>
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                              <a class="nav-link" href="<?php echo e(url('/employerHome')); ?>" data-placement="bottom" rel="tooltip" title="Go to Homepage">
+                                  <p>Home</p>
+                              </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                            <a class="nav-link" href="<?php echo e(url('/employerprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
+                            <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                            <p>
+                              <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
+                            </p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <p>
+                                    <i class="now-ui-icons">
+                                      <span class="button-bar"></span>
+                                      <span class="button-bar"></span>
+                                      <span class="button-bar"></span>
+                                    </i>
+                                    <span class="d-lg-none d-md-block">   Profile</span>
+                                  </p>
+                                </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header">Profile</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/viewapplicants')); ?>" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/settings')); ?>" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
+                            </div>
+                      </li>
+                  </ul>
+
       </div>
     </div>
   </nav>
@@ -85,23 +100,25 @@
 
             <div class="row">
 
-                   <?php $__currentLoopData = $projects->reverse(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $projects): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php if($projects->hidden > 0): ?>         
+                   <?php $__currentLoopData = $projects->reverse(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($project->hidden > 0): ?>         
                     <div class="col-sm-6">
                         <div id="jobdesc" class="card text-center">
                             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
-                                <h4 class="title"><?php echo e($projects->prjTitle); ?></h4>
-                                <p class="description"><?php echo e($projects->jobDescription); ?></p>
+                                <h4 class="title"><?php echo e($project->prjTitle); ?></h4>
+                                <p class="description"><?php echo e($project->jobDescription); ?></p>
                                 <form class="" action="/employer/archive" method="post">
                                   <?php echo e(csrf_field()); ?>
 
-                                  <a data-toggle="modal" data-target="#<?php echo e($projects->projectID); ?>" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
-                                  <a class="btn btn-info btn-round" href=<?php echo e(url('/editPost/'.$projects->projectID)); ?>>Edit Post</a>
-                                  <input type="hidden" name="projectID" id="projectID" value="<?php echo e($projects->projectID); ?>" readonly>
+                                  <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
+                                  <a class="btn btn-info btn-round" href=<?php echo e(url('/editPost/'.$project->projectID)); ?>>Edit Post</a>
+                                  <input type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
                                   <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">
+                                <?php echo e($project->created_at); ?>
+
                             </div>
                         </div>
                     </div> 
@@ -115,9 +132,9 @@
 </div>
 </div>
 
-  <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $projects): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+  <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   <!-- View Job detials Modal -->
-          <div id="" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+          <div id="<?php echo e($project->projectID); ?>" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
@@ -125,8 +142,8 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title"></h4>
-                          <h0>Posted <h0>
+                          <h4 class="modal-title"><?php echo e($project->prjTitle); ?></h4>
+                          <h0>Posted <?php echo e($project->created_at); ?><h0>
                       </div>
                     </div>
                     <div class="modal-body">
@@ -135,13 +152,22 @@
                       <h5>Project Details</h5>
                       <ul>
                           <li>
-                              <h0>Location:</h0>
+                              <h0>Location: <b><?php echo e($project->address); ?></b></h0>
                           </li>
                           <li>
-                              <h0>Model Type: </h0>
+                              <h0>Number of Models: <b><?php echo e($project->modelNo); ?></b></h0>
                           </li>
                           <li>
-                              <h0>Talent Fee: </h0>
+                              <h0>Model Type: <b><?php echo e($project->role); ?></b></h0>
+                          </li>
+                          <li>
+                              <h0>Minimum Height Requirement: <b><?php echo e($project->height); ?>cm</b></h0>
+                          </li>
+                          <li>
+                              <h0>Body Built: <b><?php echo e($project->bodyBuilt); ?></b></h0>
+                          </li>
+                          <li>
+                              <h0>Talent Fee: <b>P<?php echo e($project->talentFee); ?>.00</b></h0>
                           </li>
                       </ul>
                     </div>
@@ -158,15 +184,15 @@
 
     <!-- Upload Profile Picture Modal -->
     <div id="profilepic" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog tncmodal" role="document">
+      <div class="modal-dialog" role="document" style="width:100%; top: 150;">
 
         <!-- Modal content-->
-        <div class="modal-content" style="color:black;">
+        <div class="modal-content" style="color:black;" style="width:100%;">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Upload Profile Picture</h4>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="width:100%;">
                   <form action="<?php echo e(url('/eavatarupload')); ?>" method="post" enctype="multipart/form-data">
                   <?php echo e(csrf_field()); ?>
 

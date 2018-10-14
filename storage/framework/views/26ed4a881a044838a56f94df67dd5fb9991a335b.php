@@ -1,20 +1,20 @@
-<title><?php echo $__env->yieldContent('pageTitle'); ?> Edit Profile </title>
+<title><?php echo $__env->yieldContent('pageTitle'); ?> Edit Job Post </title>
 
 <?php $__env->startSection('content'); ?>
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
-            <!-- Navigation bar hehe -->
-            <nav class="navbar navbar-expand navbar-dark bg-black flex-column flex-md-row bd-navbar">
+        <!-- Navigation bar -->
+        <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" rel="tooltip" title="Click to go Home" href="<?php echo e(url('/employerHome')); ?>" data-placement="bottom">
-                        <img src="<?php echo asset('img/logo_white.png')?>"  width="90">
+                    <a class="navbar-brand" href="<?php echo e(url('/employerHome')); ?>" rel="tooltip" title="Go to Homepage" data-placement="bottom">
+                        <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-bar bar1"></span>
-                      <span class="navbar-toggler-bar bar2"></span>
-                      <span class="navbar-toggler-bar bar3"></span>
+                    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-bar top-bar"></span>
+                      <span class="navbar-toggler-bar middle-bar"></span>
+                      <span class="navbar-toggler-bar bottom-bar"></span>
                     </button>
                 </div>
 
@@ -25,37 +25,46 @@
               <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
                     <ul class="navbar-nav">
-                      <li class="nav-item dropdown">
-                        <a class="navbar-brand" href="<?php echo e(url('/employerHome ')); ?>" data-placement="bottom">
-                            Home
+                        <li class="nav-item dropdown">
+                        <a class="nav-link" href="<?php echo e(url('/employerHome')); ?>" data-placement="bottom" rel="tooltip" title="Go to Homepage">
+                            <p>Home</p>
                         </a>
                         </li>
-                      <li class="nav-item dropdown">
-                        <a class="nav-link" href="<?php echo e(url('/employerprofile')); ?>" rel="tooltip" title="Go to profile" role="button">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link" href="<?php echo e(url('/employerprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
                         <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p>
+                          <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
+                        </p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <div class="dropdown button-dropdown">
-                          <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-header">Edit Profile</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/employerapplicants')); ?>">View Applicants</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>">Subscription</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/#')); ?>">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
-                          </div>
-                        </div>
+                          <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <p>
+                                <i class="now-ui-icons">
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                </i>
+                                <span class="d-lg-none d-md-block">   Edit Job Post</span>
+                              </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Edit Job Post</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/employerprofile')); ?>" style="color:black;"> 
+                                <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
+                                <a class="dropdown-item" href="<?php echo e(url('/viewapplicants')); ?>" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/settings')); ?>" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
+                            </div>
                       </li>
                     </ul>
               </div>
 
-					</div><!-- nav container closing tag -->
+		</div><!-- nav container closing tag -->
 	</nav>
   
 
@@ -74,7 +83,7 @@
                 <div class="col-sm-2">
                 </div>
                 <div class="col-sm-6">
-                    <div class="cointainer" style="color:black;">
+                    <div class="cointainer" style="color:black;"><br>
                     <h3>Edit Job Post</h3><br>
                         <div class="card card-plain">    
                                 <form method="POST" action="<?php echo e(url('/SaveProj')); ?>">
@@ -99,14 +108,21 @@
                                             </div>
                                             <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."><?php echo e($projects->jobDescription); ?></textarea>
                                         </div>
-                                        <!-- ModelNo -->
-                                        <label>Number of Models Needed:</label>
+                            <!-- ModelNo -->
+                            <label>Number of Models Needed:</label>
                                 <div class="input-group input-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" name="modelNo" value="<?php echo e($projects->modelNo); ?>" required >
+                                    <select size="0.4" class="form-control" name="modelNo" id="modelNo" required>
+                                    <option value="" selected disabled><?php echo e($projects->modelNo); ?></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                </select>
                               </div>
                               <!-- Address line 1 -->
                               <label for="address">Full Address</label>
@@ -501,11 +517,11 @@
                                         <option value="Athletic">Athletic</option>
                                         <option value="Plus Size">Plus Size</option>
                                 </select>
-                            </div>
+                            </div><br>
                                     
                                     <!-- Edit Button -->
-                                        <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Edit Job Post</button><br>
-                                        <a class="link" href="<?php echo e(url('/employerprofile')); ?>">Cancel</a>
+                                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Edit Job Post</button><br>
+                                    <a class="link" href="<?php echo e(url('/employerprofile')); ?>">Cancel</a>
 
                                 </form>
 

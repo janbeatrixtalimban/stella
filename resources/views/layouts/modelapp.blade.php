@@ -14,7 +14,6 @@
   <link href="<?php echo asset('https://use.fontawesome.com/releases/v5.0.6/css/all.css')?>" rel="stylesheet">
   <link href="<?php echo asset('css/bootstrap.min.css')?>" rel="stylesheet" />
   <link href="<?php echo asset('css/now-ui-kit.css')?>" rel="stylesheet" />
-  <link href="<?php echo asset('demo/demo.css')?>" rel="stylesheet" />
 </head>
 
 

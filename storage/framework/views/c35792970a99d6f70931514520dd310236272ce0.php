@@ -4,17 +4,17 @@
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
   <!-- Navigation bar hehe -->
-  <nav class="navbar navbar-expand navbar-dark bg-black flex-column flex-md-row bd-navbar">
+  <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
                     <a class="navbar-brand" href="<?php echo e(url('/modelfeed ')); ?>" rel="tooltip" title="Browse now" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-bar bar1"></span>
-                      <span class="navbar-toggler-bar bar2"></span>
-                      <span class="navbar-toggler-bar bar3"></span>
+                    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-bar top-bar"></span>
+                      <span class="navbar-toggler-bar middle-bar"></span>
+                      <span class="navbar-toggler-bar bottom-bar"></span>
                     </button>
                 </div>
 
@@ -38,33 +38,40 @@
 
               <!-- Options and logout-->
               <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
-                    <ul class="navbar-nav">
-                      <li class="nav-item dropdown">
+                    
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('/modelprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
                         <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p>
+                          <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
+                        </p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <div class="dropdown button-dropdown">
-                          <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-header">Homepage</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>">
-                            <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
-                            <a class="dropdown-item" href="<?php echo e(url('/modeljoboffers')); ?>">View Job Offers</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>">Subscriptions</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/#')); ?>">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
-                          </div>
-                        </div>
+                          <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <p>
+                                <i class="now-ui-icons">
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                </i>
+                                <span class="d-lg-none d-md-block">   Homepage</span>
+                              </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
+                                <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
+                                <a class="dropdown-item" href="<?php echo e(url('/modeljoboffers')); ?>" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscriptions</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/#')); ?>" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
+                            </div>
                       </li>
-                    </ul>
+                  </ul>
+
               </div>
 
 					</div><!-- nav container closing tag -->
@@ -177,7 +184,7 @@
 
  <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   <!-- View Job detials Modal -->
-          <div id="<?php echo e($project->projectID); ?>" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+  <div id="<?php echo e($project->projectID); ?>" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
@@ -186,22 +193,31 @@
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title"><?php echo e($project->prjTitle); ?></h4>
-                          <h0>Posted <?php echo e($project->created_at); ?> <h0>
+                          <h0>Posted <?php echo e($project->created_at); ?> by<h0>
                       </div>
                     </div>
                     <div class="modal-body">
-                      <p><?php echo e($project->jobDescription); ?></p>
+                      <p></p>
 
                       <h5>Project Details</h5>
                       <ul>
                           <li>
-                              <h0>Location: <?php echo e($project->location); ?></h0>
+                              <h0>Location: <b><?php echo e($project->address); ?></b></h0>
                           </li>
                           <li>
-                              <h0>Model Type: <?php echo e($project->role); ?></h0>
+                              <h0>Number of Models: <b><?php echo e($project->modelNo); ?></b></h0>
                           </li>
                           <li>
-                              <h0>Talent Fee: P<?php echo e($project->talentFee); ?>.00</h0>
+                              <h0>Model Type: <b><?php echo e($project->role); ?></b></h0>
+                          </li>
+                          <li>
+                              <h0>Minimum Height Requirement: <b><?php echo e($project->height); ?>cm</b></h0>
+                          </li>
+                          <li>
+                              <h0>Body Built: <b><?php echo e($project->bodyBuilt); ?></b></h0>
+                          </li>
+                          <li>
+                              <h0>Talent Fee: <b>P<?php echo e($project->talentFee); ?>.00</b></h0>
                           </li>
                       </ul>
                     </div>

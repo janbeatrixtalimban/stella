@@ -3,18 +3,19 @@
 <?php $__env->startSection('content'); ?>
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
-  <!-- Navigation bar hehe -->
-  <nav class="navbar navbar-expand navbar-dark bg-black flex-column flex-md-row bd-navbar">
+
+  <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
                     <a class="navbar-brand" href="<?php echo e(url('/employerHome')); ?>" rel="tooltip" title="Browse now" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-bar bar1"></span>
-                      <span class="navbar-toggler-bar bar2"></span>
-                      <span class="navbar-toggler-bar bar3"></span>
+                    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-bar top-bar"></span>
+                      <span class="navbar-toggler-bar middle-bar"></span>
+                      <span class="navbar-toggler-bar bottom-bar"></span>
                     </button>
                 </div>
 
@@ -62,38 +63,47 @@
 
               <!-- Options and logout-->
               <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
-                    <ul class="navbar-nav">
-                      <li class="nav-item dropdown">
+                    
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('/employerprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
                         <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p>
+                          <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
+                        </p>
                         </a>
                       </li>
                       <li class="nav-item">
-                      <div class="dropdown button-dropdown">
-                            <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                              <span class="button-bar"></span>
-                              <span class="button-bar"></span>
-                              <span class="button-bar"></span>
+                          <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <p>
+                                <i class="now-ui-icons">
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                </i>
+                                <span class="d-lg-none d-md-block">   Homepage</span>
+                              </p>
                             </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-header">Homepage</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/employerprofile')); ?>">
-                            <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
-                            <a class="dropdown-item" href="<?php echo e(url('/employerapplicants')); ?>">View Applicants</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>">Subscription</a>
-                            <a class="dropdown-item" href="<?php echo e(url('/settings')); ?>">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
-                          </div>
-                        </div>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/employerprofile')); ?>" style="color:black;"> 
+                                <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
+                                <a class="dropdown-item" href="<?php echo e(url('/viewapplicants')); ?>" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/settings')); ?>" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
+                            </div>
                       </li>
-                    </ul>
+                  </ul>
+
               </div>
 
 					</div><!-- nav container closing tag -->
-	</nav>
+	</nav><!-- Nav ending tag -->
   
+
 
   <!-- MAIN HOMEPAGE CONTENT -->
   <div class="wrapper">
@@ -111,7 +121,7 @@
    
 <!-- Two Column Display loop of Models Shown-->
 <div class="column">
-  <table>
+  <table style="width:100%;">
       <?php $__currentLoopData = $user->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <tr>
               <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -119,17 +129,17 @@
                     <?php if($user->typeID == 2): ?>
                       <div style="display: none;">
                         <?php else: ?>
-                    <div class="col-sm-12">
+                    <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
                       <div id="model" class="card text-center">
-                          <div class="card-body" style="color:#1b1b1b;">
+                          <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
                             <h4 class="card-title"><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></h4>
-                              <img src="/uploads/avatars/<?php echo e($user ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
+                              <img src="/uploads/avatars/<?php echo e($user ->avatar); ?>" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
                             <!--Buttons with icons -->
                                <form class="" action="/employer/hire" method="post">
                                   <?php echo e(csrf_field()); ?>
 
-                                  <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-maroon btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                                  <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-black btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                                  <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?>" style="color:white;s" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                  <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
                                   <input type="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
                                   <button type="submit" name="button" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></button>
                                 </form>
@@ -154,10 +164,10 @@
                 <div class="column">
 
                   <!-- Ads Card and carousel -->
-                      <div class="card">
-                        <div class="card-body" style="color:#1b1b1b; height: 15rem;">
+                      <div class="card" style="width:100%;">
+                        <div class="card-body" style="color:#1b1b1b; width:100%;">
                         <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" style="width: 16rem;" class="text-center carousel slide" data-ride="carousel">
+                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
                             <ol class="carousel-indicators">
                               <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
                               <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
@@ -210,10 +220,12 @@
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title"><?php echo e($details->firstName); ?> <?php echo e($details->lastName); ?></h4>
+                      <br><img src="/uploads/avatars/<?php echo e($details ->avatar); ?>" alt="Thumbnail Image" width="60" height="60" class="rounded-circle img-raised">
+                    <h4><?php echo e($details->firstName); ?> <?php echo e($details->lastName); ?></h4><br>
+                    <h6><h6><br>
                     </div>
                     <div class="modal-body">
-                      <h6><?php echo e($details->skill); ?></h6><br>
+                      <br><h6><?php echo e($details->skill); ?></h6><br>
                       <p>Attributes</p>
                       <ul>
                           <li>
@@ -241,7 +253,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Dismiss</button>
-                      <button type="button" class="btn btn-info btn-round" href="<?php echo e(url('/modelProfile')); ?>" target="_blank">View Profile</button>
+                      <a class="btn btn-info btn-round" href="<?php echo e(url('/profile/view/'.$details->userID)); ?>" target="_blank">View Profile</a>
                     </div>
                 </div>
               </div>

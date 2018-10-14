@@ -6,17 +6,17 @@
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
   <!-- Navigation bar hehe -->
-  <nav class="navbar navbar-expand navbar-dark bg-black flex-column flex-md-row bd-navbar">
+  <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
                     <a class="navbar-brand" href="{{ url('/modelfeed ') }}" rel="tooltip" title="Browse now" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-bar bar1"></span>
-                      <span class="navbar-toggler-bar bar2"></span>
-                      <span class="navbar-toggler-bar bar3"></span>
+                    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-bar top-bar"></span>
+                      <span class="navbar-toggler-bar middle-bar"></span>
+                      <span class="navbar-toggler-bar bottom-bar"></span>
                     </button>
                 </div>
 
@@ -39,33 +39,40 @@
 
               <!-- Options and logout-->
               <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
-                    <ul class="navbar-nav">
-                      <li class="nav-item dropdown">
+                    
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
                         <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p>
+                          <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
+                        </p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <div class="dropdown button-dropdown">
-                          <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-header">Homepage</a>
-                            <a class="dropdown-item" href="{{ url('/modelprofile') }}">
-                            <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                            <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscriptions</a>
-                            <a class="dropdown-item" href="{{ url('/#') }}">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
-                          </div>
-                        </div>
+                          <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <p>
+                                <i class="now-ui-icons">
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                </i>
+                                <span class="d-lg-none d-md-block">   Homepage</span>
+                              </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
+                                <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
+                                <a class="dropdown-item" href="{{ url('/modeljoboffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscriptions</a>
+                                <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
+                            </div>
                       </li>
-                    </ul>
+                  </ul>
+
               </div>
 
 					</div><!-- nav container closing tag -->
@@ -176,7 +183,7 @@
 
  @foreach ($projects as $project)
   <!-- View Job detials Modal -->
-          <div id="{{$project->projectID}}" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+  <div id="{{$project->projectID}}" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
@@ -184,23 +191,32 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">{{ $project->prjTitle }}</h4>
-                          <h0>Posted {{ $project->created_at }} <h0>
+                          <h4 class="modal-title">{{$project->prjTitle}}</h4>
+                          <h0>Posted {{ $project->created_at }} by<h0>
                       </div>
                     </div>
                     <div class="modal-body">
-                      <p>{{ $project->jobDescription }}</p>
+                      <p></p>
 
                       <h5>Project Details</h5>
                       <ul>
                           <li>
-                              <h0>Location: {{ $project->location }}</h0>
+                              <h0>Location: <b>{{$project->address}}</b></h0>
                           </li>
                           <li>
-                              <h0>Model Type: {{ $project->role }}</h0>
+                              <h0>Number of Models: <b>{{$project->modelNo}}</b></h0>
                           </li>
                           <li>
-                              <h0>Talent Fee: P{{ $project->talentFee }}.00</h0>
+                              <h0>Model Type: <b>{{$project->role}}</b></h0>
+                          </li>
+                          <li>
+                              <h0>Minimum Height Requirement: <b>{{$project->height}}cm</b></h0>
+                          </li>
+                          <li>
+                              <h0>Body Built: <b>{{$project->bodyBuilt}}</b></h0>
+                          </li>
+                          <li>
+                              <h0>Talent Fee: <b>P{{$project->talentFee}}.00</b></h0>
                           </li>
                       </ul>
                     </div>

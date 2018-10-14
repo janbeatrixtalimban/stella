@@ -122,6 +122,7 @@ class EmployerController extends Controller
                 'prjTitle' => 'required',
                 'jobDescription' => 'required',
                 'location' => 'required',
+                'modelNo' => 'required',
                 'role' => 'required',
                 'talentFee' => 'required',
 
@@ -131,6 +132,7 @@ class EmployerController extends Controller
 
             }
             $prjTitle = $request->input('prjTitle');
+            $modelNo = $request->input('modelNo');
             $jobDescription = $request->input('jobDescription');
             $address = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             $location = $request->input('location');
@@ -144,7 +146,7 @@ class EmployerController extends Controller
 
             $project = project::where('projectID', $projectID)
                 ->update(['prjTitle' => $prjTitle, 'jobDescription' => $jobDescription,
-                    'location' => $location, 'role' => $role,
+                    'location' => $location, 'modelNo' => $modelNo, 'role' => $role,
                     'talentFee' => $talentFee, 'address' => $address, 'zipCode' => $zipCode]);
 
                     $projects = Project::where('projectID', $projectID)->first();
