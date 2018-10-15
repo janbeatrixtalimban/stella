@@ -432,7 +432,7 @@ class EmployerController extends Controller
             $applicantID = $request->get('applicantID');
             $emailAddress = $request->get('emailAddress');
             $applicant = applicant::where('applicantID', $applicantID)->update(['status' => $status]);
-            $this->emailNotifHireModel($emailAddress);
+            $this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');
 
             //return redirect()->back()->with('alert', 'Updated!');
@@ -456,5 +456,17 @@ class EmployerController extends Controller
             return ('fail');
         }
 
+    }
+
+    public function acceptNotif($email)
+    {
+        $data = array('name' => "ello");
+        //'text' => 'mail' :: loob ng () mail
+        Mail::send(['html' => 'accept'], $data, function ($message) use ($email) {
+            $message->to($email, $email)->subject
+                ('STELLA Email Accept Notification');
+            $message->from('stella.model.ph@gmail.com', 'Stella PH');
+        });
+        
     }
 }
