@@ -94,12 +94,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/editCompany') }}">Edit Company Details</a>
-                            </li>
-                            <br>
-                            <br>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/employerprofile') }}">Go Back</a>
-                            </li>
+                            </li><br> <br>
                         </ul>
                     </div>
                 </div>
@@ -130,11 +125,12 @@
                                 <!-- About Company -->
                                     <label>About Company</label>
                                     <div class="input-group input-lg">
-                                        <textarea class="form-control" name="description" id="description" rows="3" value="{{$details->description}}"></textarea>
+                                        <textarea class="form-control" name="description" id="description" rows="3" value="">{{$details->description}}</textarea>
                                     </div>
                                 
                                 <!-- Save button -->
-                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
+                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
+                                <a class="link" href="{{ url('/employerprofile') }}">Cancel</a>
                             </form>
                         </div>
                     </div>

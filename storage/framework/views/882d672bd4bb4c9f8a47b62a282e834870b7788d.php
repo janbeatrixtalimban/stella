@@ -91,12 +91,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo e(url('/editCompany')); ?>">Edit Company Details</a>
-                            </li>
-                            <br>
-                            <br>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo e(url('/employerprofile')); ?>">Go Back</a>
-                            </li>
+                            </li><br><br>
                         </ul>
                     </div>
                 </div><br><br>
@@ -470,8 +465,8 @@
                                     <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="<?php echo e(Auth::user()->emailAddress); ?>"  readonly="true"> 
                                 </div> 
                         <!-- Save button -->
-                            <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
-
+                            <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
+                            <a class="link" href="<?php echo e(url('/employerprofile')); ?>">Cancel</a>
                             </form>
                         </div>
                     </div>

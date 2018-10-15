@@ -92,12 +92,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo e(url('/editCompany')); ?>">Edit Company Details</a>
-                            </li>
-                            <br>
-                            <br>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo e(url('/employerprofile')); ?>">Go Back</a>
-                            </li>
+                            </li><br> <br>
                         </ul>
                     </div>
                 </div>
@@ -126,14 +121,15 @@
                                           </div>
                                           <input type="text" class="form-control" name="position" id="position"  value="<?php echo e($details->position); ?>" placeholder="Position">
                                       </div>
-                                      <!-- About Company -->
+                                <!-- About Company -->
                                     <label>About Company</label>
                                     <div class="input-group input-lg">
-                                        <input type="text" class="form-control" name="description" id="description"  value="<?php echo e($details->description); ?>" placeholder="">
+                                        <textarea class="form-control" name="description" id="description" rows="3" value=""><?php echo e($details->description); ?></textarea>
                                     </div>
                                 
                                 <!-- Save button -->
-                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
+                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
+                                <a class="link" href="<?php echo e(url('/employerprofile')); ?>">Cancel</a>
                             </form>
                         </div>
                     </div>

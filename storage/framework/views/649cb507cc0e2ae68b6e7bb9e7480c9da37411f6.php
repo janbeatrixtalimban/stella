@@ -17,7 +17,6 @@
     {
         display: inline-block center;
         margin-top: 0px;
-        margin-left: 200px;
     }
     .close-icon{
     	border-radius: 50%;
@@ -40,7 +39,6 @@
                     <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
                         <a class="thumbnail fancybox" rel="ligthbox" href="/uploads/<?php echo e($image->image); ?>">
                             <img class="img-responsive" alt="" src="/uploads/<?php echo e($image->image); ?>" />
-                            
                         </a>
                        
                     </div> <!-- col-6 / end -->

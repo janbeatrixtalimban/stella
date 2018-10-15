@@ -9,7 +9,7 @@
   <nav class="navbar navbar-expand-lg bg-black fixed-top navbar-transparent " color-on-scroll="400">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="{{ url('/modelfeed') }}" rel="tooltip" title="Return to Feed" data-placement="bottom">
+        <a class="navbar-brand" href="{{ url('/modelfeed') }}" rel="tooltip" title="Go to Homepage" data-placement="bottom">
             <img src="<?php echo asset('img/logo_white.png')?>" width="100">
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,27 +21,40 @@
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-              <a class="navbar-brand" href="{{ url('/modelfeed ') }}" data-placement="bottom">
-                    Home
+               <a class="nav-link" href="{{ url('/modelfeed') }}" data-placement="bottom" rel="tooltip" title="Go to Homepage">
+                  <p>Home</p>
               </a>
           </li>
           <li class="nav-item">
-                <div class="dropdown button-dropdown">
-                      <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                        <span class="button-bar"></span>
-                        <span class="button-bar"></span>
-                        <span class="button-bar"></span>
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-header">Profile</a>
-                        <a class="dropdown-item" href="#">View Job Offers</a>
-                        <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
-                      </div>
-                </div>
+              <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
+                <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                <p>
+                  <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
+                </p>
+              </a>
           </li>
+          <li class="nav-item">
+                          <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <p>
+                                <i class="now-ui-icons">
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                </i>
+                                <span class="d-lg-none d-md-block">   Profile</span>
+                              </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Profile</a>
+                                <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
+                                <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
+                                <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a> 
+                                <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
+                            </div>
+                      </li>
         </ul>
       </div>
     </div>
@@ -49,7 +62,7 @@
   <!-- End Navbar -->
   
   <div class="wrapper">
-    <div class="page-header page-header-model clear-filter" filter-color="orange">
+    <div class="page-header page-header-model clear-filter" filter-color="orange" style="width:100%;">
       <div class="page-header-image" data-parallax="true" style="background-image:url('');">
       </div>
       <div class="container">
@@ -62,7 +75,7 @@
         </div>
         <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
         <p class="category">{{ Auth::user()->skill}}</p>
-        <div class="content">
+        <div class="content" style="width:100%;">
           <div class="social-description">
             <h5>{{ Auth::user()->birthDate}}</h5>
             <p>Years old</p>
@@ -102,13 +115,17 @@
                   <b>Tattoo or Scars:</b> {{$details->tatoo}}<br>
                 </h5>
             </div> 
-            <div class="col-sm-10 text-center">
+            
+                      <div class="col-sm-1">
+                      </div>
+
+            <div class="col-sm-9 text-center">
               <div style="display:inline;">
                 <h4 class="title">View My Portfolio</h4>
                 <a href="{{ url('/model/viewPortfolio') }}" rel="tooltip" title="Edit Portfolio" >[Edit]</a><br><br>
               </div>
                 <!-- Portfolio Viewer -->
-                <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:900px;width:900px;border:none;" scrolling="no"></iframe>
+                <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
             </div>
         </div>
         <div class="row">
@@ -119,7 +136,7 @@
 
     <!-- Upload Profile Picture Modal -->
       <div id="profilepic" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog tncmodal" role="document">
+        <div class="modal-dialog" role="document" style="width:100%; top: 150;">
 
           <!-- Modal content-->
           <div class="modal-content" style="color:black;">

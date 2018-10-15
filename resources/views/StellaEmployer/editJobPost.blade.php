@@ -513,7 +513,7 @@
                                     </span>
                                 </div>
                                 <select size="0.4" class="form-control" name="bodyBuilt" id="bodyBuilt" required>
-                                    <option value="" selected disabled>Select Body Built</option>
+                                        <option value="" selected disabled>Select Body Built</option>
                                         <option value="Petite">Petite</option>
                                         <option value="Slim">Slim</option>
                                         <option value="Athletic">Athletic</option>

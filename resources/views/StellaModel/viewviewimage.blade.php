@@ -17,7 +17,6 @@
     {
         display: inline-block center;
         margin-top: 0px;
-        margin-left: 200px;
     }
     .close-icon{
     	border-radius: 50%;

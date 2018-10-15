@@ -64,8 +64,8 @@
                                 <a class="dropdown-header" style="color:grey;">Homepage</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                                <a class="dropdown-item" href="{{ url('/modeljoboffers') }}" style="color:black;">View Job Offers</a>
-                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscriptions</a>
+                                <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
@@ -131,10 +131,11 @@
 
 
                   <!-- Ads Card and carousel -->
-                      <div class="card">
-                        <div class="card-body" style="color:#1b1b1b; height: 15rem;">
+                       <!-- Ads Card and carousel -->
+                       <div class="card" style="width:100%;">
+                        <div class="card-body" style="color:#1b1b1b; width:100%;">
                         <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" style="width: 16rem;" class="text-center carousel slide" data-ride="carousel">
+                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
                             <ol class="carousel-indicators">
                               <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
                               <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>

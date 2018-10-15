@@ -6,18 +6,18 @@
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
             <!-- Navigation bar hehe -->
-            <nav class="navbar navbar-expand-sm flex-column flex-md-row bd-navbar navbar-dark bg-black" style="width:100%;">
+            <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" href="{{ url('/modelfeed ') }}" rel="tooltip" title="Browse now" data-placement="bottom">
+                    <a class="navbar-brand" href="{{ url('/modelfeed ') }}" rel="tooltip" title="Go to Homepage" data-placement="bottom">
                         <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-bar bar1"></span>
-                        <span class="navbar-toggler-bar bar2"></span>
-                        <span class="navbar-toggler-bar bar3"></span>
-                      </button>
+                    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-bar top-bar"></span>
+                      <span class="navbar-toggler-bar middle-bar"></span>
+                      <span class="navbar-toggler-bar bottom-bar"></span>
+                    </button>
                 </div>
 
                 <div class="col-sm-1">
@@ -28,35 +28,42 @@
 
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                        <a class="navbar-brand" href="{{ url('/employerfeed ') }}" data-placement="bottom">
-                            Home
-                        </a>
+                            <a class="nav-link" href="{{ url('/modelfeed') }}" data-placement="bottom" rel="tooltip" title="Go to Homepage">
+                                <p>Home</p>
+                            </a>
                         </li>
-                      <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
                         <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p>
+                          <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
+                        </p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <div class="dropdown button-dropdown">
-                          <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-header">Subscription</a>
-                            <a class="dropdown-item" href="{{ url('/employerapplicants') }}">View Applicants</a>
-                            <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}">Subscription</a>
-                            <a class="dropdown-item" href="{{ url('/settings') }}">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
-                          </div>
-                          </div>
-                        </div>
+                          <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <p>
+                                <i class="now-ui-icons">
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                </i>
+                                <span class="d-lg-none d-md-block">   View Job Offers</span>
+                              </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
+                                <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
+                                <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a> 
+                                <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
+                            </div>
                       </li>
                     </ul>
-              </div>
+                </div>
 
 					</div><!-- nav container closing tag -->
 	</nav>
@@ -107,10 +114,11 @@
 
 
                   <!-- Ads Card and carousel -->
-                      <div class="card">
-                        <div class="card-body" style="color:#1b1b1b; height: 15rem;">
+                       <!-- Ads Card and carousel -->
+                       <div class="card" style="width:100%;">
+                        <div class="card-body" style="color:#1b1b1b; width:100%;">
                         <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" style="width: 16rem;" class="text-center carousel slide" data-ride="carousel">
+                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
                             <ol class="carousel-indicators">
                               <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
                               <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>

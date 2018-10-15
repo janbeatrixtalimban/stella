@@ -5,18 +5,18 @@
 @section('content')
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
-            <!-- Navigation bar hehe -->
-            <nav class="navbar navbar-expand navbar-dark bg-black flex-column flex-md-row bd-navbar">
+        <!-- Navigation bar hehe -->
+        <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
-                    <a class="navbar-brand" rel="tooltip" title="Click to go Home" href="{{ url('/modelfeed') }}" data-placement="bottom">
-                        <img src="<?php echo asset('img/logo_white.png')?>"  width="90">
+                    <a class="navbar-brand" href="{{ url('/modelfeed ') }}" rel="tooltip" title="Go to Homepage" data-placement="bottom">
+                        <img src="<?php echo asset('img/logo_white.png')?>" width="100">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-navbar-danger" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-bar bar1"></span>
-                      <span class="navbar-toggler-bar bar2"></span>
-                      <span class="navbar-toggler-bar bar3"></span>
+                    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-bar top-bar"></span>
+                      <span class="navbar-toggler-bar middle-bar"></span>
+                      <span class="navbar-toggler-bar bottom-bar"></span>
                     </button>
                 </div>
 
@@ -27,32 +27,40 @@
               <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
                     <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="navbar-brand" href="{{ url('/modelfeed ') }}" data-placement="bottom">
-                                Home
-                        </a>
-                    </li>
-                      <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="{{ url('/modelfeed') }}" data-placement="bottom" rel="tooltip" title="Go to Homepage">
+                                <p>Home</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
                         <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p>
+                          <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
+                        </p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <div class="dropdown button-dropdown">
-                          <a href="#pablo" class="dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                            <span class="button-bar"></span>
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-header">Edit Profile</a>
-                            <a class="dropdown-item" href="{{ url('/modeljoboffers') }}">View Job Offers</a>
-                            <a class="dropdown-item" href="{{ url('/subscription') }}">Subscription</a>
-                            <a class="dropdown-item" href="{{ url('/modelsetting') }}">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
-                          </div>
-                        </div>
+                          <a class="nav-link dropdown-toggle" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <p>
+                                <i class="now-ui-icons">
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                  <span class="button-bar"></span>
+                                </i>
+                                <span class="d-lg-none d-md-block">   Edit Attributes</span>
+                              </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Edit Attributes</a>
+                                <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
+                                <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
+                                <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a> 
+                                <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
+                            </div>
                       </li>
                     </ul>
                 </div>
@@ -83,12 +91,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/modeleditattributes') }}">Edit Attributes</a>
-                            </li>
-                            <br>
-                            <br>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/modelprofile') }}">Go Back</a>
-                            </li>
+                            </li><br><br>
                         </ul>
                     </div>
                 </div>
@@ -259,7 +262,7 @@
                             </div>
                                 <input type="text" class="form-control" name="shoeSize" value="{{$details->shoeSize}}" placeholder="shoe size" required>
                             </div>
-                <!--Tatto-->
+                <!--Tattoo-->
                         <label>Tattoos/Scars</label>
                         <div class="input-group input-sm">
                             <div class="input-group-prepend">
@@ -274,7 +277,8 @@
                             </select>
                         </div>
                 <!-- Save button -->
-                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button>
+                    <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
+                    <a class="link" href="{{ url('/modelprofile') }}">Cancel</a>
             </form>
 
                 </div><!-- column closing tag -->
