@@ -57,6 +57,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/updateAttribute/{id}', 'ModelController@updateAttributes');
         Route::get('/subscription', 'UserController@subscription');
         Route::get('/model/viewPortfolio', 'ModelController@viewPortfolio');
+        Route::get('/model/viewJobOffers', 'ModelController@viewOffer');
 
         Route::get('/gopremium', 'UserController@paypal');
         Route::post('/status/{id}', 'UserController@editStatus');
@@ -95,6 +96,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer');
         Route::get('/editCompany', 'EmployerController@viewDetails');
         Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
+        Route::get('/employer/viewapplicants', 'EmployerController@viewApplicants');
+        Route::post('/employer/accept', 'EmployerController@acceptApplicant');
 
 
         //ADMIN SIDE!!!!
@@ -106,25 +109,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
     });
 
-    Route::get('/imagegalleryview', function(){
-        return view('/StellaModel/imagegalleryview');
-    });
-
-    Route::get('/home', function(){
-        return view('/StellaHome/home');
-    });
-
-    Route::get('/viewjoboffers', function(){
-        return view('/StellaModel/viewJobOffers');
-    });
-
-    Route::get('/viewapplicants', function(){
-        return view('/StellaEmployer/viewapplicants');
-    });
-
-    Route::get('/viewhaggles', function(){
-        return view('/StellaEmployer/viewHaggleFee');
-    });
+ 
 });
 
 // Auth::routes();

@@ -191,7 +191,7 @@ class UserController extends Controller
             $input = $request->all();
             $input['password'] = Hash::make($input['password']);
             $input['typeID'] = '3';
-            $input['skillID'] = '1';
+            //$input['skillID'] = '1';
             //$input['company'] = 'N/A';
             //$input['position'] = 'N/A';
             $input['status'] = '0';
@@ -315,7 +315,7 @@ class UserController extends Controller
             $input = $request->all();
             $input['password'] = Hash::make($input['password']);
             $input['typeID'] = '2';
-            $input['skillID'] = '1';
+            // $input['skillID'] = '1';
             $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             // $input['company'] = 'N/A';
             $input['token'] = str_random(25);

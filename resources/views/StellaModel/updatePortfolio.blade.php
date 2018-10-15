@@ -56,7 +56,7 @@
                                 <a class="dropdown-header" style="color:grey;">Update Portfolio</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                                <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a> 
                                 <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>

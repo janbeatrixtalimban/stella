@@ -31,8 +31,12 @@ class ModelController extends Controller
     }
 
     
-    public function modelHomepage()
+    public function modelHomepage(Request $request)
     {
+        $projectID =  $request->get('projectID'); 
+        $details = Project::where('projectID', $projectID)
+        ->join('users', 'users.userID', '=', 'projects.userID')
+        ->get();
         $projects = Project::latest()->paginate(5);
         return view('StellaModel.homepage',compact('projects'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -218,8 +222,9 @@ class ModelController extends Controller
             $projects = project::where('projectID', $projectID)->join('users', 'users.userID', '=', 'projects.userID')
             ->first();
             $input['status'] = '0';
-            $input['userID'] = Auth::user()->userID;
+            $input['candidateID'] = Auth::user()->userID;
             $input['projectID'] = $request->input('projectID');
+            $input['userID'] = $projects->userID;
             $input['emailAddress'] = $projects->emailAddress;
             $applicant = applicant::create($input);
 
@@ -265,6 +270,15 @@ class ModelController extends Controller
         
             return view('StellaModel.updatePortfolio');
     }
+
+    public function viewOffer()
+    {
+        $details = hires::where('modelID', auth::user()->userID)->first();
+        return view('StellaModel.modelattributes')->with('details', $details);
+        
+            return view('StellaModel.viewJobOffers');
+    }
+
           
 
 }

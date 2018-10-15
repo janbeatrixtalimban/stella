@@ -64,7 +64,7 @@
                                 <a class="dropdown-header" style="color:grey;">Homepage</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                                <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -105,9 +105,13 @@
                               {{ csrf_field() }}
                               <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+                             
                               <button type="submit" name="button" class="btn btn-info btn-round" >Apply</button>
                             </form>
+                            {{-- chatbox --}}
+                            <button type="submit" name="button" class="btn btn-success btn-round" >Message</button>
                           </div>
+
                           <div class="card-footer text-muted mb-2">
                             {{ $project->created_at }}
                           </div>

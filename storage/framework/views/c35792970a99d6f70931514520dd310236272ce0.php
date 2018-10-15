@@ -63,7 +63,7 @@
                                 <a class="dropdown-header" style="color:grey;">Homepage</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
-                                <a class="dropdown-item" href="<?php echo e(url('/viewjoboffers')); ?>" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/model/viewJobOffers')); ?>" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/#')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -105,9 +105,13 @@
 
                               <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
+                             
                               <button type="submit" name="button" class="btn btn-info btn-round" >Apply</button>
                             </form>
+                            
+                            <button type="submit" name="button" class="btn btn-success btn-round" >Message</button>
                           </div>
+
                           <div class="card-footer text-muted mb-2">
                             <?php echo e($project->created_at); ?>
 

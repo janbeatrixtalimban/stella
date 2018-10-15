@@ -8,6 +8,7 @@ use App\Project;
 use App\User;
 use App\attribute;
 use App\hire;
+use App\applicant;
 use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,8 @@ class EmployerController extends Controller
         return view('StellaEmployer.createJobPost');
     }
 
+    
+
     public function storePost(Request $request)
     {
 
@@ -71,8 +74,6 @@ class EmployerController extends Controller
                 'bodyBuilt' => 'required',
                 'height' => 'required',
                 'updated_at',
-                
-
 
             ]);
             if ($validator->fails()) {
@@ -388,12 +389,72 @@ class EmployerController extends Controller
     {
         $data = array('name' => "ello");
         //'text' => 'mail' :: loob ng () mail
-        Mail::send(['text' => 'hire'], $data, function ($message) use ($email) {
+        Mail::send(['html' => 'hire'], $data, function ($message) use ($email) {
             $message->to($email, $email)->subject
                 ('STELLA Email Notification');
             $message->from('stella.model.ph@gmail.com', 'Stella PH');
         });
-        //echo "Registered! Email Sent. Check your inbox.";
+        
     }
 
+    public function viewApplicants(Request $request)
+    {
+        $userID =  $request->get('userID'); 
+        // $applicant = applicant::where('applicants.userID',  Auth::user()->userID)
+        // ->get();
+
+        $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        ->join('users', 'applicants.candidateID', 'users.userID')
+        ->where('applicants.userID', Auth::user()->userID)->get();
+
+        //dd($details);
+       return view('StellaEmployer.viewApplicants')->with('details', $details);
+    }
+
+   
+    public function acceptApplicant(Request $request)
+    {
+
+        // dd(Auth::user());
+       // $app = applicant::find($id);
+        if (Auth::check()) {
+            $validator = Validator::make($request->all(), [
+
+                'status',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $status = '1';
+           
+            $applicantID = $request->get('applicantID');
+            $emailAddress = $request->get('emailAddress');
+            $applicant = applicant::where('applicantID', $applicantID)->update(['status' => $status]);
+            $this->emailNotifHireModel($emailAddress);
+            //return view('StellaModel.homepage');
+
+            //return redirect()->back()->with('alert', 'Updated!');
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'Accepted job offer';
+
+            if ($auditlogs->save() && $applicant) {
+                $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+                ->join('users', 'applicants.candidateID', 'users.userID')
+                ->where('applicants.userID', Auth::user()->userID)->get();
+        
+                //dd($details);
+               return view('StellaEmployer.viewApplicants')->with('details', $details);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
+    }
 }

@@ -55,7 +55,7 @@
                                 <a class="dropdown-header" style="color:grey;">View Applicants</a>
                                 <a class="dropdown-item" href="{{ url('/employerprofile') }}" style="color:black;"> 
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                                <a class="dropdown-item" href="{{ url('/viewapplicants') }}" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="{{ url('/employer/viewapplicants') }}" style="color:black;">View Applicants</a>
                                 <a class="dropdown-item" href="{{ url('/viewhaggles') }}" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/settings') }}" style="color:black;">Settings</a>
@@ -86,11 +86,12 @@
                 <div class="col-sm-6">
 
         <!-- Job Post Applicants --> 
+        @foreach ($details as $details)
         <div class="card-body" style="color:#1b1b1b;">
         <div class="row">
             <div class="col-sm-2"><!--space-->
             </div>
-            <h3 style="color:#1b1b1b;">(Name of Job Post)</h3>
+            <h3 style="color:#1b1b1b;">{{ $details->prjTitle }}</h3>
         </div><br>
         <div class="column">
             <table>
@@ -99,14 +100,21 @@
                               <div class="col-sm-12">
                                 <div id="model" class="card text-center">
                                     <div class="card-body" style="color:#1b1b1b;">
-                                      <h5 class="card-title">(Model Name)</h5>
-                                        <img src="/uploads/avatars/default.png" alt="" class="img-raised" width="200" height="200"><br>
+                                      <h5 class="card-title">{{ $details->firstName }} {{ $details->lastName }}</h5>
+                                        <img src="/uploads/avatars/{{ $details ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
                                       <!--Buttons with icons -->
+                                      <form class="" action="/employer/accept" method="post">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
+                                        <input type="text" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
                                         <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                        <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                        
+                                      </form>
+                                        {{-- <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                        <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button> --}}
                                     </div>
                                     <div class="card-footer text-muted mb-2">
-                                      (Skill Set)
+                                      {{ $details->skill }}
                                     </div>
                                   </div>
                                 </div>
@@ -115,12 +123,12 @@
             </table>
           </div>
           </div>
+          @endforeach
 
-                    
-                </div><!-- col-sm-6 closing tag -->
+          {{-- HELLO --}}
 
-                <div class="col-sm-1"><!--space-->
-                </div>
+          
+         
 
 
 
