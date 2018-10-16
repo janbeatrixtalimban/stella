@@ -93,7 +93,7 @@
                                 <a class="dropdown-item" href="{{ url('/employer/viewapplicants') }}" style="color:black;">View Applicants</a>
                                 <a class="dropdown-item" href="{{ url('/viewhaggles') }}" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="{{ url('/settings') }}" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="{{ url('/chat') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
@@ -141,8 +141,18 @@
                                   {{ csrf_field() }}
                                   <a data-toggle="modal" data-target="#{{ $user->userID }}" style="color:white;s" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
                                   <a href="{{url('/profile/view/'.$user->userID)}}" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
-                                  <input type="hidden" name="userID" id="userID" value="{{$user->userID}}" readonly>
-                                  <button type="submit" name="button" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></button>
+                                  <input type="hidden" name="modelID" id="modelID" value="{{$user->userID}}" readonly>
+                                  <input type="hidden" name="emailAddress" id="emailAddress" value="{{$user->emailAddress}}" readonly>
+                                  <select size="0.4" class="form-control" name="projectID" id="projectID" required>
+                                    
+                                      <option value="" selected disabled>Select Project..</option>
+                                      @foreach($projects as $project)
+                                          <option value="{{ $project->projectID }}">{{ $project->prjTitle }}</option>
+                                          @endforeach
+                                  </select>
+                                  <button type="submit" name="button" class="btn btn-success btn-round">Hire</button>
+
+                                  {{--<button type="submit" name="button" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></button>--}}
                                 </form>
                           </div>
                           <div class="card-footer text-muted mb-2">
@@ -159,9 +169,7 @@
   </table>
 </div>
 
-            
-
-          <!-- Right Column contents -->
+        <!-- Right Column contents -->
             <div class="col-sm-3">
                 <div class="column">
 
@@ -263,9 +271,10 @@
           <!-- End of Modal -->
     @endforeach
 
-          <!-- Apply to job confirmation Modal -->
-                <div id="confirmhire" class="modal fade" tabindex="-1" role="dialog">
-                    <div class="modal-dialog confirmapplymodal" role="document">
+    @foreach ($details as $details)
+          <!-- Hiring confirmation Modal with job posts -->
+                <div id="hiremodal" class="modal fade" tabindex="-1" style="padding-top: 150px;" role="dialog">
+                    <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
@@ -274,21 +283,46 @@
                             <h4 class="modal-title">Are you sure you want to hire (Model Name)?</h4>
                           </div>
                           <div class="modal-body">
+                            <label>Choose Project:</label>
+                               <div class="input-group input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <!-- idk how pero i think dapat naka forloop din project choices. LOOOOL hassle -->
+                                
+                                <select size="0.4" class="form-control" name="projectID" id="projectID" required>
+                                    
+                                    <option value="" selected disabled>Select Project..</option>
+                                    @foreach($projects as $project)
+                                        <option value="{{ $project->projectID }}">{{ $project->prjTitle }}</option>
+                                        @endforeach
+                                </select>
+                                
+                            </div><br>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
-                              </div><form class="" action="/employer/hire" method="post">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="userID" id="userID" value="{{$user->userID}}" readonly>
-                                <button type="submit" name="button" class="btn btn-maroon btn-round" data-dismiss="modal">Hire</button>
-                              </form>
-                              <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
+                              </div>
+                              <div class="row">
+                              <div class="col-sm-4"></div>
+                                <form class="" action="/employer/hire" method="post">
+                                    {{ csrf_field() }}
+                                    
+                                    <input type="hidden" name="modelID" id="modelID" value="" readonly>
+                                   
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Hire</button>
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
+
+                                </form>
+                              </div>
                             </div>
                           </div>
                       </div>
                     </div>
                 </div>
+                @endforeach
               <!-- End of Modal -->
 
 

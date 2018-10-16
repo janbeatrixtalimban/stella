@@ -51,13 +51,13 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/modelprofile', 'ModelController@modelProfile');
         Route::get('/modelfeed', 'ModelController@modelHomepage');
         Route::get('/modeleditprofile', 'ModelController@modelEditProfile');
-        //Route::get('/editProfile/{id}', 'ModelController@edit');
         Route::post('/SaveEdit/{id}', 'ModelController@editNaModel');
         Route::get('/modelattribute', 'ModelController@viewDetails');
         Route::post('/updateAttribute/{id}', 'ModelController@updateAttributes');
         Route::get('/subscription', 'UserController@subscription');
         Route::get('/model/viewPortfolio', 'ModelController@viewPortfolio');
         Route::get('/model/viewJobOffers', 'ModelController@viewOffer');
+        Route::post('/model/reportJobPost', 'ModelController@reportJobPost');
 
         Route::get('/gopremium', 'UserController@paypal');
         Route::post('/status/{id}', 'UserController@editStatus');
@@ -107,6 +107,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/admin/ViewModel', 'adminController@viewModel');
         Route::get('/admin/ViewEmployer', 'adminController@viewEmployer');
         Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
+
+
+        Route::get('/chat', 'chatController@sendChat');
     });
 
  

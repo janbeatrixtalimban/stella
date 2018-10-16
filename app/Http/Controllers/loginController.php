@@ -55,6 +55,7 @@ class loginController extends Controller
                     $userID =  $request->get('userID'); 
                     $details = User::where('typeID', $num)->join('attributes', 'attributes.userID', '=', 'users.userID')
                     ->get();
+                    $projects = Project::where('userID', Auth::user()->userID)->get();
                     
                    // $user = User::where('typeID', $num)->get();
                    
@@ -66,7 +67,7 @@ class loginController extends Controller
                         if ($auditlogs->save() && $user) 
                         {
                             return view('StellaEmployer.homepage', compact('user'))
-           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
+           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);
                         } else 
                         {
                             return ('fail');

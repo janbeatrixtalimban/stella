@@ -91,7 +91,7 @@
                                 <a class="dropdown-item" href="<?php echo e(url('/employer/viewapplicants')); ?>" style="color:black;">View Applicants</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/settings')); ?>" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/chat')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
                             </div>
@@ -140,8 +140,18 @@
 
                                   <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?>" style="color:white;s" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
                                   <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
-                                  <input type="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
-                                  <button type="submit" name="button" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></button>
+                                  <input type="hidden" name="modelID" id="modelID" value="<?php echo e($user->userID); ?>" readonly>
+                                  <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($user->emailAddress); ?>" readonly>
+                                  <select size="0.4" class="form-control" name="projectID" id="projectID" required>
+                                    
+                                      <option value="" selected disabled>Select Project..</option>
+                                      <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                          <option value="<?php echo e($project->projectID); ?>"><?php echo e($project->prjTitle); ?></option>
+                                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                  </select>
+                                  <button type="submit" name="button" class="btn btn-success btn-round">Hire</button>
+
+                                  
                                 </form>
                           </div>
                           <div class="card-footer text-muted mb-2">
@@ -159,9 +169,7 @@
   </table>
 </div>
 
-            
-
-          <!-- Right Column contents -->
+        <!-- Right Column contents -->
             <div class="col-sm-3">
                 <div class="column">
 
@@ -263,9 +271,10 @@
           <!-- End of Modal -->
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-          <!-- Apply to job confirmation Modal -->
-                <div id="confirmhire" class="modal fade" tabindex="-1" role="dialog">
-                    <div class="modal-dialog confirmapplymodal" role="document">
+    <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <!-- Hiring confirmation Modal with job posts -->
+                <div id="hiremodal" class="modal fade" tabindex="-1" style="padding-top: 150px;" role="dialog">
+                    <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
@@ -274,22 +283,47 @@
                             <h4 class="modal-title">Are you sure you want to hire (Model Name)?</h4>
                           </div>
                           <div class="modal-body">
+                            <label>Choose Project:</label>
+                               <div class="input-group input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <!-- idk how pero i think dapat naka forloop din project choices. LOOOOL hassle -->
+                                
+                                <select size="0.4" class="form-control" name="projectID" id="projectID" required>
+                                    
+                                    <option value="" selected disabled>Select Project..</option>
+                                    <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($project->projectID); ?>"><?php echo e($project->prjTitle); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                                
+                            </div><br>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
-                              </div><form class="" action="/employer/hire" method="post">
-                                <?php echo e(csrf_field()); ?>
+                              </div>
+                              <div class="row">
+                              <div class="col-sm-4"></div>
+                                <form class="" action="/employer/hire" method="post">
+                                    <?php echo e(csrf_field()); ?>
 
-                                <input type="hidden" name="userID" id="userID" value="<?php echo e($user->userID); ?>" readonly>
-                                <button type="submit" name="button" class="btn btn-maroon btn-round" data-dismiss="modal">Hire</button>
-                              </form>
-                              <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
+                                    
+                                    <input type="hidden" name="modelID" id="modelID" value="" readonly>
+                                   
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Hire</button>
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
+
+                                </form>
+                              </div>
                             </div>
                           </div>
                       </div>
                     </div>
                 </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               <!-- End of Modal -->
 
 

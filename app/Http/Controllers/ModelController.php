@@ -10,6 +10,7 @@ use App\attribute;
 use App\auditlogs;
 use App\Project;
 use App\applicant;
+use App\report;
 use Validator;
 use Mail;
 use Image;
@@ -198,9 +199,20 @@ class ModelController extends Controller
             
                     $user = user::where('userID', Auth::user()->userID)->update(['avatar' => $input ]);
          
-
-                    return back()
-                    ->with('success','You have successfully upload image.');
+                    $auditlogs = new auditlogs;
+                    $auditlogs->userID =  Auth::user()->userID;
+                    $auditlogs->logType = 'Updated avatar';
+                    
+            
+                    if ($auditlogs->save() && $user) 
+                    {
+                        return back()
+                        ->with('success','You have successfully upload image.');
+                    } else 
+                    {
+                        return ('fail');
+                    }
+                   
          
                 }
             else
@@ -279,6 +291,34 @@ class ModelController extends Controller
             return view('StellaModel.viewJobOffers');
     }
 
-          
+    public function reportJobPost(Request $request)
+    {
+        if (Auth::check()) {
+
+            $projectID = $request->get('projectID');            
+            $projects = project::where('projectID', $projectID)->join('users', 'users.userID', '=', 'projects.userID')
+            ->first();
+            $input['status'] = '1';
+            $input['userID'] = Auth::user()->userID;
+            $input['projectID'] = $request->input('projectID');
+            $report = report::create($input);
+               
+                  $auditlogs = new auditlogs;
+                  $auditlogs->userID =  Auth::user()->userID;
+                  $auditlogs->logType = 'reported job post';
+                  
+                  if ($auditlogs->save() && $report) 
+                  {
+                      return redirect()->to('/modelfeed')->with('alert', 'Reported!');
+                  } else 
+                  {
+                      return ('fail');
+                  }
+        }
+        else {
+            return('fail');
+        }
+        
+    }
 
 }

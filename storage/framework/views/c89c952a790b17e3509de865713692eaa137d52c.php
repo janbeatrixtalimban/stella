@@ -71,4 +71,8 @@
 <?php $__env->stopSection(); ?>
 </div>
 
+
+
+
+
 <?php echo $__env->make('layouts.homeapp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

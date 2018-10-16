@@ -190,13 +190,12 @@ class EmployerController extends Controller
         $details = User::where('typeID', $num)
         ->join('attributes', 'attributes.userID', '=', 'users.userID')
         ->get();
-        // dd($details);
-        return view('StellaEmployer.homepage', compact('user'))
+        $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
+        //dd($projects);
+        return view('StellaEmployer.homepage', compact('user', 'projects'))
            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
 
-        //$models = User::latest()->paginate(6);
-        //return view('StellaEmployer.homepage', compact('models'))
-            //->with('i', (request()->input('page', 1) - 1) * 5);
+
     }
 
     public function viewModels()
@@ -359,8 +358,9 @@ class EmployerController extends Controller
             ->first();
             $input['status'] = '0';
             $input['userID'] = Auth::user()->userID;
-            $input['modelID'] = $request->input('userID');
-            $input['emailAddress'] = $user->emailAddress;
+            $input['modelID'] = $request->input('modelID');
+            $input['emailAddress'] = $request->input('emailAddress');
+            $input['projectID'] = $request->input('projectID');
             $hire = hire::create($input);
 
             $this->emailNotifHireModel($input['emailAddress']);

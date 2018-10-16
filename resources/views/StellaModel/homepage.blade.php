@@ -103,7 +103,14 @@
                                       <img src="<?php echo asset('img/dots.png')?>" height="30">
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-left">
-                                    <a class="dropdown-item text-danger" action="" method="" href="#">Report Job Post</a>
+                                    {{-- ok bea dito lang ung form tag dapat --}}
+                                    <form class="" action="/model/reportJobPost" method="post">
+                                      {{ csrf_field() }}
+                                      <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+                                      <button type="submit" name="button" class="btn btn-danger btn-round">Report</button>
+                                      <a class="dropdown-item text-danger" action="/model/reportJobPost" method="post" href="#">Report Job Post</a>
+                                    </form>
+                                    
                                   </div>
                                 </div>
                           </div>
@@ -113,6 +120,7 @@
                             <form class="" action="/model/apply" method="post">
                               {{ csrf_field() }}
                               <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
+                              
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
                               <button type="submit" name="button" class="btn btn-info btn-round">Apply</button>
                             </form>
