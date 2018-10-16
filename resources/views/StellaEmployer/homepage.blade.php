@@ -150,7 +150,9 @@
                           </div>
                         </div>
                       </div>
-                      @endif</div></td>
+                      @endif
+                    </div>
+                  </td>
               @endforeach
           </tr>
       @endforeach

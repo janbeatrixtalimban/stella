@@ -94,24 +94,29 @@
                 </div>
                 <div class="col-sm-6">
 
-                      @foreach ($projects as $project)
+                     @foreach ($projects as $project)
                       @if($project->hidden > 0) 
                         <div id="jobpost" class="card text-center">
+                          <div class="card-header">
+                          <div class="dropdown" style="float:right; padding-right:10px;">
+                                  <button type="button" class="btn btn-round no-border btn-default btn-simple btn-icon no-caret" data-toggle="dropdown" style="border-color: transparent;">
+                                      <img src="<?php echo asset('img/dots.png')?>" height="30">
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-left">
+                                    <a class="dropdown-item text-danger" action="" method="" href="#">Report Job Post</a>
+                                  </div>
+                                </div>
+                          </div>
                           <div class="card-body" style="color:#1b1b1b;">
-                            <h4 class="card-title">{{ $project->prjTitle }}</h4>
+                            <h4 class="card-title">{{ $project->prjTitle }}</h4> 
                             <p class="card-text">{{ $project->jobDescription }}</p>
-                            {{-- <a data-toggle="modal"   href="#confirmapply" class="btn btn-info btn-round">Apply</a> --}}
                             <form class="" action="/model/apply" method="post">
                               {{ csrf_field() }}
                               <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
-                             
-                              <button type="submit" name="button" class="btn btn-info btn-round" >Apply</button>
+                              <button type="submit" name="button" class="btn btn-info btn-round">Apply</button>
                             </form>
-                            {{-- chatbox --}}
-                            <button type="submit" name="button" class="btn btn-success btn-round" >Message</button>
                           </div>
-
                           <div class="card-footer text-muted mb-2">
                             {{ $project->created_at }}
                           </div>

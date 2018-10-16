@@ -2,7 +2,72 @@
 
 <title>@yield('pageTitle') Stella Admin </title>
 
+<!-- Side nav bar moved from layouts coz separate pa side nav designs huhu-->
+<body class="">
+  <div class="wrapper ">
+      <!-- Admin DASHBOARD side bar -->
+    <div class="sidebar" data-color="black">
+      <div class="logo">
+        <img src="<?php echo asset('img/logo_white.png')?>" width="150">
+        <h5 style="color:white;"> Welcome, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}! </h5>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active ">
+            <a href="{{ url('/admin/dashboard') }}">
+              <i class="now-ui-icons business_chart-pie-36"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/ViewAuditLog">
+              <i class="now-ui-icons files_paper"></i>
+              <p>Audit Log</p>
+            </a>
+          </li>
+          <li>
+            <a href="./user.html">
+              <i class="now-ui-icons business_badge"></i>
+              <p>Admin Panel</p>
+            </a>
+          </li>
+          <li>
+            <a href="./user.html">
+              <i class="now-ui-icons files_single-copy-04"></i>
+              <p>Coupons</p>
+            </a>
+          </li>
+          <li>
+              <a href="/admin/addAdmin">
+                <i class="now-ui-icons users_single-02"></i>
+                <p>Add Admin</p>
+              </a>
+            </li>
+          <li>
+            <a href="/admin/ViewModel">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>Models</p>
+            </a>
+          </li>
+          <li>
+          <li>
+            <a href="/admin/ViewEmployer">
+           <i class="now-ui-icons users_single-02"></i>
+            <p>Employers</p>
+            </a>
+          </li>
+          <li>
+            <a href="./typography.html">
+              <i class="now-ui-icons gestures_tap-01"></i>
+              <p>Reports</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
+
+<!-- Start of Contents -->
 @section('content')
     <div class="main-panel">
       <!-- Navbar -->
@@ -42,6 +107,8 @@
         </div>
       </nav>
       <!-- End Navbar -->
+
+
       <div class="panel-header panel-header-sm">
       </div>
       <div class="content">

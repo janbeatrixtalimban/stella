@@ -150,7 +150,9 @@
                           </div>
                         </div>
                       </div>
-                      <?php endif; ?></div></td>
+                      <?php endif; ?>
+                    </div>
+                  </td>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </tr>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

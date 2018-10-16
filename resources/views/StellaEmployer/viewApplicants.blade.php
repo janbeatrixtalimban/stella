@@ -79,59 +79,71 @@
 
 
       <!-- Feed Content -->
-        <div class="container-fluid">
+      <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-1"><!--space-->
-                </div>
-                <div class="col-sm-6">
-
-        <!-- Job Post Applicants --> 
-        @foreach ($details as $details)
-        <div class="card-body" style="color:#1b1b1b;">
-        <div class="row">
-            <div class="col-sm-2"><!--space-->
-            </div>
-            <h3 style="color:#1b1b1b;">{{ $details->prjTitle }}</h3>
-        </div><br>
-        <div class="column">
-            <table>
-                    <tr>
+                <div class="col-sm-2"><!--side navbar-->
+                    <div class="side-navbar" style="color:black; border-right:black;">
+                        <h4>View Applicants</h4>
+                        <br>
+                        <ul class="nav flex-column">
+                          <h6>Job Post</h6><br>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">(project name 1)</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">(project name 2)</a>
+                            </li><br><br>
+                        </ul>
+                    </div>
+                </div><br><br>
+              
+<div class="col-sm-7">
+  <!-- Job Post Applicants --> 
+                    
+    <div class="card-body" style="color:#1b1b1b;">
+                      
+        @foreach($details->chunk(3) as $chunk)
+            <div class="row">
+                <div class="column">
+                    <table>
+                        <tr>
+                                      
+                          @foreach ($chunk as $details)
                             <td>
-                              <div class="col-sm-12">
-                                <div id="model" class="card text-center">
-                                    <div class="card-body" style="color:#1b1b1b;">
-                                      <h5 class="card-title">{{ $details->firstName }} {{ $details->lastName }}</h5>
-                                        <img src="/uploads/avatars/{{ $details ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
-                                      <!--Buttons with icons -->
-                                      <form class="" action="/employer/accept" method="post">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
-                                        <input type="text" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
-                                        <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                        
-                                      </form>
-                                        {{-- <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                        <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button> --}}
-                                    </div>
-                                    <div class="card-footer text-muted mb-2">
-                                      {{ $details->skill }}
-                                    </div>
-                                  </div>
-                                </div>
-                            </td>
-                    </tr>
-            </table>
-          </div>
-          </div>
-          @endforeach
+                                              
+                                <h4 style="color:#1b1b1b;">{{ $details->prjTitle }}</h4>
+                                    <div class="col-sm-12">
+                                          <div id="model" class="card text-center">
+                                                <div class="card-body" style="color:#1b1b1b;">
+                                                    <h5 class="card-title">{{ $details->firstName }} {{ $details->lastName }}</h5>
+                                                    <img src="/uploads/avatars/{{ $details ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
+                                                <!--Buttons with icons -->
+                                                    <form class="" action="/employer/accept" method="post">
+                                                      {{ csrf_field() }}
+                                                        <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
+                                                        <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
+                                                        <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                                        <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                                    </form>
+                                                </div>
+                                                <div class="card-footer text-muted mb-2">
+                                                    {{ $details->skill }}
+                                                </div>
+                                            </div>
+                                      </div>
+                            </td>                 
+                          @endforeach
 
-          {{-- HELLO --}}
+                        </tr>
+        @endforeach
+                    </table>
 
-          
-         
+                  </div>
+                </div>
+              </div>
+            </div><!--col-sm-6 closing -->
 
-
-
+        
         <!-- Right Column contents -->
 
             <div class="col-sm-3">
@@ -177,20 +189,19 @@
                           </div>
                         </div>
                       </div>
-
-
                 </div><!-- column closing tag -->
             </div><!-- sm-3 closing tag -->
 
             <div class="col-sm-1"><!--space-->
             </div>
 
-          </div><!--feed content row closing tag -->
-      </div><!-- container fluid closing tag-->
+
+            </div><!--feed content row closing tag -->
+        </div><!-- container fluid closing tag-->
 
 
-            </div>
-    </div>
+      
+
 
 @endsection
 </div>

@@ -70,6 +70,10 @@
       </div>
 @endsection
 </div>
+
+
+
+
 {{-- @extends('layout.app')
 
 @section('content')

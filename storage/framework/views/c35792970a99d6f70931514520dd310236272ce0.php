@@ -93,25 +93,30 @@
                 </div>
                 <div class="col-sm-6">
 
-                      <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                     <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <?php if($project->hidden > 0): ?> 
                         <div id="jobpost" class="card text-center">
+                          <div class="card-header">
+                          <div class="dropdown" style="float:right; padding-right:10px;">
+                                  <button type="button" class="btn btn-round no-border btn-default btn-simple btn-icon no-caret" data-toggle="dropdown" style="border-color: transparent;">
+                                      <img src="<?php echo asset('img/dots.png')?>" height="30">
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-left">
+                                    <a class="dropdown-item text-danger" action="" method="" href="#">Report Job Post</a>
+                                  </div>
+                                </div>
+                          </div>
                           <div class="card-body" style="color:#1b1b1b;">
-                            <h4 class="card-title"><?php echo e($project->prjTitle); ?></h4>
+                            <h4 class="card-title"><?php echo e($project->prjTitle); ?></h4> 
                             <p class="card-text"><?php echo e($project->jobDescription); ?></p>
-                            
                             <form class="" action="/model/apply" method="post">
                               <?php echo e(csrf_field()); ?>
 
                               <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
-                             
-                              <button type="submit" name="button" class="btn btn-info btn-round" >Apply</button>
+                              <button type="submit" name="button" class="btn btn-info btn-round">Apply</button>
                             </form>
-                            
-                            <button type="submit" name="button" class="btn btn-success btn-round" >Message</button>
                           </div>
-
                           <div class="card-footer text-muted mb-2">
                             <?php echo e($project->created_at); ?>
 

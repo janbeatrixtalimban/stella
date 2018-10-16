@@ -399,16 +399,21 @@ class EmployerController extends Controller
 
     public function viewApplicants(Request $request)
     {
+        
+        //$user = User::where('userID', $userID)->first();
+        //$projects = Project::where('userID', $user->userID)->first();
+        
+
         $userID =  $request->get('userID'); 
         // $applicant = applicant::where('applicants.userID',  Auth::user()->userID)
         // ->get();
-
+        
         $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
         ->join('users', 'applicants.candidateID', 'users.userID')
         ->where('applicants.userID', Auth::user()->userID)->get();
 
         //dd($details);
-       return view('StellaEmployer.viewApplicants')->with('details', $details);
+       return view('StellaEmployer.viewApplicants')->with('details', $details);//->with('projects', $projects);
     }
 
    
