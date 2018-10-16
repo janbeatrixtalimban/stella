@@ -11,6 +11,7 @@ use App\auditlogs;
 use App\Project;
 use App\applicant;
 use App\report;
+use App\hire;
 use Validator;
 use Mail;
 use Image;
@@ -285,10 +286,72 @@ class ModelController extends Controller
 
     public function viewOffer()
     {
-        $details = hires::where('modelID', auth::user()->userID)->first();
-        return view('StellaModel.modelattributes')->with('details', $details);
+        // $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        // ->join('users', 'applicants.candidateID', 'users.userID')
+        // ->where('applicants.userID', Auth::user()->userID)->get();
+
+        $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.modelID', Auth::user()->userID)->get();
+
+            return view('StellaModel.viewJobOffers')->with('details', $details);
+    }
+
+    public function acceptOffer(Request $request)
+    {
+
+        if (Auth::check()) {
+            $validator = Validator::make($request->all(), [
+
+                'status',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $status = '1';
+           
+            $hireID = $request->get('hireID');
+            $emailAddress = $request->get('emailAddress');
+            $hire = hire::where('hireID', $hireID)->update(['status' => $status]);
+            $this->acceptNotif($emailAddress);
+            //return view('StellaModel.homepage');
+
+            //return redirect()->back()->with('alert', 'Updated!');
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'Accepted job offer';
+
+            if ($auditlogs->save() && $hire) {
+
+                $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+                ->join('users', 'hires.userID', 'users.userID')
+                ->join('companies','hires.userID', 'companies.userID' )
+                ->where('hires.modelID', Auth::user()->userID)->get();
+
+                 return view('StellaModel.viewJobOffers')->with('details', $details);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
+    }
+    public function acceptNotif($email)
+    {
+        $data = array('name' => "ello");
+        //'text' => 'mail' :: loob ng () mail
+        Mail::send(['html' => 'accept'], $data, function ($message) use ($email) {
+            $message->to($email, $email)->subject
+                ('STELLA Email Accept Notification');
+            $message->from('stella.model.ph@gmail.com', 'Stella PH');
+        });
         
-            return view('StellaModel.viewJobOffers');
     }
 
     public function reportJobPost(Request $request)

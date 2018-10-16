@@ -58,6 +58,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/model/viewPortfolio', 'ModelController@viewPortfolio');
         Route::get('/model/viewJobOffers', 'ModelController@viewOffer');
         Route::post('/model/reportJobPost', 'ModelController@reportJobPost');
+        Route::post('/model/accept', 'ModelController@acceptOffer');
 
         Route::get('/gopremium', 'UserController@paypal');
         Route::post('/status/{id}', 'UserController@editStatus');

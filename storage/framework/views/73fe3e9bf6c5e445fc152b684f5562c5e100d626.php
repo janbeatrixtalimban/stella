@@ -76,6 +76,8 @@
 
 
       <!-- Feed Content -->
+      <h4>Job Offers</h4>
+      <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-1"><!--space-->
@@ -83,17 +85,27 @@
                 <div class="col-sm-6">
 
                 <!-- Card for job offer contents -->
+                
                     <div id="joboffer" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
-                          <h5 class="card-title">(Model Name) wants to make an offer</h5>
-                                <h4 class="card-title">(Project Name)</h4>
-                                <p>P1000.00</p>
-                                        
-                                <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                          <h4 class="card-title"><?php echo e($details->prjTitle); ?></h4>
+                                <h6 class="card-title"><?php echo e($details->jobDescription); ?></h6>
+                          <p>Email: <?php echo e($details->emailAddress); ?>    Company: <?php echo e($details->name); ?></p>
+                                <p>Role: <?php echo e($details->role); ?></p>
+                                <p>Talent fee: <?php echo e($details->talentFee); ?></p>
+                                <p>Where: <?php echo e($details->address); ?>, <?php echo e($details->location); ?></p>
+                                <form class="" action="/model/accept" method="post">
+                                  <?php echo e(csrf_field()); ?>
+
+                                    <input type="text" name="hireID" id="hireID" value="<?php echo e($details->hireID); ?>" readonly>
+                                    <input type="text" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                </form>
                             </div>
                           <div class="card-footer text-muted mb-2">
-                                (Offer date here)
+                              <?php echo e($details->created_at); ?>
+
                           </div>
                     </div>
 
@@ -103,7 +115,7 @@
                 <div class="col-sm-1"><!--space-->
                 </div>
 
-
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
         <!-- Right Column contents -->
 

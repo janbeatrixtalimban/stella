@@ -121,7 +121,7 @@
                               <?php echo e(csrf_field()); ?>
 
                               <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
-                              <a data-toggle="modal" data-target="#<?php echo e($project->prjTitle); ?>" style="color:white;"class="btn btn-success btn-round">Hire</a>
+                              
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
                               <button type="submit" name="button" class="btn btn-info btn-round">Apply</button>
                             </form>

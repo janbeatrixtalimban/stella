@@ -399,15 +399,9 @@ class EmployerController extends Controller
 
     public function viewApplicants(Request $request)
     {
-        
-        //$user = User::where('userID', $userID)->first();
-        //$projects = Project::where('userID', $user->userID)->first();
-        
 
         $userID =  $request->get('userID'); 
-        // $applicant = applicant::where('applicants.userID',  Auth::user()->userID)
-        // ->get();
-        
+
         $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
         ->join('users', 'applicants.candidateID', 'users.userID')
         ->where('applicants.userID', Auth::user()->userID)->get();
@@ -444,7 +438,7 @@ class EmployerController extends Controller
 
             $auditlogs = new auditlogs;
             $auditlogs->userID = Auth::user()->userID;
-            $auditlogs->logType = 'Accepted job offer';
+            $auditlogs->logType = 'Accepted applicant';
 
             if ($auditlogs->save() && $applicant) {
                 $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
