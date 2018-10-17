@@ -9,6 +9,7 @@ use App\User;
 use DB;
 use App\feedback;
 use App\company;
+use App\Project;
 use App\auditlogs;
 use App\transactiondetail;
 use App\attribute;
@@ -348,25 +349,140 @@ class UserController extends Controller
    	    //searching for jobs
    	    public function search(Request $request) 
     	    {
-   	        $search = $request->get('search');
+
+   	        /*$search = $request->get('search');
    	        $searchtype = $request->get('searchtype');
             $projects = DB::table('projects')->where('role', 'like', '%'.$searchtype.'%')->where('jobDescription', 'like', '%'.$search.'%')->orWhere('prjTitle', 'like', '%'.$search.'%')->paginate(5);
    	        
-    	        return view('StellaModel.homepage', ['projects' => $projects]);                    
-   	    }
+                return view('StellaModel.homepage', ['projects' => $projects]);    */     
+                
+                $projectID =  $request->get('projectID'); 
+                $search = $request->get('search');
+   	            $searchtype = $request->get('searchtype');
+                $projects = project::join('users', 'users.userID', '=', 'projects.userID')
+                ->join('companies', 'companies.userID', '=', 'projects.userID')
+                ->where('role', 'like', '%'.$searchtype.'%')
+                ->where('jobDescription', 'like', '%'.$search.'%')
+                ->orWhere('prjTitle', 'like', '%'.$search.'%')
+                ->paginate(5);
+                $details = Project::where('projectID', $projectID)
+                    ->join('users', 'users.userID', '=', 'projects.userID')
+                    ->get();
+
+                    $auditlogs = new auditlogs;
+                    $auditlogs->userID =  Auth::user()->userID;;
+                    $auditlogs->logType = 'login:model';
+                    
+            
+                    if ($auditlogs->save() && $projects) 
+                    {
+                        return view('StellaModel.homepage',compact('projects'))
+                        ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
+                    } else 
+
+                    {
+                        return ('fail');
+                    }
+           }
+           
     	    //searching for models
     	    public function find(Request $request)
     	    {
-                $num = 3;
+                /*$num = 3;
+                $user = User::where('typeID', $num)->get();
                 $details = User::where('typeID', $num)->join('attributes', 'attributes.userID', '=', 'users.userID')
                     ->get();
     	        $find = $request->get('find');
-   	        $searchtype = $request->get('searchtype');
+                $searchtype = $request->get('searchtype'); */
+
+                $num = 3;
+                $user = User::where('typeID', $num)->get();
+                $userID =  $request->get('userID'); 
+                $details = User::where('typeID', $num)->join('attributes', 'attributes.userID', '=', 'users.userID')
+                    ->get();
+                $projects = Project::where('userID', Auth::user()->userID)->get();
+                $find = $request->get('find');
+                $searchtype = $request->get('searchtype');
+                
+                    
+                   // $user = User::where('typeID', $num)->get();
+                   
+                    $auditlogs = new auditlogs;
+                        $auditlogs->userID =  Auth::user()->userID;;
+                        $auditlogs->logType = 'login:employer';
+                        
+                
+                        if ($auditlogs->save() && $user) 
+                        {
+                            if ($find=="" && $searchtype=="")
+                   {
+                    return view('StellaEmployer.homepage', compact('user'))
+                   ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects); 
+                }        
+                else if ($find!="" && $searchtype=="")
+                {
     	        $user = DB::table('users')->where('firstName', 'like', '%'.$find.'%')->orWhere('lastName', 'like', '%'.$find.'%')->paginate(5);
     	        
                 //return view('StellaEmployer.homepage', ['user' => $user]);    
                 return view('StellaEmployer.homepage', compact('user'))
-           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);                
+                ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);      
+                }   
+                else if ($find=="" && $searchtype!="")
+                {
+    	        $user = DB::table('users')->where('skill', 'like', '%'.$searchtype.'%')->paginate(5);
+    	        
+                //return view('StellaEmployer.homepage', ['user' => $user]);    
+                return view('StellaEmployer.homepage', compact('user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);      
+                }
+                else 
+                {
+    	        $user = DB::table('users')->where('skill', 'like', '%'.$searchtype.'%')->where('firstName', 'like', '%'.$find.'%')->orWhere('lastName', 'like', '%'.$find.'%')->paginate(5);
+    	        
+                //return view('StellaEmployer.homepage', ['user' => $user]);    
+                return view('StellaEmployer.homepage', compact('user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);      
+                } 
+                        } 
+                        
+                        else 
+                        {
+                            return ('fail');
+                        }
+
+
+                ////////////////////////////////////////////////////////////////////////
+
+                   
+                /* if ($find=="" && $searchtype=="")
+                   {
+                    return view('StellaEmployer.homepage', compact('user'))
+                   ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects); 
+                }        
+                else if ($find!="" && $searchtype=="")
+                {
+    	        $user = DB::table('users')->where('firstName', 'like', '%'.$find.'%')->orWhere('lastName', 'like', '%'.$find.'%')->paginate(5);
+    	        
+                //return view('StellaEmployer.homepage', ['user' => $user]);    
+                return view('StellaEmployer.homepage', compact('user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);      
+                }   
+                else if ($find=="" && $searchtype!="")
+                {
+    	        $user = DB::table('users')->where('skill', 'like', '%'.$searchtype.'%')->paginate(5);
+    	        
+                //return view('StellaEmployer.homepage', ['user' => $user]);    
+                return view('StellaEmployer.homepage', compact('user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);      
+                }
+                else 
+                {
+    	        $user = DB::table('users')->where('skill', 'like', '%'.$searchtype.'%')->where('firstName', 'like', '%'.$find.'%')->orWhere('lastName', 'like', '%'.$find.'%')->paginate(5);
+    	        
+                //return view('StellaEmployer.homepage', ['user' => $user]);    
+                return view('StellaEmployer.homepage', compact('user'))
+                ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);      
+                }    */
         }
     	    //VIEWING A MODEL'S PROFILE
     	    public function singleView($userID)

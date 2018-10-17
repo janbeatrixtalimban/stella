@@ -73,7 +73,8 @@ class loginController extends Controller
                         if ($auditlogs->save() && $user) 
                         {
                             return view('StellaEmployer.homepage', compact('user'))
-           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);
+                            ->with('i', (request()->input('page', 1) - 1) * 5)
+                            ->with('details', $details)->with('projects', $projects);
                         } else 
                         {
                             return ('fail');
