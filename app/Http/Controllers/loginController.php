@@ -31,7 +31,13 @@ class loginController extends Controller
                     $user = auth::user();
                    if(Auth::user()->typeID== 3){
 
-                    $projects = Project::latest()->paginate(50);
+                    $projectID =  $request->get('projectID'); 
+                    $projects = project::join('users', 'users.userID', '=', 'projects.userID')
+                    ->join('companies', 'companies.userID', '=', 'projects.userID')
+                    ->paginate(5);
+                    $details = Project::where('projectID', $projectID)
+        ->join('users', 'users.userID', '=', 'projects.userID')
+        ->get();
 
                         $auditlogs = new auditlogs;
                         $auditlogs->userID =  Auth::user()->userID;;
@@ -41,7 +47,7 @@ class loginController extends Controller
                         if ($auditlogs->save() && $projects) 
                         {
                             return view('StellaModel.homepage',compact('projects'))
-                            ->with('i', (request()->input('page', 1) - 1) * 5);
+                            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
                         } else 
                         {
                             return ('fail');

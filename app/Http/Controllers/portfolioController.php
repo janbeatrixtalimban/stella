@@ -89,7 +89,7 @@ class portfolioController extends Controller
                                 $image_array[$i]->move($destination_path,$new_image_name);
         
                                 $input['image'] = $new_image_name;
-                                $input['caption'] = 'new Image';
+                                $input['hidden'] = '1';
                                 $input['userID'] = Auth::user()->userID;
                                 $imgportfolio = Imgportfolio::create($input);
                             }

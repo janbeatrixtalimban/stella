@@ -18,6 +18,18 @@ use Image;
 
 class ModelController extends Controller
 {
+
+    public function forgotPassword()
+    {
+        return view('StellaModel.forgotpassword');
+    }
+
+    public function password()
+    {
+        return view('StellaModel.forgotpassword');
+    }
+
+
     public function modelProfile()
     {
         // $details = attribute::latest();
@@ -31,17 +43,23 @@ class ModelController extends Controller
         }
           
     }
-
     
     public function modelHomepage(Request $request)
     {
+
+        $projects = project::join('users', 'users.userID', '=', 'projects.userID')
+        ->join('companies', 'companies.userID', '=', 'projects.userID')
+        ->paginate(5);
+
+    //    return view('StellaModel.homepage')->with('projects', $projects);
+        //dd($projects);
         $projectID =  $request->get('projectID'); 
         $details = Project::where('projectID', $projectID)
         ->join('users', 'users.userID', '=', 'projects.userID')
         ->get();
-        $projects = Project::latest()->paginate(5);
+        //$projects = Project::latest()->paginate(5);
         return view('StellaModel.homepage',compact('projects'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+        ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
     } 
 
 
@@ -234,7 +252,7 @@ class ModelController extends Controller
             $projectID = $request->get('projectID');            
             $projects = project::where('projectID', $projectID)->join('users', 'users.userID', '=', 'projects.userID')
             ->first();
-            $input['status'] = '0';
+            $input['applicantStatus'] = '0';
             $input['candidateID'] = Auth::user()->userID;
             $input['projectID'] = $request->input('projectID');
             $input['userID'] = $projects->userID;

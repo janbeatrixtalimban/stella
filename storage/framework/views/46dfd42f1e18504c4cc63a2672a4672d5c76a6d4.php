@@ -107,6 +107,7 @@
                         <tr>
                                       
                           <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                         
                             <td>
                                               
                                 <h4 style="color:#1b1b1b;"><?php echo e($details->prjTitle); ?></h4>
@@ -116,12 +117,19 @@
                                                     <h5 class="card-title"><?php echo e($details->firstName); ?> <?php echo e($details->lastName); ?></h5>
                                                     <img src="/uploads/avatars/<?php echo e($details ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
                                                 <!--Buttons with icons -->
+
                                                     <form class="" action="/employer/accept" method="post">
                                                       <?php echo e(csrf_field()); ?>
 
                                                         <input type="hidden" name="applicantID" id="applicantID" value="<?php echo e($details->applicantID); ?>" readonly>
                                                         <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
+                                                        <input type="text" name="status" id="status" value="<?php echo e($details->applicantStatus); ?>" readonly>
+                                                        <?php if($details->applicantStatus == 0): ?>
                                                         <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                                        <?php elseif($details->applicantStatus == 1): ?>
+                                                        <button type="submit" name="button" class="btn btn-black btn-round" disabled>Accept</button>
+                                                        <?php else: ?>
+                                                        <?php endif; ?>
                                                         <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
                                                     </form>
                                                 </div>
@@ -131,7 +139,8 @@
                                                 </div>
                                             </div>
                                       </div>
-                            </td>                 
+                            </td> 
+                                        
                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                         </tr>

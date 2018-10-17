@@ -66,7 +66,7 @@
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
@@ -95,7 +95,9 @@
                 <div class="col-sm-6">
 
                      @foreach ($projects as $project)
+                     
                       @if($project->hidden > 0) 
+                      
                         <div id="jobpost" class="card text-center">
                           <div class="card-header">
                           <div class="dropdown" style="float:right; padding-right:10px;">
@@ -115,6 +117,8 @@
                                 </div>
                           </div>
                           <div class="card-body" style="color:#1b1b1b;">
+                            {{-- HERE --}}
+                            
                             <h4 class="card-title">{{ $project->prjTitle }}</h4> 
                             <p class="card-text">{{ $project->jobDescription }}</p>
                             <form class="" action="/model/apply" method="post">
@@ -129,8 +133,11 @@
                             {{ $project->created_at }}
                           </div>
                         </div>
-                        @else      
+                        
+                        @else 
+
                     @endif
+                   
                       @endforeach
 
                     
@@ -210,17 +217,29 @@
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title">{{$project->prjTitle}}</h4>
-                          <h0>Posted {{ $project->created_at }} by<h0>
+                          <h0>Posted by {{ $project->name }}<h0>
                       </div>
                     </div>
                     <div class="modal-body">
                       <p></p>
+                      <h5>Contact Details</h5>
+                      <ul>
+                        <li>
+                            <h0>Name: <b>{{$project->firstName}} {{$project->lastName}}</b></h0>
+                        </li>
+                        <li>
+                          <h0>Email: <b>{{$project->emailAddress}}</b></h0>
+                      </li>
+                      </ul>
 
                       <h5>Project Details</h5>
                       <ul>
                           <li>
                               <h0>Location: <b>{{$project->address}}</b></h0>
                           </li>
+                          <li>
+                            <h0>Date: <b>{{$project->jobDate}}</b></h0>
+                        </li>
                           <li>
                               <h0>Number of Models: <b>{{$project->modelNo}}</b></h0>
                           </li>

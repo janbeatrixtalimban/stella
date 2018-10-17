@@ -109,6 +109,7 @@
                         <tr>
                                       
                           @foreach ($chunk as $details)
+                         
                             <td>
                                               
                                 <h4 style="color:#1b1b1b;">{{ $details->prjTitle }}</h4>
@@ -118,11 +119,18 @@
                                                     <h5 class="card-title">{{ $details->firstName }} {{ $details->lastName }}</h5>
                                                     <img src="/uploads/avatars/{{ $details ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
                                                 <!--Buttons with icons -->
+
                                                     <form class="" action="/employer/accept" method="post">
                                                       {{ csrf_field() }}
                                                         <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
                                                         <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
+                                                        <input type="text" name="status" id="status" value="{{$details->applicantStatus}}" readonly>
+                                                        @if($details->applicantStatus == 0)
                                                         <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                                        @elseif($details->applicantStatus == 1)
+                                                        <button type="submit" name="button" class="btn btn-black btn-round" disabled>Accept</button>
+                                                        @else
+                                                        @endif
                                                         <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
                                                     </form>
                                                 </div>
@@ -131,7 +139,8 @@
                                                 </div>
                                             </div>
                                       </div>
-                            </td>                 
+                            </td> 
+                                        
                           @endforeach
 
                         </tr>

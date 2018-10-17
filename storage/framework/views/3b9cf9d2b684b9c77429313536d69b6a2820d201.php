@@ -118,6 +118,15 @@
                                     <div class="input-group input-lg">
                                         <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."></textarea>
                                       </div>
+                                 <!-- Dtae -->
+                                 <label>Project Date:</label>
+                                 <div class="input-group input-lg">
+                                       <div class="input-group-prepend">
+                                           <span class="input-group-text">
+                                           </span>
+                                       </div>
+                                       <input type="date" class="form-control" name="jobDate" id="jobDate" value="">
+                                   </div>
                                 <!-- ModelNo -->
                                 <label>Number of Models needed:</label>
                                <div class="input-group input-lg">

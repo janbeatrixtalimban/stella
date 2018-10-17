@@ -68,6 +68,7 @@ class EmployerController extends Controller
                 'prjTitle' => 'required',
                 'jobDescription' => 'required',
                 'location' => 'required',
+                'jobDate' => 'required',
                 'role' => 'required',
                 'talentFee' => 'required',
                 'modelNo' => 'required',
@@ -419,7 +420,7 @@ class EmployerController extends Controller
         if (Auth::check()) {
             $validator = Validator::make($request->all(), [
 
-                'status',
+                'applicantStatus',
                 'updated_at',
             ]);
             if ($validator->fails()) {
@@ -430,7 +431,7 @@ class EmployerController extends Controller
            
             $applicantID = $request->get('applicantID');
             $emailAddress = $request->get('emailAddress');
-            $applicant = applicant::where('applicantID', $applicantID)->update(['status' => $status]);
+            $applicant = applicant::where('applicantID', $applicantID)->update(['applicantStatus' => $status]);
             $this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');
 

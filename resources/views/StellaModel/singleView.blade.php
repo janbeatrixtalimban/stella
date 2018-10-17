@@ -50,7 +50,7 @@
                                 <a class="dropdown-item" href="{{ url('/viewapplicants') }}" style="color:black;">View Applicants</a>
                                 <a class="dropdown-item" href="{{ url('/viewhaggles') }}" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="{{ url('/settings') }}" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
