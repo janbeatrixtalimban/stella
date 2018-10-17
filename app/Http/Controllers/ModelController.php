@@ -28,13 +28,13 @@ class ModelController extends Controller
     {
         if (Auth::check()) {
             
-            $Credentials = ['password' == decrypt(Auth::user()->password)];
+            $Credentials = ['password' == Auth::user()->password];
             {
-                $authenticate = auth::attempt($Credentials);
-                if ($authenticate) {
+                
+                if ($Credentials) {
            
 
-                $userID = Auth::user()->password;
+                $userID = Auth::user()->userID;
 
                 $passwordValidator = Validator::make($request->all(), [
                       
@@ -46,9 +46,8 @@ class ModelController extends Controller
                 // $input['npassword'] = bcrypt($input['npassword']);
                 $input = $request->all();
                 $npassword = bcrypt($input['npassword']);
-                // bcrypt($input['npassword']);
                 
-
+                
                 $user = user::where('userID',  $userID)->update(['password' => $npassword]);
                 return view('StellaModel.forgotpassword');
 
