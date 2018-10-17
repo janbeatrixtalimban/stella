@@ -53,10 +53,10 @@
                                 <a class="dropdown-header" style="color:grey;">Edit Job Post</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/employerprofile')); ?>" style="color:black;"> 
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
-                                <a class="dropdown-item" href="<?php echo e(url('/viewapplicants')); ?>" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/employer/viewapplicants')); ?>" style="color:black;">View Applicants</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/settings')); ?>" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/employer/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
                             </div>
@@ -511,7 +511,7 @@
                                     </span>
                                 </div>
                                 <select size="0.4" class="form-control" name="bodyBuilt" id="bodyBuilt" required>
-                                    <option value="" selected disabled>Select Body Built</option>
+                                        <option value="" selected disabled>Select Body Built</option>
                                         <option value="Petite">Petite</option>
                                         <option value="Slim">Slim</option>
                                         <option value="Athletic">Athletic</option>

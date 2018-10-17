@@ -66,7 +66,7 @@
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
@@ -95,50 +95,50 @@
                 <div class="col-sm-6">
 
                      @foreach ($projects as $project)
-                     
                       @if($project->hidden > 0) 
-                      
                         <div id="jobpost" class="card text-center">
                           <div class="card-header">
+
+                          <!-- Report Job post dropdown -->
                           <div class="dropdown" style="float:right; padding-right:10px;">
                                   <button type="button" class="btn btn-round no-border btn-default btn-simple btn-icon no-caret" data-toggle="dropdown" style="border-color: transparent;">
                                       <img src="<?php echo asset('img/dots.png')?>" height="30">
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-left">
-                                    {{-- ok bea dito lang ung form tag dapat --}}
+
+                                    <!-- Report Job Post form tag-->
                                     <form class="" action="/model/reportJobPost" method="post">
                                       {{ csrf_field() }}
                                       <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
-                                      <button type="submit" name="button" class="btn btn-danger btn-round">Report</button>
-                                      <a class="dropdown-item text-danger" action="/model/reportJobPost" method="post" href="#">Report Job Post</a>
+                                      <button type="submit" name="button" class="dropdown-item text-danger">Report  Job Post</button>
                                     </form>
                                     
                                   </div>
                                 </div>
                           </div>
+                          <!-- End of Job post dropdown -->
+
                           <div class="card-body" style="color:#1b1b1b;">
-                            {{-- HERE --}}
-                            
                             <h4 class="card-title">{{ $project->prjTitle }}</h4> 
                             <p class="card-text">{{ $project->jobDescription }}</p>
+
+                            <!-- Apply form tag -->
                             <form class="" action="/model/apply" method="post">
                               {{ csrf_field() }}
                               <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
-                              
-                              <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
-                              <button type="submit" name="button" class="btn btn-info btn-round">Apply</button>
+                              <a data-toggle="modal" data-target="#confirm{{$project->projectID}}" style="color:white;"class="btn btn-info btn-round">Apply</a>
+                              {{--<input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+                              <button type="submit" name="button" class="btn btn-info btn-round">Apply</button>--}}
                             </form>
                           </div>
+
                           <div class="card-footer text-muted mb-2">
                             {{ $project->created_at }}
                           </div>
                         </div>
-                        
-                        @else 
-
+                        @else      
                     @endif
-                   
-                      @endforeach
+                  @endforeach
 
                     
                 </div><!-- col-sm-6 closing tag -->
@@ -268,34 +268,40 @@
 
 
 
-          <!-- Apply to job confirmation Modal -->
-                <div id="confirmapply" class="modal fade" tabindex="-1" role="dialog">
-                    <div class="modal-dialog confirmapplymodal" role="document">
+         
+        @foreach ($projects as $project)
+        <!-- Apply to job confirmation Modal -->
+              <div id="confirm{{$project->projectID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
 
-                  <!-- Modal content-->
-                  <form method="POST" action="/model/apply">
-                    {{ csrf_field() }}
-                      <div class="modal-content" style="color:black;">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to apply?</h4>
-                          </div>
-                          <div class="modal-body">
-                          </div>
-                          <div class="modal-footer">
-                            <div class="container">
-                              <div class="col-sm-3">
-                              </div>
-                             
-                              <button type="submit" class="btn btn-success btn-round" data-dismiss="modal" >Yes</button>
-                              <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
+                <!-- Modal content-->
+                    <div class="modal-content" style="color:black;">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Are you sure you want to apply to {{$project->prjTitle}}?</h4>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                          <div class="container">
+                            <div class="col-sm-3">
                             </div>
+                            <form class="" action="/model/apply" method="post">
+                            {{ csrf_field() }}
+                            
+                            <input type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+                            <button type="submit" name="button" class="btn btn-success btn-round">Apply</button>
+                            <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
+                            </form>
                           </div>
-                      </div>
+                        </div>
                     </div>
-                </div>
-              </form>
-              <!-- End of Modal -->
+                  </div>
+              </div>
+            </form>
+            <!-- End of Modal -->
+            @endforeach
+
 
             </div>
     </div>

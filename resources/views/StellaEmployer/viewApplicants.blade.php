@@ -87,30 +87,27 @@
                         <br>
                         <ul class="nav flex-column">
                           <h6>Job Post</h6><br>
+                          @foreach($projects as $project)
                             <li class="nav-item">
-                                <a class="nav-link" href="">(project name 1)</a>
+                                <a class="nav-link" value="{{ $project->projectID }}" href="{{ $project->projectID }}">{{ $project->prjTitle }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">(project name 2)</a>
-                            </li><br><br>
+                          @endforeach<br><br>
                         </ul>
                     </div>
                 </div><br><br>
               
-<div class="col-sm-7">
+        <div class="col-sm-9">
   <!-- Job Post Applicants --> 
                     
-    <div class="card-body" style="color:#1b1b1b;">
-                      
-        @foreach($details->chunk(3) as $chunk)
+            @foreach($details->chunk(3) as $chunk)
             <div class="row">
                 <div class="column">
                     <table>
                         <tr>
                                       
                           @foreach ($chunk as $details)
-                         
                             <td>
+                         
                                               
                                 <h4 style="color:#1b1b1b;">{{ $details->prjTitle }}</h4>
                                     <div class="col-sm-12">
@@ -124,7 +121,7 @@
                                                       {{ csrf_field() }}
                                                         <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
                                                         <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
-                                                        <input type="text" name="status" id="status" value="{{$details->applicantStatus}}" readonly>
+                                                        <input type="hidden" name="status" id="status" value="{{$details->applicantStatus}}" readonly>
                                                         @if($details->applicantStatus == 0)
                                                         <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                                         @elseif($details->applicantStatus == 1)
@@ -150,56 +147,10 @@
                   </div>
                 </div>
               </div>
-            </div><!--col-sm-6 closing -->
+            </div><!--col-sm-9 closing -->
 
         
         <!-- Right Column contents -->
-
-            <div class="col-sm-3">
-                <div class="column">
-
-
-                  <!-- Ads Card and carousel -->
-                  <div class="card" style="width:100%;">
-                        <div class="card-body" style="color:#1b1b1b; width:100%;">
-                        <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
-                            <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/background1.jpg')?>" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 1</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item active">
-                                <img class="d-block" src="<?php echo asset('img/header.jpg')?>" alt="Second slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 2</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/header2.jpg')?>" alt="Third slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad Title 3</h5>
-                                </div>
-                              </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                              <i class="now-ui-icons arrows-1_minimal-left"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                              <i class="now-ui-icons arrows-1_minimal-right"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                </div><!-- column closing tag -->
-            </div><!-- sm-3 closing tag -->
 
             <div class="col-sm-1"><!--space-->
             </div>

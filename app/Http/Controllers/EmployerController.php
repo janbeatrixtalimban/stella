@@ -17,6 +17,47 @@ use Image;
 
 class EmployerController extends Controller
 {
+    public function forgotPassword()
+    {
+        return view('StellaEmployer.forgotpassword');
+    }
+
+    public function changepassword(Request $request)
+    {
+        if (Auth::check()) {
+            
+            $Credentials = ['password' == Auth::user()->password];
+            {
+                
+                if ($Credentials) {
+           
+
+                $userID = Auth::user()->userID;
+
+                $passwordValidator = Validator::make($request->all(), [
+                      
+                    'vpassword' => 'required|string|min:6',
+                    'npassword' => 'required|same:password',
+        
+                ]);
+
+                // $input['npassword'] = bcrypt($input['npassword']);
+                $input = $request->all();
+                $npassword = bcrypt($input['npassword']);
+                
+                
+                $user = user::where('userID',  $userID)->update(['password' => $npassword]);
+                return view('StellaEmployer.forgotpassword');
+           
+        }
+        else{
+            return view('bye');
+        }
+            }
+    }
+    
+        
+    }
 
     public function index()
     {
@@ -185,15 +226,18 @@ class EmployerController extends Controller
 
     public function Ehomepage(Request $request)
     {
+
         $num = 3;
         $user = User::where('typeID', $num)->get();
+        $model = User::where('typeID', $num)->get();
         $userID =  $request->get('userID'); 
         $details = User::where('typeID', $num)
         ->join('attributes', 'attributes.userID', '=', 'users.userID')
         ->get();
+
         $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
-        //dd($projects);
-        return view('StellaEmployer.homepage', compact('user', 'projects'))
+        
+        return view('StellaEmployer.homepage', compact('user', 'projects', 'model'))
            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
 
 
@@ -406,9 +450,11 @@ class EmployerController extends Controller
         $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
         ->join('users', 'applicants.candidateID', 'users.userID')
         ->where('applicants.userID', Auth::user()->userID)->get();
+        
+        $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
 
         //dd($details);
-       return view('StellaEmployer.viewApplicants')->with('details', $details);//->with('projects', $projects);
+       return view('StellaEmployer.viewApplicants')->with('details', $details)->with('projects', $projects);
     }
 
    

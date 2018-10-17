@@ -49,11 +49,7 @@ class ModelController extends Controller
                 
                 
                 $user = user::where('userID',  $userID)->update(['password' => $npassword]);
-                return view('StellaModel.forgotpassword');
-
-            
-           
-
+                return view('StellaModel.forgotpassword')->with('message', 'IT WORKS!');
            
         }
         else{

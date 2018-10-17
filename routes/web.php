@@ -102,6 +102,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
         Route::get('/employer/viewapplicants', 'EmployerController@viewApplicants');
         Route::post('/employer/accept', 'EmployerController@acceptApplicant');
+        Route::get('/employer/forgotPassword', 'EmployerController@forgotPassword');
+        Route::post('/employer/changePassword', 'EmployerController@changepassword');
 
 
         //ADMIN SIDE!!!!

@@ -112,8 +112,7 @@
 
                                   <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
                                   <a class="btn btn-info btn-round" href=<?php echo e(url('/editPost/'.$project->projectID)); ?>>Edit Post</a>
-                                  <input type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
-                                  <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
+                                  <a data-toggle="modal" data-target="#confirm<?php echo e($project->projectID); ?>" style="color:white;" class="btn btn-maroon btn-round">Archive</a>
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">
@@ -180,6 +179,42 @@
           <!-- End of Modal -->
           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
+
+        <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <!-- Apply to job confirmation Modal -->
+                <div id="confirm<?php echo e($project->projectID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Are you sure you want to archive <?php echo e($project->prjTitle); ?>?</h4>
+                          </div>
+                          <div class="modal-body">
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                            <div class="row">
+                              <div class="col-sm-4">
+                              </div>
+                              <form class="" action="/employer/archive" method="post">
+                                  <?php echo e(csrf_field()); ?>
+
+                                  <input type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
+
+                                  <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                  <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
+                              </form>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+              <!-- End of Modal -->
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
     <!-- Upload Profile Picture Modal -->

@@ -113,8 +113,7 @@
                                   {{ csrf_field() }}
                                   <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
                                   <a class="btn btn-info btn-round" href={{ url('/editPost/'.$project->projectID) }}>Edit Post</a>
-                                  <input type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
-                                  <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
+                                  <a data-toggle="modal" data-target="#confirm{{$project->projectID}}" style="color:white;" class="btn btn-maroon btn-round">Archive</a>
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">
@@ -180,6 +179,41 @@
           <!-- End of Modal -->
           @endforeach
 
+
+        @foreach ($projects as $project)
+          <!-- Apply to job confirmation Modal -->
+                <div id="confirm{{$project->projectID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Are you sure you want to archive {{$project->prjTitle}}?</h4>
+                          </div>
+                          <div class="modal-body">
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                            <div class="row">
+                              <div class="col-sm-4">
+                              </div>
+                              <form class="" action="/employer/archive" method="post">
+                                  {{ csrf_field() }}
+                                  <input type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+
+                                  <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                  <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
+                              </form>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+              <!-- End of Modal -->
+          @endforeach
 
 
     <!-- Upload Profile Picture Modal -->

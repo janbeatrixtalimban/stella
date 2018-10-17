@@ -137,22 +137,14 @@
                             <h4 class="card-title">{{ $user->firstName }} {{ $user->lastName }}</h4>
                               <img src="/uploads/avatars/{{ $user ->avatar }}" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
                             <!--Buttons with icons -->
-                               <form class="" action="/employer/hire" method="post">
+                               <form class="hire" action="/employer/hire" method="post">
                                   {{ csrf_field() }}
-                                  <a data-toggle="modal" data-target="#{{ $user->userID }}" style="color:white;s" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                  <!-- Attributes Modal Button -->
+                                  <a data-toggle="modal" data-target="#attributes{{ $user->userID }}" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                  <!-- View Profile Button -->
                                   <a href="{{url('/profile/view/'.$user->userID)}}" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
-                                  <input type="hidden" name="modelID" id="modelID" value="{{$user->userID}}" readonly>
-                                  <input type="hidden" name="emailAddress" id="emailAddress" value="{{$user->emailAddress}}" readonly>
-                                  <select size="0.4" class="form-control" name="projectID" id="projectID" required>
-                                    
-                                      <option value="" selected disabled>Select Project..</option>
-                                      @foreach($projects as $project)
-                                          <option value="{{ $project->projectID }}">{{ $project->prjTitle }}</option>
-                                          @endforeach
-                                  </select>
-                                  <button type="submit" name="button" class="btn btn-success btn-round">Hire</button>
-
-                                  {{--<button type="submit" name="button" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></button>--}}
+                                  <!-- Hire Modal Button -->
+                                  <a data-toggle="modal" data-target="#hire{{ $user->userID }}" style="color:white;" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
                                 </form>
                           </div>
                           <div class="card-footer text-muted mb-2">
@@ -221,9 +213,9 @@
       </div><!-- container fluid closing tag-->
 
 
-      @foreach ($details as $details)
+     @foreach ($details as $details)
       <!-- View model attributes Modal -->
-          <div id="{{ $details->userID }}" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+          <div id="attributes{{ $details->userID }}" class="modal fade show" style="padding-top: 50px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
@@ -271,34 +263,36 @@
           <!-- End of Modal -->
     @endforeach
 
-    @foreach ($details as $details)
+    @foreach ($model as $model)                                       
           <!-- Hiring confirmation Modal with job posts -->
-                <div id="hiremodal" class="modal fade" tabindex="-1" style="padding-top: 150px;" role="dialog">
+                <div id="hire{{ $model->userID }}" class="modal fade" tabindex="-1" style="padding-top: 150px;" role="dialog">
                     <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to hire (Model Name)?</h4>
+                            <h4 class="modal-title">Are you sure you want to hire {{ $model->firstName }} {{ $model->lastName }}?</h4>
                           </div>
                           <div class="modal-body">
-                            <label>Choose Project:</label>
-                               <div class="input-group input-lg">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                    </span>
-                                </div>
-                                <!-- idk how pero i think dapat naka forloop din project choices. LOOOOL hassle -->
-                                
-                                <select size="0.4" class="form-control" name="projectID" id="projectID" required>
+                          <!-- Opening Form Tag -->
+                              <form class="" action="/employer/hire" method="post">
+                                    {{ csrf_field() }}
                                     
-                                    <option value="" selected disabled>Select Project..</option>
-                                    @foreach($projects as $project)
-                                        <option value="{{ $project->projectID }}">{{ $project->prjTitle }}</option>
-                                        @endforeach
-                                </select>
-                                
+                                  <input type="hidden" name="modelID" id="modelID" value="{{$model->userID}}" readonly>
+                                  <input type="hidden" name="emailAddress" id="emailAddress" value="{{$model->emailAddress}}" readonly>
+                                  <label>Choose Project:</label>
+                                    <div class="input-group input-lg">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text">
+                                          </span>
+                                      </div>
+                                      <select size="0.4" class="form-control" name="projectID" id="projectID" required>
+                                          <option value="" selected disabled>Select Project..</option>
+                                            @foreach($projects as $project)
+                                              <option value="{{ $project->projectID }}">{{ $project->prjTitle }}</option>
+                                            @endforeach
+                                      </select>
                             </div><br>
                           </div>
                           <div class="modal-footer">
@@ -307,22 +301,19 @@
                               </div>
                               <div class="row">
                               <div class="col-sm-4"></div>
-                                <form class="" action="/employer/hire" method="post">
-                                    {{ csrf_field() }}
-                                    
-                                    <input type="hidden" name="modelID" id="modelID" value="" readonly>
-                                   
+                                
                                     <button type="submit" name="button" class="btn btn-success btn-round">Hire</button>
                                     <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
 
                                 </form>
+                            <!--Closing form tag -->
                               </div>
                             </div>
                           </div>
                       </div>
                     </div>
                 </div>
-                @endforeach
+            @endforeach
               <!-- End of Modal -->
 
 

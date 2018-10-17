@@ -96,7 +96,11 @@
                         <div class="card card-plain">
                             <form method="POST" action="/model/changePassword">
                                 {{ csrf_field() }}
-
+                                @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
                         
                         <!-- Birthday -->
                                 <div class="form-group">
