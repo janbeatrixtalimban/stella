@@ -48,7 +48,7 @@
                                 <a class="dropdown-item" href="<?php echo e(url('/viewapplicants')); ?>" style="color:black;">View Applicants</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/settings')); ?>" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
                             </div>
@@ -115,7 +115,9 @@
                 
                 <h4 class="title">Feedbacks</h4>
                 <h6 class="description text-left" style="color:#1b1b1b;">
-                <h1>⋆⋆⋆⋆⋆</h1>
+                
+                <img src="/images/3.png">
+                <h6>Average rating: <?php echo e($rating); ?></h6><br><br>
                 <?php $__currentLoopData = $feedback; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feedback): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 "<?php echo e($feedback->comment); ?>"<br><br>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -188,7 +190,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Rating</strong><br>
-                                          <input type="radio" name="gender" value="1"> 1<br>
+                                          <input type="radio" name="rate" value="1"> 1<br>
                                           <input type="radio" name="rate" value="2"> 2<br>
                                           <input type="radio" name="rate" value="3"> 3<br>
                                           <input type="radio" name="rate" value="4"> 4<br>
