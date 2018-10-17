@@ -490,8 +490,12 @@ class UserController extends Controller
     	        $user = User::where('userID', $userID)->first();
     	        $details = attribute::where('userID', $user->userID)->first();
     	        $feedback = feedback::where('reciever', $user->userID)->paginate(5);
-    	        //dd($feedback);
-    	        return view('StellaModel.singleView', compact('user'))->with('details', $details)->with('feedback', $feedback);
+                //dd($feedback);
+                
+                $rating = feedback::where('reciever', $user->userID)->avg('rate');
+                $rating = round($rating);
+                
+    	        return view('StellaModel.singleView', compact('user'))->with('details', $details)->with('feedback', $feedback)->with('rating', $rating);
             }
 
     public function basic_email($email)

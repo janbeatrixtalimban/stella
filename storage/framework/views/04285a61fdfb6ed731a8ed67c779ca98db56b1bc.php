@@ -115,7 +115,9 @@
                 
                 <h4 class="title">Feedbacks</h4>
                 <h6 class="description text-left" style="color:#1b1b1b;">
-                <h1>⋆⋆⋆⋆⋆</h1>
+                
+                <img src="/images/3.png">
+                <h6>Average rating: <?php echo e($rating); ?></h6><br><br>
                 <?php $__currentLoopData = $feedback; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feedback): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 "<?php echo e($feedback->comment); ?>"<br><br>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

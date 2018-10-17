@@ -116,7 +116,9 @@
                 
                 <h4 class="title">Feedbacks</h4>
                 <h6 class="description text-left" style="color:#1b1b1b;">
-                <h1>⋆⋆⋆⋆⋆</h1>
+                
+                <img src="/images/3.png">
+                <h6>Average rating: {{$rating}}</h6><br><br>
                 @foreach ($feedback as $feedback)
                 "{{$feedback->comment}}"<br><br>
                 @endforeach
