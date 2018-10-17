@@ -188,7 +188,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Rating</strong><br>
-                                          <input type="radio" name="gender" value="1"> 1<br>
+                                          <input type="radio" name="rate" value="1"> 1<br>
                                           <input type="radio" name="rate" value="2"> 2<br>
                                           <input type="radio" name="rate" value="3"> 3<br>
                                           <input type="radio" name="rate" value="4"> 4<br>
