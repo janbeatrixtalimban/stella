@@ -24,9 +24,46 @@ class ModelController extends Controller
         return view('StellaModel.forgotpassword');
     }
 
-    public function password()
+    public function changepassword(Request $request)
     {
-        return view('StellaModel.forgotpassword');
+        if (Auth::check()) {
+            
+            $Credentials = ['password' == decrypt(Auth::user()->password)];
+            {
+                $authenticate = auth::attempt($Credentials);
+                if ($authenticate) {
+           
+
+                $userID = Auth::user()->password;
+
+                $passwordValidator = Validator::make($request->all(), [
+                      
+                    'vpassword' => 'required|string|min:6',
+                    'npassword' => 'required|same:password',
+        
+                ]);
+
+                // $input['npassword'] = bcrypt($input['npassword']);
+                $input = $request->all();
+                $npassword = bcrypt($input['npassword']);
+                // bcrypt($input['npassword']);
+                
+
+                $user = user::where('userID',  $userID)->update(['password' => $npassword]);
+                return view('StellaModel.forgotpassword');
+
+            
+           
+
+           
+        }
+        else{
+            return view('bye');
+        }
+            }
+    }
+    
+        
     }
 
 

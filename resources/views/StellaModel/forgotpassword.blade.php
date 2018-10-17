@@ -94,20 +94,25 @@
                     <h3>Manage Account</h3><br>
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                            <form method="POST" action="#">
+                            <form method="POST" action="/model/changePassword">
                                 {{ csrf_field() }}
 
                         
                         <!-- Birthday -->
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label>Current Password</label>
                                     <input type="password" class="form-control" name="password" value="">
                                 </div>
+                                <br />
                         <!-- Email -->
                                 <div class="form-group">    
-                                    <label>Confirm Password</label>   
-                                    <input type="password" class="form-control" id="password" name="password" value="" > 
+                                    <label>New Password</label>   
+                                    <input type="password" class="form-control" id="npassword" name="npassword" value="" > 
                                 </div> 
+                                <div class="form-group">    
+                                    <label>Verify Password</label>   
+                                    <input type="password" class="form-control" id="vpassword" name="vpassword" value="" > 
+                                </div>
                         <!-- Save button -->
                             <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
                             <a class="link" href="{{ url('/modelprofile') }}">Cancel</a>

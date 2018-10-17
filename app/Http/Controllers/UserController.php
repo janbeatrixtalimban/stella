@@ -189,7 +189,7 @@ class UserController extends Controller
         if ($resp->success) 
         {
             $input = $request->all();
-            $input['password'] = Hash::make($input['password']);
+            $input['password'] = bcrypt($input['password']);
             $input['typeID'] = '3';
             $input['status'] = '0';
             $input['token'] = str_random(25);
