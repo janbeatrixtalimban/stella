@@ -39,7 +39,7 @@ class portfolioController extends Controller
         if (Auth::check()) {
                   
             //$images = imgportfolio::get();
-            $images = DB::table('imgportfolios')->select('image')->where('userID', $id)->get();
+            $images = DB::table('imgportfolios')/*->select('image')*/->where('userID', $id)->get();
             //$user = $images;
             return view('imagegalleryview',compact('images'));
           
@@ -49,6 +49,32 @@ class portfolioController extends Controller
               }
         
         
+    }
+
+    public function archivePortfolio(Request $request)
+    {
+        if (Auth::check()) {
+    
+            $display = 'none';
+            //$portfolio = 'none';
+            $imageID = $request->get('imageID');
+            // dd($projectID);
+
+            //$image = portfolio::where('imageID', $imageID)
+                //->update(['portfolio' => $portfolio]);
+            $image = DB::table('imgportfolios')->select('image')->where('imageID', $imageID)
+            ->update(['display' => $display]);
+
+                //$projects = Project::where('userID', Auth::user()->userID)->get();
+                //$company = company::where('userID', auth::user()->userID)->first();
+    
+                //return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
+                return view('StellaModel.updatePortfolio');
+    
+
+        } else {
+            return ('fail');
+        }
     }
 
     public function viewimage(Request $request, $id)

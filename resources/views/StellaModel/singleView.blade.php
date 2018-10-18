@@ -117,12 +117,12 @@
                 <h4 class="title">Feedbacks</h4>
                 <h6 class="description text-left" style="color:#1b1b1b;">
                 
-                <img src="/images/3.png">
+                <img src="/images/{{$rating}}.png">
                 <h6>Average rating: {{$rating}}</h6><br><br>
                 @foreach ($feedback as $feedback)
                 "{{$feedback->comment}}"<br><br>
                 @endforeach
-            </div> 
+                </div> 
 
                 <!-- Space -->
                       <div class="col-sm-1">

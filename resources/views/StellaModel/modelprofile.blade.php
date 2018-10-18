@@ -114,8 +114,18 @@
                   <b>Shoe size:</b> {{$details->shoeSize}}<br>
                   <b>Tattoo or Scars:</b> {{$details->tatoo}}<br>
                 </h5>
-            </div> 
-            
+                
+                <h4 class="title">Feedbacks</h4>
+                <h6 class="description text-left" style="color:#1b1b1b;">
+                
+                <img src="/images/{{$rating}}.png">
+                <h6>Average rating: {{$rating}}</h6><br><br>
+                @foreach ($feedback as $feedback)
+                "{{$feedback->comment}}"<br><br>
+                @endforeach
+                </div> 
+
+                <!-- Space -->
                       <div class="col-sm-1">
                       </div>
 

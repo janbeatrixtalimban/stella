@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\attribute;
 use App\auditlogs;
+use App\feedback;
 use App\Project;
 use App\applicant;
 use App\report;
@@ -69,9 +70,15 @@ class ModelController extends Controller
        
         if (Auth::check()) {
             
+           
             $details = attribute::where('userID', auth::user()->userID)->first();
+            $feedback = feedback::where('reciever', auth::user()->userID)->paginate(5);
+                //dd($feedback);
+                
+                $rating = feedback::where('reciever', auth::user()->userID)->avg('rate');
+                $rating = round($rating);
             
-            return view('StellaModel.modelProfile')->with('details', $details);
+            return view('StellaModel.modelProfile')->with('details', $details)->with('feedback',$feedback)->with('rating',$rating);
         }
           
     }
@@ -330,7 +337,6 @@ class ModelController extends Controller
 
     public function viewPortfolio()
     {
-        
             return view('StellaModel.updatePortfolio');
     }
 

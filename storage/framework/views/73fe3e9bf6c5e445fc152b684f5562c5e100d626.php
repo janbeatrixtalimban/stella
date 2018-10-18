@@ -1,4 +1,4 @@
-<title><?php echo $__env->yieldContent('pageTitle'); ?> View Applicants </title>
+<title><?php echo $__env->yieldContent('pageTitle'); ?> View Job Offers </title>
 
 <?php $__env->startSection('content'); ?>
 
@@ -55,7 +55,7 @@
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 <a class="dropdown-item" href="<?php echo e(url('/viewjoboffers')); ?>" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a> 
-                                <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/#')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
                             </div>
@@ -76,34 +76,51 @@
 
 
       <!-- Feed Content -->
-      <h4>Job Offers</h4>
-      <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      
       <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-1"><!--space-->
                 </div>
-                <div class="col-sm-6">
-
+                <div class="col-sm-7">
                 <!-- Card for job offer contents -->
-                
-                    <div id="joboffer" class="card text-center">
+                <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <div id="joboffer" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
-                          <h4 class="card-title"><?php echo e($details->prjTitle); ?></h4>
-                                <h6 class="card-title"><?php echo e($details->jobDescription); ?></h6>
-                          <p>Email: <?php echo e($details->emailAddress); ?>    Company: <?php echo e($details->name); ?></p>
-                                <p>Role: <?php echo e($details->role); ?></p>
-                                <p>Talent fee: <?php echo e($details->talentFee); ?></p>
-                                <p>Where: <?php echo e($details->address); ?>, <?php echo e($details->location); ?></p>
-                                <form class="" action="/model/accept" method="post">
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <h3 class="card-title text-center"><?php echo e($details->prjTitle); ?></h3>
+                              <p><?php echo e($details->jobDescription); ?></p>
+                              <h0>Email: <b><?php echo e($details->emailAddress); ?></b></h0><br>
+                              <h0>Company: <b><?php echo e($details->name); ?></b></h0><br>
+                              <h0>Role: <b><?php echo e($details->role); ?></b></h0><br>
+                              <h0>Talent fee: <b>P<?php echo e($details->talentFee); ?>.00</b></h0><br>
+                              <h0>Where: <b><?php echo e($details->address); ?>, <?php echo e($details->location); ?></b></h0><br><br>
+                         <!-- Accept or Reject Job Post -->
+                                <form class="text-center" action="/model/accept" method="post">
                                   <?php echo e(csrf_field()); ?>
 
-                                    <input type="text" name="hireID" id="hireID" value="<?php echo e($details->hireID); ?>" readonly>
-                                    <input type="text" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
+                                    <input type="hidden" name="hireID" id="hireID" value="<?php echo e($details->hireID); ?>" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
                                     <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                     <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
                                 </form>
                             </div>
-                          <div class="card-footer text-muted mb-2">
+                            <div class="col-sm-4">
+                                <div style="position:absolute; top:50%; height:10em; margin-top:-5em;">
+                                    <h5 class="card-title">Make an offer</h5>
+                                    <div class="input-group input-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="contactNo" placeholder="Talent Fee PHP" name="" required>
+                                    </div>
+                                    <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
+                                </div>
+                            </div>
+                            </div>
+                          </div>
+                          <div class="card-footer text-muted mb-2 text-center">
                               <?php echo e($details->created_at); ?>
 
                           </div>
@@ -111,9 +128,6 @@
 
                     
                 </div><!-- col-sm-6 closing tag -->
-
-                <div class="col-sm-1"><!--space-->
-                </div>
 
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

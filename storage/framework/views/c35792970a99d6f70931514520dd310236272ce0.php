@@ -284,9 +284,6 @@
                         <div class="modal-body">
                         </div>
                         <div class="modal-footer">
-                          <div class="container">
-                            <div class="col-sm-3">
-                            </div>
                             <form class="" action="/model/apply" method="post">
                             <?php echo e(csrf_field()); ?>
 
@@ -295,8 +292,6 @@
                             <button type="submit" name="button" class="btn btn-success btn-round">Apply</button>
                             <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
                             </form>
-                          </div>
-                        </div>
                     </div>
                   </div>
               </div>

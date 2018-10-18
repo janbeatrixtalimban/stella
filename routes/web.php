@@ -61,6 +61,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/model/accept', 'ModelController@acceptOffer');
         Route::get('/model/forgotPassword', 'ModelController@forgotPassword');
         Route::post('/model/changePassword', 'ModelController@changepassword');
+        Route::post('/model/archive', 'portfolioController@archivePortfolio');
 
 
         Route::get('/gopremium', 'UserController@paypal');

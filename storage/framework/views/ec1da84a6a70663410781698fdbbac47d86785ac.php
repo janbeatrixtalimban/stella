@@ -112,8 +112,18 @@
                   <b>Shoe size:</b> <?php echo e($details->shoeSize); ?><br>
                   <b>Tattoo or Scars:</b> <?php echo e($details->tatoo); ?><br>
                 </h5>
-            </div> 
-            
+                
+                <h4 class="title">Feedbacks</h4>
+                <h6 class="description text-left" style="color:#1b1b1b;">
+                
+                <img src="/images/<?php echo e($rating); ?>.png">
+                <h6>Average rating: <?php echo e($rating); ?></h6><br><br>
+                <?php $__currentLoopData = $feedback; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feedback): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                "<?php echo e($feedback->comment); ?>"<br><br>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div> 
+
+                <!-- Space -->
                       <div class="col-sm-1">
                       </div>
 
