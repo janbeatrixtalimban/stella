@@ -440,4 +440,46 @@ class ModelController extends Controller
         
     }
 
+    public function haggleFee(Request $request)
+    {
+        if (Auth::check()) {
+            $validator = Validator::make($request->all(), [
+                'haggleAmount', 
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+    
+            }
+            $hireID = $request->get('hireID');
+            $haggleAmount = $request->input('haggleAmount');
+            
+            
+            $hire = hire::where('hireID', $hireID)
+            ->update(['haggleAmount' => $haggleAmount]);
+    
+                  $auditlogs = new auditlogs;
+                  $auditlogs->userID =  Auth::user()->userID;
+                  $auditlogs->logType = 'Added talent fee';
+                  
+          
+                  if ($auditlogs->save() && $hire) 
+                  {
+                    $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+                    ->join('users', 'hires.userID', 'users.userID')
+                    ->join('companies','hires.userID', 'companies.userID' )
+                    ->where('hires.modelID', Auth::user()->userID)->get();
+            
+                        return view('StellaModel.viewJobOffers')->with('details', $details);
+                  } else 
+                  {
+                      return ('fail');
+                  }
+      
+        }
+        else {
+            return('fail');
+        }
+    }
+
 }

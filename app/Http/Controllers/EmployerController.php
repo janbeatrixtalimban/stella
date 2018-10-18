@@ -402,6 +402,7 @@ class EmployerController extends Controller
             $user = user::where('userID', $userID)
             ->first();
             $input['status'] = '0';
+            $input['haggleAmount'] = '0';
             $input['userID'] = Auth::user()->userID;
             $input['modelID'] = $request->input('modelID');
             $input['emailAddress'] = $request->input('emailAddress');
@@ -514,5 +515,16 @@ class EmployerController extends Controller
             $message->from('stella.model.ph@gmail.com', 'Stella PH');
         });
         
+    }
+
+    public function viewhagglefee()
+    {
+        if (Auth::check()) {
+        $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'users.userID', 'hires.modelID')
+        ->where('hires.userID', Auth::user()->userID)->get();
+       // dd($details);
+        return view('StellaEmployer.viewHaggleFee')->with('details', $details);
+        }
     }
 }

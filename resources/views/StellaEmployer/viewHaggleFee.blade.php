@@ -56,7 +56,7 @@
                                 <a class="dropdown-item" href="{{ url('/employerprofile') }}" style="color:black;"> 
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/employer/viewapplicants') }}" style="color:black;">View Applicants</a>
-                                <a class="dropdown-item" href="{{ url('/viewhaggles') }}" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="{{ url('/employer/haggleFee') }}" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/employer/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -79,6 +79,8 @@
 
 
       <!-- Feed Content -->
+      @foreach($details as $details)
+      @if($details->haggleAmount != 0)
       <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-1"><!--space-->
@@ -86,18 +88,17 @@
                 <div class="col-sm-6">
 
                 <!-- Card for job offer contents -->
+                <br />
                     <div id="joboffer" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
-                          <h5 class="card-title">(Model Name) wants to make an offer</h5>
-                                <h4 class="card-title">(Project Name)</h4>
-                                <p>P1000.00</p>
+                          <h5 class="card-title"><b>{{ $details->firstName }} {{ $details->lastName }} </b>wants to make an offer:</h5>
+                                <h4 class="card-title">Project title: {{ $details->prjTitle }}</h4>
+                                <p>Amount: <b>{{ $details->haggleAmount }}</b></p>
                                         
                                 <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                 <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
                             </div>
-                          <div class="card-footer text-muted mb-2">
-                                (Offer date here)
-                          </div>
+                          
                     </div>
 
                     
@@ -105,8 +106,9 @@
 
                 <div class="col-sm-1"><!--space-->
                 </div>
-
-
+                @else
+                @endif
+                @endforeach
 
         <!-- Right Column contents -->
 

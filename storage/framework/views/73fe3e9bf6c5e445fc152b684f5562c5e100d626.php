@@ -107,15 +107,21 @@
                             </div>
                             <div class="col-sm-4">
                                 <div style="position:absolute; top:50%; height:10em; margin-top:-5em;">
+                                  <h5 class="card-title">Not satisfied with the talent fee?</h5>
                                     <h5 class="card-title">Make an offer</h5>
                                     <div class="input-group input-sm">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" id="contactNo" placeholder="Talent Fee PHP" name="" required>
+                                        <form class="text-center" action="/model/haggle" method="post">
+                                          <?php echo e(csrf_field()); ?>
+
+                                        <input type="hidden" name="hireID" id="hireID" value="<?php echo e($details->hireID); ?>" readonly>
+                                        <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($details->haggleAmount); ?>" name="haggleAmount" required>
                                     </div>
                                     <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
+                                  </form>
                                 </div>
                             </div>
                             </div>

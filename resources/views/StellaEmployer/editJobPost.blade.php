@@ -56,7 +56,7 @@
                                 <a class="dropdown-item" href="{{ url('/employerprofile') }}" style="color:black;"> 
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/employer/viewapplicants') }}" style="color:black;">View Applicants</a>
-                                <a class="dropdown-item" href="{{ url('/viewhaggles') }}" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="{{ url('/employer/haggleFee') }}" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/employer/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>

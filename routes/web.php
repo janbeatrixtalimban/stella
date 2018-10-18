@@ -62,6 +62,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/model/forgotPassword', 'ModelController@forgotPassword');
         Route::post('/model/changePassword', 'ModelController@changepassword');
         Route::post('/model/archive', 'portfolioController@archivePortfolio');
+        Route::post('/model/haggle', 'ModelController@haggleFee');
 
 
         Route::get('/gopremium', 'UserController@paypal');
@@ -105,7 +106,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/employer/accept', 'EmployerController@acceptApplicant');
         Route::get('/employer/forgotPassword', 'EmployerController@forgotPassword');
         Route::post('/employer/changePassword', 'EmployerController@changepassword');
-
+        Route::get('/employer/haggleFee', 'EmployerController@viewhagglefee');
 
         //ADMIN SIDE!!!!
         Route::get('/admin/dashboard', 'adminController@getDashboard');

@@ -52,12 +52,13 @@
                               </p>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Edit Profile</a>
-                                <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="{{ url('/employerprofile') }}" style="color:black;"> 
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                                <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
-                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a> 
-                                <a class="dropdown-item" href="{{ url('#') }}" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="{{ url('/employer/viewapplicants') }}" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="{{ url('/employer/haggleFee') }}" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="{{ url('/employer/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
