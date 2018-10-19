@@ -492,9 +492,11 @@ class EmployerController extends Controller
                 $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
                 ->join('users', 'applicants.candidateID', 'users.userID')
                 ->where('applicants.userID', Auth::user()->userID)->get();
-        
+                
+                $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
+
                 //dd($details);
-               return view('StellaEmployer.viewApplicants')->with('details', $details);
+               return view('StellaEmployer.viewApplicants')->with('details', $details)->with('projects', $projects);
             } else {
                 return ('failed');
             }

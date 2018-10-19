@@ -120,7 +120,14 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/chat', 'chatController@sendChat');
     });
 
+    //need for cancel button at register
+    Route::get('/home', function(){
+        return view('StellaHome/home');
+    });
  
+    Route::get('/viewhaggles', function(){
+        return view('StellaEmployer/viewHaggleFee');
+    });
 });
 
 // Auth::routes();

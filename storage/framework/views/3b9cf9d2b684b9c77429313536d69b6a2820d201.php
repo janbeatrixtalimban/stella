@@ -55,7 +55,7 @@
                                 <a class="dropdown-item" href="<?php echo e(url('/employerprofile')); ?>" style="color:black;"> 
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 <a class="dropdown-item" href="<?php echo e(url('/viewapplicants')); ?>" style="color:black;">View Applicants</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/employer/haggleFee')); ?>" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/employer/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -104,7 +104,7 @@
                                         </div>
                                     <?php endif; ?>
                             <h3>Create Job Post</h3><br>
-                                <!-- Title -->
+                            <!-- Title -->
                                 <label>Project Title:</label>
                                     <div class="input-group input-lg">
                                           <div class="input-group-prepend">
@@ -113,38 +113,58 @@
                                           </div>
                                           <input type="text" class="form-control" name="prjTitle" id="prjTitle" placeholder="Project Title" value="">
                                       </div>
-                                <!-- Job Description -->
-                                <label>Job Description:</label>
+                            <!-- Project Description -->
+                                <label>Project Description:</label>
                                     <div class="input-group input-lg">
                                         <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."></textarea>
-                                      </div>
-                                 <!-- Dtae -->
-                                 <label>Project Date:</label>
-                                 <div class="input-group input-lg">
+                                      </div><br><br>
+                            <!-- Project Start -->
+                                <label>Project Start</label>
+                                <div class="input-group input-lg">
                                        <div class="input-group-prepend">
                                            <span class="input-group-text">
                                            </span>
                                        </div>
                                        <input type="date" class="form-control" name="jobDate" id="jobDate" value="">
-                                   </div>
-                                <!-- ModelNo -->
+                                       <input type="time" class="form-control" name="" id="" value="">
+                                </div>
+                            <!-- Project End -->
+                                <label>Project End</label>
+                                <div class="input-group input-lg">
+                                       <div class="input-group-prepend">
+                                           <span class="input-group-text">
+                                           </span>
+                                       </div>
+                                    <input type="date" class="form-control" name="" id="" value="">
+                                    <input type="time" class="form-control" name="" id="" value="">
+                                </div><br><br>
+                            <!-- ModelNo -->
                                 <label>Number of Models needed:</label>
                                <div class="input-group input-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                     </span>
                                 </div>
-                                <select size="0.4" class="form-control" name="modelNo" id="modelNo" required>
+                                <select size="0.4" class="form-control" name="modelNo" id="modelNumber" required>
                                     <option value="" selected disabled>Select Number of Models..</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
                                 </select>
                             </div><br>
+
+                        <!-- For the selected fields to show per selected num of models -->
+                                    <div id="modelcontainer"></div><br>
+
                               <!-- Address line 1 -->
-                              <label for="address">Full Address</label>
+                              <label for="address">Location (Address) of Project</label>
                               <div class="input-group input-sm">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -475,68 +495,9 @@
                                             <option value="Tacurong City">Tacurong City</option>
                                         </optgroup>
                                     </select>
-                                    <!--Zip Code-->
+                                <!--Zip Code-->
                                         <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
                                         </div><br>
-                                <!-- Role -->
-                                <label>Role:</label>
-                                        <div class="input-group input-lg">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <select size="0.4" class="form-control" name="role" id="role" required>
-                                                <option value="" selected disabled>Select role of model..</option>
-                                                    <option value="Fashion Model">Fashion(Editorial) model</option>
-                                                    <option value="Runway Model">Runway model</option>
-                                                    <option value="Commercial Model">Commercial model</option>
-                                                    <option value="Plus Size Model">Plus size model</option>
-                                                    <option value="Petite Model">Petite model</option>
-                                                    <option value="Swimsuit Model">Swimsuit Model</option>
-                                                    <option value="Lingerie Model">Lingerie Model</option>
-                                                    <option value="Glamour Model">Glamour Model</option>
-                                                    <option value="Fitness Model">Fitness Model</option>
-                                                    <option value="Fitting Model">Fitting Model</option>
-                                                    <option value="Parts Model">Parts Model</option>
-                                                    <option value="Promotional Model">Promitional Model</option>
-                                                    <option value="Mature Model">Mature Model</option>
-                                            </select>
-                                        </div>
-                                <!-- Talent Fee -->
-                                <label>Talent Fee:</label>
-                                    <div class="input-group input-lg">
-                                          <div class="input-group-prepend">
-                                              <span class="input-group-text">
-                                              </span>
-                                          </div>
-                                          <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Talent Fee in PHP" value="">
-                                    </div>
-
-                                <!-- Height -->
-                                <label>Height:</label>
-                                <div class="input-group input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control" name="height" id="height" placeholder="Height requirement" value="">
-                              </div>
-
-                               <!-- Body built -->
-                               <label>Body Built:</label>
-                               <div class="input-group input-lg">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                    </span>
-                                </div>
-                                <select size="0.4" class="form-control" name="bodyBuilt" id="bodyBuilt" required>
-                                    <option value="" selected disabled>Select Body Built</option>
-                                        <option value="Petite">Petite</option>
-                                        <option value="Slim">Slim</option>
-                                        <option value="Athletic">Athletic</option>
-                                        <option value="Plus Size">Plus Size</option>
-                                </select>
-                            </div>
                                 <!-- Create button -->
                                     <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Create</button><br>
                                     <a class="link" href="<?php echo e(url('/employerprofile')); ?>">Cancel</a>

@@ -267,35 +267,38 @@
           @endforeach
 
 
-
-         
         @foreach ($projects as $project)
-        <!-- Apply to job confirmation Modal -->
-              <div id="confirm{{$project->projectID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
-                  <div class="modal-dialog" role="document">
+          <!-- Apply to job confirmation Modal -->
+                <div id="confirm{{$project->projectID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
 
-                <!-- Modal content-->
-                    <div class="modal-content" style="color:black;">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Are you sure you want to apply to {{$project->prjTitle}}?</h4>
-                        </div>
-                        <div class="modal-body">
-                        </div>
-                        <div class="modal-footer">
-                            <form class="" action="/model/apply" method="post">
-                            {{ csrf_field() }}
-                            
-                            <input type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
-                            <button type="submit" name="button" class="btn btn-success btn-round">Apply</button>
-                            <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
-                            </form>
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Are you sure you want to apply to {{$project->prjTitle}}?</h4>
+                          </div>
+                          <div class="modal-body">
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <div class="col-sm-3">
+                              </div>
+                              <form class="" action="/model/apply" method="post">
+                              {{ csrf_field() }}
+                              
+                              <input type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+                              <button type="submit" name="button" class="btn btn-success btn-round">Apply</button>
+                              <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
+                              </form>
+                            </div>
+                          </div>
+                      </div>
                     </div>
-                  </div>
-              </div>
-            </form>
-            <!-- End of Modal -->
-            @endforeach
+                </div>
+              </form>
+              <!-- End of Modal -->
+              @endforeach
 
 
             </div>
