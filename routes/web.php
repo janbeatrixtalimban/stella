@@ -125,6 +125,10 @@ Route::group(['middleware' => 'web'], function () {
         return view('StellaHome/home');
     });
  
+    Route::get('/registrationpage2', function(){
+        return view('StellaHome/registerModelAttributes');
+    });
+
     Route::get('/viewhaggles', function(){
         return view('StellaEmployer/viewHaggleFee');
     });

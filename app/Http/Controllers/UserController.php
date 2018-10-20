@@ -135,8 +135,8 @@ class UserController extends Controller
         //Validators
         $otherValidator = Validator::make($request->all(), [
 
-            'lastName' => 'required|string|max:50|',
-            'firstName'  => 'required|string|max:50|',
+            'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
             'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
             'location' => 'required|string|max:50',
             'skill' => 'required|string|max:50',
@@ -225,7 +225,7 @@ class UserController extends Controller
     
             if ($auditlogs->save() && $user) 
             {
-                return redirect()->to('/loginUser');
+                return redirect()->to('/registrationpage2');
             } else 
             {
                 return redirect()->to('/');
@@ -256,8 +256,8 @@ class UserController extends Controller
         //Validators
         $otherValidator = Validator::make($request->all(), [
 
-            'lastName' => 'required|string|max:50|',
-            'firstName'  => 'required|string|max:50|',
+            'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
             'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
             'location' => 'required|string|max:50',
             'name' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',

@@ -162,7 +162,7 @@
                                             </select>
                                         </div>
                                 <!--Weight-->
-                                <label>Weight (lbs)</label>
+                                <label>Weight (Kgs)</label>
                                 <div class="input-group input-sm">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">

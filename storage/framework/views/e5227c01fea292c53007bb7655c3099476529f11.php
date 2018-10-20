@@ -1,4 +1,4 @@
-<title><?php echo $__env->yieldContent('pageTitle'); ?> Register Model</title>
+<title><?php echo $__env->yieldContent('pageTitle'); ?> Register Model | Step:1</title>
 
 <?php $__env->startSection('content'); ?>
 
@@ -13,7 +13,7 @@
                   <div class="navbar-translate">
                     <img src="<?php echo asset('img/stella icon logo.png')?>" width="40">
                     <a class="navbar-brand" href="" rel="tooltip" title="Register as a model" data-placement="bottom" target="_blank">
-                      Registration
+                      Model Registration
                     </a>
                 </div>
                 <div class="col-lg-1">
@@ -35,7 +35,6 @@
                         <div style="width: 200px;" class="logo-container">
                             <img src="<?php echo asset('img/logo_white.png')?>">
                         </div>
-                        <h3 class="h3-seo">Model Registration</h3><br>
                       </div>
                   </div>
               </div>
@@ -46,6 +45,7 @@
       
       <!-- Body Contents -->
             <!--Left column contents-->
+            <h3 class="h3-seo">Step 1: Account and Basic informaton</h3><br>
             <form class="" action="/register" method="post" enctype="multipart/form-data">
                 <?php echo e(csrf_field()); ?>
 
@@ -504,17 +504,11 @@
                                 <br>
                             <!--hidden avatar field -->
                                 <input type="hidden" name="avatar" id="avatar" value="default.png" required>
-                          <!-- ReCaptcha--> 
-                                <div class="d-flex justify-content-center">
-                                    <div class="g-recaptcha" data-sitekey="6LcGAHAUAAAAAG5pXvyGGWTW0CgEg0o-9npi37Kb"></div>
-                                </div>
-                                <br><br>
-                            <!-- Register/submit button -->
-                                <input type="checkbox" name="tnc" value="1" required> I agree with the <a data-toggle="modal" href="#termsandconditions" style="color:black;">terms and conditions</a><br>
+                          
                                 <br>
-                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg " >Register</button>
+                                <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" rel="tooltip" title="Proceed to Step 2">Next</button>
                                     <hc>
-                                        <a href="<?php echo e(url('/home')); ?>" class="link" style="padding:10px;">Cancel</a>
+                                        <a href="<?php echo e(url('/home')); ?>" rel="tooltip" title="Cancel Registration" class="link" style="padding:10px;">Cancel</a>
                                     </hc>
                             </div> 
                         </div>
