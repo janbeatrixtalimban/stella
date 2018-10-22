@@ -117,7 +117,6 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
 
 
-        Route::get('/chat', 'chatController@sendChat');
     });
 
     //need for cancel button at register
@@ -131,7 +130,12 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/viewhaggles', function(){
         return view('StellaEmployer/viewHaggleFee');
+
+        
+        
     });
+
+    Route::get('/chat', 'chatController@sendChat');
 });
 
 // Auth::routes();

@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function userRegistration()
     {
-        return view('StellaHome.register');
+        return view('StellaHome.registerV2');
     }
 
     public function employerRegistration()
@@ -53,6 +53,7 @@ class UserController extends Controller
         return view('StellaHome.subscriptionEmployer');
     }
 
+    // subscription of models/employer
 
     public function editStatus(Request $request, $id)
     {
@@ -199,21 +200,22 @@ class UserController extends Controller
             $user = User::create($input);
             //$user->sendVerifyAccount();
             //Twilio::message($input['contactNo'], 'Welcome to Stella');
-            $this->basic_email($input['emailAddress']);
+            
             //lahat ng created pinalitan ko ng user
 
-            $input2['eyeColor'] = 'N/A';
-            $input2['hairColor'] = 'N/A';
-            $input2['hairLength'] = 'N/A';
-            $input2['weight'] = '0';
-            $input2['height'] = '0';
-            $input2['complexion'] = 'N/A';
-            $input2['gender'] = 'N/A';
-            $input2['chest'] = '0';
-            $input2['waist'] = '0';
-            $input2['hips'] = '0';
-            $input2['shoeSize'] = '0';
-            $input2['tatoo'] = 'N/A';
+            // $input2['eyeColor'] = 'N/A';
+            // $input2['hairColor'] = 'N/A';
+            // $input2['hairLength'] = 'N/A';
+            // $input2['weight'] = '0';
+            // $input2['height'] = '0';
+            // $input2['complexion'] = 'N/A';
+            // $input2['gender'] = 'N/A';
+            // $input2['chest'] = '0';
+            // $input2['waist'] = '0';
+            // $input2['hips'] = '0';
+            // $input2['shoeSize'] = '0';
+            // $input2['tatoo'] = 'N/A';
+            $input2 = $request->only(['eyeColor', 'hairColor','hairLength', 'weight', 'height', 'complexion', 'gender', 'chest', 'waist', 'hips', 'shoeSize','tatoo']);
             $input2['userID'] = $user->userID;
             $attribute = attribute::create($input2);
 
@@ -222,10 +224,10 @@ class UserController extends Controller
             $auditlogs->userID =  $user->userID;
             $auditlogs->logType = 'Register:model';
             
-    
+            $this->basic_email($input['emailAddress']);
             if ($auditlogs->save() && $user) 
             {
-                return redirect()->to('/registrationpage2');
+                return redirect()->to('/modelfeed');
             } else 
             {
                 return redirect()->to('/');

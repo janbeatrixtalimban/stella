@@ -25,6 +25,7 @@
         <!-- End Navbar -->
       
       <!-- Logo Header -->
+      
       <div class="page-header clear-filter" filter-color="orange">
           <div class="page-header-image" style="background-image:url()"></div>
             <div class="container">

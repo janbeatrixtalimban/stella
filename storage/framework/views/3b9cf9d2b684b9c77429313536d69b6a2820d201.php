@@ -118,6 +118,15 @@
                                     <div class="input-group input-lg">
                                         <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."></textarea>
                                       </div><br><br>
+                             <!-- Title -->
+                             <label>Approximate talent fee:</label>
+                             <div class="input-group input-lg">
+                                   <div class="input-group-prepend">
+                                       <span class="input-group-text">
+                                       </span>
+                                   </div>
+                                   <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Up to XX.XX pesos" value="">
+                               </div>
                             <!-- Project Start -->
                                 <label>Project Start</label>
                                 <div class="input-group input-lg">
@@ -126,7 +135,7 @@
                                            </span>
                                        </div>
                                        <input type="date" class="form-control" name="jobDate" id="jobDate" value="">
-                                       <input type="time" class="form-control" name="" id="" value="">
+                                       
                                 </div>
                             <!-- Project End -->
                                 <label>Project End</label>
@@ -135,8 +144,8 @@
                                            <span class="input-group-text">
                                            </span>
                                        </div>
-                                    <input type="date" class="form-control" name="" id="" value="">
-                                    <input type="time" class="form-control" name="" id="" value="">
+                                    <input type="date" class="form-control" name="jobEnd" id="jobEnd" value="">
+                                
                                 </div><br><br>
                             <!-- ModelNo -->
                                 <label>Number of Models needed:</label>
@@ -159,9 +168,25 @@
                                         <option value="10">10</option>
                                 </select>
                             </div><br>
+                            <div class="input-group input-lg"><div class="input-group-prepend">
+                                <span class="input-group-text"></span></div><select size="0.4" class="form-control" name="role" id="role" required>
+                                    <option value="" selected disabled>Select role of model..</option>
+                                    <option value="Fashion Model">Fashion(Editorial) model</option>
+                                    <option value="Runway Model">Runway model</option>
+                                    <option value="Commercial Model">Commercial model</option>
+                                    <option value="Plus Size Model">Plus size model</option>
+                                    <option value="Petite Model">Petite model</option>
+                                    <option value="Swimsuit Model">Swimsuit Model</option>
+                                    <option value="Lingerie Model">Lingerie Model</option>
+                                    <option value="Glamour Model">Glamour Model</option>
+                                    <option value="Fitness Model">Fitness Model</option>
+                                    <option value="Fitting Model">Fitting Model</option>
+                                    <option value="Parts Model">Parts Model</option>
+                                    <option value="Promotional Model">Promitional Model</option>
+                                <option value="Mature Model">Mature Model</option></select></div>
 
                         <!-- For the selected fields to show per selected num of models -->
-                                    <div id="modelcontainer"></div><br>
+                                    
 
                               <!-- Address line 1 -->
                               <label for="address">Location (Address) of Project</label>
@@ -496,7 +521,7 @@
                                         </optgroup>
                                     </select>
                                 <!--Zip Code-->
-                                        <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
+                                        <input type="text" class="form-control" name="zipCode" id="zipCode" placeholder="Zip Code" value="">
                                         </div><br>
                                 <!-- Create button -->
                                     <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Create</button><br>

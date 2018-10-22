@@ -8,7 +8,7 @@ class Project extends Model
 {
     protected $fillable = [
         'prjTitle', 'jobDescription', 'address', 'location', 'zipCode', 'role',
-        'talentFee', 'hidden', 'userID', 'modelNo', 'bodyBuilt', 'height',
+        'talentFee', 'hidden', 'userID', 'modelNo', 'jobEnd',
         'created_at', 'updated_at', 'jobDate',
     ];
 }

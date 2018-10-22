@@ -113,8 +113,7 @@ class EmployerController extends Controller
                 'role' => 'required',
                 'talentFee' => 'required',
                 'modelNo' => 'required',
-                'bodyBuilt' => 'required',
-                'height' => 'required',
+                'zipCode' => 'required',
                 'updated_at',
 
             ]);
