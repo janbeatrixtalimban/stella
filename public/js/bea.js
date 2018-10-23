@@ -1,4 +1,3 @@
-
 function checkForm(i){
 
     function next(i){

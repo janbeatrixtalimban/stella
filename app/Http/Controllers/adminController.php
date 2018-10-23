@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\auditlogs;
 use App\Project;
+use App\reportimage;
 use App\report;
+use App\imgportfolio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -191,5 +193,108 @@ class adminController extends Controller
            ->with('details', $details);
            
     }
+
+    public function viewImage()
+    {
+        $num = 1;
+        $details = reportimage::join('imgportfolios', 'imgportfolios.imageID', 'reportimages.imageID')
+        ->join('users', 'users.userID', '=', 'reportimages.modelID')
+        ->where('imgstatus', $num)
+        ->get();
+        //dd($details);
+        return view('StellaAdmin.viewPhotoReports')
+           ->with('details', $details);
+           
+    }
+
+    
+    public function archiveJobPost(Request $request)
+    {
+        if (Auth::check())
+        {
+            $validator = Validator::make($request->all(), [
+
+                'hidden',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $hidden = '0';
+           
+            $projectID = $request->get('projectID');
+            
+            $project = project::where('projectID', $projectID)->update(['hidden' => $hidden]);
+         
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'archived Job Post';
+
+            if ($auditlogs->save() && $project) {
+                $num = 1;
+                $details = report::join('projects', 'projects.projectID', 'reports.projectID')
+                ->join('users', 'users.userID', '=', 'reports.ownerID')
+                ->where('reportstatus', $num)
+                ->get();
+                //dd($details);
+                return view('StellaAdmin.viewJobPostReports')
+                   ->with('details', $details);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
+        
+    }
+
+    public function archiveImage(Request $request)
+    {
+        if (Auth::check())
+        {
+            $validator = Validator::make($request->all(), [
+
+                'display',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $display = 'none';
+           
+            $imageID = $request->get('imageID');
+            
+            $image = imgportfolio::where('imageID', $imageID)->update(['display' => $display]);
+         
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'archived Image';
+
+            if ($auditlogs->save() && $image) {
+                $num = 1;
+                $details = reportimage::join('imgportfolios', 'imgportfolios.imageID', 'reportimages.imageID')
+                ->join('users', 'users.userID', '=', 'reportimages.modelID')
+                ->where('imgstatus', $num)
+                ->get();
+                //dd($details);
+                return view('StellaAdmin.viewPhotoReports')
+                   ->with('details', $details);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
+        
+    }
+
 
 }

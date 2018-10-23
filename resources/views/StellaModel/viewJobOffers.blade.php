@@ -85,28 +85,27 @@
                 </div>
                 <div class="col-sm-7">
                 <!-- Card for job offer contents -->
-                @foreach($details as $details)
-                @if($details->hirestatus != '2')
-                      <div id="joboffer" class="card text-center">
-                          <div class="card-body" style="color:#1b1b1b;">
-                          <div class="row">
-                            <div class="col-sm-8">
-                              <h3 class="card-title text-center">{{ $details->prjTitle }}</h3>
-                              <p>{{ $details->jobDescription }}</p>
-                              <h0>Email: <b>{{ $details->emailAddress }}</b></h0><br>
-                              <h0>Company: <b>{{$details->name}}</b></h0><br>
-                              <h0>Role: <b>{{ $details->role }}</b></h0><br>
-                              <h0>Talent fee: <b>P{{ $details->talentFee }}.00</b></h0><br>
-                              <h0>Where: <b>{{ $details->address }}, {{ $details->location }}</b></h0><br><br>
+            @foreach($details as $detail)
+                @if($detail->hirestatus != '2')
+                <div id="joboffer" class="card text-center">
+                        <div class="card-body" style="color:#1b1b1b;">
+                        <div class="row">
+                          <div class="col-sm-7">
+                            <h3 class="card-title text-center">{{ $detail->prjTitle }}</h3>
+                            <p>{{ $detail->jobDescription }}</p>
                          <!-- Accept or Reject Job Post -->
+                        <button data-toggle="modal" data-target="#details{{$detail->userID}}" name="button" class="btn btn-info btn-round" rel="tooltip" title="View Details"><i class="now-ui-icons design_bullet-list-67"></i></button>
+                        <button data-toggle="modal" data-target="#confirm{{$detail->userID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer"><i class="now-ui-icons ui-1_check"></i></button>
+                        <button type="" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                            hey
                                 <form class="text-center" action="/model/accept" method="post">
                                   {{ csrf_field() }}
-                                    <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
-                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
-                                    @if($details->hirestatus == '0')
+                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    @if($detail->hirestatus == '0')
                                     <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                     
-                                    @elseif($details->hirestatus == '1')
+                                    @elseif($detail->hirestatus == '1')
                                     <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
                                     {{-- <button type="" name="button" class="btn btn-maroon btn-round">Reject</button> --}}
                                     @else
@@ -114,19 +113,19 @@
                                 </form>
                                 <form class="text-center" action="/model/reject" method="post">
                                     {{ csrf_field() }}
-                                      <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
-                                      <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
-                                      @if($details->hirestatus == '0')
+                                      <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                      <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                      @if($detail->hirestatus == '0')
                                       
                                       <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
-                                      @elseif($details->hirestatus == '1')
+                                      @elseif($detail->hirestatus == '1')
                                       <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
                                       @else
                                       @endif
                                   </form>
                             </div>
                             <div class="col-sm-4">
-                                @if($details->hirestatus == '0')
+                                @if($detail->hirestatus == '0')
                                 <div style="position:absolute; top:50%; height:10em; margin-top:-5em;">
                                   <h5 class="card-title">Not satisfied with the talent fee?</h5>
                                     <h5 class="card-title">Make an offer</h5>
@@ -137,17 +136,17 @@
                                         </div>
                                         <form class="text-center" action="/model/haggle" method="post">
                                           {{ csrf_field() }}
-                                          @if($details->haggleStatus == '1')
+                                          @if($detail->haggleStatus == '1')
                                           
-                                            <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
-                                            <input type="text" class="form-control" id="haggleAmount" value="{{$details->haggleAmount}}" name="haggleAmount" readonly>
+                                            <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                            <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" readonly>
                                         </div>
                                         <button type="submit" name="button" class="btn btn-info btn-round" disabled>Haggle</button>
                                           
                                           @else
                                         
-                                          <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
-                                        <input type="text" class="form-control" id="haggleAmount" value="{{$details->haggleAmount}}" name="haggleAmount" required>
+                                          <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                        <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" required>
                                     </div>
                                     <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
                                         
@@ -161,7 +160,7 @@
                             @endif
                           </div>
                           <div class="card-footer text-muted mb-2 text-center">
-                              {{ $details->created_at }}
+                              {{ $detail->created_at->diffForHumans() }}
                           </div>
                     </div>
                     @else
@@ -184,6 +183,119 @@
           </div><!--feed content row closing tag -->
       </div><!-- container fluid closing tag-->
 
+      @foreach ($details as $detail)
+          <!-- View Details Modal -->
+            <div id="details{{$detail->userID}}" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                              <h4><img src="/uploads/avatars/{{ $detail->avatar }}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    {{ $detail->prjTitle }} </h4>
+                              <p>by {{ $detail->firstName }} {{ $detail->lastName }}</p><br>
+
+                              <p><b>Details:</b></p>
+                                <ul>
+                                    <li>
+                                      <h0>Email: <b>{{ $detail->emailAddress }}</b></h0>
+                                    </li>
+                                    <li>
+                                      <h0>Company: <b>{{$detail->name}}</b></b></h0>
+                                    </li>
+                                    <li>
+                                      <h0>Role: <b>{{ $detail->role }}</b></h0>
+                                    </li>
+                                    <li>
+                                      <h0>Talent fee: <b>P{{ $detail->talentFee }}.00</b></h0>
+                                    </li>
+                                    <li>
+                                      <h0>Where: <b>{{ $detail->address }}, {{ $detail->location }}</b></h0>
+                                    </li>
+                                </ul>
+
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal" style="float:right;">Close</button>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+      <!-- End of Modal -->
+
+    @foreach ($details as $detail)
+      <!-- Confirm Accept Offer Modal -->
+      <div id="confirm{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Are you sure you want to accept?</h4>
+                          </div>
+                          <div class="modal-body">
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <div class="col-sm-3">
+                              </div>
+                              <form class="text-center" action="/model/accept" method="post">
+                                  {{ csrf_field() }}
+                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+<!-- End of Modal -->
+
+
+
+@foreach ($details as $detail)
+      <!-- Confirm Accept Offer Modal -->
+          <div id="haggle{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Are you sure you want to accept?</h4>
+                          </div>
+                          <div class="modal-body">
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <div class="col-sm-3">
+                              </div>
+                              <form class="text-center" action="/model/accept" method="post">
+                                  {{ csrf_field() }}
+                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+<!-- End of Modal -->
 
             </div>
     </div>

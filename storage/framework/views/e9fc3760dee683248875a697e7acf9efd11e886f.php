@@ -67,8 +67,7 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          
-          <img src="/uploads/path/<?php echo e(Auth::user()->filePath); ?>" alt="">
+          <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="130px" height="130px" alt="">
         </div>
         <div class="row justify-content-center">
             
@@ -117,7 +116,7 @@
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">
-                                <?php echo e($project->created_at); ?>
+                                <?php echo e($project->created_at->diffForHumans()); ?>
 
                             </div>
                         </div>
@@ -143,8 +142,7 @@
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title"><?php echo e($project->prjTitle); ?></h4>
-                          <p class="description"><?php echo e($project->jobDescription); ?></p>
-                          <h0>Posted <?php echo e($project->created_at); ?><h0>
+                          <h0>Posted <?php echo e($project->created_at->diffForHumans()); ?><h0>
                       </div>
                     </div>
                     <div class="modal-body">
@@ -156,13 +154,17 @@
                               <h0>Location: <b><?php echo e($project->address); ?></b></h0>
                           </li>
                           <li>
-                              <h0>Model needed: <b><?php echo e($project->modelNo); ?> <?php echo e($project->role); ?></b></h0>
+                              <h0>Number of Models: <b><?php echo e($project->modelNo); ?></b></h0>
                           </li>
-                         
                           <li>
-                          <h0>Project Date: <b><?php echo e($project->jobDate); ?> to <?php echo e($project->jobEnd); ?></b></h0>
+                              <h0>Model Type: <b><?php echo e($project->role); ?></b></h0>
                           </li>
-                          
+                          <li>
+                              <h0>Minimum Height Requirement: <b><?php echo e($project->height); ?>cm</b></h0>
+                          </li>
+                          <li>
+                              <h0>Body Built: <b><?php echo e($project->bodyBuilt); ?></b></h0>
+                          </li>
                           <li>
                               <h0>Talent Fee: <b>P<?php echo e($project->talentFee); ?>.00</b></h0>
                           </li>

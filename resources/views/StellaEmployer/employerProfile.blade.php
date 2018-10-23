@@ -69,8 +69,7 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          {{-- <img src="/uploads/avatars/{{ Auth::user()->avatar }}" alt=""> --}}
-          <img src="/uploads/path/{{ Auth::user()->filePath }}" alt="">
+          <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="130px" height="130px" alt="">
         </div>
         <div class="row justify-content-center">
             
@@ -118,7 +117,7 @@
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">
-                                {{ $project->created_at }}
+                                {{ $project->created_at->diffForHumans() }}
                             </div>
                         </div>
                     </div> 
@@ -143,8 +142,7 @@
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title">{{$project->prjTitle}}</h4>
-                          <p class="description">{{ $project->jobDescription }}</p>
-                          <h0>Posted {{ $project->created_at }}<h0>
+                          <h0>Posted {{ $project->created_at->diffForHumans() }}<h0>
                       </div>
                     </div>
                     <div class="modal-body">
@@ -156,13 +154,17 @@
                               <h0>Location: <b>{{$project->address}}</b></h0>
                           </li>
                           <li>
-                              <h0>Model needed: <b>{{$project->modelNo}} {{$project->role}}</b></h0>
+                              <h0>Number of Models: <b>{{$project->modelNo}}</b></h0>
                           </li>
-                         
                           <li>
-                          <h0>Project Date: <b>{{$project->jobDate}} to {{$project->jobEnd}}</b></h0>
+                              <h0>Model Type: <b>{{$project->role}}</b></h0>
                           </li>
-                          
+                          <li>
+                              <h0>Minimum Height Requirement: <b>{{$project->height}}cm</b></h0>
+                          </li>
+                          <li>
+                              <h0>Body Built: <b>{{$project->bodyBuilt}}</b></h0>
+                          </li>
                           <li>
                               <h0>Talent Fee: <b>P{{$project->talentFee}}.00</b></h0>
                           </li>

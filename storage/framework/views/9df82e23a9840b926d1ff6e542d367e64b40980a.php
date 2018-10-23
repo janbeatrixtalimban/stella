@@ -27,17 +27,17 @@
                       <form action="/find" method="get">
                             <?php echo e(csrf_field()); ?>
 
-                                <div class="input-group no-border" style="padding-top:10px;" >
-                                    <input name="find" id="find" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
+                                <div class="input-group" style="padding-top:10px;" >
+                                    <input name="find" id="find" class="form-control form-control-search" placeholder="Search..." itemprop="query-input" style="background:#fffff0;">
                                   </div>
                   </div>
                   <div class="col-sm-2">
-                                <div class="input-group no-border input-sm">
+                                <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.4" class="form-control" name="searchtype" id="searchtype">
+                                            <select size="0.4" class="form-control" name="searchtype" id="searchtype" style="background:#fffff0;">
                                                 <option value="" selected disabled>Select role of model..</option>
                                                     <option value="Fashion">Fashion(Editorial) model</option>
                                                     <option value="Runway">Runway model</option>
@@ -122,7 +122,7 @@
 <!-- Two Column Display loop of Models Shown-->
 <div class="column">
   <table style="width:100%;">
-      <?php $__currentLoopData = $user->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <?php $__currentLoopData = $user->chunk(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <tr>
               <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <td>
@@ -132,7 +132,7 @@
                     <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
                       <div id="model" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
-                            <h4 class="card-title"><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></h4>
+                            <h5 class="card-title"><b><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></b></h5>
                               <img src="/uploads/avatars/<?php echo e($user ->avatar); ?>" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
                             <!--Buttons with icons -->
                                <form class="hire" action="/employer/hire" method="post">
@@ -161,12 +161,7 @@
   </table>
 </div>
 
-        <!-- Right Column contents -->
-            <div class="col-sm-3">
-                <div class="column">
-
-                 
-            </div><!-- sm-3 closing tag -->
+  
 
 
           </div><!--feed content row closing tag -->

@@ -12,56 +12,57 @@
         <h5 style="color:white;"> Welcome, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}! </h5>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="{{ url('/admin/dashboard') }}">
-              <i class="now-ui-icons business_chart-pie-36"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li>
-            <a href="/admin/ViewAuditLog">
-              <i class="now-ui-icons files_paper"></i>
-              <p>Audit Log</p>
-            </a>
-          </li>
-          <li>
-            <a href="/admin/viewAdmin">
-              <i class="now-ui-icons business_badge"></i>
-              <p>Admin Panel</p>
-            </a>
-          </li>
-          <li>
-            <a href="./user.html">
-              <i class="now-ui-icons files_single-copy-04"></i>
-              <p>Coupons</p>
-            </a>
-          </li>
-          <li>
-              <a href="/admin/addAdmin">
-                <i class="now-ui-icons users_single-02"></i>
-                <p>Add Admin</p>
-              </a>
-            </li>
-          <li>
-            <a href="/admin/ViewModel">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Models</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/ViewEmployer">
-           <i class="now-ui-icons users_single-02"></i>
-            <p>Employers</p>
-            </a>
-          </li>
-          <li>
-            <a href="./typography.html">
-              <i class="now-ui-icons gestures_tap-01"></i>
-              <p>Reports</p>
-            </a>
-          </li>
-        </ul>
+          <ul class="nav">
+              <li>
+                <a href="{{ url('/admin/dashboard') }}">
+                  <i class="now-ui-icons business_chart-pie-36"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/ViewAuditLog">
+                  <i class="now-ui-icons files_paper"></i>
+                  <p>Audit Log</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/viewAdmin">
+                  <i class="now-ui-icons business_badge"></i>
+                  <p>Admin Panel</p>
+                </a>
+              </li>
+              <li>
+                  <a href="/admin/addAdmin">
+                    <i class="now-ui-icons users_single-02"></i>
+                    <p>Add Admin</p>
+                  </a>
+                </li>
+              <li>
+                <a href="/admin/ViewModel">
+                  <i class="now-ui-icons users_single-02"></i>
+                  <p>Models</p>
+                </a>
+              </li>
+              <li>
+              <li class="active ">
+                <a href="/admin/ViewEmployer">
+               <i class="now-ui-icons users_single-02"></i>
+                <p>Employers</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/reportedJobs">
+                  <i class="now-ui-icons gestures_tap-01"></i>
+                  <p>Reports - Job Posts</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/reportedImg">
+                  <i class="now-ui-icons gestures_tap-01"></i>
+                  <p>Reports - Photos</p>
+                </a>
+              </li>
+            </ul>
       </div>
     </div>
 
@@ -127,10 +128,8 @@
                                         <thead>
                                             <th>First Name</th>
                                             <th>Last Name</th>
+                                            <th>Age</th>
                                             <th>Email</th>
-                                            <th>Company</th>
-                                            <th>Position</th>
-                                            <th>Status</th>
                                             <th>Date Registered</th>
                                             
                                             <th></th>
@@ -139,32 +138,25 @@
 
                                         <!-- Table Body -->
                                         <tbody>
-                                            @foreach ($details as $details)
+                                            @foreach ($details as $detail)
                                                 <tr>
                                                 
                                                     <td class="table-text">
-                                                        <div>{{ $details->firstName }}</div>
-                                                    </td>
-                                                    
-                                                    <td class="table-text">
-                                                        <div>{{ $details->lastName }}</div>
+                                                        <div>{{ $detail->firstName }}</div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div>{{ $details->emailAddress }}</div>
+                                                        <div>{{ $detail->lastName }}</div>
                                                     </td>
                                                     <td class="table-text">
-                                                            <div>{{ $details->name }}</div>
-                                                        </td>
-                                                        <td class="table-text">
-                                                                <div>{{ $details->position }}</div>
-                                                            </td>
-                                                    <td class="table-text">
-                                                        <div>{{ $details->status }}</div>
+                                                        <div>{{ $detail->birthDate}}</div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div>{{ $details->created_at }}</div>
+                                                        <div>{{ $detail->emailAddress }}</div>
                                                     </td>
-                                                    <td><a href="#">View</a></td>
+                                                    <td class="table-text">
+                                                        <div>{{ $detail->created_at }}</div>
+                                                    </td>
+                                                    <td><a data-toggle="modal" data-target="#{{$detail->userID}} " style="color:blue;">View</a></td>
                                                 
                                                 </tr>
                                             @endforeach
@@ -181,6 +173,48 @@
             </div>
         </div>
     </div>
+
+
+      @foreach ($details as $detail)
+          <!-- Apply to job confirmation Modal -->
+            <div id="{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                              <h4><img src="/uploads/avatars/{{ $detail->avatar }}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    {{$detail->firstName}} {{$detail->lastName}}</h4><br>
+
+                              <p><b>Company Details</b></p>
+                                <ul>
+                                    <li>
+                                        <h0>Company: <b>{{$detail->name}}</b></h0>
+                                    </li>
+                                    <li>
+                                      <h0>Position: <b>{{$detail->position}}</b></h0>
+                                    </li>
+                                </ul>
+
+                              <p><b>Status:</b>{{$detail->status}}</p>
+
+                              <p><b>Valid Doc:</b><img src="/uploads/{{ $detail->filePath }}" alt="Thumbnail Image" class="rounded-circle"></p>
+
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <button type="button" class="btn btn-info btn-round" data-dismiss="modal" style="float:right;">Close</button>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+      <!-- End of Modal -->
+
 
 </body>
 

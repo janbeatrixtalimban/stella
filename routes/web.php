@@ -125,6 +125,9 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
         Route::get('/admin/viewAdmin', 'adminController@viewAdmin');
         Route::get('/admin/reportedJobs', 'adminController@viewJobPost');
+        Route::get('/admin/reportedImg', 'adminController@viewImage');
+        Route::post('/admin/archiveJobPost', 'adminController@archiveJobPost');
+        Route::post('/admin/archiveImage', 'adminController@archiveImage');
 
 
     });

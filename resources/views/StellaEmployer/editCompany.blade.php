@@ -98,15 +98,23 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
                             <form method="post" action="{{ url('/updateCompany/'.Auth::user()->userID) }}">
                             {{ csrf_field() }}
 
                             <h3>Edit Profile</h3>
-                                <h4>Your Company Details</h4>
+                                
+                                    @if (\Session::has('failure'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('failure') !!}
+                                        </div>
+                                    @endif
+
+                                <h4>Your Company Details</h4><br>
                                 <!-- Edit Company Name -->
+                                    <label>Company Name</label>
                                     <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
@@ -115,17 +123,18 @@
                                           <input type="text" class="form-control" name="name" id="name"  value="{{$details->name}}" placeholder="Company Name">
                                       </div>
                                 <!-- Edit Position -->
+                                    <label>Position</label>
                                     <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>
                                           </div>
                                           <input type="text" class="form-control" name="position" id="position"  value="{{$details->position}}" placeholder="Position">
-                                      </div>
+                                      </div><br>
                                 <!-- About Company -->
-                                    <label>About Company</label>
+                                    <label>About Company (Max. 300 Characters)</label>
                                     <div class="input-group input-lg">
-                                        <textarea class="form-control" name="description" id="description" rows="3" value="">{{$details->description}}</textarea>
+                                        <textarea class="form-control" name="description" id="description" rows="5" value="">{{$details->description}}</textarea>
                                     </div>
                                 
                                 <!-- Save button -->
@@ -141,14 +150,6 @@
 
 
 
-        <!-- Right Column contents -->
-
-            <div class="col-sm-3">
-                <div class="column">
-
-
-                 
-            </div><!-- sm-3 closing tag -->
 
             <div class="col-sm-1"><!--space-->
             </div>

@@ -31,12 +31,6 @@
               <p>Admin Panel</p>
             </a>
           </li>
-          <li>
-            <a href="./user.html">
-              <i class="now-ui-icons files_single-copy-04"></i>
-              <p>Coupons</p>
-            </a>
-          </li>
           <li class="active ">
               <a href="/admin/addAdmin">
                 <i class="now-ui-icons users_single-02"></i>
@@ -57,9 +51,15 @@
             </a>
           </li>
           <li>
-            <a href="./typography.html">
+            <a href="/admin/reportedJobs">
               <i class="now-ui-icons gestures_tap-01"></i>
-              <p>Reports</p>
+              <p>Reports - Job Posts</p>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/reportedImg">
+              <i class="now-ui-icons gestures_tap-01"></i>
+              <p>Reports - Photos</p>
             </a>
           </li>
         </ul>

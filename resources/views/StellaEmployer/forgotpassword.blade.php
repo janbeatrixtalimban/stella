@@ -1,6 +1,6 @@
 @extends('layouts.modelapp')
 
-<title>@yield('pageTitle') Welcome {{ Auth::user()->firstName}}! </title>
+<title>@yield('pageTitle') Settings </title>
 
 @section('content')
 
@@ -81,38 +81,48 @@
       <!-- Feed Content -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-1"><!--space-->
+                <div class="col-sm-2"><!--space-->
                 </div>
                 <div class="col-sm-2"><!--side navbar-->
                     <div class="side-navbar" style="color:black;">
-                        <h4>{{ Auth::user()->firstName}}'s Profile</h4>
+                        <h4>Settings</h4>
                         <br>
                         
                     </div>
                 </div>
-        <!-- Form -->
+        <!-- Form --><br>
                 <div class="col-sm-4" style="color:black;">
-                    <h3>Manage Account</h3><br>
+                    <h3>Change Password</h3><br>
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
                             <form method="POST" action="/employer/changePassword">
                                 {{ csrf_field() }}
+                                @if (\Session::has('failure'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('failure') !!}
+                                    </div>
+                                @endif
+                                @if (\Session::has('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {!! \Session::get('success') !!}
+                                    </div>
+                                @endif
 
-                        
-                        <!-- Birthday -->
+                        <!-- Current Password -->
                                 <div class="form-group">
                                     <label>Current Password</label>
                                     <input type="password" class="form-control" name="password" value="">
                                 </div>
-                                <br />
-                        <!-- Email -->
+                                <br><br>
+                        <!-- New Password -->
                                 <div class="form-group">    
                                     <label>New Password</label>   
-                                    <input type="password" class="form-control" id="npassword" name="npassword" value="" > 
+                                    <input type="password" class="form-control" id="npassword" name="npassword" value="" required> 
                                 </div> 
+                        <!-- Confirm Password -->
                                 <div class="form-group">    
-                                    <label>Verify Password</label>   
-                                    <input type="password" class="form-control" id="vpassword" name="vpassword" value="" > 
+                                    <label>Confirm Password</label>   
+                                    <input type="password" class="form-control" id="vpassword" name="vpassword" value="" required> 
                                 </div>
                         <!-- Save button -->
                             <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
@@ -128,15 +138,6 @@
                 <div class="col-sm-1"><!--space-->
                 </div>
 
-
-
-        <!-- Right Column contents -->
-
-            <div class="col-sm-3">
-                <div class="column">
-
-
-            </div><!-- sm-3 closing tag -->
 
             <div class="col-sm-1"><!--space-->
             </div>

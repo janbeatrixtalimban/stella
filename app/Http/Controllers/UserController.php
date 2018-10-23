@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function userRegistration()
     {
-        return view('StellaHome.registerV2');
+        return view('StellaHome.register');
     }
 
     public function employerRegistration()

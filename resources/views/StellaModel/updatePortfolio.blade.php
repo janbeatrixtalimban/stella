@@ -74,7 +74,7 @@
       <div class="col-sm-2"></div>
         <div class="col-sm-8">
           <div class="row">
-            <h3>Edit Portfolio</h3><br>
+            <h3>Edit Portfolio</h3><br><br><br>
             <a class="link" href="{{ url('/modelprofile') }}" style="padding-top:8px; padding-left:15px;">[Cancel]</a><br><br>
           </div>
             <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:100%;width:100%;border:none;"></iframe>

@@ -33,24 +33,52 @@ class EmployerController extends Controller
             {
                 
                 if ($Credentials) {
-           
 
                 $userID = Auth::user()->userID;
 
-                $passwordValidator = Validator::make($request->all(), [
+                $passwordOldValidator = Validator::make($request->all(), [
                       
-                    'vpassword' => 'required|string|min:6',
-                    'npassword' => 'required|same:password',
+                    'password' => 'required|same:password'
+            
+                ]);
+
+                $passwordLengthValidator = Validator::make($request->all(), [
+                      
+                    'vpassword' => 'required|string|min:6'
         
                 ]);
+
+                $passwordMatchValidator = Validator::make($request->all(), [
+                      
+                    'npassword' => 'required|same:vpassword'
+        
+                ]);
+
+                    if ($passwordOldValidator->fails()) {
+                        $errormsg = "Oops. Your current password is incorrect.";
+                        return redirect()->back()->with('failure', $errormsg);
+
+                    } 
+
+                    else if ($passwordLengthValidator->fails()) {
+                        $errormsg = "Your passwords need to be a minimum of 6 characters.";
+                        return redirect()->back()->with('failure', $errormsg);
+
+                    } 
+
+                    else if ($passwordMatchValidator->fails()) {
+                        $errormsg = "Your passwords do not match.";
+                        return redirect()->back()->with('failure', $errormsg);
+
+                    } 
 
                 // $input['npassword'] = bcrypt($input['npassword']);
                 $input = $request->all();
                 $npassword = bcrypt($input['npassword']);
-                
+                $successmsg = "Password successfully updated!";
                 
                 $user = user::where('userID',  $userID)->update(['password' => $npassword]);
-                return view('StellaEmployer.forgotpassword');
+                return redirect()->back()->with('success', $successmsg);
            
         }
         else{
@@ -332,11 +360,12 @@ class EmployerController extends Controller
             $validator = Validator::make($request->all(), [
                 'name',
                 'position',
-                'description',
+                'description' => 'max:300',
                 'updated_at',
             ]);
             if ($validator->fails()) {
-                return redirect()->to($validator->errors());
+                $error = "Your Description is too long. Maximum allowable of 300 characters only.";
+                return redirect()->back()->with('failure', $error);
 
             }
             $name = $request->input('name');
@@ -582,7 +611,7 @@ class EmployerController extends Controller
         if (Auth::check()) {
             $userID = $request->get('userID'); 
             $imageID = $request->get('imageID');            
-            $input['status'] = '1';
+            $input['imgstatus'] = '1';
             $input['userID'] = Auth::user()->userID;
             $input['imageID'] = $request->input('imageID');
             $input['modelID'] = $request->input('userID');

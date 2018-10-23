@@ -23,15 +23,19 @@
 
             <!-- Search Bar -->
                   <div class="col-sm-6" style="padding-top:10px;">
-                      <form class="form-inline" action="/search" method="get">
+                      <form action="/search" method="get">
                             <?php echo e(csrf_field()); ?>
 
-                            <div class="input-group no-border input-sm">
-                                    <input name="search" type="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input">
+                            <div class="input-group" width="100%">
+                                    <input name="search" type="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input"  style="background:#fffff0;">
                             </div>
-                                <button type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_zoom-bold"></i></button>
-                      </form>
                   </div>
+                  <div class="col-sm-1">
+                                <button type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_zoom-bold"></i></button>
+                  </div>
+                  
+                      </form>
+                  
 
                 <div class="col-sm-1">
                 </div>
@@ -65,7 +69,7 @@
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/viewJobOffers')); ?>" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/#')); ?>" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
                             </div>
@@ -82,18 +86,18 @@
   <div class="wrapper">
       <!-- Logo Header -->
       <div class="page-header clear-filter">
-        <div class="page-header-image" style="background-image:url()"></div>
+        <div class="page-header-image"></div>
       <!-- End logo header -->
 
 
       <!-- Feed Content -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-1"><!--space-->
+                <div class="col-sm-2"><!--space-->
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-7">
 
-                     <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                     <?php $__currentLoopData = $projects->reverse(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <?php if($project->hidden > 0): ?> 
                         <div id="jobpost" class="card text-center">
                           <div class="card-header">
@@ -105,14 +109,8 @@
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-left">
 
-                                    <!-- Report Job Post form tag-->
-                                    <form class="" action="/model/reportJobPost" method="post">
-                                      <?php echo e(csrf_field()); ?>
-
-                                      <input style="hidden" type="hidden" name="ownerID" id="ownerID" value="<?php echo e($project->userID); ?>" readonly>
-                                      <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
-                                      <button type="submit" name="button" class="dropdown-item text-danger">Report  Job Post</button>
-                                    </form>
+                                    <!-- Report Job Post modal activator-->
+                                      <button data-toggle="modal" data-target="#report<?php echo e($project->projectID); ?>" name="button" class="dropdown-item text-danger">Report Job Post</button>
                                     
                                   </div>
                                 </div>
@@ -120,7 +118,7 @@
                           <!-- End of Job post dropdown -->
 
                           <div class="card-body" style="color:#1b1b1b;">
-                            <h4 class="card-title"><?php echo e($project->prjTitle); ?></h4> 
+                            <h4 class="card-title"><img src="/uploads/avatars/<?php echo e($project->avatar); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">   <b><?php echo e($project->prjTitle); ?></b></h4> 
                             <p class="card-text"><?php echo e($project->jobDescription); ?></p>
 
                             <!-- Apply form tag -->
@@ -134,7 +132,7 @@
                           </div>
 
                           <div class="card-footer text-muted mb-2">
-                            <?php echo e($project->created_at); ?>
+                            <?php echo e($project->created_at->diffForHumans()); ?>
 
                           </div>
                         </div>
@@ -149,57 +147,6 @@
                 </div>
 
 
-
-        <!-- Right Column contents -->
-
-            <div class="col-sm-3">
-                <div class="column">
-
-
-                  <!-- Ads Card and carousel -->
-                       <!-- Ads Card and carousel -->
-                       <div class="card" style="width:100%;">
-                        <div class="card-body" style="color:#1b1b1b; width:100%;">
-                        <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
-                            <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/background1.jpg')?>" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 1</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item active">
-                                <img class="d-block" src="<?php echo asset('img/header.jpg')?>" alt="Second slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 2</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/header2.jpg')?>" alt="Third slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad Title 3</h5>
-                                </div>
-                              </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                              <i class="now-ui-icons arrows-1_minimal-left"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                              <i class="now-ui-icons arrows-1_minimal-right"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-
-                </div><!-- column closing tag -->
-            </div><!-- sm-3 closing tag -->
-
             <div class="col-sm-1"><!--space-->
             </div>
 
@@ -210,7 +157,7 @@
 
  <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   <!-- View Job detials Modal -->
-  <div id="<?php echo e($project->projectID); ?>" class="modal fade show" style="padding-top: 100px;" tabindex="-1" role="dialog">
+  <div id="<?php echo e($project->projectID); ?>" class="modal fade show" style="padding-top: 80px;" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
 
           <!-- Modal content-->
@@ -218,13 +165,11 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><?php echo e($project->prjTitle); ?></h4>
-                        
-                          <h0>Posted by <?php echo e($project->name); ?><h0>
+                          <h4 class="modal-title"><img src="/uploads/avatars/<?php echo e($project->avatar); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    <b><?php echo e($project->prjTitle); ?></b></h4>
+                          <h0>Posted <?php echo e($project->created_at->diffForHumans()); ?> by <a style="color:#a01919;"><?php echo e($project->name); ?></a><h0>
                       </div>
                     </div>
                     <div class="modal-body">
-                      <p></p>
                       <h5>Contact Details</h5>
                       <ul>
                         <li>
@@ -233,29 +178,28 @@
                         <li>
                           <h0>Email: <b><?php echo e($project->emailAddress); ?></b></h0>
                       </li>
-                      <li>
-                          <h0>Contact Number: <b><?php echo e($project->contactNo); ?></b></h0>
-                      </li>
                       </ul>
 
                       <h5>Project Details</h5>
                       <ul>
                           <li>
-                              <h0>Jod Description: <b><?php echo e($project->jobDescription); ?></b></h0>
-                          </li>
-
-                          <li>
                               <h0>Location: <b><?php echo e($project->address); ?></b></h0>
                           </li>
-                          
-                          
                           <li>
-                            <h0>Model needed: <b><?php echo e($project->modelNo); ?> <?php echo e($project->role); ?></b></h0>
+                            <h0>Date: <b><?php echo e($project->jobDate); ?></b></h0>
                         </li>
-                       
-                        <li>
-                        <h0>Project Date: <b><?php echo e($project->jobDate); ?> to <?php echo e($project->jobEnd); ?></b></h0>
-                        </li>
+                          <li>
+                              <h0>Number of Models: <b><?php echo e($project->modelNo); ?></b></h0>
+                          </li>
+                          <li>
+                              <h0>Model Type: <b><?php echo e($project->role); ?></b></h0>
+                          </li>
+                          <li>
+                              <h0>Minimum Height Requirement: <b><?php echo e($project->height); ?>cm</b></h0>
+                          </li>
+                          <li>
+                              <h0>Body Built: <b><?php echo e($project->bodyBuilt); ?></b></h0>
+                          </li>
                           <li>
                               <h0>Talent Fee: <b>P<?php echo e($project->talentFee); ?>.00</b></h0>
                           </li>
@@ -280,7 +224,7 @@
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to apply to <?php echo e($project->prjTitle); ?>?</h4>
+                            <h4 class="modal-title">Are you sure you want to apply to <a style="color:#a01919;"><?php echo e($project->prjTitle); ?></a>?</h4>
                           </div>
                           <div class="modal-body">
                           </div>
@@ -296,6 +240,52 @@
                               <button type="submit" name="button" class="btn btn-success btn-round">Apply</button>
                               <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button>
                               </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<!-- End of Modal -->
+
+
+<!-- Report Job Post Modal -->
+        <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <div id="report<?php echo e($project->projectID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Why are you reporting this post?</h4>
+                          </div>
+                          <div class="modal-body">
+                          <form class="" action="/model/reportJobPost" method="post">
+                              <?php echo e(csrf_field()); ?>
+
+                              <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
+                              <div class="input-group input-lg">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    </span>
+                                </div>
+                                <select size="0.4" class="form-control" name="reason" id="reason" required>
+                                    <option value="" selected disabled>Select reason..</option>
+                                        <option value="Illegal Activity">Illegal Activity</option>
+                                        <option value="Human Trafficking">Human Trafficking</option>
+                                        <option value="Pornography">Pornography</option>
+                                        <option value="Promotion of Drugs">Promotion of Drugs</option>
+                                </select>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <div class="col-sm-3">
+                              </div>
+                              <button type="submit" name="button" class="btn btn-success btn-round">Report</button>
+                              <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Cancel</button>
                             </div>
                           </div>
                       </div>

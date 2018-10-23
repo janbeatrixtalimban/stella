@@ -24,15 +24,9 @@
             </a>
           </li>
           <li>
-            <a href="./user.html">
+            <a href="/admin/viewAdmin">
               <i class="now-ui-icons business_badge"></i>
               <p>Admin Panel</p>
-            </a>
-          </li>
-          <li>
-            <a href="./user.html">
-              <i class="now-ui-icons files_single-copy-04"></i>
-              <p>Coupons</p>
             </a>
           </li>
           <li class="active ">
@@ -55,9 +49,15 @@
             </a>
           </li>
           <li>
-            <a href="./typography.html">
+            <a href="/admin/reportedJobs">
               <i class="now-ui-icons gestures_tap-01"></i>
-              <p>Reports</p>
+              <p>Reports - Job Posts</p>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/reportedImg">
+              <i class="now-ui-icons gestures_tap-01"></i>
+              <p>Reports - Photos</p>
             </a>
           </li>
         </ul>

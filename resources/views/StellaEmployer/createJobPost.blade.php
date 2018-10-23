@@ -104,7 +104,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                            <h3>Create Job Post</h3><br>
+                        <h3><b>Create Job Post</b></h3><br>
                             <!-- Title -->
                                 <label>Project Title:</label>
                                     <div class="input-group input-lg">
@@ -112,83 +112,98 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="prjTitle" id="prjTitle" placeholder="Project Title" value="">
-                                      </div>
+                                          <input type="text" class="form-control" name="prjTitle" id="prjTitle" placeholder="Project Title" value="" required>
+                                    </div><br>
                             <!-- Project Description -->
                                 <label>Project Description:</label>
                                     <div class="input-group input-lg">
                                         <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."></textarea>
-                                      </div><br><br>
-                             <!-- Title -->
-                             <label>Approximate talent fee:</label>
-                             <div class="input-group input-lg">
-                                   <div class="input-group-prepend">
-                                       <span class="input-group-text">
-                                       </span>
-                                   </div>
-                                   <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Up to XX.XX pesos" value="">
-                               </div>
+                                    </div><br>
+                        <div class="row">
                             <!-- Project Start -->
-                                <label>Project Start</label>
-                                <div class="input-group input-lg">
-                                       <div class="input-group-prepend">
-                                           <span class="input-group-text">
-                                           </span>
-                                       </div>
-                                       <input type="date" class="form-control" name="jobDate" id="jobDate" value="">
-                                       
-                                </div>
+                            <div class="col-md-6">
+                                <label>Project Start Date</label>
+                                    <div class="input-group input-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                            </span>
+                                        </div>
+                                        <input type="date" class="form-control" name="jobDate" id="jobDate" value="">
+                                    </div>
+                            </div>
                             <!-- Project End -->
-                                <label>Project End</label>
+                            <div class="col-md-6">
+                                <label>Project End Date</label>
                                 <div class="input-group input-lg">
                                        <div class="input-group-prepend">
                                            <span class="input-group-text">
                                            </span>
                                        </div>
                                     <input type="date" class="form-control" name="jobEnd" id="jobEnd" value="">
-                                
-                                </div><br><br>
-                            <!-- ModelNo -->
-                                <label>Number of Models needed:</label>
-                               <div class="input-group input-lg">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                    </span>
                                 </div>
-                                <select size="0.4" class="form-control" name="modelNo" id="modelNumber" required>
-                                    <option value="" selected disabled>Select Number of Models..</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                </select>
-                            </div><br>
-                            <div class="input-group input-lg"><div class="input-group-prepend">
-                                <span class="input-group-text"></span>
-                            </div><select size="0.4" class="form-control" name="role" id="role" required>
-                                    <option value="" selected disabled>Select role of model..</option>
-                                    <option value="Fashion Model">Fashion(Editorial) model</option>
-                                    <option value="Runway Model">Runway model</option>
-                                    <option value="Commercial Model">Commercial model</option>
-                                    <option value="Plus Size Model">Plus size model</option>
-                                    <option value="Petite Model">Petite model</option>
-                                    <option value="Swimsuit Model">Swimsuit Model</option>
-                                    <option value="Lingerie Model">Lingerie Model</option>
-                                    <option value="Glamour Model">Glamour Model</option>
-                                    <option value="Fitness Model">Fitness Model</option>
-                                    <option value="Fitting Model">Fitting Model</option>
-                                    <option value="Parts Model">Parts Model</option>
-                                    <option value="Promotional Model">Promitional Model</option>
-                                <option value="Mature Model">Mature Model</option>
-                            </select>
-                        </div>
+                            </div>
+                        </div><br>
 
+                        <div class="row">
+                        <!-- ModelNo -->
+                            <div class="col-md-6">
+                                <label>Number of Models needed:</label>
+                                <div class="input-group input-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                    <select size="0.4" class="form-control" name="modelNo" id="modelNumber" required>
+                                        <option value="" selected disabled>Select Number of Models..</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                        <!-- Role -->
+                            <div class="col-md-6">
+                                <label>Role of Model/s</label>
+                                <div class="input-group input-lg"><div class="input-group-prepend">
+                                    <span class="input-group-text"></span>
+                                </div> 
+                                    <select size="0.4" class="form-control" name="role" id="role" required>
+                                        <option value="" selected disabled>Select role of model..</option>
+                                        <option value="Fashion Model">Fashion(Editorial) model</option>
+                                        <option value="Runway Model">Runway model</option>
+                                        <option value="Commercial Model">Commercial model</option>
+                                        <option value="Plus Size Model">Plus size model</option>
+                                        <option value="Petite Model">Petite model</option>
+                                        <option value="Swimsuit Model">Swimsuit Model</option>
+                                        <option value="Lingerie Model">Lingerie Model</option>
+                                        <option value="Glamour Model">Glamour Model</option>
+                                        <option value="Fitness Model">Fitness Model</option>
+                                        <option value="Fitting Model">Fitting Model</option>
+                                        <option value="Parts Model">Parts Model</option>
+                                        <option value="Promotional Model">Promitional Model</option>
+                                        <option value="Mature Model">Mature Model</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <!-- Talent Fee -->
+                             <label>Talent Fee:</label>
+                                <div class="input-group input-lg">
+                                   <div class="input-group-prepend">
+                                       <span class="input-group-text">
+                                       </span>
+                                   </div>
+                                   <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Php" value="" required> 
+                               </div><br>
+                            
                         <!-- For the selected fields to show per selected num of models -->
                                     {{-- <div id="modelcontainer"></div><br> --}}
 

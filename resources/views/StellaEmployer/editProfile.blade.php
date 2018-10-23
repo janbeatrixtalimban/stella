@@ -97,29 +97,48 @@
                         </ul>
                     </div>
                 </div><br><br>
-                <div class="col-sm-4" style="color:black;">
+                <div class="col-sm-6" style="color:black;">
                     <h3>Edit Your Information</h3><br>
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
                             <form method="POST" action="{{ url('/SaveEditEmp/'.Auth::user()->userID) }}">
                                 {{ csrf_field() }}
 
+                        
+                        <div class="row">
                         <!-- First Name -->
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <input type="text" class="form-control" name="firstName" value="{{ Auth::user()->firstName}}" required>
                                 </div>
+                            </div>
                         <!-- Last Name -->
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Last Name</label>
                                     <input type="text" class="form-control" name="lastName" value="{{ Auth::user()->lastName}}"  required>
                                 </div>
+                            </div>
+                        <!-- Birthday -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Birthday</label>
+                                    <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true" required>
+                                </div>
+                            </div>
+                        </div><br>
+                        <!-- Email -->
+                                <div class="form-group">    
+                                    <label>Email</label>   
+                                    <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="{{ Auth::user()->emailAddress}}"  readonly="true"> 
+                                </div><br> 
                         <!-- Contact Number -->
                                 <div class="form-group">
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" id="contactNo" name="contactNo" value="{{ Auth::user()->contactNo}}" required>
-                                </div>
-                                 <!-- Address line 1 -->
+                                </div><br>
+                        <!-- Address line 1 -->
                               <label for="address">Full Address</label>
                               <div class="input-group input-sm">
                                     <div class="input-group-prepend">
@@ -455,16 +474,6 @@
                                         <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
                                         </div><br>
                                        
-                        <!-- Birthday -->
-                                <div class="form-group">
-                                    <label>Birthday</label>
-                                    <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true" required>
-                                </div>
-                        <!-- Email -->
-                                <div class="form-group">    
-                                    <label>Email</label>   
-                                    <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="{{ Auth::user()->emailAddress}}"  readonly="true"> 
-                                </div> 
                         <!-- Save button -->
                             <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
                             <a class="link" href="{{ url('/employerprofile') }}">Cancel</a>
@@ -476,16 +485,7 @@
                 <div class="col-sm-1"><!--space-->
                 </div>
 
-
-
-        <!-- Right Column contents -->
-
-            <div class="col-sm-3">
-                <div class="column">
-
-
-                 
-            </div><!-- sm-3 closing tag -->
+    <!-- ads space -->
 
             <div class="col-sm-1"><!--space-->
             </div>

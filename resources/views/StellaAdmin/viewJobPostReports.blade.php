@@ -12,56 +12,57 @@
         <h5 style="color:white;"> Welcome, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}! </h5>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="{{ url('/admin/dashboard') }}">
-              <i class="now-ui-icons business_chart-pie-36"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li>
-            <a href="/admin/ViewAuditLog">
-              <i class="now-ui-icons files_paper"></i>
-              <p>Audit Log</p>
-            </a>
-          </li>
-          <li>
-            <a href="/admin/viewAdmin">
-              <i class="now-ui-icons business_badge"></i>
-              <p>Admin Panel</p>
-            </a>
-          </li>
-          <li>
-            <a href="/admin/reportedJobs">
-              <i class="now-ui-icons files_single-copy-04"></i>
-              <p>View Job Reports</p>
-            </a>
-          </li>
-          <li>
-              <a href="/admin/addAdmin">
-                <i class="now-ui-icons users_single-02"></i>
-                <p>Add Admin</p>
-              </a>
-            </li>
-          <li>
-            <a href="/admin/ViewModel">
-              <i class="now-ui-icons users_single-02"></i>
-              <p>Models</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/ViewEmployer">
-           <i class="now-ui-icons users_single-02"></i>
-            <p>Employers</p>
-            </a>
-          </li>
-          <li>
-            <a href="./typography.html">
-              <i class="now-ui-icons gestures_tap-01"></i>
-              <p>Reports</p>
-            </a>
-          </li>
-        </ul>
+          <ul class="nav">
+              <li>
+                <a href="{{ url('/admin/dashboard') }}">
+                  <i class="now-ui-icons business_chart-pie-36"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/ViewAuditLog">
+                  <i class="now-ui-icons files_paper"></i>
+                  <p>Audit Log</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/viewAdmin">
+                  <i class="now-ui-icons business_badge"></i>
+                  <p>Admin Panel</p>
+                </a>
+              </li>
+              <li>
+                  <a href="/admin/addAdmin">
+                    <i class="now-ui-icons users_single-02"></i>
+                    <p>Add Admin</p>
+                  </a>
+                </li>
+              <li>
+                <a href="/admin/ViewModel">
+                  <i class="now-ui-icons users_single-02"></i>
+                  <p>Models</p>
+                </a>
+              </li>
+              <li>
+              <li>
+                <a href="/admin/ViewEmployer">
+               <i class="now-ui-icons users_single-02"></i>
+                <p>Employers</p>
+                </a>
+              </li>
+              <li class="active ">
+                <a href="/admin/reportedJobs">
+                  <i class="now-ui-icons gestures_tap-01"></i>
+                  <p>Reports - Job Posts</p>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/reportedImg">
+                  <i class="now-ui-icons gestures_tap-01"></i>
+                  <p>Reports - Photos</p>
+                </a>
+              </li>
+            </ul>
       </div>
     </div>
 
@@ -79,7 +80,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">View Employers</a>
+            <a class="navbar-brand" href="#pablo">View Reported Job Post</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -113,7 +114,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="title">Employers List</h5>
+                        <h5 class="title">Reported Job List</h5>
                     </div>
 
                     <div class="card-body">
@@ -129,9 +130,10 @@
                                             <th>Posted By</th>
                                             <th>Status</th>
                                             
+                                            
                                             <th>Date Reported</th>
                                             
-                                            <th></th>
+                                            <th>Action</th>
                                             <th></th>
                                         </thead>
 
@@ -147,13 +149,20 @@
                                                             <div>{{ $details->firstName }} {{ $details->lastName }}</div>
                                                         </td>
                                                     <td class="table-text">
-                                                        <div>{{ $details->reportstatus }}</div>
+                                                        <div>{{ $details->hidden }}</div>
                                                     </td>
                                                     <td class="table-text">
                                                         <div>{{ $details->created_at }}</div>
                                                     </td>
                                                    
-                                                    <td><a href="#">View</a></td>
+                                                    <td>
+                                                        <form class="" action="/admin/archiveJobPost" method="post">
+                                                          {{ csrf_field() }}
+                                                          <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$details->projectID}}" readonly>
+                                                          <button type="submit" name="button" class="dropdown-item text-danger">Archive</button>
+                                                        </form>
+                                                      | <a href="#">View</a></td>
+                                                    <td></td>
                                                 
                                                 </tr>
                                             @endforeach

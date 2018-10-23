@@ -36,22 +36,51 @@ class ModelController extends Controller
                 if ($Credentials) {
            
 
-                $userID = Auth::user()->userID;
+                    $userID = Auth::user()->userID;
 
-                $passwordValidator = Validator::make($request->all(), [
-                      
-                    'vpassword' => 'required|string|min:6',
-                    'npassword' => 'required|same:password',
-        
-                ]);
+                    $passwordOldValidator = Validator::make($request->all(), [
+                          
+                        'password' => 'required|same:password'
+                
+                    ]);
+    
+                    $passwordLengthValidator = Validator::make($request->all(), [
+                          
+                        'vpassword' => 'required|string|min:6'
+            
+                    ]);
+    
+                    $passwordMatchValidator = Validator::make($request->all(), [
+                          
+                        'npassword' => 'required|same:vpassword'
+            
+                    ]);
+    
+                        if ($passwordOldValidator->fails()) {
+                            $errormsg = "Oops. Your current password is incorrect.";
+                            return redirect()->back()->with('failure', $errormsg);
+    
+                        } 
+    
+                        else if ($passwordLengthValidator->fails()) {
+                            $errormsg = "Your passwords need to be a minimum of 6 characters.";
+                            return redirect()->back()->with('failure', $errormsg);
+    
+                        } 
+    
+                        else if ($passwordMatchValidator->fails()) {
+                            $errormsg = "Your passwords do not match.";
+                            return redirect()->back()->with('failure', $errormsg);
+    
+                        } 
 
                 // $input['npassword'] = bcrypt($input['npassword']);
                 $input = $request->all();
                 $npassword = bcrypt($input['npassword']);
-                
+                $successmsg = "Password successfully updated!";
                 
                 $user = user::where('userID',  $userID)->update(['password' => $npassword]);
-                return view('StellaModel.forgotpassword')->with('message', 'IT WORKS!');
+                return redirect()->back()->with('success', $successmsg);
            
         }
         else{
