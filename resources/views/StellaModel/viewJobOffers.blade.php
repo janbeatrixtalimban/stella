@@ -86,6 +86,7 @@
                 <div class="col-sm-7">
                 <!-- Card for job offer contents -->
                 @foreach($details as $details)
+                @if($details->hirestatus != '2')
                       <div id="joboffer" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
                           <div class="row">
@@ -104,15 +105,28 @@
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
                                     @if($details->hirestatus == '0')
                                     <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                    <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                    
                                     @elseif($details->hirestatus == '1')
                                     <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
-                                    <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                    {{-- <button type="" name="button" class="btn btn-maroon btn-round">Reject</button> --}}
                                     @else
                                     @endif
                                 </form>
+                                <form class="text-center" action="/model/reject" method="post">
+                                    {{ csrf_field() }}
+                                      <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
+                                      <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
+                                      @if($details->hirestatus == '0')
+                                      
+                                      <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                      @elseif($details->hirestatus == '1')
+                                      <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
+                                      @else
+                                      @endif
+                                  </form>
                             </div>
                             <div class="col-sm-4">
+                                @if($details->hirestatus == '0')
                                 <div style="position:absolute; top:50%; height:10em; margin-top:-5em;">
                                   <h5 class="card-title">Not satisfied with the talent fee?</h5>
                                     <h5 class="card-title">Make an offer</h5>
@@ -143,12 +157,15 @@
                                 </div>
                             </div>
                             </div>
+                            @else
+                            @endif
                           </div>
                           <div class="card-footer text-muted mb-2 text-center">
                               {{ $details->created_at }}
                           </div>
                     </div>
-
+                    @else
+                    @endif
                     
                 </div><!-- col-sm-6 closing tag -->
 

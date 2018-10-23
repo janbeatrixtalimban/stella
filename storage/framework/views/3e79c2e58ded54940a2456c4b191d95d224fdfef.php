@@ -24,15 +24,15 @@
             </a>
           </li>
           <li>
-            <a href="./user.html">
+            <a href="/admin/viewAdmin">
               <i class="now-ui-icons business_badge"></i>
               <p>Admin Panel</p>
             </a>
           </li>
           <li>
-            <a href="./user.html">
+            <a href="/admin/reportedJobs">
               <i class="now-ui-icons files_single-copy-04"></i>
-              <p>Coupons</p>
+              <p>asdsf</p>
             </a>
           </li>
           <li>

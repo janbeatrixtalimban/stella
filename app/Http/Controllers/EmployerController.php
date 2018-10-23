@@ -466,8 +466,6 @@ class EmployerController extends Controller
     public function acceptApplicant(Request $request)
     {
 
-        // dd(Auth::user());
-       // $app = applicant::find($id);
         if (Auth::check()) {
             $validator = Validator::make($request->all(), [
 
@@ -612,5 +610,51 @@ class EmployerController extends Controller
             return('fail');
         }
         
+    }
+
+    public function rejectApplicant(Request $request)
+    {
+
+        if (Auth::check()) {
+            $validator = Validator::make($request->all(), [
+
+                'applicantStatus',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $status = '2';
+           
+            $applicantID = $request->get('applicantID');
+            $emailAddress = $request->get('emailAddress');
+            $applicant = applicant::where('applicantID', $applicantID)->update(['applicantStatus' => $status]);
+            $this->acceptNotif($emailAddress);
+            //return view('StellaModel.homepage');
+
+            //return redirect()->back()->with('alert', 'Updated!');
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'Rejected applicant';
+
+            if ($auditlogs->save() && $applicant) {
+                $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+                ->join('users', 'applicants.candidateID', 'users.userID')
+                ->where('applicants.userID', Auth::user()->userID)->get();
+                
+                $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
+
+                //dd($details);
+               return view('StellaEmployer.viewApplicants')->with('details', $details)->with('projects', $projects);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
     }
 }

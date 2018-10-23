@@ -418,8 +418,9 @@ class ModelController extends Controller
             $projectID = $request->get('projectID');            
             $projects = project::where('projectID', $projectID)->join('users', 'users.userID', '=', 'projects.userID')
             ->first();
-            $input['status'] = '1';
+            $input['reportstatus'] = '1';
             $input['userID'] = Auth::user()->userID;
+            $input['ownerID'] = $request->input('ownerID');
             $input['projectID'] = $request->input('projectID');
             $report = report::create($input);
                
@@ -482,6 +483,51 @@ class ModelController extends Controller
         else {
             return('fail');
         }
+    }
+
+    public function rejectOffer(Request $request)
+    {
+
+        if (Auth::check()) {
+            $validator = Validator::make($request->all(), [
+
+                'hirestatus',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $status = '2';
+           
+            $hireID = $request->get('hireID');
+            $emailAddress = $request->get('emailAddress');
+            $hire = hire::where('hireID', $hireID)->update(['hirestatus' => $status]);
+            //$this->acceptNotif($emailAddress);
+            //return view('StellaModel.homepage');
+
+            //return redirect()->back()->with('alert', 'Updated!');
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'Rejected job offer';
+
+            if ($auditlogs->save() && $hire) {
+
+                $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+                ->join('users', 'hires.userID', 'users.userID')
+                ->join('companies','hires.userID', 'companies.userID' )
+                ->where('hires.modelID', Auth::user()->userID)->get();
+
+                 return view('StellaModel.viewJobOffers')->with('details', $details);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
     }
 
 }

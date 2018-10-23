@@ -84,6 +84,7 @@
                 <div class="col-sm-7">
                 <!-- Card for job offer contents -->
                 <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if($details->hirestatus != '2'): ?>
                       <div id="joboffer" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
                           <div class="row">
@@ -103,15 +104,29 @@
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
                                     <?php if($details->hirestatus == '0'): ?>
                                     <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                    <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                    
                                     <?php elseif($details->hirestatus == '1'): ?>
                                     <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
-                                    <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                    
                                     <?php else: ?>
                                     <?php endif; ?>
                                 </form>
+                                <form class="text-center" action="/model/reject" method="post">
+                                    <?php echo e(csrf_field()); ?>
+
+                                      <input type="hidden" name="hireID" id="hireID" value="<?php echo e($details->hireID); ?>" readonly>
+                                      <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
+                                      <?php if($details->hirestatus == '0'): ?>
+                                      
+                                      <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                      <?php elseif($details->hirestatus == '1'): ?>
+                                      <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
+                                      <?php else: ?>
+                                      <?php endif; ?>
+                                  </form>
                             </div>
                             <div class="col-sm-4">
+                                <?php if($details->hirestatus == '0'): ?>
                                 <div style="position:absolute; top:50%; height:10em; margin-top:-5em;">
                                   <h5 class="card-title">Not satisfied with the talent fee?</h5>
                                     <h5 class="card-title">Make an offer</h5>
@@ -143,13 +158,16 @@
                                 </div>
                             </div>
                             </div>
+                            <?php else: ?>
+                            <?php endif; ?>
                           </div>
                           <div class="card-footer text-muted mb-2 text-center">
                               <?php echo e($details->created_at); ?>
 
                           </div>
                     </div>
-
+                    <?php else: ?>
+                    <?php endif; ?>
                     
                 </div><!-- col-sm-6 closing tag -->
 

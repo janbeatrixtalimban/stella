@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\auditlogs;
 use App\Project;
+use App\report;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -175,6 +176,19 @@ class adminController extends Controller
     //    dd($details);
         return view('StellaAdmin.viewAdmins', compact('user'))
            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
+           
+    }
+
+    public function viewJobPost()
+    {
+        $num = 1;
+        $details = report::join('projects', 'projects.projectID', 'reports.projectID')
+        ->join('users', 'users.userID', '=', 'reports.ownerID')
+        ->where('reportstatus', $num)
+        ->get();
+        //dd($details);
+        return view('StellaAdmin.viewJobPostReports')
+           ->with('details', $details);
            
     }
 

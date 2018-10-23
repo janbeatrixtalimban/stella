@@ -66,8 +66,8 @@ class UserController extends Controller
 
             $transac['userID'] = Auth::user()->userID;
             $transac['amount'] = $request->get('amount');
-            $transac['first_name'] = $request->get('first_name');
-            $transac['last_name'] = $request->get('last_name');
+            $transac['first_name'] = encrypt($request->get('first_name'));
+            $transac['last_name'] = encrypt($request->get('last_name'));
             $transac['email'] = $request->get('email');
             $transac['payer_id'] = $request->get('payer_id');
             $transac['phone'] = $request->get('phone');

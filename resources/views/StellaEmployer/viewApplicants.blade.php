@@ -100,12 +100,14 @@
   <!-- Job Post Applicants --> 
                     
             @foreach($details->chunk(3) as $chunk)
+           
             <div class="row">
                 <div class="column">
                     <table>
                         <tr>
                                       
                           @foreach ($chunk as $details)
+                          @if($details->applicantStatus != 2)
                             <td>
                          
                                               
@@ -125,11 +127,24 @@
                                                         @if($details->applicantStatus == 0)
                                                         <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                                         @elseif($details->applicantStatus == 1)
-                                                        <button type="submit" name="button" class="btn btn-black btn-round" disabled>Accept</button>
+                                                        <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
                                                         @else
                                                         @endif
-                                                        <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                                       
                                                     </form>
+                                                    <form class="" action="/employer/reject" method="post">
+                                                        {{ csrf_field() }}
+                                                          <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
+                                                          <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
+                                                          <input type="hidden" name="status" id="status" value="{{$details->applicantStatus}}" readonly>
+                                                          @if($details->applicantStatus == 0)
+                                                          <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                                          @elseif($details->applicantStatus == 1)
+                                                          <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
+                                                          @else
+                                                          @endif
+                                                          
+                                                      </form>
                                                 </div>
                                                 <div class="card-footer text-muted mb-2">
                                                     {{ $details->skill }}
@@ -137,10 +152,13 @@
                                             </div>
                                       </div>
                             </td> 
+                            @else
+                            @endif
                                         
                           @endforeach
 
                         </tr>
+                        
         @endforeach
                     </table>
 

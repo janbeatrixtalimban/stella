@@ -109,6 +109,7 @@
                                     <!-- Report Job Post form tag-->
                                     <form class="" action="/model/reportJobPost" method="post">
                                       {{ csrf_field() }}
+                                      <input style="hidden" type="hidden" name="ownerID" id="ownerID" value="{{$project->userID}}" readonly>
                                       <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
                                       <button type="submit" name="button" class="dropdown-item text-danger">Report  Job Post</button>
                                     </form>

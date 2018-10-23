@@ -98,12 +98,14 @@
   <!-- Job Post Applicants --> 
                     
             <?php $__currentLoopData = $details->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+           
             <div class="row">
                 <div class="column">
                     <table>
                         <tr>
                                       
                           <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                          <?php if($details->applicantStatus != 2): ?>
                             <td>
                          
                                               
@@ -124,11 +126,25 @@
                                                         <?php if($details->applicantStatus == 0): ?>
                                                         <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                                         <?php elseif($details->applicantStatus == 1): ?>
-                                                        <button type="submit" name="button" class="btn btn-black btn-round" disabled>Accept</button>
+                                                        <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
                                                         <?php else: ?>
                                                         <?php endif; ?>
-                                                        <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                                       
                                                     </form>
+                                                    <form class="" action="/employer/reject" method="post">
+                                                        <?php echo e(csrf_field()); ?>
+
+                                                          <input type="hidden" name="applicantID" id="applicantID" value="<?php echo e($details->applicantID); ?>" readonly>
+                                                          <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
+                                                          <input type="hidden" name="status" id="status" value="<?php echo e($details->applicantStatus); ?>" readonly>
+                                                          <?php if($details->applicantStatus == 0): ?>
+                                                          <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                                          <?php elseif($details->applicantStatus == 1): ?>
+                                                          <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
+                                                          <?php else: ?>
+                                                          <?php endif; ?>
+                                                          
+                                                      </form>
                                                 </div>
                                                 <div class="card-footer text-muted mb-2">
                                                     <?php echo e($details->skill); ?>
@@ -137,10 +153,13 @@
                                             </div>
                                       </div>
                             </td> 
+                            <?php else: ?>
+                            <?php endif; ?>
                                         
                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                         </tr>
+                        
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </table>
 

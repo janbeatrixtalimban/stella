@@ -109,6 +109,7 @@
                                     <form class="" action="/model/reportJobPost" method="post">
                                       <?php echo e(csrf_field()); ?>
 
+                                      <input style="hidden" type="hidden" name="ownerID" id="ownerID" value="<?php echo e($project->userID); ?>" readonly>
                                       <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
                                       <button type="submit" name="button" class="dropdown-item text-danger">Report  Job Post</button>
                                     </form>
