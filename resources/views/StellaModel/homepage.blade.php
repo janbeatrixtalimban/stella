@@ -216,7 +216,8 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">{{$project->prjTitle}}</h4>
+                        <h4 class="modal-title">{{$project->prjTitle}}</h4>
+                        
                           <h0>Posted by {{ $project->name }}<h0>
                       </div>
                     </div>
@@ -230,28 +231,29 @@
                         <li>
                           <h0>Email: <b>{{$project->emailAddress}}</b></h0>
                       </li>
+                      <li>
+                          <h0>Contact Number: <b>{{$project->contactNo}}</b></h0>
+                      </li>
                       </ul>
 
                       <h5>Project Details</h5>
                       <ul>
                           <li>
+                              <h0>Jod Description: <b>{{$project->jobDescription}}</b></h0>
+                          </li>
+
+                          <li>
                               <h0>Location: <b>{{$project->address}}</b></h0>
                           </li>
+                          
+                          
                           <li>
-                            <h0>Date: <b>{{$project->jobDate}}</b></h0>
+                            <h0>Model needed: <b>{{$project->modelNo}} {{$project->role}}</b></h0>
                         </li>
-                          <li>
-                              <h0>Number of Models: <b>{{$project->modelNo}}</b></h0>
-                          </li>
-                          <li>
-                              <h0>Model Type: <b>{{$project->role}}</b></h0>
-                          </li>
-                          <li>
-                              <h0>Minimum Height Requirement: <b>{{$project->height}}cm</b></h0>
-                          </li>
-                          <li>
-                              <h0>Body Built: <b>{{$project->bodyBuilt}}</b></h0>
-                          </li>
+                       
+                        <li>
+                        <h0>Project Date: <b>{{$project->jobDate}} to {{$project->jobEnd}}</b></h0>
+                        </li>
                           <li>
                               <h0>Talent Fee: <b>P{{$project->talentFee}}.00</b></h0>
                           </li>

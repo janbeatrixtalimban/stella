@@ -360,7 +360,7 @@ class ModelController extends Controller
         if (Auth::check()) {
             $validator = Validator::make($request->all(), [
 
-                'status',
+                'hirestatus',
                 'updated_at',
             ]);
             if ($validator->fails()) {
@@ -371,7 +371,7 @@ class ModelController extends Controller
            
             $hireID = $request->get('hireID');
             $emailAddress = $request->get('emailAddress');
-            $hire = hire::where('hireID', $hireID)->update(['status' => $status]);
+            $hire = hire::where('hireID', $hireID)->update(['hirestatus' => $status]);
             $this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');
 
@@ -452,11 +452,12 @@ class ModelController extends Controller
     
             }
             $hireID = $request->get('hireID');
+            $haggleStatus = '0';
             $haggleAmount = $request->input('haggleAmount');
             
             
             $hire = hire::where('hireID', $hireID)
-            ->update(['haggleAmount' => $haggleAmount]);
+            ->update(['haggleAmount' => $haggleAmount, 'haggleStatus' => $haggleStatus]);
     
                   $auditlogs = new auditlogs;
                   $auditlogs->userID =  Auth::user()->userID;

@@ -169,7 +169,8 @@
                                 </select>
                             </div><br>
                             <div class="input-group input-lg"><div class="input-group-prepend">
-                                <span class="input-group-text"></span></div><select size="0.4" class="form-control" name="role" id="role" required>
+                                <span class="input-group-text"></span>
+                            </div><select size="0.4" class="form-control" name="role" id="role" required>
                                     <option value="" selected disabled>Select role of model..</option>
                                     <option value="Fashion Model">Fashion(Editorial) model</option>
                                     <option value="Runway Model">Runway model</option>
@@ -183,7 +184,9 @@
                                     <option value="Fitting Model">Fitting Model</option>
                                     <option value="Parts Model">Parts Model</option>
                                     <option value="Promotional Model">Promitional Model</option>
-                                <option value="Mature Model">Mature Model</option></select></div>
+                                <option value="Mature Model">Mature Model</option>
+                            </select>
+                        </div>
 
                         <!-- For the selected fields to show per selected num of models -->
                                     

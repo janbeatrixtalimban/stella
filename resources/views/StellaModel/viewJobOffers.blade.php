@@ -102,8 +102,14 @@
                                   {{ csrf_field() }}
                                     <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
+                                    @if($details->hirestatus == '0')
                                     <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                     <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                    @elseif($details->hirestatus == '1')
+                                    <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
+                                    <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                    @else
+                                    @endif
                                 </form>
                             </div>
                             <div class="col-sm-4">
@@ -117,10 +123,22 @@
                                         </div>
                                         <form class="text-center" action="/model/haggle" method="post">
                                           {{ csrf_field() }}
-                                        <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
+                                          @if($details->haggleStatus == '1')
+                                          
+                                            <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
+                                            <input type="text" class="form-control" id="haggleAmount" value="{{$details->haggleAmount}}" name="haggleAmount" readonly>
+                                        </div>
+                                        <button type="submit" name="button" class="btn btn-info btn-round" disabled>Haggle</button>
+                                          
+                                          @else
+                                        
+                                          <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
                                         <input type="text" class="form-control" id="haggleAmount" value="{{$details->haggleAmount}}" name="haggleAmount" required>
                                     </div>
                                     <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
+                                        
+                                        @endif
+                                        
                                   </form>
                                 </div>
                             </div>
@@ -142,49 +160,6 @@
                 <div class="column">
 
 
-                  <!-- Ads Card and carousel -->
-                       <!-- Ads Card and carousel -->
-                       <div class="card" style="width:100%;">
-                        <div class="card-body" style="color:#1b1b1b; width:100%;">
-                        <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
-                            <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/background1.jpg')?>" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 1</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item active">
-                                <img class="d-block" src="<?php echo asset('img/header.jpg')?>" alt="Second slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 2</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/header2.jpg')?>" alt="Third slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad Title 3</h5>
-                                </div>
-                              </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                              <i class="now-ui-icons arrows-1_minimal-left"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                              <i class="now-ui-icons arrows-1_minimal-right"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-
-                </div><!-- column closing tag -->
-            </div><!-- sm-3 closing tag -->
 
             <div class="col-sm-1"><!--space-->
             </div>

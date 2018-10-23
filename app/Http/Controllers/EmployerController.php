@@ -110,6 +110,7 @@ class EmployerController extends Controller
                 'jobDescription' => 'required',
                 'location' => 'required',
                 'jobDate' => 'required',
+                'jobEnd' => 'required',
                 'role' => 'required',
                 'talentFee' => 'required',
                 'modelNo' => 'required',
@@ -400,8 +401,9 @@ class EmployerController extends Controller
             $userID = $request->get('userID');            
             $user = user::where('userID', $userID)
             ->first();
-            $input['status'] = '0';
+            $input['hirestatus'] = '0';
             $input['haggleAmount'] = '0';
+            $input['haggleStatus'] = '101';
             $input['userID'] = Auth::user()->userID;
             $input['modelID'] = $request->input('modelID');
             $input['emailAddress'] = $request->input('emailAddress');
@@ -527,5 +529,49 @@ class EmployerController extends Controller
        // dd($details);
         return view('StellaEmployer.viewHaggleFee')->with('details', $details);
         }
+    }
+
+    public function accepthaggle(Request $request)
+    {
+        if (Auth::check())
+        {
+            $validator = Validator::make($request->all(), [
+
+                'haggleStatus',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $status = '1';
+           
+            $hireID = $request->get('hireID');
+            $emailAddress = $request->get('emailAddress');
+            $hire = hire::where('hireID', $hireID)->update(['haggleStatus' => $status]);
+           $this->acceptNotif($emailAddress);
+            //return view('StellaModel.homepage');
+
+            //return redirect()->back()->with('alert', 'Updated!');
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'Accepted haggle';
+
+            if ($auditlogs->save() && $hire) {
+                $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+                ->join('users', 'users.userID', 'hires.modelID')
+                ->where('hires.userID', Auth::user()->userID)->get();
+               // dd($details);
+                return view('StellaEmployer.viewHaggleFee')->with('details', $details);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
+        
     }
 }

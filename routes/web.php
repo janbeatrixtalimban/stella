@@ -107,6 +107,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/employer/forgotPassword', 'EmployerController@forgotPassword');
         Route::post('/employer/changePassword', 'EmployerController@changepassword');
         Route::get('/employer/haggleFee', 'EmployerController@viewhagglefee');
+        Route::post('/employer/accepthaggle', 'EmployerController@accepthaggle');
 
         //ADMIN SIDE!!!!
         Route::get('/admin/dashboard', 'adminController@getDashboard');

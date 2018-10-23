@@ -94,9 +94,21 @@
                           <h5 class="card-title"><b>{{ $details->firstName }} {{ $details->lastName }} </b>wants to make an offer:</h5>
                                 <h4 class="card-title">Project title: {{ $details->prjTitle }}</h4>
                                 <p>Amount: <b>{{ $details->haggleAmount }}</b></p>
-                                        
-                                <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                <form class="" action="/employer/accepthaggle" method="post">
+                                  {{ csrf_field() }}
+                                    <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
+                                    <input type="hidden" name="status" id="status" value="{{$details->haggleStatus}}" readonly>
+                                    @if($details->haggleStatus == 0)
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    @elseif($details->haggleStatus == 1)
+                                    <button type="submit" name="button" class="btn btn-black btn-round" disabled>Accept</button>
+                                    @else
+                                    @endif
+                                    <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
+                                </form>     
+                                {{-- <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button> --}}
                             </div>
                           
                     </div>

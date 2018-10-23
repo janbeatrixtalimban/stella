@@ -217,7 +217,8 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title"><?php echo e($project->prjTitle); ?></h4>
+                        <h4 class="modal-title"><?php echo e($project->prjTitle); ?></h4>
+                        
                           <h0>Posted by <?php echo e($project->name); ?><h0>
                       </div>
                     </div>
@@ -231,28 +232,29 @@
                         <li>
                           <h0>Email: <b><?php echo e($project->emailAddress); ?></b></h0>
                       </li>
+                      <li>
+                          <h0>Contact Number: <b><?php echo e($project->contactNo); ?></b></h0>
+                      </li>
                       </ul>
 
                       <h5>Project Details</h5>
                       <ul>
                           <li>
+                              <h0>Jod Description: <b><?php echo e($project->jobDescription); ?></b></h0>
+                          </li>
+
+                          <li>
                               <h0>Location: <b><?php echo e($project->address); ?></b></h0>
                           </li>
+                          
+                          
                           <li>
-                            <h0>Date: <b><?php echo e($project->jobDate); ?></b></h0>
+                            <h0>Model needed: <b><?php echo e($project->modelNo); ?> <?php echo e($project->role); ?></b></h0>
                         </li>
-                          <li>
-                              <h0>Number of Models: <b><?php echo e($project->modelNo); ?></b></h0>
-                          </li>
-                          <li>
-                              <h0>Model Type: <b><?php echo e($project->role); ?></b></h0>
-                          </li>
-                          <li>
-                              <h0>Minimum Height Requirement: <b><?php echo e($project->height); ?>cm</b></h0>
-                          </li>
-                          <li>
-                              <h0>Body Built: <b><?php echo e($project->bodyBuilt); ?></b></h0>
-                          </li>
+                       
+                        <li>
+                        <h0>Project Date: <b><?php echo e($project->jobDate); ?> to <?php echo e($project->jobEnd); ?></b></h0>
+                        </li>
                           <li>
                               <h0>Talent Fee: <b>P<?php echo e($project->talentFee); ?>.00</b></h0>
                           </li>
