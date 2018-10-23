@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Twilio;
+use Carbon\Carbon;
 use Mail;
 use App\Notifications\VerifyEmail;
 use App\User;
 use DB;
+use Image;
 use App\feedback;
 use App\company;
 use App\Project;
@@ -196,25 +198,18 @@ class UserController extends Controller
             $input['status'] = '0';
             $input['token'] = str_random(25);
             $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
-            $path=$request->file('filePath')->store('upload');
-            $user = User::create($input);
-            //$user->sendVerifyAccount();
-            //Twilio::message($input['contactNo'], 'Welcome to Stella');
-            
-            //lahat ng created pinalitan ko ng user
+          // $path=$request->file('filePath')->store('upload');
+          $path = $request->file('filePath');
+          $image_ext = $path->GetClientOriginalExtension();
+          $new_path_name = time() . '.' .$image_ext;
+          Image::make($path)->resize(200,200)->save( public_path('/uploads/path'.$image_ext) );
+          $destination_path = public_path('/uploads/avatars');
+              $path->move($destination_path,$new_path_name);
+              $input['filePath'] = $new_path_name;
+         
 
-            // $input2['eyeColor'] = 'N/A';
-            // $input2['hairColor'] = 'N/A';
-            // $input2['hairLength'] = 'N/A';
-            // $input2['weight'] = '0';
-            // $input2['height'] = '0';
-            // $input2['complexion'] = 'N/A';
-            // $input2['gender'] = 'N/A';
-            // $input2['chest'] = '0';
-            // $input2['waist'] = '0';
-            // $input2['hips'] = '0';
-            // $input2['shoeSize'] = '0';
-            // $input2['tatoo'] = 'N/A';
+            $user = User::create($input);
+            
             $input2 = $request->only(['eyeColor', 'hairColor','hairLength', 'weight', 'height', 'complexion', 'gender', 'chest', 'waist', 'hips', 'shoeSize','tatoo']);
             $input2['userID'] = $user->userID;
             $attribute = attribute::create($input2);
@@ -258,8 +253,8 @@ class UserController extends Controller
         //Validators
         $otherValidator = Validator::make($request->all(), [
 
-            'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'lastName' => 'required|string|max:50',
+            'firstName'  => 'required|string|max:50',
             'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
             'location' => 'required|string|max:50',
             'name' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
@@ -319,7 +314,18 @@ class UserController extends Controller
             $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             // $input['company'] = 'N/A';
             $input['token'] = str_random(25);
-            $path=$request->file('filePath')->store('upload');
+            
+
+            $path = $request->file('filePath');
+                $image_ext = $path->GetClientOriginalExtension();
+                $new_path_name = time() . '.' .$image_ext;
+                Image::make($path)->resize(200,200)->save( public_path('/uploads/path'.$image_ext) );
+                $destination_path = public_path('/uploads/avatars');
+                    $path->move($destination_path,$new_path_name);
+                    $input['filePath'] = $new_path_name;
+           
+                    //$path=$request->file('filePath')->store('upload');
+              
             $user = User::create($input);
             
             $input['userID'] =  $user->userID;

@@ -165,4 +165,17 @@ class adminController extends Controller
         return view('StellaAdmin.viewAuditLog', ['audit' => $audit]);
     }
 
+    public function viewAdmin(Request $request)
+    {
+        $num = 1;
+        $user = User::where('typeID', $num)->get();
+        $userID =  $request->get('userID'); 
+        $details = User::where('typeID', $num)
+        ->get();
+    //    dd($details);
+        return view('StellaAdmin.viewAdmins', compact('user'))
+           ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
+           
+    }
+
 }

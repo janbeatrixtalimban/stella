@@ -16,6 +16,7 @@ use App\hire;
 use Validator;
 use Mail;
 use Image;
+use Carbon\Carbon;
 
 class ModelController extends Controller
 {

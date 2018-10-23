@@ -77,7 +77,7 @@
         <p class="category">{{ Auth::user()->skill}}</p>
         <div class="content" style="width:100%;">
           <div class="social-description">
-            <h5>{{ Auth::user()->birthDate}}</h5>
+            <h5>{{ Auth::user()->age}}</h5>
             <p>Years old</p>
           </div>
           <div class="social-description">

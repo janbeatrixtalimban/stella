@@ -78,10 +78,14 @@ Route::group(['middleware' => 'web'], function () {
         
         //jusss
         //gallery
+    
         Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
         Route::get('viewviewimage/{id}', 'portfolioController@viewimage');
         Route::resource('feedbacks','FeedbackController');
         Route::get('/leavefeedback', 'FeedbackController@leavefeedback');
+
+        //single
+        Route::get('singleimageview/{id}', 'portfolioController@singleview');
 
         //Employer
         Route::resource('projects', 'EmployerController');
@@ -108,6 +112,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/employer/changePassword', 'EmployerController@changepassword');
         Route::get('/employer/haggleFee', 'EmployerController@viewhagglefee');
         Route::post('/employer/accepthaggle', 'EmployerController@accepthaggle');
+        Route::post('/employer/reportphoto', 'EmployerController@report');
 
         //ADMIN SIDE!!!!
         Route::get('/admin/dashboard', 'adminController@getDashboard');
@@ -116,6 +121,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/admin/ViewModel', 'adminController@viewModel');
         Route::get('/admin/ViewEmployer', 'adminController@viewEmployer');
         Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
+        Route::get('/admin/viewAdmin', 'adminController@viewAdmin');
 
 
     });

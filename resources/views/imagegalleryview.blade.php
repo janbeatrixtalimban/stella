@@ -68,6 +68,7 @@
                         <img class="img-responsive portrait" alt="" src="/uploads/{{ $image->image }}" alt="Image"/>
                         </div>
                         </a>
+                        
                         <!-- ARCHIVE BUTTON --> 
                         <form class="" action="/model/archive" method="post">
                                   {{ csrf_field() }}

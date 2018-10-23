@@ -51,6 +51,27 @@ class portfolioController extends Controller
         
     }
 
+    public function singleview(Request $request, $id)
+    {
+        $user = user::find($id);
+        
+        if (Auth::check()) {
+                  
+            //$images = imgportfolio::get();
+            $images = DB::table('imgportfolios')
+            ->join('users', 'users.userID','=', 'imgportfolios.userID')
+            ->where('imgportfolios.userID', $id)->get();
+            //$user = $images;
+            return view('singleimageview',compact('images'));
+          
+              }
+              else {
+                  return('fail');
+              }
+        
+        
+    }
+
     public function archivePortfolio(Request $request)
     {
         if (Auth::check()) {
@@ -76,9 +97,12 @@ class portfolioController extends Controller
         if (Auth::check()) {
                   
             //$images = imgportfolio::get();
-            $images = DB::table('imgportfolios')->select('image')->where('userID', $id)->get();
+            $images = DB::table('imgportfolios')
+                    ->join('users', 'users.userID','=', 'imgportfolios.userID')
+                    ->where('imgportfolios.userID', $id)->get();
+            //$images = DB::table('imgportfolios')->select('image')->where('userID', $id)->get();
             //$user = $images;
-            return view('viewviewimage',compact('images'));
+            return view('singleimageview',compact('images'));
           
               }
               else {

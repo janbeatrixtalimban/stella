@@ -68,6 +68,7 @@
                         <img class="img-responsive portrait" alt="" src="/uploads/<?php echo e($image->image); ?>" alt="Image"/>
                         </div>
                         </a>
+                        
                         <!-- ARCHIVE BUTTON --> 
                         <form class="" action="/model/archive" method="post">
                                   <?php echo e(csrf_field()); ?>

@@ -69,7 +69,8 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="">
+          {{-- <img src="/uploads/avatars/{{ Auth::user()->avatar }}" alt=""> --}}
+          <img src="/uploads/path/{{ Auth::user()->filePath }}" alt="">
         </div>
         <div class="row justify-content-center">
             

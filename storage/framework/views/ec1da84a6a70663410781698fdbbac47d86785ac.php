@@ -75,7 +75,7 @@
         <p class="category"><?php echo e(Auth::user()->skill); ?></p>
         <div class="content" style="width:100%;">
           <div class="social-description">
-            <h5><?php echo e(Auth::user()->birthDate); ?></h5>
+            <h5><?php echo e(Auth::user()->age); ?></h5>
             <p>Years old</p>
           </div>
           <div class="social-description">

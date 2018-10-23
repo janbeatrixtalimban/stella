@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Carbon\Carbon;
 
 use\App\Notifications\VerifyEmail;
 use Illuminate\Notifications\Notifiable;
@@ -21,4 +22,8 @@ class User extends Authenticatable
         'filePath', 'avatar', 'status', 'tnc', 'address', 'zipcode',
     ];
 
+    public function getAgeAttribute()
+{
+    return Carbon::parse($this->attributes['birthDate'])->age;
+}
 }

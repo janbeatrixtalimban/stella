@@ -9,11 +9,14 @@ use App\User;
 use App\attribute;
 use App\hire;
 use App\applicant;
+use App\reportimage;
 use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Image;
+use Redirect;
+use Illuminate\Support\Facades\DB;
 
 class EmployerController extends Controller
 {
@@ -572,6 +575,42 @@ class EmployerController extends Controller
             return ('fail');
         }
 
+        
+    }
+
+    public function report(Request $request)
+    {
+      
+        if (Auth::check()) {
+            $userID = $request->get('userID'); 
+            $imageID = $request->get('imageID');            
+            $input['status'] = '1';
+            $input['userID'] = Auth::user()->userID;
+            $input['imageID'] = $request->input('imageID');
+            $input['modelID'] = $request->input('userID');
+            $input['reason'] = 'pangit';
+            $report = reportimage::create($input);
+               
+                  $auditlogs = new auditlogs;
+                  $auditlogs->userID =  Auth::user()->userID;
+                  $auditlogs->logType = 'reported photo';
+                  
+                  if ($auditlogs->save() && $report) 
+                  {
+                    $images = DB::table('imgportfolios')
+                    //->join('users', 'users.userID','=', 'imgportfolios.userID')
+                    ->where('userID',  $userID)->get();
+                    //$user = $images;
+                   return view('singleimageview',compact('images'));
+                  //return Redirect::to('/singleimageview/');
+                  } else 
+                  {
+                      return ('fail');
+                  }
+        }
+        else {
+            return('fail');
+        }
         
     }
 }

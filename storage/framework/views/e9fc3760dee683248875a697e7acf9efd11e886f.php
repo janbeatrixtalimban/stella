@@ -67,7 +67,8 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" alt="">
+          
+          <img src="/uploads/path/<?php echo e(Auth::user()->filePath); ?>" alt="">
         </div>
         <div class="row justify-content-center">
             

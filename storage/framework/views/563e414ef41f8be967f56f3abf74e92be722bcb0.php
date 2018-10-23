@@ -24,7 +24,7 @@
             </a>
           </li>
           <li>
-            <a href="./user.html">
+            <a href="/admin/viewAdmin">
               <i class="now-ui-icons business_badge"></i>
               <p>Admin Panel</p>
             </a>

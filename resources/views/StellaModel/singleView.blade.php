@@ -131,7 +131,7 @@
             <div class="col-sm-9">
                 <h4 class="title text-center">View My Portfolio</h4>
                 <!-- Portfolio Viewer -->
-                <iframe src="{{ url('/imagegalleryview/'.$user->userID) }}" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
+                <iframe src="{{ url('/singleimageview/'.$user->userID) }}" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
             </div>
         </div>
         <div class="row">
