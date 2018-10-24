@@ -195,12 +195,6 @@
                               <h0>Model Type: <b><?php echo e($project->role); ?></b></h0>
                           </li>
                           <li>
-                              <h0>Minimum Height Requirement: <b><?php echo e($project->height); ?>cm</b></h0>
-                          </li>
-                          <li>
-                              <h0>Body Built: <b><?php echo e($project->bodyBuilt); ?></b></h0>
-                          </li>
-                          <li>
                               <h0>Talent Fee: <b>P<?php echo e($project->talentFee); ?>.00</b></h0>
                           </li>
                       </ul>
@@ -224,9 +218,9 @@
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to apply to <a style="color:#a01919;"><?php echo e($project->prjTitle); ?></a>?</h4>
                           </div>
                           <div class="modal-body">
+                            <h4 class="modal-title">Are you sure you want to apply to <a style="color:#a01919;"><?php echo e($project->prjTitle); ?></a>?</h4>
                           </div>
                           <div class="modal-footer">
                             <div class="container">

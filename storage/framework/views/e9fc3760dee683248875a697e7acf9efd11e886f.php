@@ -189,9 +189,9 @@
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to archive <?php echo e($project->prjTitle); ?>?</h4>
                           </div>
                           <div class="modal-body">
+                            <h4 class="modal-title">Are you sure you want to archive <?php echo e($project->prjTitle); ?>?</h4>
                           </div>
                           <div class="modal-footer">
                             <div class="container">

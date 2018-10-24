@@ -227,9 +227,9 @@
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to hire <?php echo e($model->firstName); ?> <?php echo e($model->lastName); ?>?</h4>
                           </div>
                           <div class="modal-body">
+                          <h4 class="modal-title">Are you sure you want to hire <b><?php echo e($model->firstName); ?> <?php echo e($model->lastName); ?></b>?</h4><br>
                           <!-- Opening Form Tag -->
                               <form class="" action="/employer/hire" method="post">
                                     <?php echo e(csrf_field()); ?>
@@ -246,7 +246,10 @@
                                       <select size="0.4" class="form-control" name="projectID" id="projectID" required>
                                           <option value="" selected disabled>Select Project..</option>
                                             <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($project->hidden == 1): ?>
                                               <option value="<?php echo e($project->projectID); ?>"><?php echo e($project->prjTitle); ?></option>
+                                              <?php else: ?>
+                                              <?php endif; ?>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                       </select>
                             </div><br>

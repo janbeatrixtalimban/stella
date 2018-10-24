@@ -85,93 +85,186 @@
                     <div class="side-navbar" style="color:black; border-right:black;">
                         <h4>View Applicants</h4>
                         <br>
-                        <ul class="nav flex-column">
+                        {{--<ul class="nav flex-column">
                           <h6>Job Post</h6><br>
                           @foreach($projects as $project)
                             <li class="nav-item">
                                 <a class="nav-link" value="{{ $project->projectID }}" href="{{ $project->projectID }}">{{ $project->prjTitle }}</a>
                             </li>
                           @endforeach<br><br>
-                        </ul>
+                        </ul>--}}
                     </div>
                 </div><br><br>
               
         <div class="col-sm-9">
   <!-- Job Post Applicants --> 
                     
-            @foreach($details->chunk(3) as $chunk)
+            @foreach($details->chunk(6) as $chunk)
            
             <div class="row">
                 <div class="column">
                     <table>
                         <tr>
                                       
-                          @foreach ($chunk as $details)
-                          @if($details->applicantStatus != 2)
+                          @foreach ($chunk as $detail)
+                          @if($detail->applicantStatus != 2)
                             <td>
                          
                                               
-                                <h4 style="color:#1b1b1b;">{{ $details->prjTitle }}</h4>
+                                <h4 style="color:#1b1b1b;">{{ $detail->prjTitle }}</h4>
                                     <div class="col-sm-12">
-                                          <div id="model" class="card text-center">
-                                                <div class="card-body" style="color:#1b1b1b;">
-                                                    <h5 class="card-title">{{ $details->firstName }} {{ $details->lastName }}</h5>
-                                                    <img src="/uploads/avatars/{{ $details ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
-                                                <!--Buttons with icons -->
+                                        <div id="model" class="card text-center">
+                                            <div class="card-body" style="color:#1b1b1b;">
+                                                <h5 class="card-title">{{ $detail->firstName }} {{ $detail->lastName }}</h5>
+                                                    <img src="/uploads/avatars/{{ $detail ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
 
-                                                    <form class="" action="/employer/accept" method="post">
-                                                      {{ csrf_field() }}
-                                                        <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
-                                                        <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
-                                                        <input type="hidden" name="status" id="status" value="{{$details->applicantStatus}}" readonly>
-                                                        @if($details->applicantStatus == 0)
-                                                        <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                                        @elseif($details->applicantStatus == 1)
-                                                        <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
-                                                        @else
-                                                        @endif
-                                                       
-                                                    </form>
-                                                    <form class="" action="/employer/reject" method="post">
-                                                        {{ csrf_field() }}
-                                                          <input type="hidden" name="applicantID" id="applicantID" value="{{$details->applicantID}}" readonly>
-                                                          <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
-                                                          <input type="hidden" name="status" id="status" value="{{$details->applicantStatus}}" readonly>
-                                                          @if($details->applicantStatus == 0)
-                                                          <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
-                                                          @elseif($details->applicantStatus == 1)
-                                                          <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
-                                                          @else
-                                                          @endif
-                                                          
-                                                      </form>
-                                                </div>
-                                                <div class="card-footer text-muted mb-2">
-                                                    {{ $details->skill }}
-                                                </div>
-                                            </div>
-                                      </div>
-                            </td> 
-                            @else
-                            @endif
+                                <!--Accept button modal trigger with icon -->
+                                        @if($detail->applicantStatus == 0)
+                                            <button data-toggle="modal" data-target="#accept{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check"></i></button>
+                                        @elseif($detail->applicantStatus == 1)
+                                            <button data-toggle="modal" data-target="#accept{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check" disabled></i></button>
+                                        @else
+                                        @endif
+                                <!--Accept button modal trigger with icon -->
+                                        @if($detail->applicantStatus == 0)
+                                            <button data-toggle="modal" data-target="#reject{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                                        @elseif($detail->applicantStatus == 2)
+                                            <button data-toggle="modal" data-target="#reject{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove" disabled></i></button>
+                                        @else
+                                        @endif
+                                    </div>
+                                    <div class="card-footer text-muted mb-2">
+                                        {{ $detail->skill }}
+                                    </div>
+                                </div>
+                            </div>
+                        </td> 
+                        @else
+                        @endif
                                         
-                          @endforeach
+                    @endforeach
 
-                        </tr>
+                    </tr>
                         
         @endforeach
-                    </table>
+                </table>
 
-                  </div>
-                </div>
-              </div>
-            </div><!--col-sm-9 closing -->
+            </div>
+        </div>
+    </div>
+</div><!--col-sm-9 closing -->
 
         
         <!-- Right Column contents -->
 
             <div class="col-sm-1"><!--space-->
             </div>
+
+
+<!-- Accept Confirmation Modal --> 
+    @foreach ($details as $detail)
+          <!-- Apply to job confirmation Modal -->
+            <div id="accept{{$detail->applicantID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            @if($detail->applicantStatus == 0)
+                            <h4>Are you sure your want to hire {{$detail->firstName}} {{$detail->lastName}} to <a style="color:#a01919;">{{$detail->prjTitle}}</a>?</h4>
+                            @elseif($detail->applicantStatus == 1)
+                            <h4>You have already hired <b>{{$detail->firstName}} {{$detail->lastName}}</b> to <a style="color:#a01919;">{{$detail->prjTitle}}</a> project.
+                            </h4>
+                            @else
+                            @endif
+                        </div>
+                          <div class="modal-footer">
+                          <div class="container">
+                              <div class="col-sm-2">
+                              </div>
+                              <form class="" action="/employer/accept" method="post">
+                                {{ csrf_field() }}
+                                    <input type="hidden" name="applicantID" id="applicantID" value="{{$detail->applicantID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    <input type="hidden" name="status" id="status" value="{{$detail->applicantStatus}}" readonly>
+                                    @if($detail->applicantStatus == 0)
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    @elseif($detail->applicantStatus == 1)
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Yes</button>
+                                    @else
+                                    @endif
+                                    @if($detail->applicantStatus == 0)
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button> 
+                                    @elseif($detail->applicantStatus == 1)
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal" style="float:right;">Dismiss</button>
+                                    @else
+                                    @endif                   
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+    <!-- End of Accept Confirmation Modal -->
+
+
+
+    <!-- Reject Confirmation Modal -->                        
+            @foreach ($details as $detail)
+          <!-- Apply to job confirmation Modal -->
+            <div id="reject{{$detail->applicantID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            @if($detail->applicantStatus == 0)
+                            <h4>Are you sure your want to reject {{$detail->firstName}} {{$detail->lastName}}'s application to <a style="color:#a01919;">{{$detail->prjTitle}}</a>?</h4>
+                            @elseif($detail->applicantStatus == 2)
+                            <h4>You have rejected <b>{{$detail->firstName}} {{$detail->lastName}}</b> from joining the <a style="color:#a01919;">{{$detail->prjTitle}}</a> project.
+                            </h4>
+                            @else
+                            @endif
+                        </div>
+                          <div class="modal-footer">
+                          <div class="container">
+                              <div class="col-sm-2">
+                              </div>
+                              <form class="" action="/employer/reject" method="post">
+                                {{ csrf_field() }}
+                                    <input type="hidden" name="applicantID" id="applicantID" value="{{$detail->applicantID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    <input type="hidden" name="status" id="status" value="{{$detail->applicantStatus}}" readonly>
+
+                                    @if($detail->applicantStatus == 0)
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    @elseif($detail->applicantStatus == 2)
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Yes</button>
+                                    @else
+                                    @endif
+                                    @if($detail->applicantStatus == 0)
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button> 
+                                    @elseif($detail->applicantStatus == 2)
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal" style="float:right;">Dismiss</button>
+                                    @else
+                                    @endif                   
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+    <!-- End of Reject Confirmation Modal -->
 
 
             </div><!--feed content row closing tag -->

@@ -3,78 +3,13 @@
 <head>
     <title>Modelling Portfolio</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css
-">
-    <!-- References: https://github.com/fancyapps/fancyBox
- -->
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css
-" media="screen">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
-"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js
-"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- References: https://github.com/fancyapps/fancyBox-->
+    <link href="<?php echo asset('css/imagegalleryview.css')?>" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
-
-    <style type="text/css">
-    .gallery
-    {
-        display: inline-block center;
-        margin-top: 0px;
-    }
-    .close-icon{
-    	border-radius: 50%;
-        position: absolute;
-        right: 5px;
-        top: -10px;
-        padding: 5px 8px;
-    }
-    .form-image-upload{
-        background: #e8e8e8 none repeat scroll 0 0;
-        padding: 15px;
-    }
-
-    .thumbnail {
-        position: relative;
-        width: 250px;
-        height: 250px;
-        overflow: hidden;
-    }
-
-    .thumbnail img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        height: 100%;
-        width: auto;
-        -webkit-transform: translate(-50%,-50%);
-            -ms-transform: translate(-50%,-50%);
-                transform: translate(-50%,-50%);
-    }
-
-    .thumbnail img.portrait {
-        width: 100%;
-        height: auto;
-    }
-
-    .btn-maroon {
-        background-color: #a01919;
-        color: #FFFFFF;
-    }
-
-    .btn-round {
-        border-width: 1px;
-        border-radius: 30px;
-        padding-right: 23px;
-        padding-left: 23px;
-    }
-
-    .btn-info {
-        background-color: #2CA8FF;
-        color: #FFFFFF;
-    }
-
-    </style>
 </head>
 <body>
 

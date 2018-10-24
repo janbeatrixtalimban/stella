@@ -97,28 +97,54 @@
                     </div>
                 </div>
         <!-- Form -->
-                <div class="col-sm-4" style="color:black;">
+                <div class="col-sm-6" style="color:black;">
                     <h3>Edit Your Information</h3><br>
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
                             <form method="POST" action="{{ url('/SaveEdit/'.Auth::user()->userID) }}">
                                 {{ csrf_field() }}
 
+                        <div class="row">
                         <!-- First Name -->
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <input type="text" class="form-control" name="firstName" value="{{ Auth::user()->firstName}}" required>
                                 </div>
+                            </div>
                         <!-- Last Name -->
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Last Name</label>
                                     <input type="text" class="form-control" name="lastName" value="{{ Auth::user()->lastName}}"  required>
                                 </div>
+                            </div>
+                        <!-- Birthday -->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Birthday</label>
+                                    <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true" required>
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <div class="row">
                         <!-- Contact Number -->
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" id="contactNo" name="contactNo" value="{{ Auth::user()->contactNo}}" required>
                                 </div>
+                            </div>
+                        <!-- Email -->
+                            <div class="col-md-6">
+                                <div class="form-group">    
+                                    <label>Email</label>   
+                                    <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="{{ Auth::user()->emailAddress}}"  readonly="true"> 
+                                </div>
+                            </div>
+                        </div><br>
+
                         <!-- Skill -->
                         <label>Skill</label>
                                 <div class="input-group input-sm">
@@ -480,16 +506,6 @@
                                     <!--Zip Code-->
                                         <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
                                         </div><br>
-                        <!-- Birthday -->
-                                <div class="form-group">
-                                    <label>Birthday</label>
-                                    <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true">
-                                </div>
-                        <!-- Email -->
-                                <div class="form-group">    
-                                    <label>Email</label>   
-                                    <input type="text" class="form-control" id="emailAddress" name="emailAddress" value="{{ Auth::user()->emailAddress}}"  readonly="true"> 
-                                </div> 
                         <!-- Save button -->
                             <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
                             <a class="link" href="{{ url('/modelprofile') }}">Cancel</a>
@@ -501,60 +517,6 @@
 
         <!--End of form -->
         
-                <div class="col-sm-1"><!--space-->
-                </div>
-
-
-
-        <!-- Right Column contents -->
-
-            <div class="col-sm-3">
-                <div class="column">
-
-
-                  <!-- Ads Card and carousel -->
-                       <!-- Ads Card and carousel -->
-                       <div class="card" style="width:100%;">
-                        <div class="card-body" style="color:#1b1b1b; width:100%;">
-                        <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
-                            <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/background1.jpg')?>" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 1</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item active">
-                                <img class="d-block" src="<?php echo asset('img/header.jpg')?>" alt="Second slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 2</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/header2.jpg')?>" alt="Third slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad Title 3</h5>
-                                </div>
-                              </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                              <i class="now-ui-icons arrows-1_minimal-left"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                              <i class="now-ui-icons arrows-1_minimal-right"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-
-                </div><!-- column closing tag -->
-            </div><!-- sm-3 closing tag -->
 
             <div class="col-sm-1"><!--space-->
             </div>

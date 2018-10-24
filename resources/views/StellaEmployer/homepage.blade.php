@@ -227,9 +227,9 @@
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to hire {{ $model->firstName }} {{ $model->lastName }}?</h4>
                           </div>
                           <div class="modal-body">
+                          <h4 class="modal-title">Are you sure you want to hire <b>{{ $model->firstName }} {{ $model->lastName }}</b>?</h4><br>
                           <!-- Opening Form Tag -->
                               <form class="" action="/employer/hire" method="post">
                                     {{ csrf_field() }}
@@ -245,7 +245,10 @@
                                       <select size="0.4" class="form-control" name="projectID" id="projectID" required>
                                           <option value="" selected disabled>Select Project..</option>
                                             @foreach($projects as $project)
+                                            @if($project->hidden == 1)
                                               <option value="{{ $project->projectID }}">{{ $project->prjTitle }}</option>
+                                              @else
+                                              @endif
                                             @endforeach
                                       </select>
                             </div><br>

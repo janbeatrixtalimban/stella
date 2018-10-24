@@ -222,7 +222,7 @@ class UserController extends Controller
             $this->basic_email($input['emailAddress']);
             if ($auditlogs->save() && $user) 
             {
-                return redirect()->to('/modelfeed');
+                return redirect()->to('/loginUser');
             } else 
             {
                 return redirect()->to('/');

@@ -79,34 +79,34 @@
 
 
       <!-- Feed Content -->
-      @foreach($details as $details)
-      @if($details->haggleAmount != 0)
+  @foreach($details as $detail)
+      @if($detail->haggleAmount != 0)
       <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-1"><!--space-->
+                <div class="col-sm-2"><!--space-->
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-8">
 
                 <!-- Card for job offer contents -->
-                <br />
+                <br>
                     <div id="joboffer" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
-                          <h5 class="card-title"><b>{{ $details->firstName }} {{ $details->lastName }} </b>wants to make an offer:</h5>
-                                <h4 class="card-title">Project title: {{ $details->prjTitle }}</h4>
-                                <p>Amount: <b>{{ $details->haggleAmount }}</b></p>
+                          <h5 class="card-title"><b>{{ $detail->firstName }} {{ $detail->lastName }} </b>wants to make an offer:</h5>
+                                <h4 class="card-title">Project title: {{ $detail->prjTitle }}</h4>
+                                <p>Amount: <b>P{{ $detail->haggleAmount }}.00</b></p>
                                 <form class="" action="/employer/accepthaggle" method="post">
                                   {{ csrf_field() }}
-                                    <input type="hidden" name="hireID" id="hireID" value="{{$details->hireID}}" readonly>
-                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$details->emailAddress}}" readonly>
-                                    <input type="hidden" name="status" id="status" value="{{$details->haggleStatus}}" readonly>
-                                    @if($details->haggleStatus == 0)
+                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    <input type="hidden" name="status" id="status" value="{{$detail->haggleStatus}}" readonly>
+                                    @if($detail->haggleStatus == 0)
                                     <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                    @elseif($details->haggleStatus == 1)
+                                    @elseif($detail->haggleStatus == 1)
                                     <button type="submit" name="button" class="btn btn-black btn-round" disabled>Accept</button>
                                     @else
                                     @endif
                                     <button type="" name="button" class="btn btn-maroon btn-round">Reject</button>
-                                </form>     
+</form>
                                 {{-- <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
                                 <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button> --}}
                             </div>
@@ -114,69 +114,58 @@
                     </div>
 
                     
-                </div><!-- col-sm-6 closing tag -->
+                </div><!-- col-sm-8 closing tag -->
 
                 <div class="col-sm-1"><!--space-->
                 </div>
-                @else
-                @endif
-                @endforeach
+              @else
+              @endif
+  @endforeach
 
         <!-- Right Column contents -->
 
-            <div class="col-sm-3">
-                <div class="column">
-
-
-                  <!-- Ads Card and carousel -->
-                  <div class="card" style="width:100%;">
-                        <div class="card-body" style="color:#1b1b1b; width:100%;">
-                        <h5 class="card-title"><i class="now-ui-icons business_badge"></i>  Ads</h5>
-                        <div id="carouselExampleIndicators" class="text-center carousel slide" data-ride="carousel" style="width:100%;">
-                            <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
-                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/background1.jpg')?>" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 1</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item active">
-                                <img class="d-block" src="<?php echo asset('img/header.jpg')?>" alt="Second slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad title 2</h5>
-                                </div>
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block" src="<?php echo asset('img/header2.jpg')?>" alt="Third slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>Ad Title 3</h5>
-                                </div>
-                              </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                              <i class="now-ui-icons arrows-1_minimal-left"></i>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                              <i class="now-ui-icons arrows-1_minimal-right"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-
-
-                </div><!-- column closing tag -->
-            </div><!-- sm-3 closing tag -->
-
-            <div class="col-sm-1"><!--space-->
+            <div class="col-sm-2"><!--space-->
             </div>
 
           </div><!--feed content row closing tag -->
       </div><!-- container fluid closing tag-->
+
+
+<!-- Confirm Accept Offer Modal -->
+@foreach ($details as $detail)
+      
+      <div id="confirm{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <h4 class="modal-title">Are you sure you want to accept the job offer <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> from <b>{{ $detail->firstName }} {{ $detail->lastName }}</a>?</h4><br>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <div class="col-sm-3">
+                              </div>
+                              <form class="" action="/employer/accepthaggle" method="post">
+                                  {{ csrf_field() }}
+                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    <input type="hidden" name="status" id="status" value="{{$detail->haggleStatus}}" readonly>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+    @endforeach
+<!-- End of Modal -->
+
 
 
             </div>

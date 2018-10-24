@@ -423,7 +423,7 @@ class ModelController extends Controller
                 ->join('companies','hires.userID', 'companies.userID' )
                 ->where('hires.modelID', Auth::user()->userID)->get();
 
-                 return view('StellaModel.viewJobOffers')->with('details', $details);
+                 return redirect()->back()->with('details', $details);
             } else {
                 return ('failed');
             }

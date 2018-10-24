@@ -57,7 +57,7 @@
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a> 
-                                <a class="dropdown-item" href="{{ url('/#') }}" style="color:black;">Settings</a>
+                                <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
@@ -81,101 +81,92 @@
       
       <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-1"><!--space-->
+                <div class="col-sm-2"><!--space-->
                 </div>
-                <div class="col-sm-7">
-                <!-- Card for job offer contents -->
-            @foreach($details as $detail)
-                @if($detail->hirestatus != '2')
-                <div id="joboffer" class="card text-center">
-                        <div class="card-body" style="color:#1b1b1b;">
-                        <div class="row">
-                          <div class="col-sm-7">
-                            <h3 class="card-title text-center">{{ $detail->prjTitle }}</h3>
-                            <p>{{ $detail->jobDescription }}</p>
-                         <!-- Accept or Reject Job Post -->
-                        <button data-toggle="modal" data-target="#details{{$detail->userID}}" name="button" class="btn btn-info btn-round" rel="tooltip" title="View Details"><i class="now-ui-icons design_bullet-list-67"></i></button>
-                        <button data-toggle="modal" data-target="#confirm{{$detail->userID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer"><i class="now-ui-icons ui-1_check"></i></button>
-                        <button type="" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer"><i class="now-ui-icons ui-1_simple-remove"></i></button>
-                            hey
-                                <form class="text-center" action="/model/accept" method="post">
-                                  {{ csrf_field() }}
-                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
-                                    @if($detail->hirestatus == '0')
-                                    <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                    
-                                    @elseif($detail->hirestatus == '1')
-                                    <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
-                                    {{-- <button type="" name="button" class="btn btn-maroon btn-round">Reject</button> --}}
-                                    @else
-                                    @endif
-                                </form>
-                                <form class="text-center" action="/model/reject" method="post">
-                                    {{ csrf_field() }}
-                                      <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                      <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
-                                      @if($detail->hirestatus == '0')
-                                      
-                                      <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
-                                      @elseif($detail->hirestatus == '1')
-                                      <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
-                                      @else
-                                      @endif
-                                  </form>
-                            </div>
-                            <div class="col-sm-4">
-                                @if($detail->hirestatus == '0')
-                                <div style="position:absolute; top:50%; height:10em; margin-top:-5em;">
-                                  <h5 class="card-title">Not satisfied with the talent fee?</h5>
-                                    <h5 class="card-title">Make an offer</h5>
-                                    <div class="input-group input-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                            </span>
-                                        </div>
-                                        <form class="text-center" action="/model/haggle" method="post">
-                                          {{ csrf_field() }}
+  
+  <div class="col-sm-8">
+
+    <!-- Card for job offer contents -->
+      @foreach($details->reverse() as $detail)
+
+            @if($detail->hirestatus != '2')
+              <div id="joboffer" class="card text-center">
+                <div class="card-body" style="color:#1b1b1b;">
+                  <div class="row">
+                    <div class="col-sm-7">
+                      <h3 class="card-title text-center">{{ $detail->prjTitle }}</h3>
+                        <p>{{ $detail->jobDescription }}</p>
+
+                      <!-- View more details button -->
+                          <button data-toggle="modal" data-target="#details{{$detail->userID}}" name="button" class="btn btn-info btn-round" rel="tooltip" title="View Details"><i class="now-ui-icons design_bullet-list-67"></i></button>
+
+                      <!-- Accept Offer button -->
+                      @if($detail->hirestatus == '0')
+                          <button data-toggle="modal" data-target="#confirm{{$detail->userID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer"><i class="now-ui-icons ui-1_check"></i></button>
+                      @elseif($detail->hirestatus == '1')
+                          <button data-toggle="modal" data-target="#confirm{{$detail->userID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer" disabled><i class="now-ui-icons ui-1_check"></i></button>
+                      @else
+                      @endif
+
+                      <!-- Reject Offer button -->
+                      @if($detail->hirestatus == '0')
+                          <button data-toggle="modal" data-target="#reject{{$detail->userID}}" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                      @elseif($detail->hirestatus == '2')
+                          <button data-toggle="modal" data-target="#reject{{$detail->userID}}" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer" disabled><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                      @else
+                      @endif
+                    </div><!--closing for col-sm-7-->
+
+                          @if($detail->hirestatus == '0')
+                          <div class="col-sm-4">
+                              <h5 class="card-title">Not satisfied with the talent fee?</h5>
+                                  <h6 class="card-title">Make an offer</h6>
+                                      <form class="text-center" action="/model/haggle" method="post">
+                                            {{ csrf_field() }}
                                           @if($detail->haggleStatus == '1')
-                                          
-                                            <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                            <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" readonly>
-                                        </div>
-                                        <button type="submit" name="button" class="btn btn-info btn-round" disabled>Haggle</button>
-                                          
+                                              <div class="input-group input-sm">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                    </span>
+                                                </div>
+                                                <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                                <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" readonly>
+                                              </div>
+                                          <button type="submit" name="button" class="btn btn-info btn-round" disabled>Haggle</button>
+                                            
                                           @else
-                                        
-                                          <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                        <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" required>
-                                    </div>
-                                    <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
-                                        
-                                        @endif
-                                        
-                                  </form>
-                                </div>
-                            </div>
-                            </div>
-                            @else
-                            @endif
-                          </div>
-                          <div class="card-footer text-muted mb-2 text-center">
-                              {{ $detail->created_at->diffForHumans() }}
-                          </div>
-                    </div>
-                    @else
-                    @endif
+                                            <div class="input-group input-sm">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                    </span>
+                                                </div>
+                                                <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                                <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" required>
+                                            </div>
+                                          <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
+                                          
+                                          @endif
+                                      </form>
+                            </div><!-- closing for col-sm-4 -->
+                          @else
+                          <div class="col-sm-4"></div>
+                          @endif
+
+                  </div><!-- closing for row tag -->
+                </div><!--card body closing -->
+                <div class="card-footer text-muted mb-2 text-center">
+                    {{ $detail->created_at->diffForHumans() }}
+                </div>
+      
+            </div><!-- card closing tag -->
+            
+            @else
+            @endif
+
+      @endforeach
                     
-                </div><!-- col-sm-6 closing tag -->
-
-                @endforeach
-
-        <!-- Right Column contents -->
-
-            <div class="col-sm-3">
-                <div class="column">
-
-
+      </div><!-- col-sm-8 closing tag -->
+      
 
             <div class="col-sm-1"><!--space-->
             </div>
@@ -183,10 +174,13 @@
           </div><!--feed content row closing tag -->
       </div><!-- container fluid closing tag-->
 
-      @foreach ($details as $detail)
-          <!-- View Details Modal -->
-            <div id="details{{$detail->userID}}" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
+
+  
+<!-- View Details Modal -->
+    @foreach ($details as $detail)
+          
+        <div id="details{{$detail->userID}}" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
@@ -226,21 +220,24 @@
                     </div>
                 </div>
               </form>
-            @endforeach
-      <!-- End of Modal -->
+    @endforeach
+<!-- End of Modal -->
 
+
+
+<!-- Confirm Accept Offer Modal -->
     @foreach ($details as $detail)
-      <!-- Confirm Accept Offer Modal -->
+      
       <div id="confirm{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to accept?</h4>
                           </div>
                           <div class="modal-body">
+                            <h4 class="modal-title">Are you sure you want to accept the job offer <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> from <b>{{ $detail->firstName }} {{ $detail->lastName }}</a>?</h4><br>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
@@ -259,13 +256,50 @@
                     </div>
                 </div>
               </form>
-            @endforeach
+    @endforeach
 <!-- End of Modal -->
 
 
 
-@foreach ($details as $detail)
-      <!-- Confirm Accept Offer Modal -->
+<!-- Reject Offer Modal -->
+    @foreach ($details as $detail)
+      
+      <div id="reject{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <h4 class="modal-title">Are you sure you want to reject the offer <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> from <b>{{ $detail->firstName }} {{ $detail->lastName }}</b>?</h4><br>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <div class="col-sm-3">
+                              </div>
+                              <form class="text-center" action="/model/reject" method="post">
+                                  {{ csrf_field() }}
+                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+    @endforeach
+<!-- End of Modal -->
+
+
+
+<!-- Confirm Haggle Offer Modal -->
+    @foreach ($details as $detail)
+      
           <div id="haggle{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
 
@@ -294,7 +328,7 @@
                     </div>
                 </div>
               </form>
-            @endforeach
+    @endforeach
 <!-- End of Modal -->
 
             </div>

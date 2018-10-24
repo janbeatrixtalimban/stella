@@ -6,72 +6,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- References: https://github.com/fancyapps/fancyBox -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
+    <link href="<?php echo asset('css/imagegalleryview.css')?>" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
-    <style type="text/css">
-    .gallery
-    {
-        display: inline-block center;
-        margin-top: 0px;
-    }
-    .close-icon{
-    	border-radius: 50%;
-        position: absolute;
-        right: 5px;
-        top: -10px;
-        padding: 5px 8px;
-    }
-    .form-image-upload{
-        background: #e8e8e8 none repeat scroll 0 0;
-        padding: 15px;
-    }
-
-    .thumbnail {
-        position: relative;
-        width: 250px;
-        height: 250px;
-        overflow: hidden;
-    }
-
-    .thumbnail img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        height: 100%;
-        width: auto;
-        -webkit-transform: translate(-50%,-50%);
-            -ms-transform: translate(-50%,-50%);
-                transform: translate(-50%,-50%);
-    }
-
-    .thumbnail img.portrait {
-        width: 100%;
-        height: auto;
-    }
-
-    .btn-maroon {
-        background-color: #a01919;
-        color: #FFFFFF;
-    }
-
-    .btn-round {
-        border-width: 1px;
-        border-radius: 30px;
-        padding-right: 23px;
-        padding-left: 23px;
-    }
-
-    .btn-info {
-        background-color: #2CA8FF;
-        color: #FFFFFF;
-    }
-
-    </style>
 </head>
 <body>
 
@@ -117,7 +57,7 @@
 
                                     <input type="hidden" name="imageID" id="imageID" value="<?php echo e($image->imageID); ?>" readonly>
                                     <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
-                                    <button type="button" class="btn btn-info btn-round" data-dismiss="modal" style="float:right;">Close</button>
+                                    <button type="button" class="btn btn-info btn-round" data-dismiss="modal" style="float:right;">Cancel</button>
                                 </form>
                           </div>
                       </div>

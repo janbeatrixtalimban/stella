@@ -83,96 +83,182 @@
                     <div class="side-navbar" style="color:black; border-right:black;">
                         <h4>View Applicants</h4>
                         <br>
-                        <ul class="nav flex-column">
-                          <h6>Job Post</h6><br>
-                          <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <li class="nav-item">
-                                <a class="nav-link" value="<?php echo e($project->projectID); ?>" href="<?php echo e($project->projectID); ?>"><?php echo e($project->prjTitle); ?></a>
-                            </li>
-                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><br><br>
-                        </ul>
+                        
                     </div>
                 </div><br><br>
               
         <div class="col-sm-9">
   <!-- Job Post Applicants --> 
                     
-            <?php $__currentLoopData = $details->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $details->chunk(6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
            
             <div class="row">
                 <div class="column">
                     <table>
                         <tr>
                                       
-                          <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                          <?php if($details->applicantStatus != 2): ?>
+                          <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                          <?php if($detail->applicantStatus != 2): ?>
                             <td>
                          
                                               
-                                <h4 style="color:#1b1b1b;"><?php echo e($details->prjTitle); ?></h4>
+                                <h4 style="color:#1b1b1b;"><?php echo e($detail->prjTitle); ?></h4>
                                     <div class="col-sm-12">
-                                          <div id="model" class="card text-center">
-                                                <div class="card-body" style="color:#1b1b1b;">
-                                                    <h5 class="card-title"><?php echo e($details->firstName); ?> <?php echo e($details->lastName); ?></h5>
-                                                    <img src="/uploads/avatars/<?php echo e($details ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
-                                                <!--Buttons with icons -->
+                                        <div id="model" class="card text-center">
+                                            <div class="card-body" style="color:#1b1b1b;">
+                                                <h5 class="card-title"><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></h5>
+                                                    <img src="/uploads/avatars/<?php echo e($detail ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
 
-                                                    <form class="" action="/employer/accept" method="post">
-                                                      <?php echo e(csrf_field()); ?>
+                                <!--Accept button modal trigger with icon -->
+                                        <?php if($detail->applicantStatus == 0): ?>
+                                            <button data-toggle="modal" data-target="#accept<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check"></i></button>
+                                        <?php elseif($detail->applicantStatus == 1): ?>
+                                            <button data-toggle="modal" data-target="#accept<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check" disabled></i></button>
+                                        <?php else: ?>
+                                        <?php endif; ?>
+                                <!--Accept button modal trigger with icon -->
+                                        <?php if($detail->applicantStatus == 0): ?>
+                                            <button data-toggle="modal" data-target="#reject<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                                        <?php elseif($detail->applicantStatus == 2): ?>
+                                            <button data-toggle="modal" data-target="#reject<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove" disabled></i></button>
+                                        <?php else: ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="card-footer text-muted mb-2">
+                                        <?php echo e($detail->skill); ?>
 
-                                                        <input type="hidden" name="applicantID" id="applicantID" value="<?php echo e($details->applicantID); ?>" readonly>
-                                                        <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
-                                                        <input type="hidden" name="status" id="status" value="<?php echo e($details->applicantStatus); ?>" readonly>
-                                                        <?php if($details->applicantStatus == 0): ?>
-                                                        <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
-                                                        <?php elseif($details->applicantStatus == 1): ?>
-                                                        <button type="submit" name="button" class="btn btn-success btn-round" disabled>Accept</button>
-                                                        <?php else: ?>
-                                                        <?php endif; ?>
-                                                       
-                                                    </form>
-                                                    <form class="" action="/employer/reject" method="post">
-                                                        <?php echo e(csrf_field()); ?>
-
-                                                          <input type="hidden" name="applicantID" id="applicantID" value="<?php echo e($details->applicantID); ?>" readonly>
-                                                          <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($details->emailAddress); ?>" readonly>
-                                                          <input type="hidden" name="status" id="status" value="<?php echo e($details->applicantStatus); ?>" readonly>
-                                                          <?php if($details->applicantStatus == 0): ?>
-                                                          <button type="submit" name="button" class="btn btn-maroon btn-round">Reject</button>
-                                                          <?php elseif($details->applicantStatus == 1): ?>
-                                                          <button type="submit" name="button" class="btn btn-maroon btn-round" disabled>Reject</button>
-                                                          <?php else: ?>
-                                                          <?php endif; ?>
-                                                          
-                                                      </form>
-                                                </div>
-                                                <div class="card-footer text-muted mb-2">
-                                                    <?php echo e($details->skill); ?>
-
-                                                </div>
-                                            </div>
-                                      </div>
-                            </td> 
-                            <?php else: ?>
-                            <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </td> 
+                        <?php else: ?>
+                        <?php endif; ?>
                                         
-                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        </tr>
+                    </tr>
                         
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </table>
+                </table>
 
-                  </div>
-                </div>
-              </div>
-            </div><!--col-sm-9 closing -->
+            </div>
+        </div>
+    </div>
+</div><!--col-sm-9 closing -->
 
         
         <!-- Right Column contents -->
 
             <div class="col-sm-1"><!--space-->
             </div>
+
+
+<!-- Accept Confirmation Modal --> 
+    <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <!-- Apply to job confirmation Modal -->
+            <div id="accept<?php echo e($detail->applicantID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <?php if($detail->applicantStatus == 0): ?>
+                            <h4>Are you sure your want to hire <?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?> to <a style="color:#a01919;"><?php echo e($detail->prjTitle); ?></a>?</h4>
+                            <?php elseif($detail->applicantStatus == 1): ?>
+                            <h4>You have already hired <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></b> to <a style="color:#a01919;"><?php echo e($detail->prjTitle); ?></a> project.
+                            </h4>
+                            <?php else: ?>
+                            <?php endif; ?>
+                        </div>
+                          <div class="modal-footer">
+                          <div class="container">
+                              <div class="col-sm-2">
+                              </div>
+                              <form class="" action="/employer/accept" method="post">
+                                <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="applicantID" id="applicantID" value="<?php echo e($detail->applicantID); ?>" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($detail->emailAddress); ?>" readonly>
+                                    <input type="hidden" name="status" id="status" value="<?php echo e($detail->applicantStatus); ?>" readonly>
+                                    <?php if($detail->applicantStatus == 0): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <?php elseif($detail->applicantStatus == 1): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Yes</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>
+                                    <?php if($detail->applicantStatus == 0): ?>
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button> 
+                                    <?php elseif($detail->applicantStatus == 1): ?>
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal" style="float:right;">Dismiss</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>                   
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <!-- End of Accept Confirmation Modal -->
+
+
+
+    <!-- Reject Confirmation Modal -->                        
+            <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <!-- Apply to job confirmation Modal -->
+            <div id="reject<?php echo e($detail->applicantID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <?php if($detail->applicantStatus == 0): ?>
+                            <h4>Are you sure your want to reject <?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?>'s application to <a style="color:#a01919;"><?php echo e($detail->prjTitle); ?></a>?</h4>
+                            <?php elseif($detail->applicantStatus == 2): ?>
+                            <h4>You have rejected <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></b> from joining the <a style="color:#a01919;"><?php echo e($detail->prjTitle); ?></a> project.
+                            </h4>
+                            <?php else: ?>
+                            <?php endif; ?>
+                        </div>
+                          <div class="modal-footer">
+                          <div class="container">
+                              <div class="col-sm-2">
+                              </div>
+                              <form class="" action="/employer/reject" method="post">
+                                <?php echo e(csrf_field()); ?>
+
+                                    <input type="hidden" name="applicantID" id="applicantID" value="<?php echo e($detail->applicantID); ?>" readonly>
+                                    <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($detail->emailAddress); ?>" readonly>
+                                    <input type="hidden" name="status" id="status" value="<?php echo e($detail->applicantStatus); ?>" readonly>
+
+                                    <?php if($detail->applicantStatus == 0): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <?php elseif($detail->applicantStatus == 2): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Yes</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>
+                                    <?php if($detail->applicantStatus == 0): ?>
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">No</button> 
+                                    <?php elseif($detail->applicantStatus == 2): ?>
+                                    <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal" style="float:right;">Dismiss</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>                   
+                                </form>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <!-- End of Reject Confirmation Modal -->
 
 
             </div><!--feed content row closing tag -->
