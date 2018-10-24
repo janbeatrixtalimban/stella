@@ -247,7 +247,11 @@
                                             @foreach($projects as $project)
                                             @if($project->hidden == 1)
                                               <option value="{{ $project->projectID }}">{{ $project->prjTitle }}</option>
+<<<<<<< Updated upstream
                                               @else
+=======
+                                              @else 
+>>>>>>> Stashed changes
                                               @endif
                                             @endforeach
                                       </select>

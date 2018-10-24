@@ -129,7 +129,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('/admin/reportedImg', 'adminController@viewImage');
         Route::post('/admin/archiveJobPost', 'adminController@archiveJobPost');
         Route::post('/admin/archiveImage', 'adminController@archiveImage');
-
+        Route::get('/admin/countpremium', 'adminController@countPremium');
 
     });
 

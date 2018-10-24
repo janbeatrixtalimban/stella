@@ -18,7 +18,34 @@ class adminController extends Controller
 {
     public function getDashboard()
     {
-        return view('StellaAdmin.dashboard');
+        $num = 1;
+        $zero = 0;
+        $model = 3;
+        $emp = 2;
+        $models = DB::table('users')
+        ->where('status' , $num)
+        ->where('typeID', $model)
+        ->count();
+        $numModels = DB::table('users')
+        ->where('typeID', $model)
+        ->count();
+        $employer = DB::table('users')
+        ->where('status' , $num)
+        ->where('typeID', $emp)
+        ->count();
+        $numEmps = DB::table('users')
+        ->where('typeID', $emp)
+        ->count();
+
+        $admin = 1;
+        $adminuser = User::where('typeID', $admin)->get();
+        $details = User::where('typeID', $admin)
+        ->get();
+       
+        return view('StellaAdmin.dashboard', compact('adminuser'))
+        ->with('models', $models)->with('numModels', $numModels)
+        ->with('employer', $employer)->with('numEmps', $numEmps)
+        ->with('details', $details);
     }
 
     public function Login()
@@ -294,6 +321,20 @@ class adminController extends Controller
         }
 
         
+    }
+
+    public function countPremium()
+    {
+        $num = 1;
+        $model = 3;
+        $users = DB::table('users')
+        ->where('status' , $num)
+        ->where('typeID', $model)
+        ->count();
+        dd($users);
+
+        return view('StellaAdmin.dashboard')
+        ->with('users', $users);
     }
 
 

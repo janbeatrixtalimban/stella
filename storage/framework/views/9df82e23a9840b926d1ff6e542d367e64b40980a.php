@@ -248,7 +248,11 @@
                                             <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <?php if($project->hidden == 1): ?>
                                               <option value="<?php echo e($project->projectID); ?>"><?php echo e($project->prjTitle); ?></option>
+<<<<<<< Updated upstream
                                               <?php else: ?>
+=======
+                                              <?php else: ?> 
+>>>>>>> Stashed changes
                                               <?php endif; ?>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                       </select>

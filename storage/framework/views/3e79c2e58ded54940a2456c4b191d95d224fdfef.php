@@ -106,7 +106,7 @@
       </nav>
       <!-- End Navbar -->
 
-
+      
       <div class="panel-header panel-header-sm">
       </div>
       <div class="content">
@@ -114,8 +114,8 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Reports</h5>
-                <h4 class="card-title">Generated Reports</h4>
+                <h5 class="card-category">USERS</h5>
+                <h4 class="card-title">User Count</h4>
                 <div class="dropdown">
                   <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                     <i class="now-ui-icons loader_gear"></i>
@@ -129,9 +129,15 @@
                 </div>
               </div>
               <div class="card-body">
+                
+               <p> NUMBER OF PREMIUM MODELS: <b><?php echo e($models); ?></b> </p>
+               <p> TOTAL NUMBER OF MODELS: <b><?php echo e($numModels); ?></b> </p>
+               <p> NUMBER OF PREMIUM EMPLOYERS: <b><?php echo e($employer); ?></b> </p>
+               <p> TOTAL NUMBER OF EMPLOYERS: <b><?php echo e($numEmps); ?></b> </p>
                 <div class="chart-area">
                   <canvas id="lineChartExample"></canvas>
                 </div>
+           
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -192,8 +198,8 @@
           <div class="col-md-6">
             <div class="card  card-tasks">
               <div class="card-header ">
-                <h5 class="card-category">Backend development</h5>
-                <h4 class="card-title">Tasks</h4>
+                <h5 class="card-category">ADMIN AUDITLOG</h5>
+                <h4 class="card-title">Audit Log</h4>
               </div>
               <div class="card-body ">
                 <div class="table-full-width table-responsive">
@@ -273,99 +279,41 @@
             </div>
           </div>
           <div class="col-md-6">
+            
             <div class="card">
               <div class="card-header">
-                <h5 class="card-category">All Persons List</h5>
-                <h4 class="card-title"> Employees Stats</h4>
+                <h5 class="card-category">All Admins List</h5>
+                <h4 class="card-title"> Admin Stats</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
+                   
                     <thead class=" text-primary">
+                      
                       <th>
                         Name
                       </th>
                       <th>
-                        Country
+                        Date Created
                       </th>
-                      <th>
-                        City
-                      </th>
-                      <th class="text-right">
-                        Salary
-                      </th>
+                      
                     </thead>
                     <tbody>
+                        <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <tr>
                         <td>
-                          Dakota Rice
+                          <?php echo e($details-> firstName); ?> <?php echo e($details-> lastName); ?>
+
                         </td>
                         <td>
-                          Niger
+                            <?php echo e($details-> created_at); ?>
+
                         </td>
-                        <td>
-                          Oud-Turnhout
-                        </td>
-                        <td class="text-right">
-                          $36,738
-                        </td>
+                        
                       </tr>
-                      <tr>
-                        <td>
-                          Minerva Hooper
-                        </td>
-                        <td>
-                          Curaçao
-                        </td>
-                        <td>
-                          Sinaai-Waas
-                        </td>
-                        <td class="text-right">
-                          $23,789
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Sage Rodriguez
-                        </td>
-                        <td>
-                          Netherlands
-                        </td>
-                        <td>
-                          Baileux
-                        </td>
-                        <td class="text-right">
-                          $56,142
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Doris Greene
-                        </td>
-                        <td>
-                          Malawi
-                        </td>
-                        <td>
-                          Feldkirchen in Kärnten
-                        </td>
-                        <td class="text-right">
-                          $63,542
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Mason Porter
-                        </td>
-                        <td>
-                          Chile
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-right">
-                          $78,615
-                        </td>
-                      </tr>
+                      
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                   </table>
                 </div>

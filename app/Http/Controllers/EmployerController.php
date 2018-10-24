@@ -29,11 +29,11 @@ class EmployerController extends Controller
     public function changepassword(Request $request)
     {
         if (Auth::check()) {
-            
+           
             $Credentials = ['password' == Auth::user()->password];
             {
                 
-                if ($Credentials) {
+                if($Credentials == Auth::user()->password) {
 
                 $userID = Auth::user()->userID;
 
