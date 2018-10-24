@@ -10,6 +10,7 @@ use App\attribute;
 use App\auditlogs;
 use App\feedback;
 use App\Project;
+//use Carbon;
 use App\applicant;
 use App\report;
 use App\hire;
@@ -107,17 +108,21 @@ class ModelController extends Controller
                 
                 $rating = feedback::where('reciever', auth::user()->userID)->avg('rate');
                 $rating = round($rating);
+
+                $currentUser = Auth::user()->userID;
+                $stilldisplay = "none";
+                $photos = DB::table('imgportfolios')->where('userID', $currentUser)->where('display', '!=', $stilldisplay)->count();
             
-            return view('StellaModel.modelProfile')->with('details', $details)->with('feedback',$feedback)->with('rating',$rating);
+            return view('StellaModel.modelProfile')->with('details', $details)->with('feedback',$feedback)->with('rating',$rating)->with('photos',$photos);
         }
-          
     }
     
     public function modelHomepage(Request $request)
     {
-
+        $currentDate = date ('Y-m-d');
         $projects = project::join('users', 'users.userID', '=', 'projects.userID')
         ->join('companies', 'companies.userID', '=', 'projects.userID')
+        ->where('jobDate', '>', $currentDate)
         ->paginate(5);
 
     //    return view('StellaModel.homepage')->with('projects', $projects);

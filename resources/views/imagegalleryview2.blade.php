@@ -3,12 +3,17 @@
 <head>
     <title>Modelling Portfolio</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- References: https://github.com/fancyapps/fancyBox -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css
+">
+    <!-- References: https://github.com/fancyapps/fancyBox
+ -->
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css
+" media="screen">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
+"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js
+"></script>
 
 
     <style type="text/css">
@@ -16,7 +21,6 @@
     {
         display: inline-block center;
         margin-top: 0px;
-
     }
     .close-icon{
     	border-radius: 50%;
@@ -31,30 +35,48 @@
     }
 
     .thumbnail {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-}
-.thumbnail img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  height: 100%;
-  width: auto;
-  -webkit-transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
-          transform: translate(-50%,-50%);
-}
-.thumbnail img.portrait {
-  width: 100%;
-  height: auto;
-}
+        position: relative;
+        width: 250px;
+        height: 250px;
+        overflow: hidden;
+    }
+
+    .thumbnail img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+    }
+
+    .thumbnail img.portrait {
+        width: 100%;
+        height: auto;
+    }
+
+    .btn-maroon {
+        background-color: #a01919;
+        color: #FFFFFF;
+    }
+
+    .btn-round {
+        border-width: 1px;
+        border-radius: 30px;
+        padding-right: 23px;
+        padding-left: 23px;
+    }
+
+    .btn-info {
+        background-color: #2CA8FF;
+        color: #FFFFFF;
+    }
 
     </style>
 </head>
 <body>
-
 
     <div class="row">
         <div class='list-group gallery' >
@@ -68,14 +90,12 @@
                         <img class="img-responsive portrait" alt="" src="/uploads/{{ $image->image }}" alt="Image"/>
                         </div>
                         </a>
-                        
-                        <!-- ARCHIVE BUTTON --> 
-                        <form class="" action="/employer/reportphoto" method="post">
+                        <!-- ARCHIVE BUTTON 
+                        <form class="" action="/model/archive" method="post">
                                   {{ csrf_field() }}
                                   <input type="hidden" name="imageID" id="imageID" value="{{$image->imageID}}" readonly>
-                                  <input type="text" name="userID" id="userID" value="{{$image->userID}}" readonly>
-                                  <button type="submit" name="button" class="btn btn-maroon btn-round">Report</button>
-                        </form>
+                                  <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
+                        </form>--> 
                                 
                     </div> <!-- col-6 / end -->
                    

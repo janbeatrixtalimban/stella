@@ -9,6 +9,7 @@ use App\User;
 use App\attribute;
 use App\hire;
 use App\applicant;
+use Carbon;
 use App\reportimage;
 use Mail;
 use Illuminate\Http\Request;
@@ -112,8 +113,13 @@ class EmployerController extends Controller
 
         if (Auth::check()) {
 
-            $projects = Project::where('userID', Auth::user()->userID)->get();
+            $currentDate = date('Y-m-d');
+            $projects = Project::where('userID', Auth::user()->userID)->where('jobDate', '>', $currentDate)->get();
             $company = company::where('userID', auth::user()->userID)->first();
+            $timestemp = "2016-4-5 05:06:01";
+            $today = Carbon\Carbon::today();
+            
+            $day = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $today)->day;
 
             return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
 

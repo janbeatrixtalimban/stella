@@ -79,7 +79,8 @@ Route::group(['middleware' => 'web'], function () {
         
         //jusss
         //gallery
-    
+        Route::get('imagegalleryview2/{id}', 'portfolioController@viewindex2');
+        Route::post('imagegalleryview/{id}', 'portfolioController@refresh');
         Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
         Route::get('viewviewimage/{id}', 'portfolioController@viewimage');
         Route::resource('feedbacks','FeedbackController');

@@ -7,6 +7,7 @@ use App\imgportfolio;
 use App\portfolio;
 use App\User;
 use App\auditlogs;
+use Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -51,6 +52,40 @@ class portfolioController extends Controller
         
     }
 
+    public function viewindex2(Request $request, $id)
+    {
+        $user = user::find($id);
+        
+        if (Auth::check()) {
+                  
+            //$images = imgportfolio::get();
+            $images = DB::table('imgportfolios')/*->select('image')*/->where('userID', $id)->get();
+            //$user = $images;
+            return view('imagegalleryview2',compact('images'));
+          
+              }
+              else {
+                  return('fail');
+              }
+    }
+
+    public function refresh(Request $request, $id)
+    {
+        $user = user::find($id);
+        
+        if (Auth::check()) {
+                  
+            //$images = imgportfolio::get();
+            $images = DB::table('imgportfolios')/*->select('image')*/->where('userID', $id)->get();
+            //$user = $images;
+            return view('imagegalleryview',compact('images'));
+          
+              }
+              else {
+                  return('fail');
+              }
+    }
+
     public function singleview(Request $request, $id)
     {
         $user = user::find($id);
@@ -82,10 +117,12 @@ class portfolioController extends Controller
             $image = DB::table('imgportfolios')->select('image')->where('imageID', $imageID)
             ->update(['display' => $display]);
 
-                return view('StellaModel.updatePortfolio');
-    
+                //return view('StellaModel.updatePortfolio');
 
-        } else {
+                return Redirect::to('/imagegalleryview/'.Auth::user()->userID);
+
+        } 
+        else {
             return ('fail');
         }
     }
@@ -97,12 +134,11 @@ class portfolioController extends Controller
         if (Auth::check()) {
                   
             //$images = imgportfolio::get();
-            $images = DB::table('imgportfolios')
-                    ->join('users', 'users.userID','=', 'imgportfolios.userID')
-                    ->where('imgportfolios.userID', $id)->get();
+            $images = DB::table('imgportfolios')->select('image')->where('userID', $id)->get();
+                    
             //$images = DB::table('imgportfolios')->select('image')->where('userID', $id)->get();
             //$user = $images;
-            return view('singleimageview',compact('images'));
+            return view('viewviewimage',compact('images'));
           
               }
               else {
@@ -148,7 +184,6 @@ class portfolioController extends Controller
                         {
                             return ('fail');
                         }
-
                 }
       else
       {                       

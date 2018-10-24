@@ -8,6 +8,7 @@ use App\auditlogs;
 use App\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class loginController extends Controller
 {
@@ -29,6 +30,22 @@ class loginController extends Controller
                 if ($authenticate) {
                     
                     $user = auth::user();
+
+                    $registerdate = Auth::user()->created_at;
+                    $freeday = $registerdate->addDays(7);
+                    $current = Carbon::now();
+                
+                             
+                             if(($freeday < $current) & (Auth::user()->status == 1)){
+                                
+                                
+                                $expired = 0;
+                                $currentUser = Auth::user()->userID;
+                                DB::table('users')->where('userID', $currentUser)
+                                 ->update(['status' => $expired]);
+                                echo "expired and database has been updated";
+                            }
+                            
                    if(Auth::user()->typeID== 3){
 
                     $projectID =  $request->get('projectID'); 
@@ -36,8 +53,8 @@ class loginController extends Controller
                     ->join('companies', 'companies.userID', '=', 'projects.userID')
                     ->paginate(5);
                     $details = Project::where('projectID', $projectID)
-        ->join('users', 'users.userID', '=', 'projects.userID')
-        ->get();
+                    ->join('users', 'users.userID', '=', 'projects.userID')
+                    ->get();
 
                         $auditlogs = new auditlogs;
                         $auditlogs->userID =  Auth::user()->userID;;

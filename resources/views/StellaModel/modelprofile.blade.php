@@ -95,7 +95,13 @@
       <div class="container">
         <div class="button-container">
           <a href="{{ url('/modeleditprofile') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
+          @if ($photos >= 12)
+          <button class="btn btn-round btn-default btn-lg" data-toggle="tooltip"
+           data-placement="right" title="You already have 12 photos!" data-container="body"
+            data-animation="true">Add to portfolio</button>
+          @elseif ($photos < 12)
           <a href="{{ url('/addPortfolio') }}" class="btn btn-maroon btn-round btn-lg">Add to Portfolio</a>
+          @endif
         </div>
         <div class="container-fluid">
           <div class="row">
@@ -135,8 +141,9 @@
                 <a href="{{ url('/model/viewPortfolio') }}" rel="tooltip" title="Edit Portfolio" >[Edit]</a><br><br>
               </div>
                 <!-- Portfolio Viewer -->
-                <iframe src="{{ url('/imagegalleryview/'.Auth::user()->userID) }}" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
-            </div>
+                <iframe src="{{ url('/imagegalleryview2/'.Auth::user()->userID) }}" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
+                
+              </div>
         </div>
         <div class="row">
           <div class="container">
