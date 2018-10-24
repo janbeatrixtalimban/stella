@@ -63,8 +63,9 @@ class loginController extends Controller
                 
                         if ($auditlogs->save() && $projects) 
                         {
-                            return view('StellaModel.homepage',compact('projects'))
-                            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
+                            return redirect()->to('modelfeed');
+                            /*return view('StellaModel.homepage',compact('projects'))
+                            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);*/
                         } else 
                         {
                             return ('fail');
@@ -90,8 +91,9 @@ class loginController extends Controller
                 
                         if ($auditlogs->save() && $user) 
                         {
-                            return view('StellaEmployer.homepage', compact('user','projects','model'))
-                            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);
+                            return redirect()->to('employerHome');
+                            /*return view('StellaEmployer.homepage', compact('user','projects','model'))
+                            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('projects', $projects);*/
                         } else 
                         {
                             return ('fail');

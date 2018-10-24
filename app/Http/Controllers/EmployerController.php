@@ -172,9 +172,14 @@ class EmployerController extends Controller
     
             if ($auditlogs->save() && $project) 
             {
-                $projects = Project::where('userID', Auth::user()->userID)->get();
-                 $company = company::where('userID', auth::user()->userID)->first();
-                return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
+                return redirect()->to('employerprofile');
+                /*$currentDate = date('Y-m-d');
+                $projects = Project::where('userID', Auth::user()->userID)->where('jobDate', '>', $currentDate)->get();
+                $company = company::where('userID', auth::user()->userID)->first();
+                $timestemp = "2016-4-5 05:06:01";
+                $today = Carbon\Carbon::today();
+                $day = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $today)->day;
+                return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);*/
             } else 
             {
                 return redirect()->to('/');
@@ -248,13 +253,18 @@ class EmployerController extends Controller
             // dd($projectID);
 
             $project = project::where('projectID', $projectID)
-                ->update(['hidden' => $hidden]);
+            ->update(['hidden' => $hidden]);
 
-                $projects = Project::where('userID', Auth::user()->userID)->get();
+                $currentDate = date('Y-m-d');
+                $projects = Project::where('userID', Auth::user()->userID)->where('jobDate', '>', $currentDate)->get();
                 $company = company::where('userID', auth::user()->userID)->first();
-    
-                return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
-    
+                $timestemp = "2016-4-5 05:06:01";
+                $today = Carbon\Carbon::today();
+                
+                $day = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $today)->day;
+                return redirect()->to('employerprofile');
+
+            /*return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);*/
 
         } else {
             return ('fail');
@@ -265,6 +275,7 @@ class EmployerController extends Controller
     {
 
         $num = 3;
+        $currentDate = date('Y-m-d');
         $user = User::where('typeID', $num)->get();
         $model = User::where('typeID', $num)->get();
         $userID =  $request->get('userID'); 
@@ -272,8 +283,12 @@ class EmployerController extends Controller
         ->join('attributes', 'attributes.userID', '=', 'users.userID')
         ->get();
 
-        $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
-        
+            $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')
+            ->where('jobDate', '>', $currentDate)->get();
+            $timestemp = "2016-4-5 05:06:01";
+            $today = Carbon\Carbon::today();
+            $day = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $today)->day;
+
         return view('StellaEmployer.homepage', compact('user', 'projects', 'model'))
            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
 

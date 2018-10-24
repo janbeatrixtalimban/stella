@@ -362,7 +362,28 @@ class UserController extends Controller
    	        $searchtype = $request->get('searchtype');
             $projects = DB::table('projects')->where('role', 'like', '%'.$searchtype.'%')->where('jobDescription', 'like', '%'.$search.'%')->orWhere('prjTitle', 'like', '%'.$search.'%')->paginate(5);
    	        
-                return view('StellaModel.homepage', ['projects' => $projects]);    */     
+                return view('StellaModel.homepage', ['projects' => $projects]);    */   
+                
+                
+
+
+                $currentDate = date('Y-m-d');
+                        /* $projects = Project::where('userID', Auth::user()->userID)
+                         ->where('jobDate', '>', $currentDate)->get();
+                        $company = company::where('userID', auth::user()->userID)->first();
+                        $timestemp = "2016-4-5 05:06:01";
+                        //$today = Carbon\Carbon::today();
+                        
+                        //$day = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $today)->day;
+
+                        /*return view('StellaEmployer.employerProfile')
+                        ->with('company', $company)->with('projects', $projects);*/
+
+                
+
+
+
+
                 
                 $projectID =  $request->get('projectID'); 
                 $search = $request->get('search');
@@ -371,8 +392,10 @@ class UserController extends Controller
                 ->join('companies', 'companies.userID', '=', 'projects.userID')
                 ->where('role', 'like', '%'.$searchtype.'%')
                 ->where('jobDescription', 'like', '%'.$search.'%')
+                ->where('jobDate', '>', $currentDate)
                 ->orWhere('prjTitle', 'like', '%'.$search.'%')
                 ->paginate(5);
+
                 $details = Project::where('projectID', $projectID)
                     ->join('users', 'users.userID', '=', 'projects.userID')
                     ->get();
@@ -384,6 +407,8 @@ class UserController extends Controller
             
                     if ($auditlogs->save() && $projects) 
                     {
+                        
+
                         return view('StellaModel.homepage',compact('projects'))
                         ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
                     } else 
