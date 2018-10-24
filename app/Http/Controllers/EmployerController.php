@@ -111,7 +111,7 @@ class EmployerController extends Controller
     public function showProj($projectID)
     {
         $projects = Project::where('projectID', $projectID)->first();
-        // dd($projects);
+
         return view('StellaEmployer.editJobPost')->with('projects', $projects);
     }
 
