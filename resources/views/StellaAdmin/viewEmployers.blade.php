@@ -132,7 +132,7 @@
                                             <th>Email</th>
                                             <th>Date Registered</th>
                                             
-                                            <th></th>
+                                            <th>Action</th>
                                             <th></th>
                                         </thead>
 
@@ -148,7 +148,7 @@
                                                         <div>{{ $detail->lastName }}</div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div>{{ $detail->birthDate}}</div>
+                                                        <div>{{ $detail->age}}</div>
                                                     </td>
                                                     <td class="table-text">
                                                         <div>{{ $detail->emailAddress }}</div>
@@ -198,9 +198,9 @@
                                     </li>
                                 </ul>
 
-                              <p><b>Status:</b>{{$detail->status}}</p>
+                            
 
-                              <p><b>Valid Doc:</b><img src="/uploads/{{ $detail->filePath }}" alt="Thumbnail Image" class="rounded-circle"></p>
+                              <p><b>Valid Doc:</b><img src="/uploads/path/{{ $detail->filePath }}" alt="Thumbnail Image" class="rounded-circle"></p>
 
                           </div>
                           <div class="modal-footer">

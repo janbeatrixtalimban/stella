@@ -118,6 +118,8 @@ Route::group(['middleware' => ['XSS']], function ()
             Route::post('/employer/accepthaggle', 'EmployerController@accepthaggle');
             Route::post('/employer/reportphoto', 'EmployerController@report');
             Route::post('/employer/reject', 'EmployerController@rejectApplicant');
+            Route::post('/employer/rejecthaggle', 'EmployerController@rejecthaggle');
+
     
             //ADMIN SIDE!!!!
             Route::get('/admin/dashboard', 'adminController@getDashboard');

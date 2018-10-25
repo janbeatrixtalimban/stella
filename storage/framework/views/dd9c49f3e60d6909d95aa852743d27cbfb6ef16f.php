@@ -130,7 +130,7 @@
                                             <th>Email</th>
                                             <th>Date Registered</th>
                                             
-                                            <th></th>
+                                            <th>Action</th>
                                             <th></th>
                                         </thead>
 
@@ -146,7 +146,7 @@
                                                         <div><?php echo e($detail->lastName); ?></div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div><?php echo e($detail->birthDate); ?></div>
+                                                        <div><?php echo e($detail->age); ?></div>
                                                     </td>
                                                     <td class="table-text">
                                                         <div><?php echo e($detail->emailAddress); ?></div>
@@ -196,9 +196,9 @@
                                     </li>
                                 </ul>
 
-                              <p><b>Status:</b><?php echo e($detail->status); ?></p>
+                            
 
-                              <p><b>Valid Doc:</b><img src="/uploads/<?php echo e($detail->filePath); ?>" alt="Thumbnail Image" class="rounded-circle"></p>
+                              <p><b>Valid Doc:</b><img src="/uploads/path/<?php echo e($detail->filePath); ?>" alt="Thumbnail Image" class="rounded-circle"></p>
 
                           </div>
                           <div class="modal-footer">

@@ -705,4 +705,48 @@ class EmployerController extends Controller
         }
 
     }
+
+    public function rejecthaggle(Request $request)
+    {
+        if (Auth::check())
+        {
+            $validator = Validator::make($request->all(), [
+
+                'haggleStatus',
+                'updated_at',
+            ]);
+            if ($validator->fails()) {
+                return redirect()->to($validator->errors());
+
+            }
+            $status = '2';
+           
+            $hireID = $request->get('hireID');
+            $emailAddress = $request->get('emailAddress');
+            $hire = hire::where('hireID', $hireID)->update(['haggleStatus' => $status]);
+           $this->acceptNotif($emailAddress);
+            //return view('StellaModel.homepage');
+
+            //return redirect()->back()->with('alert', 'Updated!');
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID = Auth::user()->userID;
+            $auditlogs->logType = 'Accepted haggle';
+
+            if ($auditlogs->save() && $hire) {
+                $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+                ->join('users', 'users.userID', 'hires.modelID')
+                ->where('hires.userID', Auth::user()->userID)->get();
+               // dd($details);
+                return view('StellaEmployer.viewHaggleFee')->with('details', $details);
+            } else {
+                return ('failed');
+            }
+
+        } else {
+            return ('fail');
+        }
+
+        
+    }
 }

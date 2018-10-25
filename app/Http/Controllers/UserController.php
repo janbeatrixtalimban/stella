@@ -203,7 +203,7 @@ class UserController extends Controller
           $image_ext = $path->GetClientOriginalExtension();
           $new_path_name = time() . '.' .$image_ext;
           Image::make($path)->resize(200,200)->save( public_path('/uploads/path'.$image_ext) );
-          $destination_path = public_path('/uploads/avatars');
+          $destination_path = public_path('/uploads/path');
               $path->move($destination_path,$new_path_name);
               $input['filePath'] = $new_path_name;
          
@@ -320,7 +320,7 @@ class UserController extends Controller
                 $image_ext = $path->GetClientOriginalExtension();
                 $new_path_name = time() . '.' .$image_ext;
                 Image::make($path)->resize(200,200)->save( public_path('/uploads/path'.$image_ext) );
-                $destination_path = public_path('/uploads/avatars');
+                $destination_path = public_path('/uploads/path');
                     $path->move($destination_path,$new_path_name);
                     $input['filePath'] = $new_path_name;
            

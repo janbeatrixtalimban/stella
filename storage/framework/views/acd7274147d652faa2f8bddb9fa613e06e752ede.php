@@ -1,6 +1,4 @@
-@extends('layouts.adminapp')
-
-<title>@yield('pageTitle') Stella Admin </title>
+<title><?php echo $__env->yieldContent('pageTitle'); ?> Stella Admin </title>
 
 <!-- Side nav bar -->
 <body class="">
@@ -9,12 +7,12 @@
     <div class="sidebar" data-color="black">
       <div class="logo">
         <img src="<?php echo asset('img/logo_white.png')?>" width="150">
-        <h5 style="color:white;"> Welcome, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}! </h5>
+        <h5 style="color:white;"> Welcome, <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?>! </h5>
       </div>
       <div class="sidebar-wrapper">
           <ul class="nav">
               <li>
-                <a href="{{ url('/admin/dashboard') }}">
+                <a href="<?php echo e(url('/admin/dashboard')); ?>">
                   <i class="now-ui-icons business_chart-pie-36"></i>
                   <p>Dashboard</p>
                 </a>
@@ -37,7 +35,7 @@
                     <p>Add Admin</p>
                   </a>
                 </li>
-              <li class="active ">
+              <li>
                 <a href="/admin/ViewModel">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>Models</p>
@@ -56,7 +54,7 @@
                   <p>Reports - Job Posts</p>
                 </a>
               </li>
-              <li>
+              <li class="active">
                 <a href="/admin/reportedImg">
                   <i class="now-ui-icons gestures_tap-01"></i>
                   <p>Reports - Photos</p>
@@ -67,7 +65,7 @@
     </div>
 
 <!-- Section Start -->    
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
@@ -80,7 +78,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">View Models</a>
+            <a class="navbar-brand" href="#pablo">View Reported Job Post</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -114,11 +112,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="title">Models List</h5>
+                        <h5 class="title">Reported Photo List</h5>
                     </div>
 
                     <div class="card-body">
-                        @if (count($user) > 0)
+                        <?php if(count($details) > 0): ?>
                             <div class="panel panel-default">
 
                                 <div class="panel-body table-responsive">
@@ -126,46 +124,57 @@
 
                                         <!-- Table Headings -->
                                         <thead>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Age</th>
-                                            <th>Email</th>
-                                            <th>Date Registered</th>
+                                          <th>Photo</th>
+                                            <th>Reason</th>
+                                            <th>Posted By</th>
+                                            <th>Status</th>
+                                            
+                                            <th>Date Reported</th>
+                                            
                                             <th>Action</th>
                                             <th></th>
                                         </thead>
 
                                         <!-- Table Body -->
                                         <tbody>
-                                            @foreach ($user as $users)
+                                            <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
-                                                
                                                     <td class="table-text">
-                                                        <div>{{ $users->firstName }}</div>
+                                                        <div class="thumbnail"> 
+                                                            <img class="img-responsive portrait" alt=""  width="100px" src="/uploads/<?php echo e($details->image); ?>" alt="Image"/>
+                                                            </div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div>{{ $users->lastName }}</div>
+                                                        <div><?php echo e($details->reason); ?></div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div>{{ $users->age}}</div>
+                                                            <div><?php echo e($details->firstName); ?> <?php echo e($details->lastName); ?></div>
+                                                        </td>
+                                                    <td class="table-text">
+                                                        <div><?php echo e($details->display); ?></div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div>{{ $users->emailAddress }}</div>
+                                                        <div><?php echo e($details->created_at); ?></div>
                                                     </td>
-                                                    <td class="table-text">
-                                                        <div>{{ $users->created_at }}</div>
+                                                    <td>
+                                                      <form class="" action="/admin/archiveImage" method="post">
+                                                        <?php echo e(csrf_field()); ?>
+
+                                                        <input style="hidden" type="hidden" name="imageID" id="imageID" value="<?php echo e($details->imageID); ?>" readonly>
+                                                        <button type="submit" name="button" class="dropdown-item text-danger">Archive</button>
+                                                      </form>
                                                     </td>
-                                                    <td><a data-toggle="modal" data-target="#{{$users->userID}}" style="color:blue;">View</a></td>
+                                                    <td></td>
                                                 
                                                 </tr>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
                                 </div>
                             
                             </div>
-            
-                        @endif
+                    
+                        <?php endif; ?>
 
                     </div>
                 </div>
@@ -173,37 +182,7 @@
         </div>
     </div>
 
-
-    @foreach ($user as $users)
-          <!-- Apply to job confirmation Modal -->
-            <div id="{{$users->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-
-                  <!-- Modal content-->
-                      <div class="modal-content" style="color:black;">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                              <h4><img src="/uploads/avatars/{{ $users->avatar }}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">&nbsp&nbsp{{$users->firstName}} {{$users->lastName}}</h4>
-
-                            
-
-                              <p><b>Valid Doc:</b><img src="/uploads/path/{{ $users->filePath }}" alt="Thumbnail Image" class="rounded-rectangle"></p>
-
-                          </div>
-                          <div class="modal-footer">
-                            <div class="container">
-                              <button type="button" class="btn btn-info btn-round" data-dismiss="modal" style="float:right;">Close</button>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                </div>
-              </form>
-            @endforeach
-      <!-- End of Modal -->
-
 </body>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminapp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

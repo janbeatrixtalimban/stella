@@ -129,7 +129,7 @@
                                             <th>Age</th>
                                             <th>Email</th>
                                             <th>Date Registered</th>
-                                            <th></th>
+                                            <th>Action</th>
                                             <th></th>
                                         </thead>
 
@@ -145,7 +145,7 @@
                                                         <div><?php echo e($users->lastName); ?></div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div><?php echo e($users->birthDate); ?></div>
+                                                        <div><?php echo e($users->age); ?></div>
                                                     </td>
                                                     <td class="table-text">
                                                         <div><?php echo e($users->emailAddress); ?></div>
@@ -185,9 +185,9 @@
                           <div class="modal-body">
                               <h4><img src="/uploads/avatars/<?php echo e($users->avatar); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">&nbsp&nbsp<?php echo e($users->firstName); ?> <?php echo e($users->lastName); ?></h4>
 
-                              <p><b>Status:</b>&nbsp&nbsp<?php echo e($users->status); ?></p>
+                            
 
-                              <p><b>Valid Doc:</b><img src="/uploads/<?php echo e($users->filePath); ?>" alt="Thumbnail Image" class="rounded-circle"></p>
+                              <p><b>Valid Doc:</b><img src="/uploads/path/<?php echo e($users->filePath); ?>" alt="Thumbnail Image" class="rounded-rectangle"></p>
 
                           </div>
                           <div class="modal-footer">
