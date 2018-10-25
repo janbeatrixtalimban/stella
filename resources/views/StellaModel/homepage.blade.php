@@ -64,6 +64,7 @@
                                 <span class="d-lg-none d-md-block">   Homepage</span>
                               </p>
                             </a>
+                            @if(Auth::user()->status == 1)
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-header" style="color:grey;">Homepage</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
@@ -74,6 +75,18 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
+                            @else
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
+                                <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
+                                
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
+                            </div>
+                            @endif
                       </li>
                   </ul>
 
@@ -123,12 +136,16 @@
                             <p class="card-text">{{ $project->jobDescription }}</p>
 
                             <!-- Apply form tag -->
+
                             <form class="" action="/model/apply" method="post">
                               {{ csrf_field() }}
+                              @if(Auth::user()->status == 1)
                               <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
                               <a data-toggle="modal" data-target="#confirm{{$project->projectID}}" style="color:white;"class="btn btn-info btn-round">Apply</a>
                               {{--<input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
                               <button type="submit" name="button" class="btn btn-info btn-round">Apply</button>--}}
+                              @else
+                              @endif
                             </form>
                           </div>
 

@@ -119,7 +119,7 @@
                         $("#email").val(data1.email);
                         $("#payer_id").val(data1.payer_id);
                         $("#phone").val(data1.phone);
-                        alert(data1.phone);
+                        alert('Success!');
                         $('#save').trigger("click");
                         });
 

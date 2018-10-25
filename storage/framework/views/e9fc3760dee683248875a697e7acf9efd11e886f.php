@@ -79,8 +79,12 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
+          <?php if(Auth::user()->status ==1): ?>
           <a href="<?php echo e(url('/editProfileEmp')); ?>" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
           <a href="<?php echo e(url('/addJob')); ?>" class="btn btn-maroon btn-round btn-lg">Create Job Post</a>
+          <?php else: ?>
+          <a href="<?php echo e(url('/editProfileEmp')); ?>" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
+          <?php endif; ?>
         </div> 
         <br><br>
         <div id="companydesc" class="card text-center">
@@ -109,8 +113,11 @@
                                   <?php echo e(csrf_field()); ?>
 
                                   <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
+                                  <?php if( Auth::user()->status == 1): ?>
                                   <a class="btn btn-info btn-round" href=<?php echo e(url('/editPost/'.$project->projectID)); ?>>Edit Post</a>
                                   <a data-toggle="modal" data-target="#confirm<?php echo e($project->projectID); ?>" style="color:white;" class="btn btn-maroon btn-round">Archive</a>
+                                  <?php else: ?>
+                                  <?php endif; ?>
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">

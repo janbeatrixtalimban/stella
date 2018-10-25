@@ -81,8 +81,12 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
+          @if(Auth::user()->status ==1)
           <a href="{{ url('/editProfileEmp') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
           <a href="{{ url('/addJob') }}" class="btn btn-maroon btn-round btn-lg">Create Job Post</a>
+          @else
+          <a href="{{ url('/editProfileEmp') }}" class="btn btn-maroon btn-round btn-lg">Edit Profile</a>
+          @endif
         </div> 
         <br><br>
         <div id="companydesc" class="card text-center">
@@ -110,8 +114,11 @@
                                 <form class="" action="/employer/archive" method="post">
                                   {{ csrf_field() }}
                                   <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;" class="btn btn-success btn-round">View Job Post</a>
+                                  @if( Auth::user()->status == 1)
                                   <a class="btn btn-info btn-round" href={{ url('/editPost/'.$project->projectID) }}>Edit Post</a>
                                   <a data-toggle="modal" data-target="#confirm{{$project->projectID}}" style="color:white;" class="btn btn-maroon btn-round">Archive</a>
+                                  @else
+                                  @endif
                                 </form>
                               </div>
                             <div class="card-footer text-muted mb-2">

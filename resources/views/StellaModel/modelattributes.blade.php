@@ -51,16 +51,29 @@
                                 <span class="d-lg-none d-md-block">   Edit Attributes</span>
                               </p>
                             </a>
+                            @if(Auth::user()->status == 1)
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Edit Attributes</a>
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                                <a class="dropdown-item" href="{{ url('/viewjoboffers') }}" style="color:black;">View Job Offers</a>
-                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a> 
+                                <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                             </div>
+                            @else
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
+                                <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
+                                
+                                <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
+                            </div>
+                            @endif
                       </li>
                     </ul>
                 </div>

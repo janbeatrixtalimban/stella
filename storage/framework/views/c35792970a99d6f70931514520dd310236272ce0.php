@@ -63,6 +63,7 @@
                                 <span class="d-lg-none d-md-block">   Homepage</span>
                               </p>
                             </a>
+                            <?php if(Auth::user()->status == 1): ?>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-header" style="color:grey;">Homepage</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
@@ -73,6 +74,18 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
                             </div>
+                            <?php else: ?>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
+                                <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
+                                
+                                <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
+                            </div>
+                            <?php endif; ?>
                       </li>
                   </ul>
 
@@ -122,12 +135,16 @@
                             <p class="card-text"><?php echo e($project->jobDescription); ?></p>
 
                             <!-- Apply form tag -->
+
                             <form class="" action="/model/apply" method="post">
                               <?php echo e(csrf_field()); ?>
 
+                              <?php if(Auth::user()->status == 1): ?>
                               <a data-toggle="modal" data-target="#<?php echo e($project->projectID); ?>" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
                               <a data-toggle="modal" data-target="#confirm<?php echo e($project->projectID); ?>" style="color:white;"class="btn btn-info btn-round">Apply</a>
                               
+                              <?php else: ?>
+                              <?php endif; ?>
                             </form>
                           </div>
 

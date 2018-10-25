@@ -119,6 +119,7 @@ class EmployerController extends Controller
             
             $day = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $today)->day;
 
+           // dd(Auth::user()->status);
             return view('StellaEmployer.employerProfile')->with('company', $company)->with('projects', $projects);
 
         } else {

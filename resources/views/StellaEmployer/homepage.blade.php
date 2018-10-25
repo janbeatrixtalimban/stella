@@ -129,14 +129,17 @@
               @foreach($chunk as $user)
                   <td>
                     @if($user->typeID == 2)
+                
+
                       <div style="display: none;">
-                        @else
+                        @elseif($user->typeID == 2 || $user->status == 1)
                     <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
                       <div id="model" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
                             <h5 class="card-title"><b>{{ $user->firstName }} {{ $user->lastName }}</b></h5>
                               <img src="/uploads/avatars/{{ $user ->avatar }}" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
                             <!--Buttons with icons -->
+                            @if( Auth::user()->status == 1)
                                <form class="hire" action="/employer/hire" method="post">
                                   {{ csrf_field() }}
                                   <!-- Attributes Modal Button -->
@@ -146,12 +149,18 @@
                                   <!-- Hire Modal Button -->
                                   <a data-toggle="modal" data-target="#hire{{ $user->userID }}" style="color:white;" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
                                 </form>
+                                @else
+                                <a data-toggle="modal" data-target="#attributes{{ $user->userID }}" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                <a href="{{url('/profile/view/'.$user->userID)}}" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                                @endif
+                           
                           </div>
                           <div class="card-footer text-muted mb-2">
                             {{ $user ->skill }}
                           </div>
                         </div>
                       </div>
+                    @else
                       @endif
                     </div>
                   </td>
