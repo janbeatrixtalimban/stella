@@ -493,31 +493,7 @@
                                             <input type="text" name="talentFee" class="form-control" value="<?php echo e($projects->talentFee); ?>" >
                                         </div>
 
-                                         <!-- HEight -->
-                                         <label>Height Requirement:</label>
-                                <div class="input-group input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control" name="height"  value="<?php echo e($projects->height); ?>">
-                              </div>
-
-                               <!-- body built -->
-                               <label>Body Built:</label>
-                               <div class="input-group input-lg">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                    </span>
-                                </div>
-                                <select size="0.4" class="form-control" name="bodyBuilt" id="bodyBuilt" required>
-                                        <option value="" selected disabled>Select Body Built</option>
-                                        <option value="Petite">Petite</option>
-                                        <option value="Slim">Slim</option>
-                                        <option value="Athletic">Athletic</option>
-                                        <option value="Plus Size">Plus Size</option>
-                                </select>
-                            </div><br>
+                                         
                                     
                                     <!-- Edit Button -->
                                     <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Edit Job Post</button><br>

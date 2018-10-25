@@ -186,7 +186,7 @@
                               <h0>Location: <b>{{$project->address}}</b></h0>
                           </li>
                           <li>
-                            <h0>Date: <b>{{$project->jobDate}}</b></h0>
+                            <h0>Date: <b>{{$project->jobDate}} to {{$project->jobEnd}}</b></h0>
                         </li>
                           <li>
                               <h0>Number of Models: <b>{{$project->modelNo}}</b></h0>

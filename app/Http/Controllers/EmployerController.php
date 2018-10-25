@@ -23,6 +23,7 @@ class EmployerController extends Controller
 {
     public function forgotPassword()
     {
+        
         return view('StellaEmployer.forgotpassword');
     }
 
@@ -30,10 +31,12 @@ class EmployerController extends Controller
     {
         if (Auth::check()) {
            
-            $Credentials = ['password' == Auth::user()->password];
-            {
+            //dd(bcrypt($request->password));
+            //dd(auth::user()->password);
+
+            dd([auth::user()->password, bcrypt($request->password),auth::user()->userID]);
                 
-                if($Credentials == Auth::user()->password) {
+                if(auth::user()->password == bcrypt($request->password)) {
 
                 $userID = Auth::user()->userID;
 
@@ -83,9 +86,13 @@ class EmployerController extends Controller
            
         }
         else{
-            return view('bye');
+            $error = "error";
+                
+           
+            return redirect()->back()->with('failure', $error);
+           
         }
-            }
+            
     }
     
         

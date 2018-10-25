@@ -34,7 +34,7 @@ class ModelController extends Controller
             $Credentials = ['password' == Auth::user()->password];
             {
                 
-                if ($Credentials) {
+                if($Credentials == Auth::user()->password) {
            
 
                     $userID = Auth::user()->userID;
@@ -85,7 +85,10 @@ class ModelController extends Controller
            
         }
         else{
-            return view('bye');
+            $error = "Invalid password";
+                
+           
+            return redirect()->back()->with('failure', $error);
         }
             }
     }

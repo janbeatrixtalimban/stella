@@ -40,117 +40,122 @@ Route::post('registerEmployer', 'UserController@addEmployer');
 route::get('/search','UserController@search'); //for the model's page
 route::get('/find','UserController@find'); //for the employer's page
 
-Route::group(['middleware' => 'web'], function () {
-    //Route::group(['middleware' => 'scope:CommandCenter'], function () {
-
-    Route::group(['middleware' => 'auth'], function () {
-
-        //Model side
-        Route::get('/addPortfolio', 'portfolioController@create');
-        Route::post('/createPortfolio', 'portfolioController@store');
-        Route::get('/modelprofile', 'ModelController@modelProfile');
-        Route::get('/modelfeed', 'ModelController@modelHomepage');
-        Route::get('/modeleditprofile', 'ModelController@modelEditProfile');
-        Route::post('/SaveEdit/{id}', 'ModelController@editNaModel');
-        Route::get('/modelattribute', 'ModelController@viewDetails');
-        Route::post('/updateAttribute/{id}', 'ModelController@updateAttributes');
-        Route::get('/subscription', 'UserController@subscription');
-        Route::get('/model/viewPortfolio', 'ModelController@viewPortfolio');
-        Route::get('/model/viewJobOffers', 'ModelController@viewOffer');
-        Route::post('/model/reportJobPost', 'ModelController@reportJobPost');
-        Route::post('/model/accept', 'ModelController@acceptOffer');
-        Route::get('/model/forgotPassword', 'ModelController@forgotPassword');
-        Route::post('/model/changePassword', 'ModelController@changepassword');
-        Route::post('/model/archive', 'portfolioController@archivePortfolio');
-        Route::post('/model/haggle', 'ModelController@haggleFee');
-        Route::post('/model/reject', 'ModelController@rejectOffer');
-
-
-        Route::get('/gopremium', 'UserController@paypal');
-        Route::post('/status/{id}', 'UserController@editStatus');
-
-        //avatar
-        Route::post('/avatarupload', 'ModelController@storeAvatar');
-        Route::post('/eavatarupload', 'EmployerController@EstoreAvatar');
-
-        //application (model to employer)
-        Route::post('/model/apply', 'ModelController@applyJobPost');
-        Route::post('/employer/hire', 'EmployerController@hireModel');
-        
-        //jusss
-        //gallery
-        Route::get('imagegalleryview2/{id}', 'portfolioController@viewindex2');
-        Route::post('imagegalleryview/{id}', 'portfolioController@refresh');
-        Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
-        Route::get('viewviewimage/{id}', 'portfolioController@viewimage');
-        Route::resource('feedbacks','FeedbackController');
-        Route::get('/leavefeedback', 'FeedbackController@leavefeedback');
-
-        //single
-        Route::get('singleimageview/{id}', 'portfolioController@singleview');
-
-        //Employer
-        Route::resource('projects', 'EmployerController');
-        Route::get('/addJob', 'EmployerController@createPost');
-        Route::post('/addPost', 'EmployerController@storePost');
-        //Route::get('/projects/{project}/edit', 'EmployerController@edit');
-        Route::get('/employerprofile', 'EmployerController@employerProfile');
-        Route::get('/employerHome', 'EmployerController@Ehomepage');
-        Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
-        Route::post('/employer/archive', 'EmployerController@archiveJobPost');
-        //viewing the model's profile as an employer
-        Route::get('/profile/view/{userID}','UserController@singleView');
-        Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
-        Route::get('/editPost/{id}', 'EmployerController@showProj');
-        Route::post('/SaveProj', 'EmployerController@updateProj');
-        //profile
-        Route::get('/editProfileEmp', 'EmployerController@getProfile');
-        Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer');
-        Route::get('/editCompany', 'EmployerController@viewDetails');
-        Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
-        Route::get('/employer/viewapplicants', 'EmployerController@viewApplicants');
-        Route::post('/employer/accept', 'EmployerController@acceptApplicant');
-        Route::get('/employer/forgotPassword', 'EmployerController@forgotPassword');
-        Route::post('/employer/changePassword', 'EmployerController@changepassword');
-        Route::get('/employer/haggleFee', 'EmployerController@viewhagglefee');
-        Route::post('/employer/accepthaggle', 'EmployerController@accepthaggle');
-        Route::post('/employer/reportphoto', 'EmployerController@report');
-        Route::post('/employer/reject', 'EmployerController@rejectApplicant');
-
-        //ADMIN SIDE!!!!
-        Route::get('/admin/dashboard', 'adminController@getDashboard');
-        Route::get('/admin/addAdmin', 'adminController@getAddAdmin');
-        Route::post('/admin/addAdmin', 'adminController@createAdmin');
-        Route::get('/admin/ViewModel', 'adminController@viewModel');
-        Route::get('/admin/ViewEmployer', 'adminController@viewEmployer');
-        Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
-        Route::get('/admin/viewAdmin', 'adminController@viewAdmin');
-        Route::get('/admin/reportedJobs', 'adminController@viewJobPost');
-        Route::get('/admin/reportedImg', 'adminController@viewImage');
-        Route::post('/admin/archiveJobPost', 'adminController@archiveJobPost');
-        Route::post('/admin/archiveImage', 'adminController@archiveImage');
-        Route::get('/admin/countpremium', 'adminController@countPremium');
-
+Route::group(['middleware' => ['XSS']], function ()
+{
+    Route::group(['middleware' => 'web'], function () {
+        //Route::group(['middleware' => 'scope:CommandCenter'], function () {
+    
+        Route::group(['middleware' => 'auth'], function () {
+    
+            //Model side
+            Route::get('/addPortfolio', 'portfolioController@create');
+            Route::post('/createPortfolio', 'portfolioController@store');
+            Route::get('/modelprofile', 'ModelController@modelProfile');
+            Route::get('/modelfeed', 'ModelController@modelHomepage');
+            Route::get('/modeleditprofile', 'ModelController@modelEditProfile');
+            Route::post('/SaveEdit/{id}', 'ModelController@editNaModel');
+            Route::get('/modelattribute', 'ModelController@viewDetails');
+            Route::post('/updateAttribute/{id}', 'ModelController@updateAttributes');
+            Route::get('/subscription', 'UserController@subscription');
+            Route::get('/model/viewPortfolio', 'ModelController@viewPortfolio');
+            Route::get('/model/viewJobOffers', 'ModelController@viewOffer');
+            Route::post('/model/reportJobPost', 'ModelController@reportJobPost');
+            Route::post('/model/accept', 'ModelController@acceptOffer');
+            Route::get('/model/forgotPassword', 'ModelController@forgotPassword');
+            Route::post('/model/changePassword', 'ModelController@changepassword');
+            Route::post('/model/archive', 'portfolioController@archivePortfolio');
+            Route::post('/model/haggle', 'ModelController@haggleFee');
+            Route::post('/model/reject', 'ModelController@rejectOffer');
+    
+    
+            Route::get('/gopremium', 'UserController@paypal');
+            Route::post('/status/{id}', 'UserController@editStatus');
+    
+            //avatar
+            Route::post('/avatarupload', 'ModelController@storeAvatar');
+            Route::post('/eavatarupload', 'EmployerController@EstoreAvatar');
+    
+            //application (model to employer)
+            Route::post('/model/apply', 'ModelController@applyJobPost');
+            Route::post('/employer/hire', 'EmployerController@hireModel');
+            
+            //jusss
+            //gallery
+            Route::get('imagegalleryview2/{id}', 'portfolioController@viewindex2');
+            Route::post('imagegalleryview/{id}', 'portfolioController@refresh');
+            Route::get('imagegalleryview/{id}', 'portfolioController@viewindex');
+            Route::get('viewviewimage/{id}', 'portfolioController@viewimage');
+            Route::resource('feedbacks','FeedbackController');
+            Route::get('/leavefeedback', 'FeedbackController@leavefeedback');
+    
+            //single
+            Route::get('singleimageview/{id}', 'portfolioController@singleview');
+    
+            //Employer
+            Route::resource('projects', 'EmployerController');
+            Route::get('/addJob', 'EmployerController@createPost');
+            Route::post('/addPost', 'EmployerController@storePost');
+            //Route::get('/projects/{project}/edit', 'EmployerController@edit');
+            Route::get('/employerprofile', 'EmployerController@employerProfile');
+            Route::get('/employerHome', 'EmployerController@Ehomepage');
+            Route::get('/employercreatejob', 'EmployerController@employerCreateJob');
+            Route::post('/employer/archive', 'EmployerController@archiveJobPost');
+            //viewing the model's profile as an employer
+            Route::get('/profile/view/{userID}','UserController@singleView');
+            Route::get('/subscriptionEmployer', 'UserController@subscriptionEmp');
+            Route::get('/editPost/{id}', 'EmployerController@showProj');
+            Route::post('/SaveProj', 'EmployerController@updateProj');
+            //profile
+            Route::get('/editProfileEmp', 'EmployerController@getProfile');
+            Route::post('/SaveEditEmp/{id}', 'EmployerController@editEmployer');
+            Route::get('/editCompany', 'EmployerController@viewDetails');
+            Route::post('/updateCompany/{id}', 'EmployerController@auqNa');
+            Route::get('/employer/viewapplicants', 'EmployerController@viewApplicants');
+            Route::post('/employer/accept', 'EmployerController@acceptApplicant');
+            Route::get('/employer/forgotPassword', 'EmployerController@forgotPassword');
+            Route::post('/employer/changePassword', 'EmployerController@changepassword');
+            Route::get('/employer/haggleFee', 'EmployerController@viewhagglefee');
+            Route::post('/employer/accepthaggle', 'EmployerController@accepthaggle');
+            Route::post('/employer/reportphoto', 'EmployerController@report');
+            Route::post('/employer/reject', 'EmployerController@rejectApplicant');
+    
+            //ADMIN SIDE!!!!
+            Route::get('/admin/dashboard', 'adminController@getDashboard');
+            Route::get('/admin/addAdmin', 'adminController@getAddAdmin');
+            Route::post('/admin/addAdmin', 'adminController@createAdmin');
+            Route::get('/admin/ViewModel', 'adminController@viewModel');
+            Route::get('/admin/ViewEmployer', 'adminController@viewEmployer');
+            Route::get('/admin/ViewAuditLog', 'adminController@viewAuditLog');
+            Route::get('/admin/viewAdmin', 'adminController@viewAdmin');
+            Route::get('/admin/reportedJobs', 'adminController@viewJobPost');
+            Route::get('/admin/reportedImg', 'adminController@viewImage');
+            Route::post('/admin/archiveJobPost', 'adminController@archiveJobPost');
+            Route::post('/admin/archiveImage', 'adminController@archiveImage');
+            Route::get('/admin/countpremium', 'adminController@countPremium');
+    
+        });
+    
+        //need for cancel button at register
+        Route::get('/home', function(){
+            return view('StellaHome/home');
+        });
+     
+        Route::get('/registrationpage2', function(){
+            return view('StellaHome/registerModelAttributes');
+        });
+    
+        Route::get('/viewhaggles', function(){
+            return view('StellaEmployer/viewHaggleFee');
+    
+            
+            
+        });
+    
+        Route::get('/chat', 'chatController@sendChat');
     });
-
-    //need for cancel button at register
-    Route::get('/home', function(){
-        return view('StellaHome/home');
-    });
- 
-    Route::get('/registrationpage2', function(){
-        return view('StellaHome/registerModelAttributes');
-    });
-
-    Route::get('/viewhaggles', function(){
-        return view('StellaEmployer/viewHaggleFee');
-
-        
-        
-    });
-
-    Route::get('/chat', 'chatController@sendChat');
 });
+
+
 
 // Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');

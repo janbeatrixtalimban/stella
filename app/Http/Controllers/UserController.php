@@ -308,7 +308,7 @@ class UserController extends Controller
 
         if ($resp->success) {
             $input = $request->all();
-            $input['password'] = Hash::make($input['password']);
+            $input['password'] = bcrypt($input['password']);
             $input['typeID'] = '2';
             // $input['skillID'] = '1';
             $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;

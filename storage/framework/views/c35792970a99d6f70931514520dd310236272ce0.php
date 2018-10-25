@@ -186,7 +186,7 @@
                               <h0>Location: <b><?php echo e($project->address); ?></b></h0>
                           </li>
                           <li>
-                            <h0>Date: <b><?php echo e($project->jobDate); ?></b></h0>
+                            <h0>Date: <b><?php echo e($project->jobDate); ?> to <?php echo e($project->jobEnd); ?></b></h0>
                         </li>
                           <li>
                               <h0>Number of Models: <b><?php echo e($project->modelNo); ?></b></h0>
