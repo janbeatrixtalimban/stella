@@ -79,7 +79,7 @@
 
 
       <!-- Feed Content -->
-      <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2"><!--side navbar-->
                     <div class="side-navbar" style="color:black; border-right:black;">
@@ -94,72 +94,62 @@
                           @endforeach<br><br>
                         </ul>--}}
                     </div>
-                </div><br><br>
+        </div><br><br>
               
-        <div class="col-sm-9">
+        
   <!-- Job Post Applicants --> 
-                    
-        @foreach($details->chunk(6)->reverse() as $chunk)
-           
-            <div class="row">
-                <div class="column">
-                    <table>
-                        <tr>
-                                      
-                        @foreach ($chunk as $detail)
-                            @if($detail->applicantStatus != 2)
-                            <td>
-                         
-                                @if($detail->applicantStatus == 0)              
+    <div class="column">
+        <table style="width:100%;">
+            @foreach($details->chunk(4) as $chunk)
+                <tr>                 
+                    @foreach ($chunk as $detail)
+                        @if($detail->applicantStatus != 2)
+                            <div style="display: none;">
+                        @else
+                        <td>
+                            @if($detail->applicantStatus == 0)              
                                 <h5 style="color:#1b1b1b;" rel="tooltip" title="Pending.">{{ $detail->prjTitle }}</h5>
-                                @elseif($detail->applicantStatus == 1)
+                            @elseif($detail->applicantStatus == 1)
                                 <h5 style="color:green;" rel="tooltip" title="Hired.">{{ $detail->prjTitle }}</h5>
-                                @else
-                                @endif
-                                    <div class="col-sm-12">
-                                        <div id="model" class="card text-center">
-                                            <div class="card-body" style="color:#1b1b1b;">
-                                                <h5 class="card-title">{{ $detail->firstName }} {{ $detail->lastName }}</h5>
-                                                    <img src="/uploads/avatars/{{ $detail ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
-
-                                <!--Accept button modal trigger with icon -->
-                                        @if($detail->applicantStatus == 0)
-                                            <button data-toggle="modal" data-target="#accept{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check"></i></button>
-                                        @elseif($detail->applicantStatus == 1)
-                                            <button data-toggle="modal" data-target="#accept{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check" disabled></i></button>
-                                        @else
-                                        @endif
-                                <!--Accept button modal trigger with icon -->
-                                        @if($detail->applicantStatus == 0)
-                                            <button data-toggle="modal" data-target="#reject{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove"></i></button>
-                                        @elseif($detail->applicantStatus == 2)
-                                            <button data-toggle="modal" data-target="#reject{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove" disabled></i></button>
-                                        @else
-                                        @endif
-                                    </div>
-                                    <div class="card-footer text-muted mb-2">
-                                        {{ $detail->skill }}
-                                    </div>
-                                </div>
-                            </div>
-                        </td> 
                             @else
                             @endif
-                                        
-                        @endforeach
-
-                    </tr>
                         
-                    </table>
+                        <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
+                            <div id="model" class="card text-center">
+                                <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
+                                    <h5 class="card-title">{{ $detail->firstName }} {{ $detail->lastName }}</h5>
+                                        <img src="/uploads/avatars/{{ $detail ->avatar }}" alt="" class="img-raised" width="200" height="200"><br>
 
-                </div>
-            </div>
-            
-        @endforeach
+                        <!--Accept button modal trigger with icon -->
+                                @if($detail->applicantStatus == 0)
+                                    <button data-toggle="modal" data-target="#accept{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept"><i class="now-ui-icons ui-1_check"></i></button>
+                                @elseif($detail->applicantStatus == 1)
+                                    <button data-toggle="modal" data-target="#accept{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-success btn-round" rel="tooltip" title="Already Hired." disabled><i class="now-ui-icons ui-1_check"></i></button>
+                                @else
+                                @endif
+                        <!--Accept button modal trigger with icon -->
+                                @if($detail->applicantStatus == 0)
+                                    <button data-toggle="modal" data-target="#reject{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                                @elseif($detail->applicantStatus == 2)
+                                    <button data-toggle="modal" data-target="#reject{{ $detail->applicantID}}" type="submit" name="button" class="btn btn-maroon btn-round" disabled><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                                @else
+                                @endif
+                                </div>
+                                <div class="card-footer text-muted mb-2">
+                                    {{ $detail->skill }}
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        @endif
+                                        
+                    @endforeach
+
+                </tr>
+            @endforeach
+        </table>
     </div>
-</div><!--col-sm-9 closing -->
-
-        
+     
         <!-- Right Column contents -->
 
             <div class="col-sm-1"><!--space-->
@@ -220,7 +210,7 @@
 
 
     <!-- Reject Confirmation Modal -->                        
-            @foreach ($details as $detail)
+    @foreach ($details as $detail)
           <!-- Apply to job confirmation Modal -->
             <div id="reject{{$detail->applicantID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">

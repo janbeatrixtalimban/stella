@@ -187,7 +187,7 @@
 
                             
 
-                              <p><b>Valid Doc:</b><img src="/uploads/path/<?php echo e($users->filePath); ?>" alt="Thumbnail Image" class="rounded-rectangle"></p>
+                              <p><b>Valid Doc:</b><img src="/uploads/<?php echo e($users->filePath); ?>" alt="Thumbnail Image" class="rounded-rectangle"></p>
 
                           </div>
                           <div class="modal-footer">

@@ -1,4 +1,4 @@
-@extends('layouts.employerapp')
+@extends('layouts.modelapp')
 
 <title>@yield('pageTitle') View Job Offers </title>
 
@@ -197,7 +197,7 @@
                                       <h0>Original Talent fee: <b>P{{ $detail->talentFee }}.00</b></h0>
                                     </li>
                                     <li>
-                                      <h0>Haggle Offer: <b>P{{ $detail->talentFee }}.00</b></h0>
+                                      <h0>Haggle Offer: <a style="color:#a01919;"><b>P{{ $detail->haggleAmount }}.00</b></a></h0>
                                     </li>
                                 @elseif ($detail->haggleStatus == '1')
                                     <li>
@@ -418,7 +418,7 @@
                                         </span>
                                     </div>
                                       <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                      <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" required>
+                                      <input type="text" class="form-control" id="haggleAmount" value="" name="haggleAmount" required>
                                 </div>
                                 @endif
                           </div>

@@ -6,8 +6,8 @@
   <link rel="icon" type="image/png" href="<?php echo asset('img/stella icon logo.png')?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-          <?php echo $__env->yieldContent('pageTitle'); ?>
-    </title>
+        <?php echo $__env->yieldContent('pageTitle'); ?>
+  </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!-- bootstrap and stylesheets -->
   <link href="<?php echo asset('https://fonts.googleapis.com/css?family=Montserrat:400,700,200')?>" rel="stylesheet" />
@@ -43,8 +43,9 @@
     <script src="<?php echo asset('js/plugins/bootstrap-datepicker.js')?>" type="text/javascript"></script>
     <script src="<?php echo asset('https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE')?>"></script>
     <script src="<?php echo asset('js/now-ui-kit.js?v=1.2.0')?>" type="text/javascript"></script>
+    <script src='<?php echo e(asset("js/calc.js")); ?>'></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+
     <script type="text/javascript">
 
         var model = '<fieldset><h4>Model:</h4>' + '<label>Role:</label>' + 

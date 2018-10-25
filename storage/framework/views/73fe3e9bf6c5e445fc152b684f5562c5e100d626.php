@@ -196,7 +196,7 @@
                                       <h0>Original Talent fee: <b>P<?php echo e($detail->talentFee); ?>.00</b></h0>
                                     </li>
                                     <li>
-                                      <h0>Haggle Offer: <b>P<?php echo e($detail->talentFee); ?>.00</b></h0>
+                                      <h0>Haggle Offer: <a style="color:#a01919;"><b>P<?php echo e($detail->haggleAmount); ?>.00</b></a></h0>
                                     </li>
                                 <?php elseif($detail->haggleStatus == '1'): ?>
                                     <li>
@@ -420,7 +420,7 @@
                                         </span>
                                     </div>
                                       <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
-                                      <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($detail->haggleAmount); ?>" name="haggleAmount" required>
+                                      <input type="text" class="form-control" id="haggleAmount" value="" name="haggleAmount" required>
                                 </div>
                                 <?php endif; ?>
                           </div>
@@ -458,4 +458,4 @@
 <?php $__env->stopSection(); ?>
 </div>
 
-<?php echo $__env->make('layouts.employerapp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.modelapp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

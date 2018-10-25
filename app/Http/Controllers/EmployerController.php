@@ -502,7 +502,9 @@ class EmployerController extends Controller
 
         $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
         ->join('users', 'applicants.candidateID', 'users.userID')
-        ->where('applicants.userID', Auth::user()->userID)->get();
+        ->where('applicants.userID', Auth::user()->userID)
+        //->orderBy('prjTitle', 'asc')
+        ->orderBy('applicants.updated_at', 'desc')->get();
         
         $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
 
@@ -541,8 +543,9 @@ class EmployerController extends Controller
             if ($auditlogs->save() && $applicant) {
                 $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
                 ->join('users', 'applicants.candidateID', 'users.userID')
-                ->where('applicants.userID', Auth::user()->userID)->get();
-                
+                ->where('applicants.userID', Auth::user()->userID)
+                ->orderBy('applicants.updated_at', 'desc')->get();
+
                 $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
 
                 //dd($details);
@@ -574,6 +577,7 @@ class EmployerController extends Controller
         if (Auth::check()) {
         $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
         ->join('users', 'users.userID', 'hires.modelID')
+        ->join('attributes', 'attributes.userID', '=', 'users.userID')
         ->where('hires.userID', Auth::user()->userID)->get();
        // dd($details);
         return view('StellaEmployer.viewHaggleFee')->with('details', $details);
@@ -690,8 +694,9 @@ class EmployerController extends Controller
             if ($auditlogs->save() && $applicant) {
                 $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
                 ->join('users', 'applicants.candidateID', 'users.userID')
-                ->where('applicants.userID', Auth::user()->userID)->get();
-                
+                ->where('applicants.userID', Auth::user()->userID)
+                ->orderBy('applicants.updated_at', 'desc')->get();
+
                 $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
 
                 //dd($details);

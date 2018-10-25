@@ -77,7 +77,7 @@
 
 
       <!-- Feed Content -->
-      <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2"><!--side navbar-->
                     <div class="side-navbar" style="color:black; border-right:black;">
@@ -85,73 +85,63 @@
                         <br>
                         
                     </div>
-                </div><br><br>
+        </div><br><br>
               
-        <div class="col-sm-9">
+        
   <!-- Job Post Applicants --> 
-                    
-        <?php $__currentLoopData = $details->chunk(6)->reverse(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-           
-            <div class="row">
-                <div class="column">
-                    <table>
-                        <tr>
-                                      
-                        <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($detail->applicantStatus != 2): ?>
-                            <td>
-                         
-                                <?php if($detail->applicantStatus == 0): ?>              
+    <div class="column">
+        <table style="width:100%;">
+            <?php $__currentLoopData = $details->chunk(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <tr>                 
+                    <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($detail->applicantStatus == 1): ?>
+                            <div style="display: none;">
+                        <?php else: ?>
+                        <td>
+                            <?php if($detail->applicantStatus == 0): ?>              
                                 <h5 style="color:#1b1b1b;" rel="tooltip" title="Pending."><?php echo e($detail->prjTitle); ?></h5>
-                                <?php elseif($detail->applicantStatus == 1): ?>
+                            <?php elseif($detail->applicantStatus == 1): ?>
                                 <h5 style="color:green;" rel="tooltip" title="Hired."><?php echo e($detail->prjTitle); ?></h5>
-                                <?php else: ?>
-                                <?php endif; ?>
-                                    <div class="col-sm-12">
-                                        <div id="model" class="card text-center">
-                                            <div class="card-body" style="color:#1b1b1b;">
-                                                <h5 class="card-title"><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></h5>
-                                                    <img src="/uploads/avatars/<?php echo e($detail ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
-
-                                <!--Accept button modal trigger with icon -->
-                                        <?php if($detail->applicantStatus == 0): ?>
-                                            <button data-toggle="modal" data-target="#accept<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check"></i></button>
-                                        <?php elseif($detail->applicantStatus == 1): ?>
-                                            <button data-toggle="modal" data-target="#accept<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-success btn-round"><i class="now-ui-icons ui-1_check" disabled></i></button>
-                                        <?php else: ?>
-                                        <?php endif; ?>
-                                <!--Accept button modal trigger with icon -->
-                                        <?php if($detail->applicantStatus == 0): ?>
-                                            <button data-toggle="modal" data-target="#reject<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove"></i></button>
-                                        <?php elseif($detail->applicantStatus == 2): ?>
-                                            <button data-toggle="modal" data-target="#reject<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-maroon btn-round"><i class="now-ui-icons ui-1_simple-remove" disabled></i></button>
-                                        <?php else: ?>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="card-footer text-muted mb-2">
-                                        <?php echo e($detail->skill); ?>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </td> 
                             <?php else: ?>
                             <?php endif; ?>
-                                        
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                    </tr>
                         
-                    </table>
+                        <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
+                            <div id="model" class="card text-center">
+                                <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
+                                    <h5 class="card-title"><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></h5>
+                                        <img src="/uploads/avatars/<?php echo e($detail ->avatar); ?>" alt="" class="img-raised" width="200" height="200"><br>
 
-                </div>
-            </div>
-            
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <!--Accept button modal trigger with icon -->
+                                <?php if($detail->applicantStatus == 0): ?>
+                                    <button data-toggle="modal" data-target="#accept<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept"><i class="now-ui-icons ui-1_check"></i></button>
+                                <?php elseif($detail->applicantStatus == 1): ?>
+                                    <button data-toggle="modal" data-target="#accept<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-success btn-round" rel="tooltip" title="Already Hired." disabled><i class="now-ui-icons ui-1_check"></i></button>
+                                <?php else: ?>
+                                <?php endif; ?>
+                        <!--Accept button modal trigger with icon -->
+                                <?php if($detail->applicantStatus == 0): ?>
+                                    <button data-toggle="modal" data-target="#reject<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                                <?php elseif($detail->applicantStatus == 2): ?>
+                                    <button data-toggle="modal" data-target="#reject<?php echo e($detail->applicantID); ?>" type="submit" name="button" class="btn btn-maroon btn-round" disabled><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                                <?php else: ?>
+                                <?php endif; ?>
+                                </div>
+                                <div class="card-footer text-muted mb-2">
+                                    <?php echo e($detail->skill); ?>
+
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        <?php endif; ?>
+                                        
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                </tr>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </table>
     </div>
-</div><!--col-sm-9 closing -->
-
-        
+     
         <!-- Right Column contents -->
 
             <div class="col-sm-1"><!--space-->
@@ -213,7 +203,7 @@
 
 
     <!-- Reject Confirmation Modal -->                        
-            <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <!-- Apply to job confirmation Modal -->
             <div id="reject<?php echo e($detail->applicantID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
