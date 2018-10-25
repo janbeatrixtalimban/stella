@@ -116,26 +116,15 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">USERS</h5>
-                <h4 class="card-title">User Count</h4>
-                <div class="dropdown">
-                  <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                    <i class="now-ui-icons loader_gear"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <a class="dropdown-item text-danger" href="#">Remove Data</a>
-                  </div>
-                </div>
+                <h5 class="card-category">Model</h5>
+                <h4 class="card-title">Model Count</h4>
+                
               </div>
               <div class="card-body">
                 
                <p> NUMBER OF PREMIUM MODELS: <b>{{ $models }}</b> </p>
                <p> TOTAL NUMBER OF MODELS: <b>{{ $numModels }}</b> </p>
-               <p> NUMBER OF PREMIUM EMPLOYERS: <b>{{ $employer }}</b> </p>
-               <p> TOTAL NUMBER OF EMPLOYERS: <b>{{ $numEmps }}</b> </p>
+               
                
               </div>
             </div>
@@ -143,24 +132,14 @@
           <div class="col-lg-4 col-md-6">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Projects Stat</h5>
-                <h4 class="card-title">Projects</h4>
-                <div class="dropdown">
-                  <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                    <i class="now-ui-icons loader_gear"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <a class="dropdown-item text-danger" href="#">Remove Data</a>
-                  </div>
-                </div>
+                <h5 class="card-category">PROJECTS</h5>
+                <h4 class="card-title">Project Count</h4>
+                
               </div>
               <div class="card-body">
-                  <p> NUMBER OF ACTIVE PROJECtS: <b>{{ $projActive }}</b> </p>
+                  <p> NUMBER OF ACTIVE PROJECTS: <b>{{ $projActive }}</b> </p>
                   <p> TOTAL NUMBER OF PROJECTS: <b>{{ $proj }}</b> </p>
-                
+                  
               </div>
              
             </div>
@@ -168,19 +147,14 @@
           <div class="col-lg-4 col-md-6">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Email Statistics</h5>
-                <h4 class="card-title">24 Hours Performance</h4>
+                <h5 class="card-category">Employer</h5>
+                <h4 class="card-title">Employer Count</h4>
               </div>
               <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="barChartSimpleGradientsNumbers"></canvas>
-                </div>
+                  <p> NUMBER OF PREMIUM EMPLOYERS: <b>{{ $employer }}</b> </p>
+                  <p> TOTAL NUMBER OF EMPLOYERS: <b>{{ $numEmps }}</b> </p>
               </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="now-ui-icons ui-2_time-alarm"></i> Last 7 days
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
