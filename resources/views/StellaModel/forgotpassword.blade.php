@@ -107,12 +107,7 @@
                                     </div>
                                 @endif
                         
-                        <!-- Current Password -->
-                        <div class="form-group">
-                                    <label>Current Password</label>
-                                    <input type="password" class="form-control" name="password" value="">
-                                </div>
-                                <br><br>
+                        
                         <!-- New Password -->
                                 <div class="form-group">    
                                     <label>New Password</label>   

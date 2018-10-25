@@ -134,23 +134,15 @@
                <p> TOTAL NUMBER OF MODELS: <b><?php echo e($numModels); ?></b> </p>
                <p> NUMBER OF PREMIUM EMPLOYERS: <b><?php echo e($employer); ?></b> </p>
                <p> TOTAL NUMBER OF EMPLOYERS: <b><?php echo e($numEmps); ?></b> </p>
-                <div class="chart-area">
-                  <canvas id="lineChartExample"></canvas>
-                </div>
-           
-              </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-                </div>
+               
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">2018 Sales</h5>
-                <h4 class="card-title">All products</h4>
+                <h5 class="card-category">Projects Stat</h5>
+                <h4 class="card-title">Projects</h4>
                 <div class="dropdown">
                   <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                     <i class="now-ui-icons loader_gear"></i>
@@ -164,15 +156,11 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
-                </div>
+                  <p> NUMBER OF ACTIVE PROJECtS: <b><?php echo e($projActive); ?></b> </p>
+                  <p> TOTAL NUMBER OF PROJECTS: <b><?php echo e($proj); ?></b> </p>
+                
               </div>
-              <div class="card-footer">
-                <div class="stats">
-                  <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-                </div>
-              </div>
+             
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
@@ -196,84 +184,49 @@
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="card  card-tasks">
-              <div class="card-header ">
-                <h5 class="card-category">ADMIN AUDITLOG</h5>
-                <h4 class="card-title">Audit Log</h4>
+          <div class="card">
+              <div class="card-header">
+                <h5 class="card-category">All Admins List</h5>
+                <h4 class="card-title"> Admin Stats</h4>
               </div>
-              <div class="card-body ">
-                <div class="table-full-width table-responsive">
+              <div class="card-body">
+                <div class="table-responsive">
                   <table class="table">
+                      
+                    <thead class=" text-primary">
+                     
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                         Log Type
+                        </th>
+                      <th>
+                        Date Created
+                      </th>
+                      
+                    </thead>
                     <tbody>
+                        
                       <tr>
+                          <?php $__currentLoopData = $audit; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $audit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" checked>
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
+                          <?php echo e($audit->firstName); ?>  <?php echo e($audit->lastName); ?>
 
-                        <td class="text-left">Sign contract for "What are conference organizers afraid of?"</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                            <i class="now-ui-icons ui-2_settings-90"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                          </button>
                         </td>
-                      </tr>
-                      <tr>
                         <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox">
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
-                        </td>
+                            <?php echo e($audit->logType); ?>
 
-                        <td class="text-left">Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                            <i class="now-ui-icons ui-2_settings-90"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                          </button>
                         </td>
-                      </tr>
-                      <tr>
                         <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" checked>
-                              <span class="form-check-sign"></span>
-                            </label>
-                          </div>
+                            <?php echo e($audit->created_at); ?>
+
                         </td>
                         
-                        <td class="text-left">Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                        </td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                            <i class="now-ui-icons ui-2_settings-90"></i>
-                          </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                          </button>
-                        </td>
                       </tr>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                   </table>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="now-ui-icons loader_refresh spin"></i> Updated 3 minutes ago
                 </div>
               </div>
             </div>

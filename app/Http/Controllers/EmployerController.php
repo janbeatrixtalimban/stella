@@ -31,20 +31,15 @@ class EmployerController extends Controller
     {
         if (Auth::check()) {
            
-            //dd(bcrypt($request->password));
-            //dd(auth::user()->password);
-
-            dd([auth::user()->password, bcrypt($request->password),auth::user()->userID]);
-                
-                if(auth::user()->password == bcrypt($request->password)) {
+            
 
                 $userID = Auth::user()->userID;
 
-                $passwordOldValidator = Validator::make($request->all(), [
+                // $passwordOldValidator = Validator::make($request->all(), [
                       
-                    'password' => 'required|same:password'
+                //     'password' => 'required|same:password'
             
-                ]);
+                // ]);
 
                 $passwordLengthValidator = Validator::make($request->all(), [
                       
@@ -58,13 +53,9 @@ class EmployerController extends Controller
         
                 ]);
 
-                    if ($passwordOldValidator->fails()) {
-                        $errormsg = "Oops. Your current password is incorrect.";
-                        return redirect()->back()->with('failure', $errormsg);
+                 
 
-                    } 
-
-                    else if ($passwordLengthValidator->fails()) {
+                    if ($passwordLengthValidator->fails()) {
                         $errormsg = "Your passwords need to be a minimum of 6 characters.";
                         return redirect()->back()->with('failure', $errormsg);
 
@@ -91,7 +82,7 @@ class EmployerController extends Controller
            
             return redirect()->back()->with('failure', $error);
            
-        }
+        
             
     }
     

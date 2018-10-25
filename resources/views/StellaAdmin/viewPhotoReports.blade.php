@@ -126,6 +126,7 @@
 
                                         <!-- Table Headings -->
                                         <thead>
+                                          <th>Photo</th>
                                             <th>Reason</th>
                                             <th>Posted By</th>
                                             <th>Status</th>
@@ -140,9 +141,13 @@
                                         <tbody>
                                             @foreach ($details as $details)
                                                 <tr>
-                                                
                                                     <td class="table-text">
-                                                        <div>REASOOOON</div>
+                                                        <div class="thumbnail"> 
+                                                            <img class="img-responsive portrait" alt=""  width="100px" src="/uploads/{{ $details->image }}" alt="Image"/>
+                                                            </div>
+                                                    </td>
+                                                    <td class="table-text">
+                                                        <div>{{ $details->reason }}</div>
                                                     </td>
                                                     <td class="table-text">
                                                             <div>{{ $details->firstName }} {{ $details->lastName }}</div>
@@ -153,12 +158,10 @@
                                                     <td class="table-text">
                                                         <div>{{ $details->created_at }}</div>
                                                     </td>
-                                                   
                                                     <td>
-                                                      <a href="#">View</a> | 
                                                       <form class="" action="/admin/archiveImage" method="post">
                                                         {{ csrf_field() }}
-                                                        <input style="hidden" type="text" name="imageID" id="imageID" value="{{$details->imageID}}" readonly>
+                                                        <input style="hidden" type="hidden" name="imageID" id="imageID" value="{{$details->imageID}}" readonly>
                                                         <button type="submit" name="button" class="dropdown-item text-danger">Archive</button>
                                                       </form>
                                                     </td>

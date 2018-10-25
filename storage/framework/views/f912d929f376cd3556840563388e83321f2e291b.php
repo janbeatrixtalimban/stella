@@ -284,7 +284,9 @@
             </div><!-- sm-3 closing tag -->
 
 
-            <div class="col-sm-1"><!--space-->
+            <div class="col-sm-1">
+                   
+                        </div><!--space-->
             </div>
 
           </div><!--feed content row closing tag -->

@@ -31,19 +31,13 @@ class ModelController extends Controller
     {
         if (Auth::check()) {
             
-            $Credentials = ['password' == Auth::user()->password];
-            {
+           
                 
-                if($Credentials == Auth::user()->password) {
            
 
                     $userID = Auth::user()->userID;
 
-                    $passwordOldValidator = Validator::make($request->all(), [
-                          
-                        'password' => 'required|same:password'
-                
-                    ]);
+                   
     
                     $passwordLengthValidator = Validator::make($request->all(), [
                           
@@ -57,13 +51,9 @@ class ModelController extends Controller
             
                     ]);
     
-                        if ($passwordOldValidator->fails()) {
-                            $errormsg = "Oops. Your current password is incorrect.";
-                            return redirect()->back()->with('failure', $errormsg);
+                       
     
-                        } 
-    
-                        else if ($passwordLengthValidator->fails()) {
+                      if ($passwordLengthValidator->fails()) {
                             $errormsg = "Your passwords need to be a minimum of 6 characters.";
                             return redirect()->back()->with('failure', $errormsg);
     
@@ -85,16 +75,16 @@ class ModelController extends Controller
            
         }
         else{
-            $error = "Invalid password";
+            $error = "Error";
                 
            
             return redirect()->back()->with('failure', $error);
         }
-            }
+            
     }
     
         
-    }
+    
 
 
     public function modelProfile()

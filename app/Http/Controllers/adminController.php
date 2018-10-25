@@ -8,6 +8,7 @@ use App\auditlogs;
 use App\Project;
 use App\reportimage;
 use App\report;
+
 use App\imgportfolio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,11 +42,25 @@ class adminController extends Controller
         $adminuser = User::where('typeID', $admin)->get();
         $details = User::where('typeID', $admin)
         ->get();
-       
+
+        $projActive = DB::table('projects')
+        ->where('hidden', '1')
+        ->count();
+
+        $proj = DB::table('projects')
+        ->count();
+
+        $audit = auditlogs::join('users', 'users.userID', 'auditlogs.userID')
+        ->where('users.typeID', $admin)
+        ->get();
+
+      
+                           
         return view('StellaAdmin.dashboard', compact('adminuser'))
-        ->with('models', $models)->with('numModels', $numModels)
+         ->with('models', $models)->with('numModels', $numModels)
         ->with('employer', $employer)->with('numEmps', $numEmps)
-        ->with('details', $details);
+        ->with('details', $details)->with('audit', $audit)
+        ->with('projActive', $projActive)->with('proj', $proj);
     }
 
     public function Login()
@@ -94,11 +109,26 @@ class adminController extends Controller
                             $adminuser = User::where('typeID', $admin)->get();
                             $details = User::where('typeID', $admin)
                             ->get();
-                           
+                    
+                    
+                            $projActive = DB::table('projects')
+                            ->where('hidden', '1')
+                            ->count();
+                    
+                            $proj = DB::table('projects')
+                            ->count();
+                    
+                            $audit = auditlogs::join('users', 'users.userID', 'auditlogs.userID')
+                            ->where('users.typeID', $admin)
+                            ->get();
+                    
+                          
+                                               
                             return view('StellaAdmin.dashboard', compact('adminuser'))
-                            ->with('models', $models)->with('numModels', $numModels)
+                             ->with('models', $models)->with('numModels', $numModels)
                             ->with('employer', $employer)->with('numEmps', $numEmps)
-                            ->with('details', $details);
+                            ->with('details', $details)->with('audit', $audit)
+                            ->with('projActive', $projActive)->with('proj', $proj);
                         } else 
                         {
                             return ('fail');

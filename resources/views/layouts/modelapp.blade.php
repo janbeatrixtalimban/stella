@@ -43,6 +43,7 @@
     <script src="<?php echo asset('js/plugins/bootstrap-datepicker.js')?>" type="text/javascript"></script>
     <script src="<?php echo asset('https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE')?>"></script>
     <script src="<?php echo asset('js/now-ui-kit.js?v=1.2.0')?>" type="text/javascript"></script>
+    <script src='{{asset("js/calc.js")}}'></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 
