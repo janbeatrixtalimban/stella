@@ -79,7 +79,7 @@
 
 
       <!-- Feed Content -->
-  @foreach($details as $detail)
+  @foreach($details->reverse() as $detail)
       @if($detail->haggleAmount != 0)
       <div class="container-fluid">
             <div class="row">

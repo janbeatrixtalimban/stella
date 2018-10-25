@@ -99,19 +99,23 @@
         <div class="col-sm-9">
   <!-- Job Post Applicants --> 
                     
-            @foreach($details->chunk(6) as $chunk)
+        @foreach($details->chunk(6)->reverse() as $chunk)
            
             <div class="row">
                 <div class="column">
                     <table>
                         <tr>
                                       
-                          @foreach ($chunk as $detail)
-                          @if($detail->applicantStatus != 2)
+                        @foreach ($chunk as $detail)
+                            @if($detail->applicantStatus != 2)
                             <td>
                          
-                                              
-                                <h4 style="color:#1b1b1b;">{{ $detail->prjTitle }}</h4>
+                                @if($detail->applicantStatus == 0)              
+                                <h5 style="color:#1b1b1b;" rel="tooltip" title="Pending.">{{ $detail->prjTitle }}</h5>
+                                @elseif($detail->applicantStatus == 1)
+                                <h5 style="color:green;" rel="tooltip" title="Hired.">{{ $detail->prjTitle }}</h5>
+                                @else
+                                @endif
                                     <div class="col-sm-12">
                                         <div id="model" class="card text-center">
                                             <div class="card-body" style="color:#1b1b1b;">
@@ -139,18 +143,19 @@
                                 </div>
                             </div>
                         </td> 
-                        @else
-                        @endif
+                            @else
+                            @endif
                                         
-                    @endforeach
+                        @endforeach
 
                     </tr>
                         
-        @endforeach
-                </table>
+                    </table>
 
+                </div>
             </div>
-        </div>
+            
+        @endforeach
     </div>
 </div><!--col-sm-9 closing -->
 

@@ -98,58 +98,44 @@
                         <p>{{ $detail->jobDescription }}</p>
 
                       <!-- View more details button -->
-                          <button data-toggle="modal" data-target="#details{{$detail->userID}}" name="button" class="btn btn-info btn-round" rel="tooltip" title="View Details"><i class="now-ui-icons design_bullet-list-67"></i></button>
+                          <button data-toggle="modal" data-target="#details{{$detail->projectID}}" name="button" class="btn btn-info btn-round" rel="tooltip" title="View Details"><i class="now-ui-icons design_bullet-list-67"></i></button>
 
                       <!-- Accept Offer button -->
                       @if($detail->hirestatus == '0')
-                          <button data-toggle="modal" data-target="#confirm{{$detail->userID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer"><i class="now-ui-icons ui-1_check"></i></button>
+                          <button data-toggle="modal" data-target="#confirm{{$detail->projectID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer"><i class="now-ui-icons ui-1_check"></i></button>
                       @elseif($detail->hirestatus == '1')
-                          <button data-toggle="modal" data-target="#confirm{{$detail->userID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer" disabled><i class="now-ui-icons ui-1_check"></i></button>
+                          <button data-toggle="modal" data-target="#confirm{{$detail->projectID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="You have already accepted this offer and talent fee." disabled><i class="now-ui-icons ui-1_check"></i></button>
                       @else
                       @endif
 
                       <!-- Reject Offer button -->
                       @if($detail->hirestatus == '0')
-                          <button data-toggle="modal" data-target="#reject{{$detail->userID}}" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                          <button data-toggle="modal" data-target="#reject{{$detail->projectID}}" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer"><i class="now-ui-icons ui-1_simple-remove"></i></button>
                       @elseif($detail->hirestatus == '2')
-                          <button data-toggle="modal" data-target="#reject{{$detail->userID}}" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer" disabled><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                          <button data-toggle="modal" data-target="#reject{{$detail->projectID}}" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer" disabled><i class="now-ui-icons ui-1_simple-remove"></i></button>
                       @else
                       @endif
                     </div><!--closing for col-sm-7-->
 
                           @if($detail->hirestatus == '0')
-                          <div class="col-sm-4">
+                          <div class="col-sm-4" style="padding-top:20px;">
                               <h5 class="card-title">Not satisfied with the talent fee?</h5>
                                   <h6 class="card-title">Make an offer</h6>
-                                      <form class="text-center" action="/model/haggle" method="post">
-                                            {{ csrf_field() }}
-                                          @if($detail->haggleStatus == '1')
-                                              <div class="input-group input-sm">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                    </span>
-                                                </div>
-                                                <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                                <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" readonly>
-                                              </div>
-                                          <button type="submit" name="button" class="btn btn-info btn-round" disabled>Haggle</button>
-                                            
-                                          @else
-                                            <div class="input-group input-sm">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                    </span>
-                                                </div>
-                                                <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                                <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" required>
-                                            </div>
-                                          <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
-                                          
-                                          @endif
-                                      </form>
+
+                                      @if($detail->haggleStatus == '1')  
+                                          <button data-toggle="modal" data-target="#haggle{{$detail->projectID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Your haggle offer was accepted!" disabled>Haggle</button>
+                                      @elseif($detail->haggleStatus == '2')  
+                                          <button data-toggle="modal" data-target="#haggle{{$detail->projectID}}" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Your haggle offer was rejected!" disabled>Haggle</button>
+                                      @else
+                                          <button data-toggle="modal" data-target="#haggle{{$detail->projectID}}" name="button" class="btn btn-info btn-round">Haggle</button>
+                                      @endif
+
                             </div><!-- closing for col-sm-4 -->
                           @else
-                          <div class="col-sm-4"></div>
+                          <div class="col-sm-4" style="padding-top:30px;">
+                              <h5 class="text-center">Job has been accepted</h5>
+                              <img src="<?php echo asset('img/check.png')?>" width="60">
+                          </div>
                           @endif
 
                   </div><!-- closing for row tag -->
@@ -179,7 +165,7 @@
 <!-- View Details Modal -->
     @foreach ($details as $detail)
           
-        <div id="details{{$detail->userID}}" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
+        <div id="details{{$detail->projectID}}" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
@@ -202,9 +188,27 @@
                                     <li>
                                       <h0>Role: <b>{{ $detail->role }}</b></h0>
                                     </li>
+                                @if($detail->haggleStatus == '101')
                                     <li>
                                       <h0>Talent fee: <b>P{{ $detail->talentFee }}.00</b></h0>
                                     </li>
+                                @elseif ($detail->haggleStatus == '0')
+                                    <li>
+                                      <h0>Original Talent fee: <b>P{{ $detail->talentFee }}.00</b></h0>
+                                    </li>
+                                    <li>
+                                      <h0>Haggle Offer: <b>P{{ $detail->talentFee }}.00</b></h0>
+                                    </li>
+                                @elseif ($detail->haggleStatus == '1')
+                                    <li>
+                                      <h0>Agreed Talent Fee (FINAL): <b>P{{ $detail->haggleAmount }}.00</b></h0>
+                                    </li>
+                                @elseif ($detail->haggleStatus == '2')
+                                    <li>
+                                      <h0>Original Talent fee: <b>P{{ $detail->talentFee }}.00</b></h0>
+                                    </li>
+                                @else
+                                @endif
                                     <li>
                                       <h0>Where: <b>{{ $detail->address }}, {{ $detail->location }}</b></h0>
                                     </li>
@@ -228,7 +232,7 @@
 <!-- Confirm Accept Offer Modal -->
     @foreach ($details as $detail)
       
-      <div id="confirm{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+      <div id="confirm{{$detail->projectID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
@@ -237,7 +241,17 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <h4 class="modal-title">Are you sure you want to accept the job offer <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> from <b>{{ $detail->firstName }} {{ $detail->lastName }}</a>?</h4><br>
+                          @if($detail->haggleStatus == '101')
+                            <h4 class="modal-title">Are you sure you want to accept the job offer <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> from <b>{{ $detail->firstName }} {{ $detail->lastName }}</a></b> for <b>P{{$detail->talentFee}}.00</b>?</h4><br>
+                          @elseif ($detail->haggleStatus == '0')
+                            <h4 class="modal-title">Accepting this job is not allowed at the moment, as you have a pending haggle offer of <b>P{{$detail->haggleAmount}}.00</b> with the employer.</h4><br>
+                          @elseif ($detail->haggleStatus == '1')
+                            <h4 class="modal-title">Congrats! <b>{{ $detail->firstName }} {{ $detail->lastName }} </b> from {{ $detail->name }} has accepted your haggle offer of <b>P{{$detail->haggleAmount}}.00</b> for the project <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> </h4><br>
+                          @elseif ($detail->haggleStatus == '2')
+                            <h4 class="modal-title">We regret to inform you that your haggle offer of P{{$detail->haggleAmount}}.00 was rejected by <b>{{ $detail->firstName }} {{ $detail->lastName }}</b> from {{ $detail->name }} for the project <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a></h4><br>
+                            <p class="text-center"> You may still <b>accept</b> the job offer for the original talent fee of <b>P{{$detail->talentFee}}.00</b></p>
+                          @else
+                          @endif
                           </div>
                           <div class="modal-footer">
                             <div class="container">
@@ -247,8 +261,27 @@
                                   {{ csrf_field() }}
                                     <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
-                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @if($detail->haggleStatus == '101')
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    @elseif ($detail->haggleStatus == '0')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Dismiss</button>
+                                    @elseif ($detail->haggleStatus == '1')
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    @elseif ($detail->haggleStatus == '2')
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    @else
+                                    @endif
+
+                                    @if($detail->haggleStatus == '101')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @elseif ($detail->haggleStatus == '0')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round" hidden>No</button>
+                                    @elseif ($detail->haggleStatus == '1')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Dismiss</button>
+                                    @elseif ($detail->haggleStatus == '2')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @else
+                                    @endif
                                 </form>
                             </div>
                           </div>
@@ -264,7 +297,7 @@
 <!-- Reject Offer Modal -->
     @foreach ($details as $detail)
       
-      <div id="reject{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+      <div id="reject{{$detail->projectID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
@@ -273,7 +306,18 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <h4 class="modal-title">Are you sure you want to reject the offer <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> from <b>{{ $detail->firstName }} {{ $detail->lastName }}</b>?</h4><br>
+                          @if($detail->haggleStatus == '101')
+                            <h4 class="modal-title">Are you sure you want to reject the offer <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a> from <b>{{ $detail->firstName }} {{ $detail->lastName }}</b> for <b>P{{$detail->talentFee}}.00</b>?</h4><br>
+                          @elseif ($detail->haggleStatus == '0')
+                            <h4 class="modal-title">You still have a pending haggle of <b>P{{$detail->haggleAmount}}.00</b> with the employer. Are you sure you want to reject this offer?</h4><br> 
+                            <p class="text-center" style="color:#a01919;">This cannot be undone.</p>
+                          @elseif ($detail->haggleStatus == '1')
+                            <h4 class="modal-title"><b>{{ $detail->firstName }} {{ $detail->lastName }} </b> from {{ $detail->name }} has accepted your haggle offer of <b>P{{$detail->haggleAmount}}.00</b> for the project <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a>. Are you sure you want to reject this? </h4><br>
+                          @elseif ($detail->haggleStatus == '2')
+                            <h4 class="modal-title">We regret to inform you that your haggle offer of P{{$detail->haggleAmount}}.00 was rejected by <b>{{ $detail->firstName }} {{ $detail->lastName }}</b> from {{ $detail->name }} for the project <a style="color:#a01919;"><b>{{$detail->prjTitle}}</b></a></h4><br>
+                            <p class="text-center"> You may <b>reject</b> this offer if you disagree with the original talent fee of <b>P{{$detail->talentFee}}.00</b></p>
+                          @else
+                          @endif
                           </div>
                           <div class="modal-footer">
                             <div class="container">
@@ -283,8 +327,28 @@
                                   {{ csrf_field() }}
                                     <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
-                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @if($detail->haggleStatus == '101')
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Reject</button>
+                                    @elseif ($detail->haggleStatus == '0')
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    @elseif ($detail->haggleStatus == '1')
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    @elseif ($detail->haggleStatus == '2')
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Reject</button>
+                                    @else
+                                    @endif
+
+
+                                    @if($detail->haggleStatus == '101')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @elseif ($detail->haggleStatus == '0')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @elseif ($detail->haggleStatus == '1')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @elseif ($detail->haggleStatus == '2')
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    @else
+                                    @endif
                                 </form>
                             </div>
                           </div>
@@ -300,35 +364,90 @@
 <!-- Confirm Haggle Offer Modal -->
     @foreach ($details as $detail)
       
-          <div id="haggle{{$detail->userID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+          <div id="haggle{{$detail->projectID}}" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to accept?</h4>
+                            @if($detail->haggleStatus == '101')
+                            <h4 class="modal-title">Make an offer:</h4>
+                            @elseif($detail->haggleStatus == '0')
+                            <h4 class="modal-title">You have already made an offer.</h4>
+                            @elseif($detail->haggleStatus == '1')
+                            <h4 class="modal-title">Your offer has been accepted!</h4>
+                            @else($detail->haggleStatus == '2')
+                            <h4 class="modal-title">Your offer was rejected!</h4>
+                            @endif
                           </div>
                           <div class="modal-body">
+                            <form class="text-center" action="/model/haggle" method="post">
+                                {{ csrf_field() }}
+                                @if($detail->haggleStatus == '1')
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" readonly>
+                                </div>
+                                @elseif($detail->haggleStatus == '0')
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" readonly>
+                                </div>
+                                @elseif($detail->haggleStatus == '2')
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" readonly>
+                                </div>
+                                @else
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="{{$detail->haggleAmount}}" name="haggleAmount" required>
+                                </div>
+                                @endif
                           </div>
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="text-center" action="/model/accept" method="post">
-                                  {{ csrf_field() }}
-                                    <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
-                                    <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
-                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
-                                </form>
+                                  @if($detail->haggleStatus == '0')
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Dismiss</button>
+                                  @elseif($detail->haggleStatus == '101')
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Cancel</button>
+                                  @elseif($detail->haggleStatus == '1')
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Cancel</button>
+                                  @elseif($detail->haggleStatus == '2')
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Cancel</button>
+                                  @else
+                                  @endif
+                            </form>
                             </div>
                           </div>
                       </div>
                     </div>
                 </div>
               </form>
-    @endforeach
+    @endforeach 
 <!-- End of Modal -->
 
             </div>

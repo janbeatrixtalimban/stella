@@ -7,7 +7,7 @@
   <nav class="navbar navbar-expand-lg bg-black fixed-top navbar-transparent " color-on-scroll="400">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="<?php echo e(url('/employerHome')); ?>" rel="tooltip" title="Go to Homepage" data-placement="bottom">
+        <a class="navbar-brand" href="<?php echo e(url('/employerfeed')); ?>" rel="tooltip" title="Go to Homepage" data-placement="bottom">
             <img src="<?php echo asset('img/logo_white.png')?>" width="100">
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,11 +16,9 @@
           <span class="navbar-toggler-bar bottom-bar"></span>
         </button>
       </div>
-
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
-
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
                               <a class="nav-link" href="<?php echo e(url('/employerHome')); ?>" data-placement="bottom" rel="tooltip" title="Go to Homepage">
                                   <p>Home</p>
                               </a>
@@ -266,4 +264,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.employerapp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.modelapp', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

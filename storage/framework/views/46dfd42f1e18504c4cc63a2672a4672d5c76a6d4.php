@@ -90,19 +90,23 @@
         <div class="col-sm-9">
   <!-- Job Post Applicants --> 
                     
-            <?php $__currentLoopData = $details->chunk(6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $__currentLoopData = $details->chunk(6)->reverse(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
            
             <div class="row">
                 <div class="column">
                     <table>
                         <tr>
                                       
-                          <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                          <?php if($detail->applicantStatus != 2): ?>
+                        <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($detail->applicantStatus != 2): ?>
                             <td>
                          
-                                              
-                                <h4 style="color:#1b1b1b;"><?php echo e($detail->prjTitle); ?></h4>
+                                <?php if($detail->applicantStatus == 0): ?>              
+                                <h5 style="color:#1b1b1b;" rel="tooltip" title="Pending."><?php echo e($detail->prjTitle); ?></h5>
+                                <?php elseif($detail->applicantStatus == 1): ?>
+                                <h5 style="color:green;" rel="tooltip" title="Hired."><?php echo e($detail->prjTitle); ?></h5>
+                                <?php else: ?>
+                                <?php endif; ?>
                                     <div class="col-sm-12">
                                         <div id="model" class="card text-center">
                                             <div class="card-body" style="color:#1b1b1b;">
@@ -131,18 +135,19 @@
                                 </div>
                             </div>
                         </td> 
-                        <?php else: ?>
-                        <?php endif; ?>
+                            <?php else: ?>
+                            <?php endif; ?>
                                         
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     </tr>
                         
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </table>
+                    </table>
 
+                </div>
             </div>
-        </div>
+            
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 </div><!--col-sm-9 closing -->
 

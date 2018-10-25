@@ -96,59 +96,44 @@
                         <p><?php echo e($detail->jobDescription); ?></p>
 
                       <!-- View more details button -->
-                          <button data-toggle="modal" data-target="#details<?php echo e($detail->userID); ?>" name="button" class="btn btn-info btn-round" rel="tooltip" title="View Details"><i class="now-ui-icons design_bullet-list-67"></i></button>
+                          <button data-toggle="modal" data-target="#details<?php echo e($detail->projectID); ?>" name="button" class="btn btn-info btn-round" rel="tooltip" title="View Details"><i class="now-ui-icons design_bullet-list-67"></i></button>
 
                       <!-- Accept Offer button -->
                       <?php if($detail->hirestatus == '0'): ?>
-                          <button data-toggle="modal" data-target="#confirm<?php echo e($detail->userID); ?>" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer"><i class="now-ui-icons ui-1_check"></i></button>
+                          <button data-toggle="modal" data-target="#confirm<?php echo e($detail->projectID); ?>" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer"><i class="now-ui-icons ui-1_check"></i></button>
                       <?php elseif($detail->hirestatus == '1'): ?>
-                          <button data-toggle="modal" data-target="#confirm<?php echo e($detail->userID); ?>" name="button" class="btn btn-success btn-round" rel="tooltip" title="Accept Offer" disabled><i class="now-ui-icons ui-1_check"></i></button>
+                          <button data-toggle="modal" data-target="#confirm<?php echo e($detail->projectID); ?>" name="button" class="btn btn-success btn-round" rel="tooltip" title="You have already accepted this offer and talent fee." disabled><i class="now-ui-icons ui-1_check"></i></button>
                       <?php else: ?>
                       <?php endif; ?>
 
                       <!-- Reject Offer button -->
                       <?php if($detail->hirestatus == '0'): ?>
-                          <button data-toggle="modal" data-target="#reject<?php echo e($detail->userID); ?>" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                          <button data-toggle="modal" data-target="#reject<?php echo e($detail->projectID); ?>" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer"><i class="now-ui-icons ui-1_simple-remove"></i></button>
                       <?php elseif($detail->hirestatus == '2'): ?>
-                          <button data-toggle="modal" data-target="#reject<?php echo e($detail->userID); ?>" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer" disabled><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                          <button data-toggle="modal" data-target="#reject<?php echo e($detail->projectID); ?>" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Reject Offer" disabled><i class="now-ui-icons ui-1_simple-remove"></i></button>
                       <?php else: ?>
                       <?php endif; ?>
                     </div><!--closing for col-sm-7-->
 
                           <?php if($detail->hirestatus == '0'): ?>
-                          <div class="col-sm-4">
+                          <div class="col-sm-4" style="padding-top:20px;">
                               <h5 class="card-title">Not satisfied with the talent fee?</h5>
                                   <h6 class="card-title">Make an offer</h6>
-                                      <form class="text-center" action="/model/haggle" method="post">
-                                            <?php echo e(csrf_field()); ?>
 
-                                          <?php if($detail->haggleStatus == '1'): ?>
-                                              <div class="input-group input-sm">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                    </span>
-                                                </div>
-                                                <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
-                                                <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($detail->haggleAmount); ?>" name="haggleAmount" readonly>
-                                              </div>
-                                          <button type="submit" name="button" class="btn btn-info btn-round" disabled>Haggle</button>
-                                            
-                                          <?php else: ?>
-                                            <div class="input-group input-sm">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                    </span>
-                                                </div>
-                                                <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
-                                                <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($detail->haggleAmount); ?>" name="haggleAmount" required>
-                                            </div>
-                                          <button type="submit" name="button" class="btn btn-info btn-round">Haggle</button>
-                                          
-                                          <?php endif; ?>
-                                      </form>
+                                      <?php if($detail->haggleStatus == '1'): ?>  
+                                          <button data-toggle="modal" data-target="#haggle<?php echo e($detail->projectID); ?>" name="button" class="btn btn-success btn-round" rel="tooltip" title="Your haggle offer was accepted!" disabled>Haggle</button>
+                                      <?php elseif($detail->haggleStatus == '2'): ?>  
+                                          <button data-toggle="modal" data-target="#haggle<?php echo e($detail->projectID); ?>" name="button" class="btn btn-maroon btn-round" rel="tooltip" title="Your haggle offer was rejected!" disabled>Haggle</button>
+                                      <?php else: ?>
+                                          <button data-toggle="modal" data-target="#haggle<?php echo e($detail->projectID); ?>" name="button" class="btn btn-info btn-round">Haggle</button>
+                                      <?php endif; ?>
+
                             </div><!-- closing for col-sm-4 -->
                           <?php else: ?>
-                          <div class="col-sm-4"></div>
+                          <div class="col-sm-4" style="padding-top:30px;">
+                              <h5 class="text-center">Job has been accepted</h5>
+                              <img src="<?php echo asset('img/check.png')?>" width="60">
+                          </div>
                           <?php endif; ?>
 
                   </div><!-- closing for row tag -->
@@ -179,7 +164,7 @@
 <!-- View Details Modal -->
     <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           
-        <div id="details<?php echo e($detail->userID); ?>" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
+        <div id="details<?php echo e($detail->projectID); ?>" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
@@ -202,9 +187,27 @@
                                     <li>
                                       <h0>Role: <b><?php echo e($detail->role); ?></b></h0>
                                     </li>
+                                <?php if($detail->haggleStatus == '101'): ?>
                                     <li>
                                       <h0>Talent fee: <b>P<?php echo e($detail->talentFee); ?>.00</b></h0>
                                     </li>
+                                <?php elseif($detail->haggleStatus == '0'): ?>
+                                    <li>
+                                      <h0>Original Talent fee: <b>P<?php echo e($detail->talentFee); ?>.00</b></h0>
+                                    </li>
+                                    <li>
+                                      <h0>Haggle Offer: <b>P<?php echo e($detail->talentFee); ?>.00</b></h0>
+                                    </li>
+                                <?php elseif($detail->haggleStatus == '1'): ?>
+                                    <li>
+                                      <h0>Agreed Talent Fee (FINAL): <b>P<?php echo e($detail->haggleAmount); ?>.00</b></h0>
+                                    </li>
+                                <?php elseif($detail->haggleStatus == '2'): ?>
+                                    <li>
+                                      <h0>Original Talent fee: <b>P<?php echo e($detail->talentFee); ?>.00</b></h0>
+                                    </li>
+                                <?php else: ?>
+                                <?php endif; ?>
                                     <li>
                                       <h0>Where: <b><?php echo e($detail->address); ?>, <?php echo e($detail->location); ?></b></h0>
                                     </li>
@@ -228,7 +231,7 @@
 <!-- Confirm Accept Offer Modal -->
     <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       
-      <div id="confirm<?php echo e($detail->userID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+      <div id="confirm<?php echo e($detail->projectID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
@@ -237,7 +240,17 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <h4 class="modal-title">Are you sure you want to accept the job offer <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a> from <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></a>?</h4><br>
+                          <?php if($detail->haggleStatus == '101'): ?>
+                            <h4 class="modal-title">Are you sure you want to accept the job offer <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a> from <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></a></b> for <b>P<?php echo e($detail->talentFee); ?>.00</b>?</h4><br>
+                          <?php elseif($detail->haggleStatus == '0'): ?>
+                            <h4 class="modal-title">Accepting this job is not allowed at the moment, as you have a pending haggle offer of <b>P<?php echo e($detail->haggleAmount); ?>.00</b> with the employer.</h4><br>
+                          <?php elseif($detail->haggleStatus == '1'): ?>
+                            <h4 class="modal-title">Congrats! <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?> </b> from <?php echo e($detail->name); ?> has accepted your haggle offer of <b>P<?php echo e($detail->haggleAmount); ?>.00</b> for the project <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a> </h4><br>
+                          <?php elseif($detail->haggleStatus == '2'): ?>
+                            <h4 class="modal-title">We regret to inform you that your haggle offer of P<?php echo e($detail->haggleAmount); ?>.00 was rejected by <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></b> from <?php echo e($detail->name); ?> for the project <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a></h4><br>
+                            <p class="text-center"> You may still <b>accept</b> the job offer for the original talent fee of <b>P<?php echo e($detail->talentFee); ?>.00</b></p>
+                          <?php else: ?>
+                          <?php endif; ?>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
@@ -248,8 +261,27 @@
 
                                     <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($detail->emailAddress); ?>" readonly>
-                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php if($detail->haggleStatus == '101'): ?>
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    <?php elseif($detail->haggleStatus == '0'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Dismiss</button>
+                                    <?php elseif($detail->haggleStatus == '1'): ?>
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    <?php elseif($detail->haggleStatus == '2'): ?>
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Accept</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>
+
+                                    <?php if($detail->haggleStatus == '101'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php elseif($detail->haggleStatus == '0'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round" hidden>No</button>
+                                    <?php elseif($detail->haggleStatus == '1'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Dismiss</button>
+                                    <?php elseif($detail->haggleStatus == '2'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>
                                 </form>
                             </div>
                           </div>
@@ -265,7 +297,7 @@
 <!-- Reject Offer Modal -->
     <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       
-      <div id="reject<?php echo e($detail->userID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+      <div id="reject<?php echo e($detail->projectID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
@@ -274,7 +306,18 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
                           <div class="modal-body">
-                            <h4 class="modal-title">Are you sure you want to reject the offer <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a> from <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></b>?</h4><br>
+                          <?php if($detail->haggleStatus == '101'): ?>
+                            <h4 class="modal-title">Are you sure you want to reject the offer <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a> from <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></b> for <b>P<?php echo e($detail->talentFee); ?>.00</b>?</h4><br>
+                          <?php elseif($detail->haggleStatus == '0'): ?>
+                            <h4 class="modal-title">You still have a pending haggle of <b>P<?php echo e($detail->haggleAmount); ?>.00</b> with the employer. Are you sure you want to reject this offer?</h4><br> 
+                            <p class="text-center" style="color:#a01919;">This cannot be undone.</p>
+                          <?php elseif($detail->haggleStatus == '1'): ?>
+                            <h4 class="modal-title"><b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?> </b> from <?php echo e($detail->name); ?> has accepted your haggle offer of <b>P<?php echo e($detail->haggleAmount); ?>.00</b> for the project <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a>. Are you sure you want to reject this? </h4><br>
+                          <?php elseif($detail->haggleStatus == '2'): ?>
+                            <h4 class="modal-title">We regret to inform you that your haggle offer of P<?php echo e($detail->haggleAmount); ?>.00 was rejected by <b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></b> from <?php echo e($detail->name); ?> for the project <a style="color:#a01919;"><b><?php echo e($detail->prjTitle); ?></b></a></h4><br>
+                            <p class="text-center"> You may <b>reject</b> this offer if you disagree with the original talent fee of <b>P<?php echo e($detail->talentFee); ?>.00</b></p>
+                          <?php else: ?>
+                          <?php endif; ?>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
@@ -285,8 +328,28 @@
 
                                     <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($detail->emailAddress); ?>" readonly>
-                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php if($detail->haggleStatus == '101'): ?>
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Reject</button>
+                                    <?php elseif($detail->haggleStatus == '0'): ?>
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <?php elseif($detail->haggleStatus == '1'): ?>
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
+                                    <?php elseif($detail->haggleStatus == '2'): ?>
+                                      <button type="submit" name="button" class="btn btn-success btn-round">Reject</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>
+
+
+                                    <?php if($detail->haggleStatus == '101'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php elseif($detail->haggleStatus == '0'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php elseif($detail->haggleStatus == '1'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php elseif($detail->haggleStatus == '2'): ?>
+                                      <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
+                                    <?php else: ?>
+                                    <?php endif; ?>
                                 </form>
                             </div>
                           </div>
@@ -302,36 +365,91 @@
 <!-- Confirm Haggle Offer Modal -->
     <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       
-          <div id="haggle<?php echo e($detail->userID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
+          <div id="haggle<?php echo e($detail->projectID); ?>" class="modal fade" style="padding-top: 150px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
                       <div class="modal-content" style="color:black;">
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Are you sure you want to accept?</h4>
+                            <?php if($detail->haggleStatus == '101'): ?>
+                            <h4 class="modal-title">Make an offer:</h4>
+                            <?php elseif($detail->haggleStatus == '0'): ?>
+                            <h4 class="modal-title">You have already made an offer.</h4>
+                            <?php elseif($detail->haggleStatus == '1'): ?>
+                            <h4 class="modal-title">Your offer has been accepted!</h4>
+                            <?php else: ?>
+                            <h4 class="modal-title">Your offer was rejected!</h4>
+                            <?php endif; ?>
                           </div>
                           <div class="modal-body">
+                            <form class="text-center" action="/model/haggle" method="post">
+                                <?php echo e(csrf_field()); ?>
+
+                                <?php if($detail->haggleStatus == '1'): ?>
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($detail->haggleAmount); ?>" name="haggleAmount" readonly>
+                                </div>
+                                <?php elseif($detail->haggleStatus == '0'): ?>
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($detail->haggleAmount); ?>" name="haggleAmount" readonly>
+                                </div>
+                                <?php elseif($detail->haggleStatus == '2'): ?>
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($detail->haggleAmount); ?>" name="haggleAmount" readonly>
+                                </div>
+                                <?php else: ?>
+                                <div class="input-group input-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                        </span>
+                                    </div>
+                                      <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
+                                      <input type="text" class="form-control" id="haggleAmount" value="<?php echo e($detail->haggleAmount); ?>" name="haggleAmount" required>
+                                </div>
+                                <?php endif; ?>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="text-center" action="/model/accept" method="post">
-                                  <?php echo e(csrf_field()); ?>
-
-                                    <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
-                                    <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($detail->emailAddress); ?>" readonly>
-                                    <button type="submit" name="button" class="btn btn-success btn-round">Yes</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
-                                </form>
+                                  <?php if($detail->haggleStatus == '0'): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Dismiss</button>
+                                  <?php elseif($detail->haggleStatus == '101'): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round">Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Cancel</button>
+                                  <?php elseif($detail->haggleStatus == '1'): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Cancel</button>
+                                  <?php elseif($detail->haggleStatus == '2'): ?>
+                                    <button type="submit" name="button" class="btn btn-success btn-round" hidden>Send</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">Cancel</button>
+                                  <?php else: ?>
+                                  <?php endif; ?>
+                            </form>
                             </div>
                           </div>
                       </div>
                     </div>
                 </div>
               </form>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
 <!-- End of Modal -->
 
             </div>

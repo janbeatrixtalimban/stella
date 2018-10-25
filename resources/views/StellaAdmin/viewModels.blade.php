@@ -189,7 +189,7 @@
 
                               <p><b>Status:</b>&nbsp&nbsp{{$users->status}}</p>
 
-                              <p><b>Valid Doc:</b><img src="/uploads/{{ $users->filePath }}" alt="Thumbnail Image" class="rounded-circle"></p>
+                              <p><b>Valid Doc:</b><img src="/uploads/path/{{ $users->filePath }}" alt="Thumbnail Image" class="rounded-circle"></p>
 
                           </div>
                           <div class="modal-footer">
