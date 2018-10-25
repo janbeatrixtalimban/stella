@@ -643,7 +643,7 @@ class EmployerController extends Controller
             $input['userID'] = Auth::user()->userID;
             $input['imageID'] = $request->input('imageID');
             $input['modelID'] = $request->input('userID');
-            $input['reason'] = 'pangit';
+            $input['reason'] = $request->input('reason');
             $report = reportimage::create($input);
                
                   $auditlogs = new auditlogs;
