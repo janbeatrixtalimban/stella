@@ -318,14 +318,15 @@
                             <p class="text-center"> You may <b>reject</b> this offer if you disagree with the original talent fee of <b>P<?php echo e($detail->talentFee); ?>.00</b></p>
                           <?php else: ?>
                           <?php endif; ?>
+                    <form class="text-center" action="/model/reject" method="post">
+                            <?php echo e(csrf_field()); ?>
+
+                          <textarea class="form-control" style="height:150px" id="rejectReason" name="rejectReason" placeholder="State your Reason.." required></textarea>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="text-center" action="/model/reject" method="post">
-                                  <?php echo e(csrf_field()); ?>
-
                                     <input type="hidden" name="hireID" id="hireID" value="<?php echo e($detail->hireID); ?>" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="<?php echo e($detail->emailAddress); ?>" readonly>
                                     <?php if($detail->haggleStatus == '101'): ?>
@@ -350,7 +351,7 @@
                                       <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
                                     <?php else: ?>
                                     <?php endif; ?>
-                                </form>
+                      </form>
                             </div>
                           </div>
                       </div>

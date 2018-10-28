@@ -1339,7 +1339,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .form-control:focus {
-  border: 1px solid #f96332;
+  border: 1px solid #0a2e70;
   -webkit-box-shadow: none;
   box-shadow: none;
   outline: 0 !important;
@@ -1956,7 +1956,7 @@ p.description {
 .text-primary,
 a.text-primary:focus,
 a.text-primary:hover {
-  color: #f96332 !important;
+  color: rgb(32, 126, 194) !important;
 }
 
 .text-info,

@@ -318,13 +318,14 @@
                             <p class="text-center"> You may <b>reject</b> this offer if you disagree with the original talent fee of <b>P{{$detail->talentFee}}.00</b></p>
                           @else
                           @endif
+                    <form class="text-center" action="/model/reject" method="post">
+                            {{ csrf_field() }}
+                          <textarea class="form-control" style="height:150px" id="rejectReason" name="rejectReason" placeholder="State your Reason.." required></textarea>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="text-center" action="/model/reject" method="post">
-                                  {{ csrf_field() }}
                                     <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
                                     @if($detail->haggleStatus == '101')
@@ -349,7 +350,7 @@
                                       <button type="button" data-dismiss="modal" class="btn btn-maroon btn-round">No</button>
                                     @else
                                     @endif
-                                </form>
+                      </form>
                             </div>
                           </div>
                       </div>

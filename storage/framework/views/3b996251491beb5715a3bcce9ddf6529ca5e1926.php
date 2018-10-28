@@ -14,6 +14,7 @@
   <link href="<?php echo asset('https://fonts.googleapis.com/css?family=Montserrat:400,700,200')?>" rel="stylesheet" />
   <link href="<?php echo asset('https://use.fontawesome.com/releases/v5.0.6/css/all.css')?>" rel="stylesheet">
   <!-- CSS Files -->
+  <link href="<?php echo asset('css/datatables.css')?>" rel="stylesheet" />
   <link href="<?php echo asset('css/bootstrap.min.css')?>" rel="stylesheet" />
   <link href="<?php echo asset('css/now-ui-dashboard.css?v=1.1.0')?>" rel="stylesheet" />
 </head>
@@ -41,14 +42,21 @@
   <script src="<?php echo asset('js/plugins/chartjs.min.js')?>"></script>
   <!--  Notifications Plugin    -->
   <script src="<?php echo asset('js/plugins/bootsrap-notify.js')?>"></script>
+  <script src="<?php echo asset('js/datatables.min.js')?>" type="text/javascript"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="<?php echo asset('js/plugins/now-ui-dashboard.min.js?v=1.1.0')?>" type="text/javascript"></script>
+  <script src="<?php echo asset('js/now-ui-dashboard.min.js?v=1.1.0')?>" type="text/javascript"></script>
   <script>
+  
     $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
+      $('#adminAudit').DataTable();
+      $('#adminList').DataTable();
+      $('#auditLogs').DataTable();
+      $('#modelsList').DataTable();
+      $('#employersList').DataTable();
+      $('#jobReports').DataTable();
+      $('#photoReports').DataTable();
+    } );
 
-    });
   </script>
 </body>
 

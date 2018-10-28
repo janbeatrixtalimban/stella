@@ -52,12 +52,12 @@ class adminController extends Controller
 
         $audit = auditlogs::join('users', 'users.userID', 'auditlogs.userID')
         ->where('users.typeID', $admin)
-        ->get();
+        ->paginate(15);
 
       
                            
         return view('StellaAdmin.dashboard', compact('adminuser'))
-         ->with('models', $models)->with('numModels', $numModels)
+        ->with('models', $models)->with('numModels', $numModels)
         ->with('employer', $employer)->with('numEmps', $numEmps)
         ->with('details', $details)->with('audit', $audit)
         ->with('projActive', $projActive)->with('proj', $proj);
@@ -284,6 +284,7 @@ class adminController extends Controller
         $details = reportimage::join('imgportfolios', 'imgportfolios.imageID', 'reportimages.imageID')
         ->join('users', 'users.userID', '=', 'reportimages.modelID')
         ->where('imgstatus', $num)
+        ->orderBy('reportimages.created_at', 'desc')
         ->get();
         //dd($details);
         return view('StellaAdmin.viewPhotoReports')

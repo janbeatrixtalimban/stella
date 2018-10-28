@@ -26,7 +26,7 @@
               <li class="active ">
                 <a href="/admin/viewAdmin">
                   <i class="now-ui-icons business_badge"></i>
-                  <p>Admin Panel</p>
+                  <p>Admins</p>
                 </a>
               </li>
               <li>
@@ -78,7 +78,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">View Admins
+            <a class="navbar-brand" href="#pablo">Audit Log</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -88,16 +88,17 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Settings</a>
-                  <a class="dropdown-item" href="/admin/logout">Logout</a>
-                </div>
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="now-ui-icons users_single-02"></i>
+                      <p>
+                          <span class="d-lg-none d-md-block">View Admins</span>
+                      </p>
+                  </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                          <p style="text-align:center;">&nbsp;<b><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></b></p></a>
+                                  
+                          <a class="dropdown-item" href="<?php echo e(url('/admin/logout')); ?>" style="color:black;">Logout</a>
+                      </div>
               </li>
             </ul>
           </div>
@@ -112,7 +113,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="title">Admin List</h5>
+                        <h4 class="card-title">Admin List</h4>
                     </div>
 
                     <div class="card-body">
@@ -120,18 +121,15 @@
                             <div class="panel panel-default">
 
                                 <div class="panel-body table-responsive">
-                                    <table class="table table-hover table-striped task-table">
+                                    <table id="adminList" class="table table-hover table-striped task-table">
 
                                         <!-- Table Headings -->
-                                        <thead>
+                                        <thead class="text-primary">
                                             <th>First Name</th>
                                             <th>Last Name</th>
                                             <th>Email</th>
                                             <th>Contact Number</th>
                                             <th>Date Registered</th>
-                                            
-                                            <th></th>
-                                            <th></th>
                                         </thead>
 
                                         <!-- Table Body -->
@@ -142,7 +140,6 @@
                                                     <td class="table-text">
                                                         <div><?php echo e($detail->firstName); ?></div>
                                                     </td>
-                                                    
                                                     <td class="table-text">
                                                         <div><?php echo e($detail->lastName); ?></div>
                                                     </td>
@@ -151,18 +148,18 @@
                                                     </td>
                                                     <td class="table-text">
                                                             <div><?php echo e($detail->contactNo); ?></div>
-                                                        </td>
-                                                       
-                                                    
+                                                    </td>
                                                     <td class="table-text">
                                                         <div><?php echo e($detail->created_at); ?></div>
                                                     </td>
-                                                    <td><a data-toggle="modal" data-target="#<?php echo e($detail->userID); ?> " style="color:blue;">View</a></td>
-                                                
+                                                    <td>
+                                                      <a data-toggle="modal" data-target="#<?php echo e($detail->userID); ?> " style="color:blue;">View</a>
+                                                    </td>
+
                                                 </tr>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
-                                    </table>
+                                    </table><br>
                                 </div>
                             
                             </div>

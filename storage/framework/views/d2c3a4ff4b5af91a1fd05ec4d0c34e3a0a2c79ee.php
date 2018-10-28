@@ -249,6 +249,7 @@
                           <div class="modal-body">
                             <h4 class="modal-title">Are you sure you want to reject the haggle offer from <a style="color:#a01919;"><b><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></b></a> for <b>P<?php echo e($detail->haggleAmount); ?>.00</b> on project <?php echo e($detail->prjTitle); ?>?</h4><br>
                             <p class="text-center">*<?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?> will be informed that you have <b>declined</b> their requested talent fee. With this, they may choose not to accept the job offer at the orginal talent fee.</p>
+                            <textarea class="form-control" style="height:150px" name="rejectReason" placeholder="State your Reason.." required></textarea>
                           </div>
                           <div class="modal-footer">
                             <div class="container">

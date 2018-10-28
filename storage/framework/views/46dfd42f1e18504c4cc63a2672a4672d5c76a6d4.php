@@ -94,7 +94,7 @@
             <?php $__currentLoopData = $details->chunk(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>                 
                     <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <?php if($detail->applicantStatus == 1): ?>
+                        <?php if($detail->applicantStatus != 2): ?>
                             <div style="display: none;">
                         <?php else: ?>
                         <td>

@@ -247,16 +247,17 @@
                           <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
-                          <div class="modal-body">
+                          <div class="modal-body">    
+                          <form class="" action="/employer/rejecthaggle" method="post">
+                                {{ csrf_field() }}
                             <h4 class="modal-title">Are you sure you want to reject the haggle offer from <a style="color:#a01919;"><b>{{$detail->firstName}} {{$detail->lastName}}</b></a> for <b>P{{ $detail->haggleAmount}}.00</b> on project {{$detail->prjTitle}}?</h4><br>
                             <p class="text-center">*{{$detail->firstName}} {{$detail->lastName}} will be informed that you have <b>declined</b> their requested talent fee. With this, they may choose not to accept the job offer at the orginal talent fee.</p>
+                            <textarea class="form-control" style="height:150px" name="rejectReason" placeholder="State your Reason.." required></textarea>
                           </div>
                           <div class="modal-footer">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="" action="/employer/rejecthaggle" method="post">
-                                  {{ csrf_field() }}
                                     <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
                                     <input type="hidden" name="status" id="status" value="{{$detail->haggleStatus}}" readonly>

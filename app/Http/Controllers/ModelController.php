@@ -447,6 +447,7 @@ class ModelController extends Controller
             ->first();
             $input['reportstatus'] = '1';
             $input['userID'] = Auth::user()->userID;
+            $input['reason'] = $request->input('reason');
             $input['ownerID'] = $request->input('ownerID');
             $input['projectID'] = $request->input('projectID');
             $report = report::create($input);
@@ -518,6 +519,7 @@ class ModelController extends Controller
         if (Auth::check()) {
             $validator = Validator::make($request->all(), [
 
+                'rejectReason',
                 'hirestatus',
                 'updated_at',
             ]);
@@ -529,6 +531,7 @@ class ModelController extends Controller
            
             $hireID = $request->get('hireID');
             $emailAddress = $request->get('emailAddress');
+            $rejectReason = $request->get('rejectReason');
             $hire = hire::where('hireID', $hireID)->update(['hirestatus' => $status]);
             //$this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');

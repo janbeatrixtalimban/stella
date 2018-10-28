@@ -28,7 +28,7 @@
               <li>
                 <a href="/admin/viewAdmin">
                   <i class="now-ui-icons business_badge"></i>
-                  <p>Admin Panel</p>
+                  <p>Admins</p>
                 </a>
               </li>
               <li>
@@ -90,16 +90,17 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Settings</a>
-                  <a class="dropdown-item" href="/admin/logout">Logout</a>
-                </div>
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="now-ui-icons users_single-02"></i>
+                      <p>
+                          <span class="d-lg-none d-md-block">View Audit Logs</span>
+                      </p>
+                  </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                          <p style="text-align:center;">&nbsp;<b>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</b></p></a>
+                                  
+                          <a class="dropdown-item" href="{{ url('/admin/logout') }}" style="color:black;">Logout</a>
+                      </div>
               </li>
             </ul>
           </div>
@@ -114,48 +115,40 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="title">Audit Log</h5>
+                        <h4 class="card-title">Audit Log</h4>
                     </div>
 
                     <div class="card-body">
 
                         @if (count($audit) > 0)
                             <div class="panel panel-default">
-
                                 <div class="panel-body table-responsive">
-                                    <table class="table table-hover table-striped task-table">
+                                    <table id="auditLogs" class="table table-hover table-striped task-table">
 
                                         <!-- Table Headings -->
-                                        <thead>
-                                            
+                                        <thead class="text-primary">
                                             <th>User ID</th>
                                             <th>Log Type</th>
                                             <th>Date Registered</th>
-                                            
-                                            <th></th>
-                                            <th></th>
                                         </thead>
 
                                         <!-- Table Body -->
                                         <tbody>
                                             @foreach ($audit as $audit)
                                                 <tr>
-                                                
                                                     <td class="table-text">
                                                         <div>{{ $audit->userID }}</div>
                                                     </td>
-                                                    
                                                     <td class="table-text">
                                                         <div>{{ $audit->logType }}</div>
                                                     </td>
                                                     <td class="table-text">
                                                         <div>{{ $audit->created_at }}</div>
                                                     </td>
-                                                    
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                    </table>
+                                    </table><br>
                                 </div>
                             
                             </div>

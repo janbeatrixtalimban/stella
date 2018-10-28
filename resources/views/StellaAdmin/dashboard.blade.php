@@ -28,7 +28,7 @@
               <li>
                 <a href="/admin/viewAdmin">
                   <i class="now-ui-icons business_badge"></i>
-                  <p>Admin Panel</p>
+                  <p>Admins</p>
                 </a>
               </li>
               <li>
@@ -81,7 +81,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
+            <a class="navbar-brand" href="#pablo">Audit Log</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -91,18 +91,19 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                  </p>
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="now-ui-icons users_single-02"></i>
+                      <p>
+                        <span class="d-lg-none d-md-block">Dashboard</span>
+                    </p>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Settings</a>
-                  <a class="dropdown-item" href="/admin/logout">Logout</a>
-                </div>
-              </li>
-            </ul>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <p style="text-align:center;">&nbsp;<b>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</b></p></a>
+                                
+                        <a class="dropdown-item" href="{{ url('/admin/logout') }}" style="color:black;">Logout</a>
+                    </div>
+            </li>
+        </ul>
           </div>
         </div>
       </nav>
@@ -113,62 +114,58 @@
       </div>
       <div class="content">
         <div class="row">
+        <!-- Model Card -->
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Model</h5>
+                <h5 class="card-category">MODEL STATS</h5>
                 <h4 class="card-title">Model Count</h4>
-                
               </div>
               <div class="card-body">
-                
                <p> NUMBER OF PREMIUM MODELS: <b>{{ $models }}</b> </p>
                <p> TOTAL NUMBER OF MODELS: <b>{{ $numModels }}</b> </p>
-               
-               
               </div>
             </div>
           </div>
+        <!-- Employer Card -->
           <div class="col-lg-4 col-md-6">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">PROJECTS</h5>
-                <h4 class="card-title">Project Count</h4>
-                
-              </div>
-              <div class="card-body">
-                  <p> NUMBER OF ACTIVE PROJECTS: <b>{{ $projActive }}</b> </p>
-                  <p> TOTAL NUMBER OF PROJECTS: <b>{{ $proj }}</b> </p>
-                  
-              </div>
-             
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Employer</h5>
+                <h5 class="card-category">EMPLOYER STATS</h5>
                 <h4 class="card-title">Employer Count</h4>
               </div>
               <div class="card-body">
                   <p> NUMBER OF PREMIUM EMPLOYERS: <b>{{ $employer }}</b> </p>
                   <p> TOTAL NUMBER OF EMPLOYERS: <b>{{ $numEmps }}</b> </p>
               </div>
-              
+            </div>
+          </div>
+        <!-- Project card -->
+          <div class="col-lg-4 col-md-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">PROJECT STATS</h5>
+                <h4 class="card-title">Project Count</h4>  
+              </div>
+              <div class="card-body">
+                  <p> NUMBER OF ACTIVE PROJECTS: <b>{{ $projActive }}</b> </p>
+                  <p> TOTAL NUMBER OF PROJECTS: <b>{{ $proj }}</b> </p>    
+              </div>
             </div>
           </div>
         </div>
+
+    <!-- Admin cards - audit log -->
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-7">
           <div class="card">
               <div class="card-header">
-                <h5 class="card-category">All Admins List</h5>
-                <h4 class="card-title"> Admin Stats</h4>
+                <h5 class="card-category">ADMIN</h5>
+                <h4 class="card-title"> Admin Log</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table">
-                      
+                  <table id="adminAudit" class="table">
                     <thead class=" text-primary">
                      
                       <th>
@@ -187,7 +184,7 @@
                       <tr>
                           @foreach($audit as $audit)
                         <td>
-                          {{$audit->firstName}}  {{$audit->lastName}}
+                            {{$audit->firstName}}  {{$audit->lastName}}
                         </td>
                         <td>
                             {{$audit->logType}}
@@ -199,23 +196,24 @@
                       </tr>
                       @endforeach
                     </tbody>
-                  </table>
+                  </table><br>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            
+
+        <!-- Admin list -->
+          <div class="col-md-5">
             <div class="card">
               <div class="card-header">
-                <h5 class="card-category">All Admins List</h5>
-                <h4 class="card-title"> Admin Stats</h4>
+                <h5 class="card-category">ADMIN</h5>
+                <h4 class="card-title"> Admin List</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table">
+                  <table id="adminList" class="table">
                    
-                    <thead class=" text-primary">
+                    <thead class="text-primary">
                       
                       <th>
                         Name
@@ -239,7 +237,7 @@
                       
                       @endforeach
                     </tbody>
-                  </table>
+                  </table><br>
                 </div>
               </div>
             </div>

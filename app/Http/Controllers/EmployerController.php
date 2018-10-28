@@ -718,6 +718,7 @@ class EmployerController extends Controller
         {
             $validator = Validator::make($request->all(), [
 
+                'rejectReason',
                 'haggleStatus',
                 'updated_at',
             ]);
@@ -729,6 +730,7 @@ class EmployerController extends Controller
            
             $hireID = $request->get('hireID');
             $emailAddress = $request->get('emailAddress');
+            $rejectReason = $request->get('rejectReason');
             $hire = hire::where('hireID', $hireID)->update(['haggleStatus' => $status]);
            $this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');
