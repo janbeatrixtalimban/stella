@@ -280,7 +280,7 @@ class adminController extends Controller
 
     public function viewImage()
     {
-        $num = 1;
+        $num = 0;
         $details = reportimage::join('imgportfolios', 'imgportfolios.imageID', 'reportimages.imageID')
         ->join('users', 'users.userID', '=', 'reportimages.modelID')
         ->where('imgstatus', $num)
@@ -362,7 +362,7 @@ class adminController extends Controller
             $auditlogs->logType = 'archived Image';
 
             if ($auditlogs->save() && $image) {
-                $num = 1;
+                $num = 0;
                 $details = reportimage::join('imgportfolios', 'imgportfolios.imageID', 'reportimages.imageID')
                 ->join('users', 'users.userID', '=', 'reportimages.modelID')
                 ->where('imgstatus', $num)
