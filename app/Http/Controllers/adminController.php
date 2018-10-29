@@ -311,6 +311,7 @@ class adminController extends Controller
             $projectID = $request->get('projectID');
             
             $project = project::where('projectID', $projectID)->update(['hidden' => $hidden]);
+            $hide = report::where('projectID', $projectID)->update(['reportstatus' => '0']);
          
 
             $auditlogs = new auditlogs;
@@ -322,7 +323,7 @@ class adminController extends Controller
                 $details = report::join('projects', 'projects.projectID', 'reports.projectID')
                 ->join('users', 'users.userID', '=', 'reports.ownerID')
                 ->where('reportstatus', $num)
-                ->orderBy('reportimages.created_at', 'desc')
+                
                 ->get();
                 //dd($details);
                 return view('StellaAdmin.viewJobPostReports')
@@ -356,6 +357,7 @@ class adminController extends Controller
             $imageID = $request->get('imageID');
             
             $image = imgportfolio::where('imageID', $imageID)->update(['display' => $display]);
+            $archive = reportimage::where('imageID', $imageID)->update(['imgstatus' => '0']);
          
 
             $auditlogs = new auditlogs;

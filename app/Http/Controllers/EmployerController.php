@@ -682,6 +682,7 @@ class EmployerController extends Controller
            
             $applicantID = $request->get('applicantID');
             $emailAddress = $request->get('emailAddress');
+            $rejectReason = $request->get('rejectReason');
             $applicant = applicant::where('applicantID', $applicantID)->update(['applicantStatus' => $status]);
             $this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');

@@ -275,6 +275,7 @@
                           <form class="" action="/model/reportJobPost" method="post">
                               {{ csrf_field() }}
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
+                              <input style="hidden" type="hidden" name="userID" id="userID" value="{{$project->userID}}" readonly>
                               <div class="input-group input-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">

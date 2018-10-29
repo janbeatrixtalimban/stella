@@ -277,6 +277,7 @@
                               <?php echo e(csrf_field()); ?>
 
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
+                              <input style="hidden" type="text" name="userID" id="userID" value="<?php echo e($project->userID); ?>" readonly>
                               <div class="input-group input-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">

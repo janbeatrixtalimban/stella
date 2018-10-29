@@ -448,7 +448,7 @@ class ModelController extends Controller
             $input['reportstatus'] = '1';
             $input['userID'] = Auth::user()->userID;
             $input['reason'] = $request->input('reason');
-            $input['ownerID'] = $request->input('ownerID');
+            $input['ownerID'] = $request->input('userID');
             $input['projectID'] = $request->input('projectID');
             $report = report::create($input);
                
