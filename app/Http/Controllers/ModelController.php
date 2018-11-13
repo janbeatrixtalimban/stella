@@ -232,19 +232,19 @@ class ModelController extends Controller
         if (Auth::check()) {
 
             $validator = Validator::make($request->all(), [
-                'eyeColor' => 'string|max:50', 
-                'hairColor' => 'string|max:50', 
-                'hairLength' => 'string|max:50', 
-                'weight' => 'integer|between:30,99', 
-                'height' => 'integer|between:130,230',
-                'complexion' => 'string|max:50', 
-                'gender' => 'string|max:50', 
-                'chest' => 'integer|between:20,50', 
-                'waist' => 'integer|between:15,50', 
-                'hips' => 'integer|between:25,60', 
-                'shoeSize' => 'integer|between:3,15',
-                'tatoo' => 'string|max:50', 
-                'updated_at',
+                    'eyeColor' => 'string|max:50', 
+                    'hairColor' => 'string|max:50', 
+                    'hairLength' => 'string|max:50', 
+                    'weight' => 'integer|between:20,200', 
+                    'height' => 'integer|between:120,300',
+                    'complexion' => 'string|max:50', 
+                    'gender' => 'string|max:50', 
+                    'chest' => 'integer|between:15,120', 
+                    'waist' => 'integer|between:10,100', 
+                    'hips' => 'integer|between:20,120', 
+                    'shoeSize' => 'integer|between:3,15',
+                    'tatoo' => 'string|max:50', 
+                    'updated_at',
             ]);
 
             if ($validator->fails()) {

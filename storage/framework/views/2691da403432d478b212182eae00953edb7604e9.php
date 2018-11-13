@@ -1,4 +1,4 @@
-<title><?php echo $__env->yieldContent('pageTitle'); ?> Create Portfolio </title>
+<title><?php echo $__env->yieldContent('pageTitle'); ?> Add to Portfolio </title>
 
 <?php $__env->startSection('content'); ?>
 
@@ -32,7 +32,7 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('/modelprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                         </p>
@@ -51,10 +51,11 @@
                             </a>
                             <?php if(Auth::user()->status == 1): ?>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Add to Portfolio</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/viewJobOffers')); ?>" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="<?php echo e(url('/model/viewAcceptedApplication')); ?>" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -62,7 +63,7 @@
                             </div>
                             <?php else: ?>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Add to Portfolio</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 
@@ -100,26 +101,20 @@
                 <div class="col-sm-6">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                        <form action="/createPortfolio" class="form-image-upload" method="POST" enctype="multipart/form-data">
+                        <form action="<?php echo e(url('/createPortfolio')); ?>" class="form-image-upload" method="POST" enctype="multipart/form-data">
                             <?php echo e(csrf_field()); ?>
-
-
-                                <?php if(count($errors) > 0): ?>
-                                    <div class="alert alert-danger">
-                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                        <ul>
-                                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <li><?php echo e($error); ?></li>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </ul>
-                                    </div>
-                                <?php endif; ?>
 
                             <br>
                             <h3>Add Picture to Portfolio</h3><br>
                             <p>You may add up to 12 of your best photos to the portfolio</p>
+				<?php if(\Session::has('failure')): ?>
+                        		<div class="alert alert-danger" role="alert">
+                        		<?php echo \Session::get('failure'); ?>
+
+                         	      	</div>
+               			<?php endif; ?>  
                                 <!-- Upload Image -->
-				                    <div class="input-group input-lg">
+				      <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>

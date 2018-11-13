@@ -18,44 +18,44 @@
                 </a>
               </li>
               <li>
-                <a href="/admin/ViewAuditLog">
+                <a href="<?php echo e(url('/admin/ViewAuditLog')); ?>">
                   <i class="now-ui-icons files_paper"></i>
                   <p>Audit Log</p>
                 </a>
               </li>
               <li>
-                <a href="/admin/viewAdmin">
+                <a href="<?php echo e(url('/admin/viewAdmin')); ?>">
                   <i class="now-ui-icons business_badge"></i>
                   <p>Admins</p>
                 </a>
               </li>
               <li>
-                  <a href="/admin/addAdmin">
-                    <i class="now-ui-icons users_single-02"></i>
-                    <p>Add Admin</p>
-                  </a>
-                </li>
+                <a href="<?php echo e(url('/admin/income')); ?>">
+                   <i class="now-ui-icons business_money-coins"></i>
+                   <p>Income Report</p>
+                </a>
+              </li>
               <li>
-                <a href="/admin/ViewModel">
+                <a href="<?php echo e(url('/admin/ViewModel')); ?>">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>Models</p>
                 </a>
               </li>
               <li>
               <li>
-                <a href="/admin/ViewEmployer">
+                <a href="<?php echo e(url('/admin/ViewEmployer')); ?>">
                <i class="now-ui-icons users_single-02"></i>
                 <p>Employers</p>
                 </a>
               </li>
               <li class="active ">
-                <a href="/admin/reportedJobs">
+                <a href="<?php echo e(url('/admin/reportedJobs')); ?>">
                   <i class="now-ui-icons gestures_tap-01"></i>
                   <p>Reports - Job Posts</p>
                 </a>
               </li>
               <li>
-                <a href="/admin/reportedImg">
+                <a href="<?php echo e(url('/admin/reportedImg')); ?>">
                   <i class="now-ui-icons gestures_tap-01"></i>
                   <p>Reports - Photos</p>
                 </a>
@@ -78,7 +78,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Audit Log</a>
+            <a class="navbar-brand" href="#pablo">Reports - Job Posts</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -88,10 +88,10 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="now-ui-icons users_single-02"></i>
                       <p>
-                          <span class="d-lg-none d-md-block">View Job Post Reports</span>
+                          <span class="d-lg-none d-md-block">Reports - Job Posts</span>
                       </p>
                   </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -119,7 +119,7 @@
                     <div class="card-body">
                         <?php if(count($details) > 0): ?>
                             <div class="panel panel-default">
-
+				
                                 <div class="panel-body table-responsive">
                                     <table id="jobReports" class="table table-hover table-striped task-table">
 
@@ -135,6 +135,7 @@
                                         <!-- Table Body -->
                                         <tbody>
                                             <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+						
                                                 <tr>
                                                 
                                                     <td class="table-text">
@@ -144,7 +145,11 @@
                                                             <div><?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></div>
                                                     </td>
                                                     <td class="table-text">
-                                                        <div><?php echo e($detail->hidden); ?></div>
+						                                        <?php if($detail->reportstatus == '0'): ?>
+                                                        <div style="color:red;">Achived</div>
+                                                    <?php else: ?>
+                                                        <div style="color:blue;">Reported</div>
+                                                    <?php endif; ?>
                                                     </td>
                                                     <td class="table-text">
                                                         <div><?php echo e($detail->created_at); ?></div>
@@ -185,7 +190,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
                           <div class="modal-body">
-                              <h4><img src="/uploads/avatars/<?php echo e($detail->avatar); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">&nbsp;&nbsp;<?php echo e($detail->prjTitle); ?></h4><br>
+                              <h4><img src="<?php echo e(asset('/uploads/avatars/'.$detail->avatar)); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">&nbsp;&nbsp;<?php echo e($detail->prjTitle); ?></h4><br>
 
                               <p><b>Reason for report:</b><?php echo e($detail->reason); ?></p>
 
@@ -225,7 +230,7 @@
                           </div>
                           <div class="modal-footer">
                             <div class="container text-center">
-                              <form class="" action="/admin/archiveJobPost" method="post">
+                              <form class="" action="<?php echo e(url('/admin/archiveJobPost')); ?>" method="post">
                                  <?php echo e(csrf_field()); ?>
 
                                 <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($detail->projectID); ?>" readonly>
