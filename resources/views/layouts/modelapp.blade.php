@@ -45,6 +45,13 @@
     <script src="<?php echo asset('js/now-ui-kit.js?v=1.2.0')?>" type="text/javascript"></script>
     <script src='{{asset("js/calc.js")}}'></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript">
+
+        $("select[name='location']:eq(0)").on("change", function() {
+            $("select[name='city']:eq(0)").find("optgroup, option").hide().filter("[label='" + this.value + "'], [label='" + this.value + "'] > *").show();
+        });
+
+    </script>
 </body>
 
 </html>

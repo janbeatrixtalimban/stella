@@ -1,3 +1,6 @@
+ 
+
+
 <title><?php echo $__env->yieldContent('pageTitle'); ?> Welcome <?php echo e(Auth::user()->firstName); ?>! </title>
 
 <?php $__env->startSection('content'); ?>
@@ -24,7 +27,7 @@
 
             <!-- Search Bar -->
                   <div class="col-sm-4">
-                      <form action="/find" method="get">
+                      <form action="<?php echo e(url('/find')); ?>" method="get">
                             <?php echo e(csrf_field()); ?>
 
                                 <div class="input-group" style="padding-top:10px;" >
@@ -67,8 +70,8 @@
                   <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('/employerprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
-                        <p>
+                        <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p> 
                           <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                         </p>
                         </a>
@@ -115,68 +118,60 @@
 
       <!-- Feed Content -->
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-1"><!--space-->
-                </div>
-   
-<!-- Two Column Display loop of Models Shown-->
-<div class="column">
-  <table style="width:100%;">
-      <?php $__currentLoopData = $user->chunk(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <tr>
-              <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <td>
-                    <?php if($user->typeID == 2): ?>
-                
+        
+            <div class="row" style="padding-left:10%;">
 
-                      <div style="display: none;">
-                        <?php elseif($user->typeID == 2 || $user->status == 1): ?>
-                    <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
-                      <div id="model" class="card text-center">
-                          <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
-                            <h5 class="card-title"><b><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></b></h5>
-                              <img src="/uploads/avatars/<?php echo e($user ->avatar); ?>" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
-                            <!--Buttons with icons -->
-                            <?php if( Auth::user()->status == 1): ?>
-                               <form class="hire" action="/employer/hire" method="post">
-                                  <?php echo e(csrf_field()); ?>
+                <?php $__currentLoopData = $user->chunk(1); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="column">
 
-                                  <!-- Attributes Modal Button -->
-                                  <a data-toggle="modal" data-target="#attributes<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                                  <!-- View Profile Button -->
-                                  <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
-                                  <!-- Hire Modal Button -->
-                                  <a data-toggle="modal" data-target="#hire<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
-                                </form>
+                                <?php if($user->typeID == 2): ?>
+                                    <div style="display: none;">
+                                <?php elseif($user->typeID == 2 || $user->status == 1): ?>
+                                    <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
+                                        <div id="model" class="card text-center">
+                                            <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
+                                                <h5 class="card-title"><b><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></b></h5>
+                                                <img src="<?php echo e(asset('/uploads/avatars/'.$user->avatar)); ?>" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
+                                        <!--Buttons with icons -->
+                                        <?php if( Auth::user()->status == 1): ?>
+                                        <form class="hire" action="/employer/hire" method="post">
+                                            <?php echo e(csrf_field()); ?>
+
+                                            <!-- Attributes Modal Button -->
+                                            <a data-toggle="modal" data-target="#attributes<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                            <!-- View Profile Button -->
+                                            <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                                            <!-- Hire Modal Button -->
+                                            <a data-toggle="modal" data-target="#hire<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
+                                            </form>
+                                        <?php else: ?>
+                                            <a data-toggle="modal" data-target="#attributes<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                            <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                                        <?php endif; ?>
+                                    
+                                        </div>
+                                        <div class="card-footer text-muted mb-2">
+                                            <?php echo e($user ->skill); ?>
+
+                                        </div>
+                                    </div>
+                                    </div>
                                 <?php else: ?>
-                                <a data-toggle="modal" data-target="#attributes<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                                <a href="<?php echo e(url('/profile/view/'.$user->userID)); ?>" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
                                 <?php endif; ?>
-                           
-                          </div>
-                          <div class="card-footer text-muted mb-2">
-                            <?php echo e($user ->skill); ?>
-
-                          </div>
-                        </div>
-                      </div>
-                    <?php else: ?>
-                      <?php endif; ?>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                  </td>
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-          </tr>
-      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-  </table>
-</div>
-
-  
-
-
+                </div>
+                
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+      
           </div><!--feed content row closing tag -->
+
       </div><!-- container fluid closing tag-->
-
-
+</div>
      <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <!-- View model attributes Modal -->
           <div id="attributes<?php echo e($details->userID); ?>" class="modal fade show" style="padding-top: 50px;" tabindex="-1" role="dialog">
@@ -186,7 +181,7 @@
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <br><img src="/uploads/avatars/<?php echo e($details ->avatar); ?>" alt="Thumbnail Image" width="60" height="60" class="rounded-circle img-raised">
+                      <br><img src="<?php echo e(asset('/uploads/avatars/'.$details->avatar)); ?>" alt="Thumbnail Image" width="60" height="60" class="rounded-circle img-raised">
                     <h4><?php echo e($details->firstName); ?> <?php echo e($details->lastName); ?></h4><br>
                     <h6><h6><br>
                     </div>
@@ -240,7 +235,7 @@
                           <div class="modal-body">
                           <h4 class="modal-title">Are you sure you want to hire <b><?php echo e($model->firstName); ?> <?php echo e($model->lastName); ?></b>?</h4><br>
                           <!-- Opening Form Tag -->
-                              <form class="" action="/employer/hire" method="post">
+                              <form class="" action="<?php echo e(url('/employer/hire')); ?>" method="post">
                                     <?php echo e(csrf_field()); ?>
 
                                     
@@ -263,7 +258,7 @@
                                       </select>
                             </div><br>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>

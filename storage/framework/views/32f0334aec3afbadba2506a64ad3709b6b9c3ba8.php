@@ -20,9 +20,9 @@
                     
 
                     <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3' style="display:<?php echo e($image->display); ?>">
-                        <a class="thumbnail fancybox" rel="ligthbox" href="/uploads/<?php echo e($image->image); ?>">
+                        <a class="thumbnail fancybox" rel="ligthbox" href="<?php echo e(asset('/uploads/'.$image->image)); ?>">
                         <div class="thumbnail">    
-                        <img class="img-responsive portrait" alt="" src="/uploads/<?php echo e($image->image); ?>" alt="Image"/>
+                        <img class="img-responsive portrait" alt="" src="<?php echo e(asset('/uploads/'.$image->image)); ?>" alt="Image"/>
                         </div>
                         </a>
                         <!-- ARCHIVE BUTTON 

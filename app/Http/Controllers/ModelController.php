@@ -30,10 +30,7 @@ class ModelController extends Controller
     public function changepassword(Request $request)
     {
         if (Auth::check()) {
-            
-           
-                
-           
+                       
 
                     $userID = Auth::user()->userID;
 
@@ -147,17 +144,45 @@ class ModelController extends Controller
         // dd(Auth::user());
         $user = user::find($id);
         if (Auth::check()) {
-                  $validator = Validator::make($request->all(), [
+
+		$nameValidator = Validator::make($request->all(), [
+              
+            		'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            		'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',     
+
+        	]);
+
+                  $contactValidator = Validator::make($request->all(), [
 
                       'skill' => 'required|string|max:50',
                       'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
                       'location' => 'required',
                       'updated_at',
                   ]);
-                  if ($validator->fails()) {
-                      return redirect()->to($validator->errors());
-          
+
+		//$addressValidator = Validator::make($request->all(), [
+
+	   		//'address' => 'required|max:150|regex:/(^[-0-9A-Za-z.,\/ ]+$)/',
+           		//'location' => 'required|string|max:50',
+	   		//'zipcode' => 'required|size:4',
+
+        	//]);
+
+
+                  if ($nameValidator->fails()) {
+                        $errormsg = "*Numbers and symbols are not allowed on your name.";
+                    	return redirect()->back()->with('name', $errormsg);          
                   }
+		  elseif ($contactValidator->fails()) {
+			$errormsg = "*Please follow the contact number format";
+                    	return redirect()->back()->with('contact', $errormsg);    	
+		  }
+		  //elseif ($addressValidator->fails()) {
+			//$errormsg = "*Please check your address format.";
+                    	//return redirect()->back()->with('address', $errormsg);    	
+		  //}
+
+
                     $firstName = $request->input('firstName');
                     $lastName = $request->input('lastName');
                     $contactNo = $request->input('contactNo');
@@ -201,29 +226,33 @@ class ModelController extends Controller
    
     }
 
-    public function updateAttributes(Request $request, $id)
+     public function updateAttributes(Request $request, $id)
     {
         $user = user::find($id);
         if (Auth::check()) {
+
             $validator = Validator::make($request->all(), [
-                'eyeColor', 
-                'hairColor', 
-                'hairLength', 
-                'weight', 
-                'height',
-                'complexion', 
-                'gender', 
-                'chest', 
-                'waist', 
-                'hips', 
-                'shoeSize',
-                'tatoo', 
+                'eyeColor' => 'string|max:50', 
+                'hairColor' => 'string|max:50', 
+                'hairLength' => 'string|max:50', 
+                'weight' => 'integer|between:30,99', 
+                'height' => 'integer|between:130,230',
+                'complexion' => 'string|max:50', 
+                'gender' => 'string|max:50', 
+                'chest' => 'integer|between:20,50', 
+                'waist' => 'integer|between:15,50', 
+                'hips' => 'integer|between:25,60', 
+                'shoeSize' => 'integer|between:3,15',
+                'tatoo' => 'string|max:50', 
                 'updated_at',
             ]);
+
             if ($validator->fails()) {
-                return redirect()->to($validator->errors());
-    
+              
+     		    $errormsg = "Please make sure you have entered your real measurements correctly.";
+                    return redirect()->back()->with('failure', $errormsg);
             }
+
             $eyeColor = $request->input('eyeColor');
             $hairColor = $request->input('hairColor');
             $hairLength = $request->input('hairLength');
@@ -251,27 +280,26 @@ class ModelController extends Controller
           
                   if ($auditlogs->save() && $user) 
                   {
-                      return redirect()->to('/modelprofile')->with('alert', 'Updated!');
+			$updatemsg = "Attributes Updated.";
+                      return redirect()->to('/modelprofile')->with('success', $updatemsg);
+
                   } else 
                   {
-                      return ('fail');
+              
+     		    return ('fail');
+    
                   }
       
         }
         else {
-            return('fail');
+             return ('fail');
         }
     }
-
 
     public function storeAvatar(Request $request)
     {
         
         	if ($request->hasFile('avatar')) {
-
-                $request->validate([
-                    'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                ]);
          
                 $avatar = $request->file('avatar');
                 $image_ext = $avatar->GetClientOriginalExtension();
@@ -299,11 +327,21 @@ class ModelController extends Controller
                         return ('fail');
                     }
                    
+			return back();
+
          
                 }
             else
             {                       
-                return "Image too large, please upload a smaller image size";        
+                $avatarValidator = Validator::make($request->all(), [
+                    	'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    ]);
+
+                if ($avatarValidator->fails()) {
+                    $errormsg = "Image file is too large. Please upload a smaller image file.";
+                    return redirect()->back()->with('failure', $errormsg);
+
+                }            
             }
 
     }
@@ -370,17 +408,66 @@ class ModelController extends Controller
 
     public function viewOffer()
     {
-        // $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
-        // ->join('users', 'applicants.candidateID', 'users.userID')
-        // ->where('applicants.userID', Auth::user()->userID)->get();
+      
+        $zero= 0;
+        $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID')
+        
+        ->where('hires.modelID', Auth::user()->userID)->get();
 
+	    $hello = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.hirestatus', $zero)
+        ->where('hires.modelID', Auth::user()->userID)->count();
+
+        //dd($hello);
+         return view('StellaModel.viewJobOffers')
+	    ->with('hello', $hello)
+	    ->with('details', $details);
+    }
+
+    public function viewAccepted()
+    {
         $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
         ->join('users', 'hires.userID', 'users.userID')
         ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.hirestatus', '1')
         ->where('hires.modelID', Auth::user()->userID)->get();
 
-            return view('StellaModel.viewJobOffers')->with('details', $details);
+	 $hello = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.hirestatus', '1')
+        ->where('hires.modelID', Auth::user()->userID)->count();
+
+	return view('StellaModel.viewAcceptedOffers')
+	->with('hello', $hello)
+	->with('details', $details);
     }
+
+    public function acceptedApplications()
+    {
+
+        $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        ->join('users', 'applicants.userID', 'users.userID')
+        ->join('companies','applicants.userID', 'companies.userID' )
+        ->where('applicants.applicantStatus', '1')
+        ->where('applicants.candidateID', Auth::user()->userID)->get();
+
+	$hello = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        ->join('users', 'applicants.userID', 'users.userID')
+        ->join('companies','applicants.userID', 'companies.userID' )
+        ->where('applicants.applicantStatus', '1')
+        ->where('applicants.candidateID', Auth::user()->userID)->count();
+
+	//dd($hello);
+         return view('StellaModel.viewAcceptedApplications')
+	->with('hello', $hello)
+	->with('details', $details);
+    }
+
 
     public function acceptOffer(Request $request)
     {
@@ -411,12 +498,21 @@ class ModelController extends Controller
 
             if ($auditlogs->save() && $hire) {
 
-                $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
-                ->join('users', 'hires.userID', 'users.userID')
-                ->join('companies','hires.userID', 'companies.userID' )
-                ->where('hires.modelID', Auth::user()->userID)->get();
+               $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.hirestatus', '1')
+        ->where('hires.modelID', Auth::user()->userID)->get();
 
-                 return redirect()->back()->with('details', $details);
+	 $hello = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.hirestatus', '1')
+        ->where('hires.modelID', Auth::user()->userID)->count();
+
+	return view('StellaModel.viewAcceptedOffers')
+	->with('hello', $hello)
+	->with('details', $details);
             } else {
                 return ('failed');
             }
@@ -473,21 +569,24 @@ class ModelController extends Controller
     public function haggleFee(Request $request)
     {
         if (Auth::check()) {
-            $validator = Validator::make($request->all(), [
-                'haggleAmount', 
+            $haggleValidator = Validator::make($request->all(), [
+                'haggleAmount' => 'required|integer|between:300,1000000', 
                 'updated_at',
             ]);
-            if ($validator->fails()) {
-                return redirect()->to($validator->errors());
-    
+            if ($haggleValidator->fails()) {
+                $errormsg = "*You are only allowed to haggle a talent fee between PHP300.00 to PHP1,000,000.00.";
+                return redirect()->back()->with('haggle', $errormsg);
             }
             $hireID = $request->get('hireID');
             $haggleStatus = '0';
             $haggleAmount = $request->input('haggleAmount');
-            
+            $emailAddress = $request->get('employer');
+          
+           
             
             $hire = hire::where('hireID', $hireID)
             ->update(['haggleAmount' => $haggleAmount, 'haggleStatus' => $haggleStatus]);
+            $this->sendHaggle($emailAddress);
     
                   $auditlogs = new auditlogs;
                   $auditlogs->userID =  Auth::user()->userID;
@@ -496,12 +595,21 @@ class ModelController extends Controller
           
                   if ($auditlogs->save() && $hire) 
                   {
-                    $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
-                    ->join('users', 'hires.userID', 'users.userID')
-                    ->join('companies','hires.userID', 'companies.userID' )
-                    ->where('hires.modelID', Auth::user()->userID)->get();
-            
-                        return view('StellaModel.viewJobOffers')->with('details', $details);
+                     $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.modelID', Auth::user()->userID)->get();
+
+	$hello = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.modelID', Auth::user()->userID)->count();
+
+
+                    
+                        return view('StellaModel.viewJobOffers')->with('hello', $hello)
+	->with('details', $details);
+
                   } else 
                   {
                       return ('fail');
@@ -511,6 +619,18 @@ class ModelController extends Controller
         else {
             return('fail');
         }
+    }
+
+    public function sendHaggle($email)
+    {
+        $data = array('name' => "ello");
+        //'text' => 'mail' :: loob ng () mail
+        Mail::send(['html' => 'haggle'], $data, function ($message) use ($email) {
+            $message->to($email, $email)->subject
+                ('STELLA Haggle Notification');
+            $message->from('stella.model.ph@gmail.com', 'Stella PH');
+        });
+        
     }
 
     public function rejectOffer(Request $request)
@@ -532,7 +652,7 @@ class ModelController extends Controller
             $hireID = $request->get('hireID');
             $emailAddress = $request->get('emailAddress');
             $rejectReason = $request->get('rejectReason');
-            $hire = hire::where('hireID', $hireID)->update(['hirestatus' => $status]);
+            $hire = hire::where('hireID', $hireID)->update(['hirestatus' => $status, 'rejectReason' => $rejectReason]);
             //$this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');
 
@@ -544,12 +664,23 @@ class ModelController extends Controller
 
             if ($auditlogs->save() && $hire) {
 
-                $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
-                ->join('users', 'hires.userID', 'users.userID')
-                ->join('companies','hires.userID', 'companies.userID' )
-                ->where('hires.modelID', Auth::user()->userID)->get();
+                $zero= 0;
+        $details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID')
+        
+        ->where('hires.modelID', Auth::user()->userID)->get();
 
-                 return view('StellaModel.viewJobOffers')->with('details', $details);
+	    $hello = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'hires.userID', 'users.userID')
+        ->join('companies','hires.userID', 'companies.userID' )
+        ->where('hires.hirestatus', $zero)
+        ->where('hires.modelID', Auth::user()->userID)->count();
+
+        //dd($hello);
+         return view('StellaModel.viewJobOffers')
+	    ->with('hello', $hello)
+	    ->with('details', $details);
             } else {
                 return ('failed');
             }
@@ -561,3 +692,7 @@ class ModelController extends Controller
     }
 
 }
+
+
+
+

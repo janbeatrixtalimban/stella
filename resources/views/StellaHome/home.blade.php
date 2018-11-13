@@ -10,8 +10,7 @@
     <div class="container">
       <div class="navbar-translate">
         <img src="<?php echo asset('img/stella icon logo.png')?>" width="40">
-        <a class="navbar-brand" href="" rel="tooltip" title="Register now with Stella!" data-placement="bottom"
-          target="_blank">
+        <a class="navbar-brand" href="" rel="tooltip" title="Register now with Stella!" data-placement="bottom">
           Welcome
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
@@ -43,8 +42,8 @@
         <div class="content-center brand">
           <img src="<?php echo asset('img/logo_white.png')?>" s>
           <h1 class="h1-seo">Start your journey</h1>
-            <a href="{{ url('/register') }}" class="btn btn-maroon btn-round btn-lg" >I am a Model</a>
-            <a href="{{ url('/registerEmployer') }}" class="btn btn-maroon btn-round btn-lg" >I am an Employer</a>
+            <a href="{{ url('/register') }}" rel="tooltip" title="Register as a model" class="btn btn-maroon btn-round btn-lg" >I am a Model</a>
+            <a href="{{ url('/registerEmployer') }}" rel="tooltip" title="Register as an Employer" class="btn btn-maroon btn-round btn-lg" >I am an Employer</a>
         </div>
       </div>
       @endsection

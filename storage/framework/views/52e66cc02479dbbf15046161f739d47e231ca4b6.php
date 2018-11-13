@@ -5,7 +5,7 @@
 </head>
 <body>
  
-<p>You have an applicant on your job post waiting! pls check your Stella Account</p>
+<p>You have a pending applicant request on your job post! Please check your Stella Account! Log In now: https://isproj2b.benilde.edu.ph/stella/loginUser</p>
 
 </body>
 </html>

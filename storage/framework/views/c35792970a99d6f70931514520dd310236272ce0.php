@@ -4,7 +4,7 @@
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
   <!-- Navigation bar hehe -->
-  <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
+  <nav class="navbar navbar-expand-lg bg-black fixed-scroll" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
@@ -23,7 +23,7 @@
 
             <!-- Search Bar -->
                   <div class="col-sm-6" style="padding-top:10px;">
-                      <form action="/search" method="get">
+                      <form action="<?php echo e(url('/search')); ?>" method="get">
                             <?php echo e(csrf_field()); ?>
 
                             <div class="input-group" width="100%">
@@ -46,7 +46,7 @@
                   <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('/modelprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                         </p>
@@ -69,6 +69,7 @@
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/viewJobOffers')); ?>" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="<?php echo e(url('/model/viewAcceptedApplication')); ?>" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -131,12 +132,12 @@
                           <!-- End of Job post dropdown -->
 
                           <div class="card-body" style="color:#1b1b1b;">
-                            <h4 class="card-title"><img src="/uploads/avatars/<?php echo e($project->avatar); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">   <b><?php echo e($project->prjTitle); ?></b></h4> 
+                            <h4 class="card-title"><img src="<?php echo e(asset('/uploads/avatars/'.$project->avatar)); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">   <b><?php echo e($project->prjTitle); ?></b></h4> 
                             <p class="card-text"><?php echo e($project->jobDescription); ?></p>
 
                             <!-- Apply form tag -->
 
-                            <form class="" action="/model/apply" method="post">
+                            <form class="" action="<?php echo e(url('/model/apply')); ?>" method="post">
                               <?php echo e(csrf_field()); ?>
 
                               <?php if(Auth::user()->status == 1): ?>
@@ -170,7 +171,7 @@
           </div><!--feed content row closing tag -->
       </div><!-- container fluid closing tag-->
 
-
+</div>
 
  <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $project): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
   <!-- View Job detials Modal -->
@@ -182,8 +183,8 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title"><img src="/uploads/avatars/<?php echo e($project->avatar); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    <b><?php echo e($project->prjTitle); ?></b></h4>
-                          <h0>Posted <?php echo e($project->created_at->diffForHumans()); ?> by <a style="color:#a01919;"><?php echo e($project->name); ?></a><h0>
+                          <h4 class="modal-title"><img src="<?php echo e(asset('/uploads/avatars/'.$project->avatar)); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    <b><?php echo e($project->prjTitle); ?></b></h4>
+                          <h0>Posted <?php echo e($project->created_at->diffForHumans()); ?> by <a style="color:#a01919;" href="/employerp/view/<?php echo e($project->userID); ?>"><?php echo e($project->name); ?></a><h0>
                       </div>
                     </div>
                     <div class="modal-body">
@@ -239,11 +240,11 @@
                           <div class="modal-body">
                             <h4 class="modal-title">Are you sure you want to apply to <a style="color:#a01919;"><?php echo e($project->prjTitle); ?></a>?</h4>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="" action="/model/apply" method="post">
+                              <form class="" action="<?php echo e(url('/model/apply')); ?>" method="post">
                               <?php echo e(csrf_field()); ?>
 
                               
@@ -257,6 +258,7 @@
                     </div>
                 </div>
               </form>
+	    </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <!-- End of Modal -->
 
@@ -273,11 +275,11 @@
                             <h4 class="modal-title">Why are you reporting this post?</h4>
                           </div>
                           <div class="modal-body">
-                          <form class="" action="/model/reportJobPost" method="post">
+                          <form class="" action="<?php echo e(url('/model/reportJobPost')); ?>" method="post">
                               <?php echo e(csrf_field()); ?>
 
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
-                              <input style="hidden" type="text" name="userID" id="userID" value="<?php echo e($project->userID); ?>" readonly>
+                              <input style="hidden" type="hidden" name="userID" id="userID" value="<?php echo e($project->userID); ?>" readonly>
                               <div class="input-group input-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -292,7 +294,7 @@
                                 </select>
                             </div>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
@@ -304,6 +306,7 @@
                     </div>
                 </div>
               </form>
+	   </div>
               <!-- End of Modal -->
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
@@ -311,8 +314,7 @@
             </div>
     </div>
 
-    <?php echo $projects->links(); ?>
-
+   
       
 
 <?php $__env->stopSection(); ?>

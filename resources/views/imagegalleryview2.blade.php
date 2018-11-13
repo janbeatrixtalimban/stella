@@ -20,9 +20,9 @@
                     
 
                     <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3' style="display:{{$image->display}}">
-                        <a class="thumbnail fancybox" rel="ligthbox" href="/uploads/{{ $image->image }}">
+                        <a class="thumbnail fancybox" rel="ligthbox" href="{{asset('/uploads/'.$image->image)}}">
                         <div class="thumbnail">    
-                        <img class="img-responsive portrait" alt="" src="/uploads/{{ $image->image }}" alt="Image"/>
+                        <img class="img-responsive portrait" alt="" src="{{asset('/uploads/'.$image->image)}}" alt="Image"/>
                         </div>
                         </a>
                         <!-- ARCHIVE BUTTON 

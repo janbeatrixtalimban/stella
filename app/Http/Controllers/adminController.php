@@ -68,6 +68,19 @@ class adminController extends Controller
         return view('StellaAdmin.adminlogin');
     }
 
+    public function viewincome()
+    {
+        $trans = DB::table('transactiondetails')->get();
+        $total = DB::table('transactiondetails')->sum('amount');
+        //dd($total);
+        $totalemp = DB::table('transactiondetails')->where('amount', '250.00')->sum('amount');
+        $totalmod = DB::table('transactiondetails')->where('amount', '169.00')->sum('amount');
+        
+        //dd($dataPoints);
+        //dd($totalemp);
+        return view('StellaAdmin.viewincome', ['trans' => $trans], ['total' => $total])->with('totalmod', $totalmod)->with('totalemp', $totalemp);
+        
+    }
     public function AdminLogin(Request $request)
     {
 
@@ -150,7 +163,7 @@ class adminController extends Controller
     {
         
         Auth::logout();
-        return redirect()->to('/admin/login');  
+        return redirect()->to('/loginUser');  
     }
 
     // ADD ADMIN
@@ -164,25 +177,98 @@ class adminController extends Controller
 
             if (Auth::check()) 
             {
-                $validator = Validator::make($request->all(), [
-                    'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-                    'firstName' => 'string|max:50|regex:/^[a-zA-Z_\-]+$/',
-                    'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
-                    'birthDate' => 'required|before:18 years ago',
-                    'emailAddress' => 'required|email|unique:users,emailAddress',
-                    'location' => 'required',
-                    'password' => 'required|string|min:6',
-                    'confirmpassword' => 'required|same:password',
-                    'zipcode',
-                    'created_at',
-                    'updated_at',
-                    'token',
-                    'filePath',
-                ]);
-                if ($validator->fails()) {
-                    return redirect()->to($validator->errors());
+
+	$otherValidator = Validator::make($request->all(), [
+
+            'created_at',
+            'updated_at',
+            'token',
+
+        ]);
+
+	$contactValidator = Validator::make($request->all(), [
+
+            'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+
+        ]);
+
+
+	$addressValidator = Validator::make($request->all(), [
+
+	   'address', // => 'required|max:150',
+          'location', // => 'required|string|max:50',
+	   'zipcode', // => 'required|size:4',
+
+        ]);
+
+
+        $birthdateValidator = Validator::make($request->all(), [
+             
+            'birthDate' => 'required|before:18 years ago',     
+
+        ]);
+
+
+        $nameValidator = Validator::make($request->all(), [
+              
+            'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',     
+
+        ]);
+
+
+        $emailValidator = Validator::make($request->all(), [
+                      
+            'emailAddress' => 'required|email|unique:users,emailAddress',
+
+        ]);
+
+        $passwordValidator = Validator::make($request->all(), [
+                      
+            'password' => 'required|string|min:6',
+            'confirmpassword' => 'required|same:password',
+
+        ]);
         
+                //error messages if validation fails
+                if ($birthdateValidator->fails()) {
+                    $errormsg = "*Admin has to be 18 years old or older.";
+                    return redirect()->back()->with('birthday', $errormsg);
+
+                } 
+
+ 	       else if ($contactValidator->fails()) {
+                    $errormsg = "*Your contact number format is incorrect.";
+                    return redirect()->back()->with('contact', $errormsg);
                 }
+
+                
+                else if ($otherValidator->fails()) {
+                    $errormsg = "Oops. Something went wrong.";
+                    return redirect()->back()->with('other', $errormsg);
+                }
+
+	       else if ($addressValidator->fails()) {
+                    $errormsg = "*Please check your address format.";
+                    return redirect()->back()->with('address', $errormsg);
+                }
+
+                else if ($nameValidator->fails()) {
+                    $errormsg = "*Numbers and symbols are not allowed on names.";
+                    return redirect()->back()->with('name', $errormsg);
+                } 
+
+                else if ($emailValidator->fails()) {
+                    $errormsg = "*That email is already registered.";
+                    return redirect()->back()->with('email', $errormsg);
+                } 
+                
+                else if ($passwordValidator->fails()) {
+                    $errormsg = "*Your passwords do not match.";
+                    return redirect()->back()->with('password', $errormsg);
+                }
+
+
                     $input = $request->all();
                     $input['password'] = Hash::make($input['password']);
                     $input['typeID'] = '1';
@@ -203,7 +289,8 @@ class adminController extends Controller
             
                     if ($auditlogs->save() && $user) 
                     {
-                        return redirect()->to('/admin/dashboard');
+			  $successmsg = "Admin Added!";
+                        return redirect()->to('/admin/viewAdmin')->with('success', $successmsg);
                     }
                     else 
                     {
@@ -271,6 +358,7 @@ class adminController extends Controller
         $details = report::join('projects', 'projects.projectID', 'reports.projectID')
         ->join('users', 'users.userID', '=', 'reports.ownerID')
         ->where('reportstatus', $num)
+        ->orderBy('reports.created_at', 'desc')
         ->get();
         //dd($details);
         return view('StellaAdmin.viewJobPostReports')

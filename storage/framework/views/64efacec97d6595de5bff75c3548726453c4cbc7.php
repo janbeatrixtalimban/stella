@@ -25,7 +25,7 @@
                     <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3' style="display:<?php echo e($image->display); ?>">
                         <a class="thumbnail fancybox" rel="ligthbox" href="/uploads/<?php echo e($image->image); ?>">
                         <div class="thumbnail"> 
-                        <img class="img-responsive portrait" alt="" src="/uploads/<?php echo e($image->image); ?>" alt="Image"/>
+                        <img class="img-responsive portrait" alt="" src="<?php echo e(asset('/uploads/'.$image->image)); ?>" alt="Image"/>
                         </div>
                         </a>
                         
@@ -53,20 +53,20 @@
                             <h4 class="modal-title" style="font-family:inherit;">Why are you reporting this photo?</h4>
                           </div>
                           <div class="modal-body">
-                          <form class="" action="/employer/reportphoto" method="post">
+                          <form class="" action="<?php echo e(url('/employer/reportphoto')); ?>" method="post">
                               <?php echo e(csrf_field()); ?>
 
                             <input type="hidden" name="imageID" id="imageID" value="<?php echo e($image->imageID); ?>" readonly>
                             <input type="hidden" name="userID" id="userID" value="<?php echo e($image->userID); ?>" readonly>
-                              <div class="input-group input-lg">
-                                <div class="input-group-prepend">
+                              <div class="input-group input-lg" style="color:black;">
+                                <div class="input-group-prepend" style="color:black;">
                                 </div>
                                 <select size="0.4" class="form-control" name="reason" id="reason" required>
                                     <option value="" selected disabled>Select reason..</option>
-                                        <option value="Nudity">Nudity</option>
-                                        <option value="Pornography">Pornography</option>
-                                        <option value="Promotion of Self Harm">Promotion of Self Harm</option>
-                                        <option value="Promotion of Drugs">Promotion of Drugs</option>
+                                        <option value="Nudity" style="color:black;">Nudity</option>
+                                        <option value="Pornography" style="color:black;">Pornography</option>
+                                        <option value="Promotion of Self Harm" style="color:black;">Promotion of Self Harm</option>
+                                        <option value="Promotion of Drugs" style="color:black;">Promotion of Drugs</option>
                                 </select>
                             </div><br>
                           </div>

@@ -26,7 +26,7 @@
                             </li>
                             <li class="nav-item dropdown">
                             <a class="nav-link" href="<?php echo e(url('/employerprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                            <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                            <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                             <p>
                               <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                             </p>
@@ -45,8 +45,8 @@
                                 </a>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-header">View <?php echo e($user->firstName); ?>'s Profile</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/viewapplicants')); ?>" style="color:black;">View Applicants</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/viewhaggles')); ?>" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/employer/viewapplicants')); ?>" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/employer/haggleFee')); ?>" style="color:black;">View Haggle Offers</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscriptionEmployer')); ?>" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/employer/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -67,7 +67,7 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="/uploads/avatars/<?php echo e($user->avatar); ?>" alt="">
+          <img src="<?php echo e(asset('/uploads/avatars/'.$user->avatar)); ?>" width="130" height="130" alt="">
         </div>
         <h3 class="headtitle" style="padding-top: 50px;"><?php echo e($user->firstName); ?> <?php echo e($user->lastName); ?></h3>
         <p class="category"></p>
@@ -90,10 +90,14 @@
     <div class="section">
       <div class="container">
         <div class="button-container">
-
+        <?php if($projcount > 0): ?>
           <a data-toggle="modal" data-target="#<?php echo e($user->userID); ?>" style="color:white;" class="btn btn-maroon btn-round btn-lg">Leave Feedback</a>
+        <?php else: ?>
+        <button class="btn btn-round btn-default btn-lg" data-toggle="tooltip"
+           data-placement="right" title="You don't have projects done together!" data-container="body"
+            data-animation="true">Leave Feedback</button>
+        <?php endif; ?>
         </div>
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-2">
@@ -130,7 +134,7 @@
             <div class="col-sm-9">
                 <h4 class="title text-center">View My Portfolio</h4>
                 <!-- Portfolio Viewer -->
-                <iframe src="<?php echo e(url('/singleimageview/'.$user->userID)); ?>" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
+                <iframe src="<?php echo e(url('/singleimageview/'.$user->userID)); ?>" style="height:100%;width:100%;border:none;"></iframe>
             </div>
         </div>
         <div class="row">
@@ -153,7 +157,7 @@
                     <div class="modal-body">
                       <p></p>
 
-                      <h5>Project Details</h5>
+                      <h4>Leave a feedback:</h4>
                             <?php if($errors->any()): ?>
                                 <div class="alert alert-danger">
                                     <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -169,25 +173,22 @@
 
                             <?php echo csrf_field(); ?> 
                             <div class="row">
+                                        <input type="hidden" name="userID" class="form-control" value="<?php echo e(Auth::user()->userID); ?>" readonly>
+                                        <input type="hidden" name="reciever" class="form-control" value="<?php echo e($user->userID); ?>" readonly>
+                                        
+					<!---------------------->
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>User ID</strong>
-                                        <input type="text" name="userID" class="form-control" value="<?php echo e(Auth::user()->userID); ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Reciever ID</strong>
-                                        <input type="text" name="reciever" class="form-control" value="<?php echo e($user->userID); ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Project ID</strong>
-                                        <input type="text" name="projectID" class="form-control" value="0" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                <select size="0.4" class="form-control" name="projectID" id="projectID" required>
+                                                    <optgroup style="color: black;">
+                                                    <option value="" selected disabled style="color: black;">Select Project</option>
+                                                    <?php $__currentLoopData = $finishedproj; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $finishedproj): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($finishedproj->projectID); ?>"><?php echo e($finishedproj->prjTitle); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    </optgroup>
+                                                </select></div></div>
+                                      <!---------------------->
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <strong>Rating</strong><br>
                                           <input type="radio" name="rate" value="1"> 1<br>
@@ -195,27 +196,25 @@
                                           <input type="radio" name="rate" value="3"> 3<br>
                                           <input type="radio" name="rate" value="4"> 4<br>
                                           <input type="radio" name="rate" value="5"> 5<br>
-
-
-                                        </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Comments:</strong>
-                                        <textarea class="form-control" style="height:150px" name="comment" placeholder="Detail"></textarea>
                                     </div>
                                 </div>
-                                
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="col-lg-10">
+                                    <div class="form-group">
+                                        <strong>Comments:</strong>
+                                        <textarea class="form-control" style="height:150px" name="comment" placeholder="Leave your comment..."></textarea>
+                                    </div>
                                 </div>
+                                  
                             </div>
-                        </form>
-
+                        
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Close</button>
+                      <div class="container text-center">
+                          <button type="submit" class="btn btn-success btn-round">Submit</button>
+                          <button type="button" class="btn btn-maroon btn-round" data-dismiss="modal">Close</button>
+                      </div>
                     </div>
+                  </form>
                 </div>
               </div>
             </div>

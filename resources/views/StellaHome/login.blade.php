@@ -13,7 +13,7 @@
     <div class="col-lg-11">
       <div class="navbar-translate">
         <img src="<?php echo asset('img/stella icon logo.png')?>" width="40">
-        <a class="navbar-brand" href="" rel="tooltip" title="Welcome back!" data-placement="bottom" target="_blank">
+        <a class="navbar-brand" href="" rel="tooltip" title="Welcome back!" data-placement="bottom">
           Log In
         </a>
       </div>
@@ -28,26 +28,38 @@
       <br><br>
         <div class="col-md-4 ml-auto mr-auto">
           <div class="card card-login card-plain">
-            <form class="form" method="POST" action="/loginUser">
+            <form class="form" method="POST" action="{{ url('/loginUser') }}">
                 {{ csrf_field() }}
-                    @if (\Session::has('failure'))
-                        <div class="alert alert-danger" role="alert">
-                        {!! \Session::get('failure') !!}
-                        </div>
-                    @endif
               <div class="card-header text-center">
                 <div style="width: 250px;" class="logo-container">
                   <img src="<?php echo asset('img/logo_white.png')?>" width="500">
                 </div>
               </div>
               <div class="card-body">
+                    @if (\Session::has('failure'))
+                        <div class="alert alert-danger" role="alert">
+                        {!! \Session::get('failure') !!}
+                        </div>
+                    @endif
+                    @if (\Session::has('activate'))
+                        <div class="alert alert-info" role="alert">
+                        {!! \Session::get('activate') !!}
+                        </div>
+                    @endif
+
+		    @if (\Session::has('success'))
+                        <div class="alert alert-success" role="alert">
+                        {!! \Session::get('success') !!}
+                        </div>
+                    @endif
+
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="text" name="emailAddress" id="emailAddress" class="form-control" placeholder="E-Mail Address">
+                  <input style="border-top-right-radius: 30px; border-bottom-right-radius: 30px;" type="text" name="emailAddress" id="emailAddress" class="form-control" placeholder="E-Mail Address">
                 </div>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -55,19 +67,14 @@
                       <i class="now-ui-icons text_caps-small"></i>
                     </span>
                   </div>
-                  <input type="password" name="password" placeholder="Password" class="form-control" />
+                  <input style="border-top-right-radius: 30px; border-bottom-right-radius: 30px;" type="password" name="password" placeholder="Password" class="form-control" />
                 </div>
               </div>
               <div class="card-footer text-center">
                 <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg btn-block">Log In</button>
                 <div class="pull-left">
                   <h6>
-                    <a href="{{ url('/') }}" class="link">Back</a>
-                  </h6>
-                </div>
-                <div class="pull-right">
-                  <h6>
-                    <a href="{{ url('/sendpassreset') }}" class="link">Forgot my password</a>
+                    <a href="{{ url('/') }}" class="link">Not yet registered?</a>
                   </h6>
                 </div>
             </form>
@@ -77,25 +84,3 @@
       </div>
 @endsection
 </div>
-{{-- @extends('layout.app')
-
-@section('content')
-
-    <form id="reg" method="POST" action="/loginUser">
-        {{ csrf_field() }}
-        @if (\Session::has('failure'))
-        <div class="alert alert-danger" role="alert">
-        {!! \Session::get('failure') !!}
-        </div>
-        @endif
-        <div class="form-group px-5">
-            <label for="emailAddress">Email Address:</label>
-            <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="Enter email">
-        </div>
-        <div class="form-group px-5">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-            <button type="submit" class=" btn btn-md btn-block btn-rounded btn-primary text-uppercase my-4">Log In</button>
-        </div>
-    </form>
-@endsection --}}

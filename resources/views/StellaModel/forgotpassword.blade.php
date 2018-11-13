@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -48,15 +48,16 @@
                                   <span class="button-bar"></span>
                                   <span class="button-bar"></span>
                                 </i>
-                                <span class="d-lg-none d-md-block">   Edit Profile</span>
+                                <span class="d-lg-none d-md-block">   Settings</span>
                               </p>
                             </a>
                             @if(Auth::user()->status == 1)
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Settings</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="{{ url('/model/viewAcceptedApplication') }}" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -64,7 +65,7 @@
                             </div>
                             @else
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Settings</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 
@@ -107,7 +108,7 @@
                     <h3>Change Password</h3><br>
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                            <form method="POST" action="/model/changePassword">
+                            <form method="POST" action="{{ url('/model/changePassword') }}">
                                 {{ csrf_field() }}
                                 @if (\Session::has('failure'))
                                     <div class="alert alert-danger" role="alert">

@@ -9,7 +9,7 @@
   <nav class="navbar navbar-expand-lg bg-black fixed-top navbar-transparent " color-on-scroll="400">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="{{ url('/employerfeed') }}" rel="tooltip" title="Go to Homepage" data-placement="bottom">
+        <a class="navbar-brand" href="{{ url('/employerHome') }}" rel="tooltip" title="Go to Homepage" data-placement="bottom">
             <img src="<?php echo asset('img/logo_white.png')?>" width="100">
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
                             </li>
                             <li class="nav-item dropdown">
                             <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                            <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                            <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                             <p>
                               <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                             </p>
@@ -67,12 +67,18 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="130px" height="130px" alt="">
-        </div>
+          <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="130px" height="130px" alt="">
+        </div> 
         <div class="row justify-content-center">
-            
-          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
+          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="-webkit-appearance:none; color:white; padding-top:10px;">Edit Picture</a>
         </div>
+		@if (\Session::has('failure'))
+		    <div class="row justify-content-center">
+                        <div class="alert alert-danger" role="alert">
+                        {!! \Session::get('failure') !!}
+                        </div>
+ 		    </div>
+                @endif  
         <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
         <h4 class="category">{{$company->name}}</h4>
         <h5 class="category">{{$company->position}}</h5>
@@ -89,6 +95,12 @@
           @endif
         </div> 
         <br><br>
+				    @if (\Session::has('updated'))
+                                        <div class="alert alert-success" role="alert">
+                                        {!! \Session::get('updated') !!}
+                                        </div>
+                                    @endif
+
         <div id="companydesc" class="card text-center">
             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
                 <h3 class="title">About {{$company->name}}</h3>
@@ -159,16 +171,16 @@
                               <h0>Location: <b>{{$project->address}}</b></h0>
                           </li>
                           <li>
+                              <h0>Project Start: <b>{{$project->jobDate}}</b></h0>
+                          </li>
+                          <li>
+                              <h0>Project End: <b>{{$project->jobEnd}}</b></h0>
+                          </li>
+                          <li>
                               <h0>Number of Models: <b>{{$project->modelNo}}</b></h0>
                           </li>
                           <li>
                               <h0>Model Type: <b>{{$project->role}}</b></h0>
-                          </li>
-                          <li>
-                              <h0>Minimum Height Requirement: <b>{{$project->height}}cm</b></h0>
-                          </li>
-                          <li>
-                              <h0>Body Built: <b>{{$project->bodyBuilt}}</b></h0>
                           </li>
                           <li>
                               <h0>Talent Fee: <b>P{{$project->talentFee}}.00</b></h0>
@@ -203,7 +215,7 @@
                             <div class="row">
                               <div class="col-sm-4">
                               </div>
-                              <form class="" action="/employer/archive" method="post">
+                              <form class="" action="{{ url('/employer/archive') }}" method="post">
                                   {{ csrf_field() }}
                                   <input type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
 
@@ -233,23 +245,13 @@
               </div>
               <div class="modal-body" style="width:100%;">
                   <form action="{{ url('/eavatarupload') }}" method="post" enctype="multipart/form-data">
-                  {{ csrf_field() }}
-                      @if (count($errors) > 0)
-                          <div class="alert alert-danger">
-                              <strong>Oh no!</strong> It appears that your image file is too large, please choose a smaller image size.<br><br>
-                                  <ul>
-                                      @foreach ($errors->all() as $error)
-                                          <li>{{ $error }}</li>
-                                      @endforeach
-                                  </ul>
-                            </div>
-                      @endif
-                          <div class="input-group no-border input-sm">
+                  {{ csrf_field() }}                       
+			<div class="input-group no-border input-sm">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
                               </span>
                             </div>
-                            <input type="file" class="form-control" name="avatar" id="avatar">
+                            <input type="file" class="form-control" name="avatar" id="avatar" required>
                           </div>
                       <a>*Max image size of 3.15 MB</a>
                           <button type="submit" class="btn btn-success btn-round">Upload</button>

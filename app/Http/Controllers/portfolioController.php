@@ -151,7 +151,7 @@ class portfolioController extends Controller
     public function store(Request $request)
     {
         
-        	if (Auth::check()) {
+        	if ($request->hasFile('image')) {
        
                         $image_array = $request->file('image');
                         $array_len = count($image_array);
@@ -187,8 +187,20 @@ class portfolioController extends Controller
                 }
       else
       {                       
-           return "FAILED Authentication";        
+            $imgValidator = Validator::make($request->all(), [
+                    	'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    ]);
+
+                if ($imgValidator->fails()) {
+                    $errormsg = "Maximum image size exceeded, please upload a smaller image file to your portfolio.";
+                    return redirect()->back()->with('failure', $errormsg);
+
+                }   
+       
       }
+
+
             }
             
 }
+

@@ -32,7 +32,7 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('/modelprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                         </p>
@@ -80,29 +80,49 @@
         <div class="container-fluid" >
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto text-center">
+            <?php if( Auth::user()->status == 0): ?>
                 <h2 class="title" style="color:#1b1b1b;">Why go premium with Stella?</h2>
                 <h5 class="description" style="color:black;">With Stella premium, you can avail more features such as viewing more job details and applying to the job post and getting invites from employers to join their projects. With just <b>P169 monthly</b>, subscribers can enjoy the privileges of a breezy job hunting process. </h5>
+            <?php else: ?>
+                <h2 class="title" style="color:#1b1b1b;">Thank you for subscribing to Stella Premium!</h2>
+                <h5 class="description" style="color:black;">Dear <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?>, enjoy your premium subscription! Your subscription will automatically end in <?php echo e($diff); ?> days, be sure to renew your subscription if you want to maintain your premium membership. </h5>
+            <?php endif; ?>
                 <br><br><br>
                     <div class="col-md-7 ml-auto mr-auto">
-                        <div id="jobpost" class="card">
-                            <div class="card-body" style="color:#1b1b1b;">
+                    <?php if( Auth::user()->status == 0): ?>
+                        <div id="jobpost" class="card text-center">
+                            <div class="card-body text-center" style="color:#1b1b1b;">
                                 <h3 class="card-title text-center">Stella Model Premium</h3>
                                 <p class="card-text">
                                     Subscribe to Stella Premium today to enjoy more!<br><br>
                                 </p>
                                 <h5><b>Get for P169 monthly</b></h5>
-                                <a href="/gopremium" target="_blank" class="btn btn-maroon btn-round btn-lg">Subscribe</a><br>
-                                <a href="/modelfeed">No, thanks</a>
+                                <form class="in-line" method="POST" action="<?php echo e(url('/freetrial')); ?>">
+                                <?php echo e(csrf_field()); ?>
+
+                                        <input type="hidden" class="form-control" name="userID" id="userID" value="<?php echo e(Auth::user()->userID); ?>" required >
+                                        <input type="hidden" class="form-control" name="amount" id="amount" value="0.00" required >
+                                        <input type="hidden" class="form-control" id="email" name="email" value="<?php echo e(Auth::user()->emailAddress); ?>"  required> 
+                                        <input type="hidden" class="form-control" id="first_name" name="first_name" value="<?php echo e(Auth::user()->firstName); ?>"  required >
+                                        <input type="hidden" class="form-control" id="last_name" name="last_name" value="<?php echo e(Auth::user()->lastName); ?>"  required >
+                                        <input type="hidden" class="form-control" id="payer_id" name="payer_id" value="<?php echo e(Auth::user()->userID); ?>" required>
+                                        <input type="hidden" class="form-control" id="transactiondetails" name="transactiondetails" value="1"  required>
+                                    <button type="submit" class="btn btn-info btn-round btn-lg" style="display: <?php echo e($hidetrial); ?>;">7-Day Trial</button><br>
+                                    <a href="/gopremium" target="_blank" class="btn btn-maroon btn-round btn-lg">Subscribe</a><br>
+                                </form>
                             </div>
+                                <a href="/modelfeed">No, thanks</a>
                             <div class="card-footer text-muted mb-2">
                             </div>
                         </div>
+                    <?php else: ?>
+                        <a href="/modelfeed" class="btn btn-maroon btn-round btn-lg">Start Browsing!</a>
+                    <?php endif; ?>
                     </div>
-            </div>
+                </div>
           </div><!--feed content row closing tag -->
       </div><!-- container closing tag-->
-    </div>
-
+    </div><!-- section closing tag-->
             </div>
     </div>
 <?php $__env->stopSection(); ?>

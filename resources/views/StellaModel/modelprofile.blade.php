@@ -27,7 +27,7 @@
           </li>
           <li class="nav-item">
               <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                 <p>
                   <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                 </p>
@@ -46,10 +46,11 @@
                             </a>
                             @if(Auth::user()->status == 1)
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Profile</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="{{ url('/model/viewAcceptedApplication') }}" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -57,7 +58,7 @@
                             </div>
                             @else
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Profile</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 
@@ -80,12 +81,20 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="">
+          <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="130" height="130" alt="">
         </div>
         <div class="row justify-content-center">
             
-          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
+          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="-webkit-appearance:none; color:white; padding-top:10px;">Edit Picture</a>
         </div>
+		@if (\Session::has('failure'))
+		    <div class="row justify-content-center">
+                        <div class="alert alert-danger" role="alert">
+                        {!! \Session::get('failure') !!}
+                        </div>
+ 		    </div>
+                @endif  
+
         <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
         <p class="category">{{ Auth::user()->skill}}</p>
         <div class="content" style="width:100%;">
@@ -119,6 +128,12 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-2">
+			@if (\Session::has('success'))
+                             <div class="alert alert-success" role="alert">
+                                  {!! \Session::get('success') !!}
+                             </div>
+                        @endif
+                        
                 <h4 class="title">My Attributes</h4>
                 <h5 class="description text-left" style="color:#1b1b1b;">
                   <b>Eye Color:</b> {{$details->eyeColor}}<br>
@@ -138,6 +153,7 @@
                 <h6 class="description text-left" style="color:#1b1b1b;">
                 
                 <img src="/images/{{$rating}}.png">
+
                 <h6>Average rating: {{$rating}}</h6><br><br>
                 @foreach ($feedback as $feedback)
                 "{{$feedback->comment}}"<br><br>
@@ -154,7 +170,7 @@
                 <a href="{{ url('/model/viewPortfolio') }}" rel="tooltip" title="Edit Portfolio" >[Edit]</a><br><br>
               </div>
                 <!-- Portfolio Viewer -->
-                <iframe src="{{ url('/imagegalleryview2/'.Auth::user()->userID) }}" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
+                <iframe src="{{ url('/imagegalleryview2/'.Auth::user()->userID) }}" style="height:100%;width:100%;border:none;"></iframe>
                 
               </div>
         </div>
@@ -192,7 +208,7 @@
                               <span class="input-group-text">
                               </span>
                             </div>
-                            <input type="file" class="form-control" name="avatar" id="avatar">
+                            <input type="file" class="form-control" name="avatar" id="avatar" required>
                           </div>
                       <a>*Max image size of 3.15 MB</a>
                           <button type="submit" class="btn btn-success btn-round">Upload</button>

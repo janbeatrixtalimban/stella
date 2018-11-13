@@ -3,8 +3,8 @@
 <title>@yield('pageTitle') Stella Admin </title>
 
 <!-- Side nav bar -->
-<body class="">
-  <div class="wrapper ">
+<body class="">  
+<div class="wrapper ">
       <!-- Admin side bar -->
     <div class="sidebar" data-color="black">
       <div class="logo">
@@ -20,44 +20,44 @@
                 </a>
               </li>
               <li>
-                <a href="/admin/ViewAuditLog">
+                <a href="{{ url('/admin/ViewAuditLog') }}">
                   <i class="now-ui-icons files_paper"></i>
                   <p>Audit Log</p>
                 </a>
               </li>
               <li>
-                <a href="/admin/viewAdmin">
+                <a href="{{ url('/admin/viewAdmin') }}">
                   <i class="now-ui-icons business_badge"></i>
                   <p>Admins</p>
                 </a>
               </li>
               <li>
-                  <a href="/admin/addAdmin">
-                    <i class="now-ui-icons users_single-02"></i>
-                    <p>Add Admin</p>
-                  </a>
-                </li>
+                <a href="{{ url('/admin/income') }}">
+                   <i class="now-ui-icons business_money-coins"></i>
+                   <p>Income Report</p>
+                </a>
+              </li>
               <li>
-                <a href="/admin/ViewModel">
+                <a href="{{ url('/admin/ViewModel') }}">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>Models</p>
                 </a>
               </li>
               <li>
               <li>
-                <a href="/admin/ViewEmployer">
+                <a href="{{ url('/admin/ViewEmployer') }}">
                <i class="now-ui-icons users_single-02"></i>
                 <p>Employers</p>
                 </a>
               </li>
               <li>
-                <a href="/admin/reportedJobs">
+                <a href="{{ url('/admin/reportedJobs') }}">
                   <i class="now-ui-icons gestures_tap-01"></i>
                   <p>Reports - Job Posts</p>
                 </a>
               </li>
               <li class="active">
-                <a href="/admin/reportedImg">
+                <a href="{{ url('/admin/reportedImg') }}">
                   <i class="now-ui-icons gestures_tap-01"></i>
                   <p>Reports - Photos</p>
                 </a>
@@ -80,7 +80,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Audit Log</a>
+            <a class="navbar-brand" href="#pablo">Reports - Photos</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -90,19 +90,19 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="now-ui-icons users_single-02"></i>
                       <p>
-                          <span class="d-lg-none d-md-block">View Photo Reports</span>
-                      </p>
-                  </a>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                          <p style="text-align:center;">&nbsp;<b>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</b></p></a>
-                                  
-                          <a class="dropdown-item" href="{{ url('/admin/logout') }}" style="color:black;">Logout</a>
-                      </div>
-              </li>
-            </ul>
+                        <span class="d-lg-none d-md-block">Reports - Photos</span>
+                    </p>
+                </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <p style="text-align:center;">&nbsp;<b>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</b></p></a>
+                                
+                        <a class="dropdown-item" href="{{ url('/admin/logout') }}" style="color:black;">Logout</a>
+                    </div>
+            </li>
+        </ul>
           </div>
         </div>
       </nav>
@@ -141,8 +141,8 @@
                                                 <tr>
                                                     <td class="table-text">
                                                         <div class="thumbnail"> 
-                                                            <img class="img-responsive portrait" alt=""  width="100px" src="/uploads/{{ $detail->image }}" alt="Image"/>
-                                                            </div>
+                                                            <img class="img-responsive portrait" alt=""  width="100px" src="{{asset('/uploads/'.$detail->image)}}" alt="Image"/>
+                                                            </div>  
                                                     </td>
                                                     <td class="table-text">
                                                         <div>{{ $detail->reason }}</div>
@@ -194,7 +194,7 @@
                           </div>
                           <div class="modal-body">
 
-                            <img class="img-responsive portrait" alt="" src="/uploads/{{ $detail->image }}" alt="Image"/>
+                            <img class="img-responsive portrait" alt="" src="{{asset('/uploads/'.$detail->image)}}" alt="Image"/>
 
                           </div>
                           <div class="modal-footer">
@@ -228,7 +228,7 @@
                           </div>
                           <div class="modal-footer">
                             <div class="container text-center">
-                              <form class="" action="/admin/archiveImage" method="post">
+                              <form class="" action="{{ url('/admin/archiveImage') }}" method="post">
                                   {{ csrf_field() }}
                                 <input style="hidden" type="hidden" name="imageID" id="imageID" value="{{$detail->imageID}}" readonly>
                                 <button type="submit" class="btn btn-danger btn-round">Archive</button>

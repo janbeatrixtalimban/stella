@@ -11,7 +11,7 @@
     <div class="col-lg-11">
       <div class="navbar-translate">
         <img src="<?php echo asset('img/stella icon logo.png')?>" width="40">
-        <a class="navbar-brand" href="" rel="tooltip" title="Welcome back!" data-placement="bottom" target="_blank">
+        <a class="navbar-brand" href="" rel="tooltip" title="Welcome back!" data-placement="bottom">
           Log In
         </a>
       </div>
@@ -26,28 +26,42 @@
       <br><br>
         <div class="col-md-4 ml-auto mr-auto">
           <div class="card card-login card-plain">
-            <form class="form" method="POST" action="/loginUser">
+            <form class="form" method="POST" action="<?php echo e(url('/loginUser')); ?>">
                 <?php echo e(csrf_field()); ?>
 
-                    <?php if(\Session::has('failure')): ?>
-                        <div class="alert alert-danger" role="alert">
-                        <?php echo \Session::get('failure'); ?>
-
-                        </div>
-                    <?php endif; ?>
               <div class="card-header text-center">
                 <div style="width: 250px;" class="logo-container">
                   <img src="<?php echo asset('img/logo_white.png')?>" width="500">
                 </div>
               </div>
               <div class="card-body">
+                    <?php if(\Session::has('failure')): ?>
+                        <div class="alert alert-danger" role="alert">
+                        <?php echo \Session::get('failure'); ?>
+
+                        </div>
+                    <?php endif; ?>
+                    <?php if(\Session::has('activate')): ?>
+                        <div class="alert alert-info" role="alert">
+                        <?php echo \Session::get('activate'); ?>
+
+                        </div>
+                    <?php endif; ?>
+
+		    <?php if(\Session::has('success')): ?>
+                        <div class="alert alert-success" role="alert">
+                        <?php echo \Session::get('success'); ?>
+
+                        </div>
+                    <?php endif; ?>
+
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="text" name="emailAddress" id="emailAddress" class="form-control" placeholder="E-Mail Address">
+                  <input style="border-top-right-radius: 30px; border-bottom-right-radius: 30px;" type="text" name="emailAddress" id="emailAddress" class="form-control" placeholder="E-Mail Address">
                 </div>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -55,19 +69,14 @@
                       <i class="now-ui-icons text_caps-small"></i>
                     </span>
                   </div>
-                  <input type="password" name="password" placeholder="Password" class="form-control" />
+                  <input style="border-top-right-radius: 30px; border-bottom-right-radius: 30px;" type="password" name="password" placeholder="Password" class="form-control" />
                 </div>
               </div>
               <div class="card-footer text-center">
                 <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg btn-block">Log In</button>
                 <div class="pull-left">
                   <h6>
-                    <a href="<?php echo e(url('/')); ?>" class="link">Back</a>
-                  </h6>
-                </div>
-                <div class="pull-right">
-                  <h6>
-                    <a href="<?php echo e(url('/sendpassreset')); ?>" class="link">Forgot my password</a>
+                    <a href="<?php echo e(url('/')); ?>" class="link">Not yet registered?</a>
                   </h6>
                 </div>
             </form>

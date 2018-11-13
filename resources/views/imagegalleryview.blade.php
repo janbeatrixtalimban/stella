@@ -23,9 +23,10 @@
                     
 
                     <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3' style="display:{{$image->display}}">
-                        <a class="thumbnail fancybox" rel="ligthbox" href="/uploads/{{ $image->image }}">
+                        <a class="thumbnail fancybox" rel="ligthbox" href="{{asset('/uploads/'.$image->image)}}">
                         <div class="thumbnail">    
-                        <img class="img-responsive portrait" alt="" src="/uploads/{{ $image->image }}" alt="Image"/>
+                     {{-- <img class="img-responsive portrait" alt="" src="/uploads/{{ $image->image }}" alt="Image"/> --}}
+                     <img class="img-responsive portrait" alt="" src="{{asset('/uploads/'.$image->image)}}" alt="Image"/>
                         </div>
                         </a>
                         <button data-toggle="modal" data-target="#archive{{$image->imageID}}" type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>
@@ -52,7 +53,7 @@
                             <h4>Are you sure your want to archive this photo?</h4>
                           </div>
                           <div class="modal-footer">
-                                <form class="" action="/model/archive" method="post">
+                                <form class="" action="{{ url('/model/archive') }}" method="post">
                                 {{ csrf_field() }}
                                     <input type="hidden" name="imageID" id="imageID" value="{{$image->imageID}}" readonly>
                                     <button type="submit" name="button" class="btn btn-maroon btn-round">Archive</button>

@@ -35,7 +35,7 @@
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -91,22 +91,12 @@
                 <div class="col-sm-6">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                        <form action="/addPost" method="post">
+                        <form action="{{ url('/addPost') }}" method="post">
                             {{ csrf_field() }}
                             <br>
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
                         <h3><b>Create Job Post</b></h3><br>
                             <!-- Title -->
-                                <label>Project Title:</label>
+                                <label>Project Title (Max. 100 Characters)</label>
                                     <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
@@ -115,10 +105,16 @@
                                           <input type="text" class="form-control" name="prjTitle" id="prjTitle" placeholder="Project Title" value="" required>
                                     </div><br>
                             <!-- Project Description -->
-                                <label>Project Description:</label>
+                                <label>Project Description (Max. 200 Characters)</label>
                                     <div class="input-group input-lg">
                                         <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."></textarea>
-                                    </div><br>
+                                    </div>
+ 				    @if (\Session::has('project'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('project') !!}
+                                        </div>
+                                    @endif
+				<br>
                         <div class="row">
                             <!-- Project Start -->
                             <div class="col-md-6">
@@ -130,6 +126,11 @@
                                         </div>
                                         <input type="date" class="form-control" name="jobDate" id="jobDate" value="">
                                     </div>
+				    @if (\Session::has('datestart'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('datestart') !!}
+                                        </div>
+                                    @endif
                             </div>
                             <!-- Project End -->
                             <div class="col-md-6">
@@ -141,13 +142,18 @@
                                        </div>
                                     <input type="date" class="form-control" name="jobEnd" id="jobEnd" value="">
                                 </div>
-                            </div>
+				    @if (\Session::has('dateend'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('dateend') !!}
+                                        </div>
+                                    @endif
+                            </div>    
                         </div><br>
 
                         <div class="row">
                         <!-- ModelNo -->
                             <div class="col-md-6">
-                                <label>Number of Models needed:</label>
+                                <label>Number of Models needed</label>
                                 <div class="input-group input-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -195,14 +201,20 @@
                         </div><br>
 
                         <!-- Talent Fee -->
-                             <label>Talent Fee:</label>
+                             <label>Talent Fee (PHP)</label>
                                 <div class="input-group input-lg">
                                    <div class="input-group-prepend">
                                        <span class="input-group-text">
                                        </span>
                                    </div>
                                    <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Php" value="" required> 
-                               </div><br>
+                               </div>
+ 				    @if (\Session::has('fee'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('fee') !!}
+                                        </div>
+                                    @endif
+				<br>
                             
                         <!-- For the selected fields to show per selected num of models -->
                                     {{-- <div id="modelcontainer"></div><br> --}}
@@ -305,7 +317,7 @@
                                         </optgroup>
                                     </select>
                                 <!-- City -->
-                                    <select size="0.4" class="form-control" name="city" id="city" required>
+                                    <select size="0.4" class="form-control" name="city" id="city">
                                         <option value="" selected disabled>City..</option>
                                         <optgroup label="Pangasinan" style="color: black;">
                                             <option value="Alaminos City">Alaminos City</option>
@@ -541,7 +553,13 @@
                                     </select>
                                 <!--Zip Code-->
                                         <input type="text" class="form-control" name="zipCode" id="zipCode" placeholder="Zip Code" value="">
-                                        </div><br>
+                                        </div>
+ 				    @if (\Session::has('address'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('address') !!}
+                                        </div>
+                                    @endif
+				<br>
                                 <!-- Create button -->
                                     <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Create</button><br>
                                     <a class="link" href="{{ url('/employerprofile') }}">Cancel</a>

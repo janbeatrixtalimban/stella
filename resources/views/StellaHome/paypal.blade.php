@@ -23,7 +23,7 @@
                 <div class="col-lg-6">
                 <img src="<?php echo asset('img/stella-logo-2.png')?>" width="350">
                     <div id="paypal-button-container"></div>
-                    <form method="POST" action="/status/{{Auth::user()->userID}}">
+                    <form method="POST" action="{{ url('/status/'.Auth::user()->userID) }}">
                         {{ csrf_field() }}
                         <button type="submit" class="positive" name="save" id="save" hidden="hidden">save</button>
                         <input type="text" id="amount" name="amount" hidden="hidden" /><br>
@@ -32,6 +32,7 @@
                         <input type="text" id="email" name="email" hidden="hidden" />
                         <input type="text" id="payer_id"  name="payer_id" hidden="hidden" />
                         <input type="text" id="phone"  name="phone" hidden="hidden" />
+			<input type="text" id="transactiondetails" name="transactiondetails" value="0" hidden="hidden" />
                     </form>
                 </div>
         </div>
@@ -118,6 +119,7 @@
                         $("#email").val(data1.email);
                         $("#payer_id").val(data1.payer_id);
                         $("#phone").val(data1.phone);
+			$("#transactiondetails").val(data1.transactiondetails);
                         alert('Success!');
                         $('#save').trigger("click");
                         });

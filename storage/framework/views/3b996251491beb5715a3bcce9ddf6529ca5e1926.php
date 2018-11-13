@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="<?php echo asset('img/stella icon logo.png')?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     <?php echo $__env->yieldContent('pageTitle'); ?>
@@ -55,9 +54,18 @@
       $('#employersList').DataTable();
       $('#jobReports').DataTable();
       $('#photoReports').DataTable();
+      $('#viewincome').DataTable();
     } );
 
   </script>
+  <script type="text/javascript">
+
+      $("select[name='location']:eq(0)").on("change", function() {
+          $("select[name='city']:eq(0)").find("optgroup, option").hide().filter("[label='" + this.value + "'], [label='" + this.value + "'] > *").show();
+      });
+
+  </script>
+
 </body>
 
 </html>

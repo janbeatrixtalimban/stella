@@ -1,4 +1,4 @@
-
+ 
 @extends('layouts.employerapp')
 
 <title>@yield('pageTitle') Welcome {{ Auth::user()->firstName}}! </title>
@@ -27,7 +27,7 @@
 
             <!-- Search Bar -->
                   <div class="col-sm-4">
-                      <form action="/find" method="get">
+                      <form action="{{ url('/find') }}" method="get">
                             {{ csrf_field() }}
                                 <div class="input-group" style="padding-top:10px;" >
                                     <input name="find" id="find" class="form-control form-control-search" placeholder="Search..." itemprop="query-input" style="background:#fffff0;">
@@ -69,8 +69,8 @@
                   <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
-                        <p>
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <p> 
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
                         </a>
@@ -117,66 +117,58 @@
 
       <!-- Feed Content -->
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-1"><!--space-->
-                </div>
-   
-<!-- Two Column Display loop of Models Shown-->
-<div class="column">
-  <table style="width:100%;">
-      @foreach($user->chunk(4) as $chunk)
-          <tr>
-              @foreach($chunk as $user)
-                  <td>
-                    @if($user->typeID == 2)
-                
+        
+            <div class="row" style="padding-left:10%;">
 
-                      <div style="display: none;">
-                        @elseif($user->typeID == 2 || $user->status == 1)
-                    <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
-                      <div id="model" class="card text-center">
-                          <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
-                            <h5 class="card-title"><b>{{ $user->firstName }} {{ $user->lastName }}</b></h5>
-                              <img src="/uploads/avatars/{{ $user ->avatar }}" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
-                            <!--Buttons with icons -->
-                            @if( Auth::user()->status == 1)
-                               <form class="hire" action="/employer/hire" method="post">
-                                  {{ csrf_field() }}
-                                  <!-- Attributes Modal Button -->
-                                  <a data-toggle="modal" data-target="#attributes{{ $user->userID }}" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                                  <!-- View Profile Button -->
-                                  <a href="{{url('/profile/view/'.$user->userID)}}" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
-                                  <!-- Hire Modal Button -->
-                                  <a data-toggle="modal" data-target="#hire{{ $user->userID }}" style="color:white;" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
-                                </form>
+                @foreach($user->chunk(1) as $chunk)
+                <div class="row">
+                    <div class="col-sm-12">
+                        @foreach($chunk as $user)
+                            <div class="column">
+
+                                @if($user->typeID == 2)
+                                    <div style="display: none;">
+                                @elseif($user->typeID == 2 || $user->status == 1)
+                                    <div class="col-md-12 col-sm-12 col-md-12" style="width:100%;">
+                                        <div id="model" class="card text-center">
+                                            <div class="card-body" style="color:#1b1b1b;" style="width:100%;">
+                                                <h5 class="card-title"><b>{{ $user->firstName }} {{ $user->lastName }}</b></h5>
+                                                <img src="{{asset('/uploads/avatars/'.$user->avatar)}}" alt="Thumbnail Image" class="img-raised" width="200" height="200"><br>
+                                        <!--Buttons with icons -->
+                                        @if( Auth::user()->status == 1)
+                                        <form class="hire" action="/employer/hire" method="post">
+                                            {{ csrf_field() }}
+                                            <!-- Attributes Modal Button -->
+                                            <a data-toggle="modal" data-target="#attributes{{ $user->userID }}" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                            <!-- View Profile Button -->
+                                            <a href="{{url('/profile/view/'.$user->userID)}}" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                                            <!-- Hire Modal Button -->
+                                            <a data-toggle="modal" data-target="#hire{{ $user->userID }}" style="color:white;" class="btn btn-info btn-round" rel="tooltip" title="Hire Model"><i class="now-ui-icons ui-1_check"></i></a>
+                                            </form>
+                                        @else
+                                            <a data-toggle="modal" data-target="#attributes{{ $user->userID }}" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
+                                            <a href="{{url('/profile/view/'.$user->userID)}}" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
+                                        @endif
+                                    
+                                        </div>
+                                        <div class="card-footer text-muted mb-2">
+                                            {{ $user ->skill }}
+                                        </div>
+                                    </div>
+                                    </div>
                                 @else
-                                <a data-toggle="modal" data-target="#attributes{{ $user->userID }}" style="color:white;" class="btn btn-success btn-round" rel="tooltip" title="View Attributes"><i class="now-ui-icons design_bullet-list-67"></i></a>
-                                <a href="{{url('/profile/view/'.$user->userID)}}" target="_blank" class="btn btn-maroon btn-round" rel="tooltip" title="View profile"><i class="now-ui-icons design_image"></i></a> 
                                 @endif
-                           
-                          </div>
-                          <div class="card-footer text-muted mb-2">
-                            {{ $user ->skill }}
-                          </div>
-                        </div>
-                      </div>
-                    @else
-                      @endif
+                            </div>
+                        @endforeach
                     </div>
-                  </td>
-              @endforeach
-          </tr>
-      @endforeach
-  </table>
-</div>
-
-  
-
-
+                </div>
+                
+                @endforeach
+      
           </div><!--feed content row closing tag -->
+
       </div><!-- container fluid closing tag-->
-
-
+</div>
      @foreach ($details as $details)
       <!-- View model attributes Modal -->
           <div id="attributes{{ $details->userID }}" class="modal fade show" style="padding-top: 50px;" tabindex="-1" role="dialog">
@@ -186,7 +178,7 @@
                 <div class="modal-content" style="color:black;">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <br><img src="/uploads/avatars/{{ $details ->avatar }}" alt="Thumbnail Image" width="60" height="60" class="rounded-circle img-raised">
+                      <br><img src="{{asset('/uploads/avatars/'.$details->avatar)}}" alt="Thumbnail Image" width="60" height="60" class="rounded-circle img-raised">
                     <h4>{{ $details->firstName}} {{ $details->lastName}}</h4><br>
                     <h6><h6><br>
                     </div>
@@ -240,7 +232,7 @@
                           <div class="modal-body">
                           <h4 class="modal-title">Are you sure you want to hire <b>{{ $model->firstName }} {{ $model->lastName }}</b>?</h4><br>
                           <!-- Opening Form Tag -->
-                              <form class="" action="/employer/hire" method="post">
+                              <form class="" action="{{ url('/employer/hire') }}" method="post">
                                     {{ csrf_field() }}
                                     
                                   <input type="hidden" name="modelID" id="modelID" value="{{$model->userID}}" readonly>
@@ -262,7 +254,7 @@
                                       </select>
                             </div><br>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>

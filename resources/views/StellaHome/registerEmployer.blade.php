@@ -14,7 +14,7 @@
                 <div class="col-lg-11">
                   <div class="navbar-translate">
                     <img src="<?php echo asset('img/stella icon logo.png')?>" width="40">
-                    <a class="navbar-brand" href="" rel="tooltip" title="Register as a model" data-placement="bottom" target="_blank">
+                    <a class="navbar-brand" href="" rel="tooltip" title="Register as an Employer" data-placement="bottom">
                       Registration
                     </a>
                 </div>
@@ -48,13 +48,8 @@
       
       <!-- Body Contents -->
             <!--Left column contents-->
-            <form class="" action="/registerEmployer" method="post" enctype="multipart/form-data">
+            <form class="" action="{{ url('/registerEmployer') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                            @if (\Session::has('failure'))
-                                <div class="alert alert-danger" role="alert">
-                                {!! \Session::get('failure') !!}
-                                </div>
-                            @endif
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-1">
@@ -80,6 +75,11 @@
                                           </div>
                                           <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
                                       </div>
+ 				@if (\Session::has('name'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('name') !!}
+                                	</div>
+                            	@endif
                                   <!-- Birthdate -->
                                       <div class="input-group no-border input-sm">
                                           <div class="input-group-prepend">
@@ -88,6 +88,11 @@
                                           </div>
                                           <input type="date" class="form-control" name="birthDate" value="" required>
                                       </div>
+ 				@if (\Session::has('birthday'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('birthday') !!}
+                                	</div>
+                            	@endif
                                       <!--Contact number-->
                                       <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
@@ -95,7 +100,13 @@
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
-                                        </div><br>
+                                        </div>
+ 				@if (\Session::has('contact'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('contact') !!}
+                                	</div>
+                            	@endif
+				<br>
                                 <!-- Address line 1 -->
                                     <label for="address"><b>Full Address</b></label>
                                       <div class="input-group no-border input-sm">
@@ -427,17 +438,30 @@
                                             </select>
                                         <!--Zip Code-->
                                             <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="" required>
-                                        </div><br>
+                                        </div>
+ 				@if (\Session::has('address'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('address') !!}
+                                	</div>
+                            	@endif
+					<br>
                                     <!-- Valid ID -->
                                         <label for="validId"><b>Valid Government Company Document</b></label>
                                           <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
-                                                  <span class="input-group-text">
-                                                    <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
+                                                  <span class="input-group-text" style="background-color:none;">
+                                                    <i class="now-ui-icons arrows-1_cloud-upload-94" style="background-color:none;"></i>
                                                   </span>
                                                     <input size="0.5" type="file" name="filePath" class="form-control" accept="image/jpeg, image/png" required>
                                               </div>
                                           </div>
+
+ 				@if (\Session::has('image'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('image') !!}
+                                	</div>
+                            	@endif
+
                                       </div>
                                     <!-- End of fields for left column -->
                             </div>
@@ -466,7 +490,13 @@
                                               </span>
                                           </div>
                                           <input type="text" class="form-control" name="position" id="position" placeholder="Position" value="" required>
-                                </div><br>
+                                </div>
+ 				@if (\Session::has('company'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('company') !!}
+                                	</div>
+                            	@endif
+				<br>
                           <h4>Log In Credentials</h4>
                             <!--Email-->
                                 <div class="input-group no-border input-sm">
@@ -476,6 +506,13 @@
                                 </div>
                                 <input type="text" class="form-control" name="emailAddress" placeholder="Enter your E-mail" required>
                                 </div>
+
+ 				@if (\Session::has('email'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('email') !!}
+                                	</div>
+                            	@endif
+
                             <!-- Password -->
                                 <div class="input-group no-border input-sm">
                                 <div class="input-group-prepend">
@@ -492,6 +529,13 @@
                                 </div>
                                 <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required>
                                 </div> 
+				
+ 				@if (\Session::has('password'))
+                                	<div class="alert alert-danger" role="alert">
+                                	{!! \Session::get('password') !!}
+                                	</div>
+                            	@endif
+
                                 <br>
                             <!--Hidden avatar field -->
                                 <input type="hidden" name="avatar" id="avatar" value="default.png" required>

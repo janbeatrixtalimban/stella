@@ -7,7 +7,7 @@
   <nav class="navbar navbar-expand-lg bg-black fixed-top navbar-transparent " color-on-scroll="400">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="<?php echo e(url('/employerfeed')); ?>" rel="tooltip" title="Go to Homepage" data-placement="bottom">
+        <a class="navbar-brand" href="<?php echo e(url('/employerHome')); ?>" rel="tooltip" title="Go to Homepage" data-placement="bottom">
             <img src="<?php echo asset('img/logo_white.png')?>" width="100">
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
                             </li>
                             <li class="nav-item dropdown">
                             <a class="nav-link" href="<?php echo e(url('/employerprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                            <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                            <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                             <p>
                               <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                             </p>
@@ -65,12 +65,19 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="130px" height="130px" alt="">
-        </div>
+          <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="130px" height="130px" alt="">
+        </div> 
         <div class="row justify-content-center">
-            
-          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
+          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="-webkit-appearance:none; color:white; padding-top:10px;">Edit Picture</a>
         </div>
+		<?php if(\Session::has('failure')): ?>
+		    <div class="row justify-content-center">
+                        <div class="alert alert-danger" role="alert">
+                        <?php echo \Session::get('failure'); ?>
+
+                        </div>
+ 		    </div>
+                <?php endif; ?>  
         <h3 class="headtitle"><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h3>
         <h4 class="category"><?php echo e($company->name); ?></h4>
         <h5 class="category"><?php echo e($company->position); ?></h5>
@@ -87,6 +94,13 @@
           <?php endif; ?>
         </div> 
         <br><br>
+				    <?php if(\Session::has('updated')): ?>
+                                        <div class="alert alert-success" role="alert">
+                                        <?php echo \Session::get('updated'); ?>
+
+                                        </div>
+                                    <?php endif; ?>
+
         <div id="companydesc" class="card text-center">
             <div class="card-body" style="padding-top: 0; color:#1b1b1b;">
                 <h3 class="title">About <?php echo e($company->name); ?></h3>
@@ -159,16 +173,16 @@
                               <h0>Location: <b><?php echo e($project->address); ?></b></h0>
                           </li>
                           <li>
+                              <h0>Project Start: <b><?php echo e($project->jobDate); ?></b></h0>
+                          </li>
+                          <li>
+                              <h0>Project End: <b><?php echo e($project->jobEnd); ?></b></h0>
+                          </li>
+                          <li>
                               <h0>Number of Models: <b><?php echo e($project->modelNo); ?></b></h0>
                           </li>
                           <li>
                               <h0>Model Type: <b><?php echo e($project->role); ?></b></h0>
-                          </li>
-                          <li>
-                              <h0>Minimum Height Requirement: <b><?php echo e($project->height); ?>cm</b></h0>
-                          </li>
-                          <li>
-                              <h0>Body Built: <b><?php echo e($project->bodyBuilt); ?></b></h0>
                           </li>
                           <li>
                               <h0>Talent Fee: <b>P<?php echo e($project->talentFee); ?>.00</b></h0>
@@ -203,7 +217,7 @@
                             <div class="row">
                               <div class="col-sm-4">
                               </div>
-                              <form class="" action="/employer/archive" method="post">
+                              <form class="" action="<?php echo e(url('/employer/archive')); ?>" method="post">
                                   <?php echo e(csrf_field()); ?>
 
                                   <input type="hidden" name="projectID" id="projectID" value="<?php echo e($project->projectID); ?>" readonly>
@@ -234,24 +248,13 @@
               </div>
               <div class="modal-body" style="width:100%;">
                   <form action="<?php echo e(url('/eavatarupload')); ?>" method="post" enctype="multipart/form-data">
-                  <?php echo e(csrf_field()); ?>
-
-                      <?php if(count($errors) > 0): ?>
-                          <div class="alert alert-danger">
-                              <strong>Oh no!</strong> It appears that your image file is too large, please choose a smaller image size.<br><br>
-                                  <ul>
-                                      <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <li><?php echo e($error); ?></li>
-                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                  </ul>
-                            </div>
-                      <?php endif; ?>
-                          <div class="input-group no-border input-sm">
+                  <?php echo e(csrf_field()); ?>                       
+			<div class="input-group no-border input-sm">
                             <div class="input-group-prepend">
                               <span class="input-group-text">
                               </span>
                             </div>
-                            <input type="file" class="form-control" name="avatar" id="avatar">
+                            <input type="file" class="form-control" name="avatar" id="avatar" required>
                           </div>
                       <a>*Max image size of 3.15 MB</a>
                           <button type="submit" class="btn btn-success btn-round">Upload</button>

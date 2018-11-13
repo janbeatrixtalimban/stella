@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -87,16 +87,17 @@
 
                 <!-- Card for job offer contents -->
                 <br>
+	    @if($pending != 0)
                 @foreach($details->reverse() as $detail)
                 @if($detail->haggleStatus != 2 and $detail->hirestatus == 0)
                     <div id="joboffer" class="card text-center">
                           <div class="card-body" style="color:#1b1b1b;">
                           @if($detail->haggleStatus == 0)
-                            <h4 class="card-title"><img src="/uploads/avatars/{{ $detail ->avatar }}" alt="Thumbnail Image" width="40" height="40" class="rounded-circle img-raised"><b>&nbsp;&nbsp;{{ $detail->firstName }} {{ $detail->lastName }}</b> wants to make an offer:</h4>
+                            <h4 class="card-title"><img src="{{asset('/uploads/avatars/'.$detail->avatar)}}" alt="Thumbnail Image" width="40" height="40" class="rounded-circle img-raised"><b>&nbsp;&nbsp;{{ $detail->firstName }} {{ $detail->lastName }}</b> wants to make an offer:</h4>
                           @elseif($detail->haggleStatus == 101)
-                            <h4 class="card-title"><img src="/uploads/avatars/{{ $detail ->avatar }}" alt="Thumbnail Image" width="40" height="40" class="rounded-circle img-raised">&nbsp;&nbsp;You hired <b>{{ $detail->firstName }} {{ $detail->lastName }}</b> - No pending offer:</h4>
+                            <h4 class="card-title"><img src="{{asset('/uploads/avatars/'.$detail->avatar)}}" alt="Thumbnail Image" width="40" height="40" class="rounded-circle img-raised">&nbsp;&nbsp;You hired <b>{{ $detail->firstName }} {{ $detail->lastName }}</b> - No pending offer:</h4>
                           @elseif($detail->haggleStatus == 1)
-                            <h4 class="card-title"><img src="/uploads/avatars/{{ $detail ->avatar }}" alt="Thumbnail Image" width="40" height="40" class="rounded-circle img-raised">&nbsp;&nbsp;Accepted haggle offer with <b>{{ $detail->firstName }} {{ $detail->lastName }}!</h4>
+                            <h4 class="card-title"><img src="{{asset('/uploads/avatars/'.$detail->avatar)}}" alt="Thumbnail Image" width="40" height="40" class="rounded-circle img-raised">&nbsp;&nbsp;Accepted haggle offer with <b>{{ $detail->firstName }} {{ $detail->lastName }}!</h4>
                           @else
                           @endif
                                 <h5 class="card-title">Project title: <a style="color:#a01919;">{{ $detail->prjTitle }}</a></h5><br>
@@ -130,6 +131,20 @@
                     <div style="display: none;">
                 @endif
               @endforeach
+	@else
+
+    <div class="container-fluid">
+	<div class="row">
+	
+	    <div class="col-lg-2"></div>
+	    <div class="col-lg-8">
+            	<h2 class="text-center" style='color:grey; padding-top:40%;'> No Haggle Offers to show</h2>
+	    <div class="col-lg-2"></div>
+	    </div>
+	</div>
+    </div>   
+
+	@endif
                     
                 </div><!-- col-sm-8 closing tag -->
 
@@ -144,8 +159,7 @@
 
           </div><!--feed content row closing tag -->
       </div><!-- container fluid closing tag-->
-
-
+</div>
 
 <!-- Model Details Modal -->
 @foreach ($details as $detail)
@@ -157,7 +171,7 @@
                   <div class="modal-content" style="color:black;">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <br><img src="/uploads/avatars/{{ $detail ->avatar }}" alt="Thumbnail Image" width="60" height="60" class="rounded-circle img-raised">
+                      <br><img src="{{asset('/uploads/avatars/'.$detail->avatar)}}" alt="Thumbnail Image" width="60" height="60" class="rounded-circle img-raised">
                     <h4>{{ $detail->firstName}} {{ $detail->lastName}}</h4><br>
                     <h6><h6><br>
                     </div>
@@ -214,11 +228,11 @@
                             <h4 class="modal-title">Are you sure you want to accept the haggle offer from <a style="color:#a01919;"><b>{{$detail->firstName}} {{$detail->lastName}}</b></a> for <b>P{{ $detail->haggleAmount}}.00</b> on project {{$detail->prjTitle}}?</h4><br>
                             <p class="text-center">*{{$detail->firstName}} {{$detail->lastName}} will be informed that you have <b>agreed</b> to their requested talent fee for the project.</p>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="" action="/employer/accepthaggle" method="post">
+                              <form class="" action="{{ url('/employer/accepthaggle') }}" method="post">
                                   {{ csrf_field() }}
                                     <input type="hidden" name="hireID" id="hireID" value="{{$detail->hireID}}" readonly>
                                     <input type="hidden" name="emailAddress" id="emailAddress" value="{{$detail->emailAddress}}" readonly>
@@ -248,13 +262,13 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
                           <div class="modal-body">    
-                          <form class="" action="/employer/rejecthaggle" method="post">
+                          <form class="" action="{{ url('/employer/rejecthaggle') }}" method="post">
                                 {{ csrf_field() }}
                             <h4 class="modal-title">Are you sure you want to reject the haggle offer from <a style="color:#a01919;"><b>{{$detail->firstName}} {{$detail->lastName}}</b></a> for <b>P{{ $detail->haggleAmount}}.00</b> on project {{$detail->prjTitle}}?</h4><br>
                             <p class="text-center">*{{$detail->firstName}} {{$detail->lastName}} will be informed that you have <b>declined</b> their requested talent fee. With this, they may choose not to accept the job offer at the orginal talent fee.</p>
                             <textarea class="form-control" style="height:150px" name="rejectReason" placeholder="State your Reason.." required></textarea>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>

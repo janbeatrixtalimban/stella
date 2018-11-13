@@ -1,7 +1,15 @@
 @extends('layouts.adminapp')
 
 <title>@yield('pageTitle') Stella Admin </title>
-
+<script>
+function printContent(el){
+var restorepage = $('body').html();
+var printcontent = $('#' + el).clone();
+$('body').empty().html(printcontent);
+window.print();
+$('body').html(restorepage);
+}
+</script>
 <!-- Side nav bar -->
 <body class="">
   <div class="wrapper ">
@@ -20,44 +28,44 @@
                 </a>
               </li>
               <li class="active ">
-                <a href="/admin/ViewAuditLog">
+                <a href="{{ url('/admin/ViewAuditLog') }}">
                   <i class="now-ui-icons files_paper"></i>
                   <p>Audit Log</p>
                 </a>
               </li>
               <li>
-                <a href="/admin/viewAdmin">
+                <a href="{{ url('/admin/viewAdmin') }}">
                   <i class="now-ui-icons business_badge"></i>
                   <p>Admins</p>
                 </a>
               </li>
               <li>
-                  <a href="/admin/addAdmin">
-                    <i class="now-ui-icons users_single-02"></i>
-                    <p>Add Admin</p>
-                  </a>
-                </li>
+                <a href="{{ url('/admin/income') }}">
+                   <i class="now-ui-icons business_money-coins"></i>
+                   <p>Income Report</p>
+                </a>
+              </li>
               <li>
-                <a href="/admin/ViewModel">
+                <a href="{{ url('/admin/ViewModel') }}">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>Models</p>
                 </a>
               </li>
               <li>
               <li>
-                <a href="/admin/ViewEmployer">
+                <a href="{{ url('/admin/ViewEmployer') }}">
                <i class="now-ui-icons users_single-02"></i>
                 <p>Employers</p>
                 </a>
               </li>
               <li>
-                <a href="/admin/reportedJobs">
+                <a href="{{ url('/admin/reportedJobs') }}">
                   <i class="now-ui-icons gestures_tap-01"></i>
                   <p>Reports - Job Posts</p>
                 </a>
               </li>
               <li>
-                <a href="/admin/reportedImg">
+                <a href="{{ url('/admin/reportedImg') }}">
                   <i class="now-ui-icons gestures_tap-01"></i>
                   <p>Reports - Photos</p>
                 </a>
@@ -80,7 +88,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Audit Log</a>
+            <a class="navbar-brand" href="#pablo">Audit Logs</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -90,7 +98,7 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="now-ui-icons users_single-02"></i>
                       <p>
                           <span class="d-lg-none d-md-block">View Audit Logs</span>
@@ -115,10 +123,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Audit Log</h4>
-                    </div>
 
-                    <div class="card-body">
+			<div class="row">
+                        <h4 class="card-title" style="padding-left:15px;padding-right:30px;">Audit Log</h4> <button class="btn btn-info btn-round" id="print" onclick="printContent('tablecontents');">Print</button>
+                  </div> </div>
+
+                    <div class="card-body" id="tablecontents">
 
                         @if (count($audit) > 0)
                             <div class="panel panel-default">

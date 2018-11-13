@@ -25,7 +25,7 @@
           </li>
           <li class="nav-item">
               <a class="nav-link" href="<?php echo e(url('/modelprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                 <p>
                   <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                 </p>
@@ -44,10 +44,11 @@
                             </a>
                             <?php if(Auth::user()->status == 1): ?>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Profile</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/viewJobOffers')); ?>" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="<?php echo e(url('/model/viewAcceptedApplication')); ?>" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -55,7 +56,7 @@
                             </div>
                             <?php else: ?>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Profile</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 
@@ -78,12 +79,21 @@
       </div>
       <div class="container">
         <div class="photo-container">
-          <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" alt="">
+          <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="130" height="130" alt="">
         </div>
         <div class="row justify-content-center">
             
-          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="color:white; padding-top:10px;">Edit Picture</a>
+          <a data-toggle="modal" data-target="#profilepic" type="submit" rel="tooltip" title="Upload a Profile Picture" style="-webkit-appearance:none; color:white; padding-top:10px;">Edit Picture</a>
         </div>
+		<?php if(\Session::has('failure')): ?>
+		    <div class="row justify-content-center">
+                        <div class="alert alert-danger" role="alert">
+                        <?php echo \Session::get('failure'); ?>
+
+                        </div>
+ 		    </div>
+                <?php endif; ?>  
+
         <h3 class="headtitle"><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h3>
         <p class="category"><?php echo e(Auth::user()->skill); ?></p>
         <div class="content" style="width:100%;">
@@ -117,6 +127,13 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-2">
+			<?php if(\Session::has('success')): ?>
+                             <div class="alert alert-success" role="alert">
+                                  <?php echo \Session::get('success'); ?>
+
+                             </div>
+                        <?php endif; ?>
+                        
                 <h4 class="title">My Attributes</h4>
                 <h5 class="description text-left" style="color:#1b1b1b;">
                   <b>Eye Color:</b> <?php echo e($details->eyeColor); ?><br>
@@ -136,6 +153,7 @@
                 <h6 class="description text-left" style="color:#1b1b1b;">
                 
                 <img src="/images/<?php echo e($rating); ?>.png">
+
                 <h6>Average rating: <?php echo e($rating); ?></h6><br><br>
                 <?php $__currentLoopData = $feedback; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feedback): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 "<?php echo e($feedback->comment); ?>"<br><br>
@@ -152,7 +170,7 @@
                 <a href="<?php echo e(url('/model/viewPortfolio')); ?>" rel="tooltip" title="Edit Portfolio" >[Edit]</a><br><br>
               </div>
                 <!-- Portfolio Viewer -->
-                <iframe src="<?php echo e(url('/imagegalleryview2/'.Auth::user()->userID)); ?>" style="height:100%;width:100%;border:none;" scrolling="no"></iframe>
+                <iframe src="<?php echo e(url('/imagegalleryview2/'.Auth::user()->userID)); ?>" style="height:100%;width:100%;border:none;"></iframe>
                 
               </div>
         </div>
@@ -191,7 +209,7 @@
                               <span class="input-group-text">
                               </span>
                             </div>
-                            <input type="file" class="form-control" name="avatar" id="avatar">
+                            <input type="file" class="form-control" name="avatar" id="avatar" required>
                           </div>
                       <a>*Max image size of 3.15 MB</a>
                           <button type="submit" class="btn btn-success btn-round">Upload</button>

@@ -22,11 +22,12 @@
 <?php echo $__env->yieldContent('content'); ?>
 
 <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="<?php echo asset('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')?>" type="text/javascript"></script>
     <script src="<?php echo asset('https://www.google.com/recaptcha/api.js')?>" type="text/javascript"></script>
     <script src="<?php echo asset('js/core/jquery.min.js')?>" type="text/javascript"></script>
     <script src="<?php echo asset('js/core/popper.min.js')?>" type="text/javascript"></script>
-   <script src="<?php echo asset('js/core/bootstrap.min.js')?>" type="text/javascript"></script>
+    <script src="<?php echo asset('js/core/bootstrap.min.js')?>" type="text/javascript"></script>
     <script src="<?php echo asset('js/plugins/bootstrap-switch.js')?>"></script>
     <script src="<?php echo asset('js/plugins/nouislider.min.js')?>" type="text/javascript"></script>
     <script src="<?php echo asset('js/plugins/bootstrap-datepicker.js')?>" type="text/javascript"></script>
@@ -34,6 +35,12 @@
     <script src="<?php echo asset('js/now-ui-kit.js?v=1.2.0')?>" type="text/javascript"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src='<?php echo e(asset("js/bea.js")); ?>'></script>
-    
+    <script type="text/javascript">
+
+      $("select[name='location']:eq(0)").on("change", function() {
+          $("select[name='city']:eq(0)").find("optgroup, option").hide().filter("[label='" + this.value + "'], [label='" + this.value + "'] > *").show();
+      });
+
+    </script>
   </body>
   </html>

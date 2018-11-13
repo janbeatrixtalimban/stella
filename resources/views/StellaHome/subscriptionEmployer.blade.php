@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -83,10 +83,16 @@
         <div class="container-fluid" >
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto text-center">
+            @if( Auth::user()->status == 0)
                 <h2 class="title" style="color:#1b1b1b;">Why go premium with Stella?</h2>
                 <h5 class="description" style="color:black;">With Stella premium, you can avail more features such as viewing the model's profile and their attributes and inviting them to join projects. With just <b>P250 monthly</b>, subscribers can enjoy the privileges of a breezy model scouting process. </h5>
+            @else( Auth::user()->status == 1)
+                <h2 class="title" style="color:#1b1b1b;">Thank you for subscribing to Stella Premium!</h2>
+                <h5 class="description" style="color:black;">Dear {{Auth::user()->firstName}} {{Auth::user()->lastName}}, enjoy your premium subscription! Your subscription will automatically end in {{$diff}} days, be sure to renew your subscription if you want to maintain your premium membership. </h5>
+            @endif
                 <br><br><br>
                     <div class="col-md-7 ml-auto mr-auto">
+                    @if( Auth::user()->status == 0)
                         <div id="jobpost" class="card">
                             <div class="card-body" style="color:#1b1b1b;">
                                 <h3 class="card-title text-center">Stella Employer Premium</h3>
@@ -94,12 +100,26 @@
                                     Subscribe to Stella Premium today to enjoy more!<br><br>
                                 </p>
                                 <h5><b>Get for P250 monthly</b></h5>
+                                <form class="in-line" method="POST" action="{{ url('/freetrial') }}">
+                                {{ csrf_field() }}
+                                        <input type="hidden" class="form-control" name="userID" id="userID" value="{{ Auth::user()->userID}}" required >
+                                        <input type="hidden" class="form-control" name="amount" id="amount" value="0.00" required >
+                                        <input type="hidden" class="form-control" id="email" name="email" value="{{ Auth::user()->emailAddress}}"  required> 
+                                        <input type="hidden" class="form-control" id="first_name" name="first_name" value="{{ Auth::user()->firstName}}"  required >
+                                        <input type="hidden" class="form-control" id="last_name" name="last_name" value="{{ Auth::user()->lastName}}"  required >
+                                        <input type="hidden" class="form-control" id="payer_id" name="payer_id" value="{{ Auth::user()->userID}}" required>
+                                        <input type="hidden" class="form-control" id="transactiondetails" name="transactiondetails" value="1"  required>
+                                    <button type="submit" class="btn btn-info btn-round btn-lg" style="display: {{ $hidetrial }};">7-Day Trial</button><br>
                                 <a href="/gopremium" target="_blank" class="btn btn-maroon btn-round btn-lg">Subscribe</a><br>
+                                </form>
                                 <a href="/employerHome">No, thanks</a>
                             </div>
                             <div class="card-footer text-muted mb-2">
                             </div>
                         </div>
+                    @else( Auth::user()->status == 1)
+                        <a href="/employerHome" class="btn btn-maroon btn-round btn-lg">Start Browsing!</a>
+                    @endif
                     </div>
             </div>
           </div><!--feed content row closing tag -->

@@ -23,8 +23,12 @@ class EmployerController extends Controller
 {
     public function forgotPassword()
     {
-        
+        if (Auth::check()) {   
         return view('StellaEmployer.forgotpassword');
+        }
+        else{
+            return('fail');
+        }
     }
 
     public function changepassword(Request $request)
@@ -131,7 +135,12 @@ class EmployerController extends Controller
 
     public function createPost()
     {
+        if (Auth::check()) {
         return view('StellaEmployer.createJobPost');
+        }
+        else{
+            return('fail');
+        }
     }
 
     
@@ -140,24 +149,68 @@ class EmployerController extends Controller
     {
 
         if (Auth::check()) {
-            $validator = Validator::make($request->all(), [
+            $projectValidator = Validator::make($request->all(), [
 
-                'prjTitle' => 'required',
-                'jobDescription' => 'required',
-                'location' => 'required',
-                'jobDate' => 'required',
-                'jobEnd' => 'required',
-                'role' => 'required',
-                'talentFee' => 'required',
-                'modelNo' => 'required',
-                'zipCode' => 'required',
-                'updated_at',
+                'prjTitle' => 'required|string|max:100',
+                'jobDescription' => 'required|string|max:200',
+                'modelNo' => 'required|integer|between:1,10',
+                'role' => 'required|string|max:50',
 
             ]);
-            if ($validator->fails()) {
-                return redirect()->to($validator->errors());
+          
 
+	$feeValidator = Validator::make($request->all(), [
+
+	  	 'talentFee' => 'required|integer|between:300,1000000',
+
+        ]);
+
+	$dateStartValidator = Validator::make($request->all(), [
+
+	  	'jobDate' => 'required|date|after:yesterday',
+
+        ]);
+
+	$dateEndValidator = Validator::make($request->all(), [
+
+		'jobEnd' => 'required|date|after_or_equal:jobDate',
+
+        ]);
+
+	$addressValidator = Validator::make($request->all(), [
+
+	   'address', // => 'required|string|max:150|regex:/(^[-0-9A-Za-z.,\/ ]+$)/',
+           'location', // => 'required|string|max:50',
+	   'zipcode', // => 'required|integer|size:4',
+
+        ]);
+
+            if ($projectValidator->fails()) {
+                $errormsg = "*Your title or description has exceeded the maximum character count.";
+                return redirect()->back()->with('project', $errormsg);
             }
+
+	    else if ($feeValidator->fails()) {
+                $errormsg = "*You are only allowed to enter a talent fee between PHP300.00 to PHP1,000,000.00.";
+                return redirect()->back()->with('fee', $errormsg);
+            }
+
+	    else if ($dateEndValidator->fails()) {
+                $errormsg = "*Your end date cannot be before your start date.";
+                return redirect()->back()->with('dateend', $errormsg);
+            }
+
+	    else if ($dateStartValidator->fails()) {
+                $errormsg = "*Your start date cannot be before the date today.";
+                return redirect()->back()->with('datestart', $errormsg);
+            }
+
+  	    else if ($addressValidator->fails()) {
+                $errormsg = "*Please check your address format.";
+                return redirect()->back()->with('address', $errormsg);
+            }
+
+
             $input = $request->all();
             $input['userID'] = Auth::user()->userID;
             $input['hidden'] = '1';
@@ -192,33 +245,89 @@ class EmployerController extends Controller
 
     public function showProj($projectID)
     {
+        if (Auth::check()) {
         $projects = Project::where('projectID', $projectID)->first();
         // dd($projects);
         return view('StellaEmployer.editJobPost')->with('projects', $projects);
+        }
+        else{
+            return('fail');
+        }
     }
+
 
     public function updateProj(Request $request)
     {
 
         if (Auth::check()) {
-            $validator = Validator::make($request->all(), [
+            $projectValidator = Validator::make($request->all(), [
 
-                'prjTitle' => 'required',
-                'jobDescription' => 'required',
-                'location' => 'required',
-                'modelNo' => 'required',
-                'role' => 'required',
-                'talentFee' => 'required',
+                'prjTitle' => 'required|string|max:100',
+                'jobDescription' => 'required|string|max:200',
+                'modelNo' => 'required|integer|between:1,10',
+                'role' => 'required|string|max:50',
 
             ]);
-            if ($validator->fails()) {
-                return redirect()->to($validator->errors());
+          
 
+	$feeValidator = Validator::make($request->all(), [
+
+	  	 'talentFee' => 'required|integer|between:300,1000000',
+
+        ]);
+
+	$dateStartValidator = Validator::make($request->all(), [
+
+	  	'jobDate' => 'required|date|after:yesterday',
+
+        ]);
+
+	$dateEndValidator = Validator::make($request->all(), [
+
+		'jobEnd' => 'required|date|after_or_equal:jobDate',
+
+        ]);
+
+	$addressValidator = Validator::make($request->all(), [
+
+	   'address', //=> 'required|max:150|regex:/(^[-0-9A-Za-z.,\/ ]+$)/',
+          'location', //=> 'required|string|max:50',
+	   'zipcode', //=> 'required|size:4',
+
+        ]);
+
+            if ($projectValidator->fails()) {
+                $errormsg = "*Your title or description has exceeded the maximum character count.";
+                return redirect()->back()->with('project', $errormsg);
             }
+
+	    else if ($feeValidator->fails()) {
+                $errormsg = "*You are only allowed to enter a talent fee between PHP300.00 to PHP1,000,000.00.";
+                return redirect()->back()->with('fee', $errormsg);
+            }
+
+	    else if ($dateEndValidator->fails()) {
+                $errormsg = "*Your end date cannot be before your start date.";
+                return redirect()->back()->with('dateend', $errormsg);
+            }
+
+	    else if ($dateStartValidator->fails()) {
+                $errormsg = "*Your start date cannot be before the date today.";
+                return redirect()->back()->with('datestart', $errormsg);
+            }
+
+  	    else if ($addressValidator->fails()) {
+                $errormsg = "*Please check your address format.";
+                return redirect()->back()->with('address', $errormsg);
+            }
+
+
             $prjTitle = $request->input('prjTitle');
             $modelNo = $request->input('modelNo');
             $jobDescription = $request->input('jobDescription');
             $address = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
+	        $jobDate = $request->input('jobDate');
+	        $jobEnd = $request->input('jobEnd');
             $location = $request->input('location');
             $zipCode = $request->input('zipCode');
             $role = $request->input('role');
@@ -228,14 +337,16 @@ class EmployerController extends Controller
             $projectID = $request->get('projectID');
             // dd($projectID);
 
-            $project = project::where('projectID', $projectID)
-                ->update(['prjTitle' => $prjTitle, 'jobDescription' => $jobDescription,
-                    'location' => $location, 'modelNo' => $modelNo, 'role' => $role,
-                    'talentFee' => $talentFee, 'address' => $address, 'zipCode' => $zipCode]);
+	        $updatemsg = "Job post successfully updated!";
 
-                    $projects = Project::where('projectID', $projectID)->first();
-                    // dd($projects);
-                    return view('StellaEmployer.editJobPost')->with('projects', $projects);
+            $project = project::where('projectID', $projectID)
+            ->update(['prjTitle' => $prjTitle, 'jobDescription' => $jobDescription, 'jobDate' => $jobDate,
+            'jobEnd' => $jobEnd, 'location' => $location, 'modelNo' => $modelNo, 'role' => $role,
+            'talentFee' => $talentFee, 'address' => $address, 'zipCode' => $zipCode]);
+
+            $projects = Project::where('projectID', $projectID)->first();
+            // dd($projects);
+            return redirect()->back()->with('projects', $projects)->with('updated', $updatemsg);
 
         } else {
             return ('fail');
@@ -272,7 +383,7 @@ class EmployerController extends Controller
 
     public function Ehomepage(Request $request)
     {
-
+        if (Auth::check()) {
         $num = 3;
         $currentDate = date('Y-m-d');
         $user = User::where('typeID', $num)->get();
@@ -290,30 +401,47 @@ class EmployerController extends Controller
 
         return view('StellaEmployer.homepage', compact('user', 'projects', 'model'))
            ->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details);
+        }
+        else{
+            return ('fail');
+        }
 
 
     }
 
     public function viewModels()
     {
+        if (Auth::check()) {
         $user = User::where('typeID' == 3)->get();
         //dd($projects);
         //$projects = Project::where('userID', Auth::user()->userID)->latest()->paginate(10);
         return view('StellaEmployer.employerProfile')->with('user', $user);
+        }
+        else{
+            return ('fail');
+        }
 
 
     }
 
     public function getProfile()
     {
-
+        if (Auth::check()) {
         return view('StellaEmployer.editProfile');
+        }
+        else{
+            return ('fail');
+        }
     }
 
     public function getCompany()
     {
-
+        if (Auth::check()) {
         return view('StellaEmployer.editCompany');
+        }
+        else{
+            return ('fail');
+        }
     }
 
     public function editEmployer(Request $request, $id)
@@ -322,16 +450,45 @@ class EmployerController extends Controller
         // dd(Auth::user());
         $user = user::find($id);
         if (Auth::check()) {
-            $validator = Validator::make($request->all(), [
 
-                'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
-                'location' => 'required',
-                'updated_at',
-            ]);
-            if ($validator->fails()) {
-                return redirect()->to($validator->errors());
+	    $nameValidator = Validator::make($request->all(), [
+              
+            		'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            		'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',     
 
-            }
+        	]);
+
+            $contactValidator = Validator::make($request->all(), [
+
+
+                      'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+                      'location' => 'required',
+                      'updated_at',
+                  ]);
+
+	    $addressValidator = Validator::make($request->all(), [
+
+	   		'address' => 'required|max:150|regex:/(^[-0-9A-Za-z.,\/ ]+$)/',
+           		'location' => 'required|string|max:50',
+	   		'zipcode' => 'required|size:4',
+
+                  ]);
+
+
+	    	  if ($nameValidator->fails()) {
+                	$errormsg = "*Numbers and symbols are not allowed on your name.";
+                	return redirect()->back()->with('name', $errormsg);          
+            	  }
+		  elseif ($contactValidator->fails()) {
+			$errormsg = "*Please follow the contact number format";
+                    	return redirect()->back()->with('contact', $errormsg);    	
+		  }
+		  elseif ($addressValidator->fails()) {
+			$errormsg = "*Please check your address format.";
+                    	return redirect()->back()->with('address', $errormsg);    	
+		  }
+
+
             $firstName = $request->input('firstName');
             $lastName = $request->input('lastName');
             $contactNo = $request->input('contactNo');
@@ -377,17 +534,29 @@ class EmployerController extends Controller
 
         $user = user::find($id);
         if (Auth::check()) {
-            $validator = Validator::make($request->all(), [
-                'name',
-                'position',
-                'description' => 'max:300',
+            $descValidator = Validator::make($request->all(), [
+                'name' => 'required|string|max:50',
+                'position' => 'required|string|max:50',
+                'description' => 'required|string|max:300',
                 'updated_at',
             ]);
-            if ($validator->fails()) {
-                $error = "Your Description is too long. Maximum allowable of 300 characters only.";
-                return redirect()->back()->with('failure', $error);
+
+	    $otherValidator = Validator::make($request->all(), [
+                'name' => 'required|string|max:50',
+                'position' => 'required|string|max:50',
+            ]);
+
+            if ($descValidator->fails()) {
+                $error = "*Your Description is too long. Maximum allowable of 300 characters only.";
+                return redirect()->back()->with('desc', $error);
 
             }
+	    else if ($otherValidator->fails()) {
+                $error = "*Your company name or company position is too long.";
+                return redirect()->back()->with('other', $error);
+
+            }
+
             $name = $request->input('name');
             $position = $request->input('position');
             $description = $request->input('description');
@@ -401,7 +570,9 @@ class EmployerController extends Controller
             $auditlogs->logType = 'Edit company details';
 
             if ($auditlogs->save() && $company) {
-                return redirect()->to('/employerprofile')->with('alert', 'Updated!');
+                $updatemsg = "Company Details Updated.";
+                return redirect()->to('/employerprofile')->with('updated', $updatemsg);
+
             } else {
                 return ('fail');
             }
@@ -415,10 +586,6 @@ class EmployerController extends Controller
     {
         
         	if ($request->hasFile('avatar')) {
-
-                $request->validate([
-                    'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                ]);
          
                 $avatar = $request->file('avatar');
                 $image_ext = $avatar->GetClientOriginalExtension();
@@ -431,15 +598,21 @@ class EmployerController extends Controller
 
             
                     $user = user::where('userID', Auth::user()->userID)->update(['avatar' => $input ]);
-         
-
-                    return back()
-                    ->with('Success','You have successfully upload image.');
+        		
+		    return back();
          
                 }
             else
             {                       
-                return "Image too large, please upload a smaller image size";        
+                $avatarValidator = Validator::make($request->all(), [
+                    	'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    ]);
+
+                if ($avatarValidator->fails()) {
+                    $errormsg = "Image file is too large. Please upload a smaller image file.";
+                    return redirect()->back()->with('failure', $errormsg);
+
+                }        
             }
             
     }
@@ -498,22 +671,86 @@ class EmployerController extends Controller
 
     public function viewApplicants(Request $request)
     {
-
+        if (Auth::check()) {
         $userID =  $request->get('userID'); 
-
+        $zero = 0;
         $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
         ->join('users', 'applicants.candidateID', 'users.userID')
         ->where('applicants.userID', Auth::user()->userID)
-        //->orderBy('prjTitle', 'asc')
         ->orderBy('applicants.updated_at', 'desc')->get();
+
+        $hello = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        ->join('users', 'applicants.candidateID', 'users.userID')
+        ->where('applicants.userID', Auth::user()->userID)
+        ->where('applicants.applicantStatus' , $zero)
+        ->count();
         
         $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
 
         //dd($details);
-       return view('StellaEmployer.viewApplicants')->with('details', $details)->with('projects', $projects);
+       return view('StellaEmployer.viewApplicants')
+       ->with('details', $details)->with('projects', $projects)
+       ->with('hello', $hello);
+        }
+        else{
+            return('fail');
+        }
     }
 
-   
+
+
+   public function viewhired()
+    {
+        if (Auth::check()) {
+        	$details = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        	->join('users', 'users.userID', 'hires.modelID')
+        	->join('attributes', 'attributes.userID', '=', 'users.userID')   
+		    ->where('hires.hirestatus', '1')
+            ->where('hires.userID', Auth::user()->userID)->get();  
+            
+            $hello = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        	->join('users', 'users.userID', 'hires.modelID')
+        	->join('attributes', 'attributes.userID', '=', 'users.userID')   
+		    ->where('hires.hirestatus', '1')
+        	->where('hires.userID', Auth::user()->userID)->count(); 
+	//dd($hello); 
+ 
+            	
+            	return view('StellaEmployer.viewhired', compact('details'))
+            	->with('i', (request()->input('page', 1) - 1) * 5)->with('details', $details)->with('hello', $hello);
+
+        }
+        else{
+            return('fail');
+        }
+    }   
+
+
+   public function viewacceptedmodels()
+    {
+        if (Auth::check()) {
+        	$models = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        	->join('users', 'users.userID', 'applicants.candidateID')
+        	->join('attributes', 'attributes.userID', '=', 'users.userID')   
+		    ->where('applicants.applicantStatus', '1')
+            ->where('applicants.userID', Auth::user()->userID)->get();  
+            
+            $hello = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        	->join('users', 'users.userID', 'applicants.candidateID')
+        	->join('attributes', 'attributes.userID', '=', 'users.userID')   
+		    ->where('applicants.applicantStatus', '1')
+        	->where('applicants.userID', Auth::user()->userID)->count();  
+            	
+            	return view('StellaEmployer.viewaccepted', compact('models'))
+            	->with('i', (request()->input('page', 1) - 1) * 5)->with('models', $models)->with('hello', $hello);
+
+        }
+        else{
+            return('fail');
+        }
+    }   
+
+
     public function acceptApplicant(Request $request)
     {
 
@@ -542,15 +779,20 @@ class EmployerController extends Controller
             $auditlogs->logType = 'Accepted applicant';
 
             if ($auditlogs->save() && $applicant) {
-                $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
-                ->join('users', 'applicants.candidateID', 'users.userID')
-                ->where('applicants.userID', Auth::user()->userID)
-                ->orderBy('applicants.updated_at', 'desc')->get();
-
-                $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
-
-                //dd($details);
-               return view('StellaEmployer.viewApplicants')->with('details', $details)->with('projects', $projects);
+                $models = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        	->join('users', 'users.userID', 'applicants.candidateID')
+        	->join('attributes', 'attributes.userID', '=', 'users.userID')   
+		    ->where('applicants.applicantStatus', '1')
+            ->where('applicants.userID', Auth::user()->userID)->get();  
+            
+            $hello = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+        	->join('users', 'users.userID', 'applicants.candidateID')
+        	->join('attributes', 'attributes.userID', '=', 'users.userID')   
+		    ->where('applicants.applicantStatus', '1')
+        	->where('applicants.userID', Auth::user()->userID)->count();  
+            	
+            	return view('StellaEmployer.viewaccepted', compact('models'))
+            	->with('i', (request()->input('page', 1) - 1) * 5)->with('models', $models)->with('hello', $hello);
             } else {
                 return ('failed');
             }
@@ -580,8 +822,20 @@ class EmployerController extends Controller
         ->join('users', 'users.userID', 'hires.modelID')
         ->join('attributes', 'attributes.userID', '=', 'users.userID')
         ->where('hires.userID', Auth::user()->userID)->get();
-       // dd($details);
-        return view('StellaEmployer.viewHaggleFee')->with('details', $details);
+
+	    $zero = 0;
+	    $pending = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'users.userID', 'hires.modelID')
+        ->join('attributes', 'attributes.userID', '=', 'users.userID')
+        ->where('hires.userID', Auth::user()->userID)
+	    ->where('hires.haggleStatus' , $zero)
+        ->count();
+
+        return view('StellaEmployer.viewHaggleFee')->with('details', $details)
+	    ->with('pending', $pending);
+        }
+        else{
+            return('fail');
         }
     }
 
@@ -598,15 +852,21 @@ class EmployerController extends Controller
                 return redirect()->to($validator->errors());
 
             }
+
+	        $zero = 0;
+	        $pending = hire::join('projects', 'projects.projectID', 'hires.projectID')
+            ->join('users', 'users.userID', 'hires.modelID')
+            ->join('attributes', 'attributes.userID', '=', 'users.userID')
+            ->where('hires.userID', Auth::user()->userID)
+	        ->where('hires.haggleStatus' , $zero)
+            ->count();
+
             $status = '1';
            
             $hireID = $request->get('hireID');
             $emailAddress = $request->get('emailAddress');
             $hire = hire::where('hireID', $hireID)->update(['haggleStatus' => $status]);
-           $this->acceptNotif($emailAddress);
-            //return view('StellaModel.homepage');
-
-            //return redirect()->back()->with('alert', 'Updated!');
+           $this->acceptemailHaggle($emailAddress);
 
             $auditlogs = new auditlogs;
             $auditlogs->userID = Auth::user()->userID;
@@ -617,7 +877,7 @@ class EmployerController extends Controller
                 ->join('users', 'users.userID', 'hires.modelID')
                 ->where('hires.userID', Auth::user()->userID)->get();
                // dd($details);
-                return view('StellaEmployer.viewHaggleFee')->with('details', $details);
+                return view('StellaEmployer.viewHaggleFee')->with('details', $details)->with('pending', $pending);
             } else {
                 return ('failed');
             }
@@ -626,6 +886,18 @@ class EmployerController extends Controller
             return ('fail');
         }
 
+        
+    }
+
+    public function acceptemailHaggle($email)
+    {
+        $data = array('name' => "ello");
+        //'text' => 'mail' :: loob ng () mail
+        Mail::send(['html' => 'acceptHaggle'], $data, function ($message) use ($email) {
+            $message->to($email, $email)->subject
+                ('STELLA Haggle Accept Notification');
+            $message->from('stella.model.ph@gmail.com', 'Stella PH');
+        });
         
     }
 
@@ -683,7 +955,7 @@ class EmployerController extends Controller
             $applicantID = $request->get('applicantID');
             $emailAddress = $request->get('emailAddress');
             $rejectReason = $request->get('rejectReason');
-            $applicant = applicant::where('applicantID', $applicantID)->update(['applicantStatus' => $status]);
+            $applicant = applicant::where('applicantID', $applicantID)->update(['applicantStatus' => $status, 'rejectReason' => $rejectReason]);
             $this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');
 
@@ -694,15 +966,24 @@ class EmployerController extends Controller
             $auditlogs->logType = 'Rejected applicant';
 
             if ($auditlogs->save() && $applicant) {
+                $userID =  $request->get('userID'); 
+                $zero = 0;
                 $details = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
                 ->join('users', 'applicants.candidateID', 'users.userID')
                 ->where('applicants.userID', Auth::user()->userID)
                 ->orderBy('applicants.updated_at', 'desc')->get();
 
+                $hello = applicant::join('projects', 'projects.projectID', 'applicants.projectID')
+                ->join('users', 'applicants.candidateID', 'users.userID')
+                ->where('applicants.userID', Auth::user()->userID)
+                ->where('applicants.applicantStatus' , $zero)
+                ->count();
+        
                 $projects = Project::where('userID', Auth::user()->userID)->where('hidden', '1')->get();
-
-                //dd($details);
-               return view('StellaEmployer.viewApplicants')->with('details', $details)->with('projects', $projects);
+                 
+                return view('StellaEmployer.viewApplicants')
+                ->with('details', $details)->with('projects', $projects)
+                ->with('hello', $hello);
             } else {
                 return ('failed');
             }
@@ -727,12 +1008,21 @@ class EmployerController extends Controller
                 return redirect()->to($validator->errors());
 
             }
+
+	$zero = 0;
+	$pending = hire::join('projects', 'projects.projectID', 'hires.projectID')
+        ->join('users', 'users.userID', 'hires.modelID')
+        ->join('attributes', 'attributes.userID', '=', 'users.userID')
+        ->where('hires.userID', Auth::user()->userID)
+	->where('hires.haggleStatus' , $zero)
+        ->count();
+
             $status = '2';
            
             $hireID = $request->get('hireID');
             $emailAddress = $request->get('emailAddress');
             $rejectReason = $request->get('rejectReason');
-            $hire = hire::where('hireID', $hireID)->update(['haggleStatus' => $status]);
+            $hire = hire::where('hireID', $hireID)->update(['haggleStatus' => $status, 'rejectReason' => $rejectReason]);
            $this->acceptNotif($emailAddress);
             //return view('StellaModel.homepage');
 
@@ -747,7 +1037,8 @@ class EmployerController extends Controller
                 ->join('users', 'users.userID', 'hires.modelID')
                 ->where('hires.userID', Auth::user()->userID)->get();
                // dd($details);
-                return view('StellaEmployer.viewHaggleFee')->with('details', $details);
+                return view('StellaEmployer.viewHaggleFee')->with('details', $details)
+		->with('pending', $pending);
             } else {
                 return ('failed');
             }
@@ -759,3 +1050,11 @@ class EmployerController extends Controller
         
     }
 }
+
+
+
+
+
+
+
+

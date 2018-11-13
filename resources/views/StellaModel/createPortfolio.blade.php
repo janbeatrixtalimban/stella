@@ -1,7 +1,7 @@
 
 @extends('layouts.modelapp')
 
-<title>@yield('pageTitle') Create Portfolio </title>
+<title>@yield('pageTitle') Add to Portfolio </title>
 
 @section('content')
 
@@ -35,7 +35,7 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -54,10 +54,11 @@
                             </a>
                             @if(Auth::user()->status == 1)
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Add to Portfolio</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="{{ url('/model/viewAcceptedApplication') }}" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -65,7 +66,7 @@
                             </div>
                             @else
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Add to Portfolio</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 
@@ -103,25 +104,18 @@
                 <div class="col-sm-6">
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                        <form action="/createPortfolio" class="form-image-upload" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('/createPortfolio') }}" class="form-image-upload" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
-
-                                @if (count($errors) > 0)
-                                    <div class="alert alert-danger">
-                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                        <ul>
-                                                @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                                @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
                             <br>
                             <h3>Add Picture to Portfolio</h3><br>
                             <p>You may add up to 12 of your best photos to the portfolio</p>
+				@if (\Session::has('failure'))
+                        		<div class="alert alert-danger" role="alert">
+                        		{!! \Session::get('failure') !!}
+                         	      	</div>
+               			@endif  
                                 <!-- Upload Image -->
-				                    <div class="input-group input-lg">
+				      <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>

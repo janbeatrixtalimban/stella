@@ -6255,6 +6255,19 @@ img {
   /* Standard syntax */
 }
 
+.clear-filter[filter-color="red"] {
+  background: rgba(109, 24, 24, 0.733);
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(90deg, rgba(102, 14, 14, 0.733), rgba(224, 23, 3, 0.6));
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(90deg, rgba(102, 14, 14, 0.733), rgba(224, 23, 3, 0.6));
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(90deg, rgba(102, 14, 14, 0.733), rgba(224, 23, 3, 0.6));
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(0deg, rgba(102, 14, 14, 0.733), rgba(224, 23, 3, 0.6));
+  /* Standard syntax */
+}
+
 .section-story-overview {
   padding: 50px 0;
 }

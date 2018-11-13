@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -127,7 +127,13 @@
                                     <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true" required>
                                 </div>
                             </div>
-                        </div><br>
+                        </div>
+				@if (\Session::has('name'))
+                        		<div class="alert alert-danger" role="alert">
+                        		{!! \Session::get('name') !!}
+                         	      	</div>
+               			@endif 
+				<br>
                         <!-- Email -->
                                 <div class="form-group">    
                                     <label>Email</label>   
@@ -137,7 +143,13 @@
                                 <div class="form-group">
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" id="contactNo" name="contactNo" value="{{ Auth::user()->contactNo}}" required>
-                                </div><br>
+                                </div>
+				@if (\Session::has('contact'))
+                        		<div class="alert alert-danger" role="alert">
+                        		{!! \Session::get('contact') !!}
+                         	      	</div>
+               			@endif 
+				<br>
                         <!-- Address line 1 -->
                               <label for="address">Full Address</label>
                               <div class="input-group input-sm">
@@ -472,8 +484,13 @@
                                     </select>
                                     <!--Zip Code-->
                                         <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
-                                        </div><br>
-                                       
+                                        </div>
+				@if (\Session::has('address'))
+                        		<div class="alert alert-danger" role="alert">
+                        		{!! \Session::get('address') !!}
+                         	      	</div>
+               			@endif 
+				<br>    
                         <!-- Save button -->
                             <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
                             <a class="link" href="{{ url('/employerprofile') }}">Cancel</a>

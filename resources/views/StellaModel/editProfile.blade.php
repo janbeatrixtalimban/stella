@@ -1,6 +1,6 @@
 @extends('layouts.modelapp')
 
-<title>@yield('pageTitle') Welcome {{ Auth::user()->firstName}}! </title>
+<title>@yield('pageTitle') Edit Profile </title>
 
 @section('content')
 
@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -53,10 +53,11 @@
                             </a>
                             @if(Auth::user()->status == 1)
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Edit Profile</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="{{ url('/model/viewAcceptedApplication') }}" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -64,7 +65,7 @@
                             </div>
                             @else
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-header" style="color:grey;">Edit Profile</a>
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 
@@ -116,7 +117,6 @@
                         <div class="card card-plain">
                             <form method="POST" action="{{ url('/SaveEdit/'.Auth::user()->userID) }}">
                                 {{ csrf_field() }}
-
                         <div class="row">
                         <!-- First Name -->
                             <div class="col-md-4">
@@ -139,8 +139,13 @@
                                     <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true" required>
                                 </div>
                             </div>
-                        </div><br>
-
+                        </div>
+				@if (\Session::has('name'))
+                        		<div class="alert alert-danger" role="alert">
+                        		{!! \Session::get('name') !!}
+                         	      	</div>
+               			@endif 
+				<br>
                         <div class="row">
                         <!-- Contact Number -->
                             <div class="col-md-6">
@@ -148,6 +153,12 @@
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" id="contactNo" name="contactNo" value="{{ Auth::user()->contactNo}}" required>
                                 </div>
+				@if (\Session::has('contact'))
+                        		<div class="alert alert-danger" role="alert">
+                        		{!! \Session::get('contact') !!}
+                         	      	</div>
+               			@endif 
+
                             </div>
                         <!-- Email -->
                             <div class="col-md-6">
@@ -518,7 +529,13 @@
                                     </select>
                                     <!--Zip Code-->
                                         <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
-                                        </div><br>
+                                        </div>
+				@if (\Session::has('address'))
+                        		<div class="alert alert-danger" role="alert">
+                        		{!! \Session::get('address') !!}
+                         	      	</div>
+               			@endif 
+				<br>
                         <!-- Save button -->
                             <button type="submit" name="button" class="btn btn-maroon btn-round btn-lg" style="float:right;">Save</button><br>
                             <a class="link" href="{{ url('/modelprofile') }}">Cancel</a>

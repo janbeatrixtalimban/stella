@@ -49,16 +49,29 @@
                                 <span class="d-lg-none d-md-block">   Edit Profile</span>
                               </p>
                             </a>
+                            <?php if(Auth::user()->status == 1): ?>
                             <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-header" style="color:grey;">Edit Profile</a>
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
                                 <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/viewJobOffers')); ?>" style="color:black;">View Job Offers</a>
-                                <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a> 
+                                <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
                             </div>
+                            <?php else: ?>
+                            <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-header" style="color:grey;">Homepage</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/modelprofile')); ?>" style="color:black;">
+                                <h6><?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></h6></a>
+                                
+                                <a class="dropdown-item" href="<?php echo e(url('/subscription')); ?>" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="<?php echo e(url('/model/forgotPassword')); ?>" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>" style="color:black;">Logout</a>
+                            </div>
+                            <?php endif; ?>
                       </li>
                     </ul>
                 </div>
@@ -108,12 +121,7 @@
                                     </div>
                                 <?php endif; ?>
                         
-                        <!-- Current Password -->
-                        <div class="form-group">
-                                    <label>Current Password</label>
-                                    <input type="password" class="form-control" name="password" value="">
-                                </div>
-                                <br><br>
+                        
                         <!-- New Password -->
                                 <div class="form-group">    
                                     <label>New Password</label>   

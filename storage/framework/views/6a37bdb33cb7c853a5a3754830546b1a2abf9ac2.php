@@ -79,5 +79,13 @@
 
     </script>
 
+    <script type="text/javascript">
+
+        $("select[name='location']:eq(0)").on("change", function() {
+            $("select[name='city']:eq(0)").find("optgroup, option").hide().filter("[label='" + this.value + "'], [label='" + this.value + "'] > *").show();
+        });
+
+    </script>
+
 </body>
 </html>

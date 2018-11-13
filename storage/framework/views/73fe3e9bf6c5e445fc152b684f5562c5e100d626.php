@@ -32,7 +32,7 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(url('/modelprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                         </p>
@@ -87,7 +87,7 @@
     <!-- Card for job offer contents -->
       <?php $__currentLoopData = $details->reverse(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-            <?php if($detail->hirestatus != '2'): ?>
+            <?php if($detail->hirestatus == '0'): ?>
               <div id="joboffer" class="card text-center">
                 <div class="card-body" style="color:#1b1b1b;">
                   <div class="row">
@@ -145,6 +145,8 @@
       
             </div><!-- card closing tag -->
             
+            <?php elseif($detail->hirestatus == '2'): ?>
+            <div style="display: none;">
             <?php else: ?>
             <?php endif; ?>
 
@@ -173,7 +175,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                           </div>
                           <div class="modal-body">
-                              <h4><img src="/uploads/avatars/<?php echo e($detail->avatar); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    <?php echo e($detail->prjTitle); ?> </h4>
+                              <h4><img src="<?php echo e(asset('/uploads/avatars/'.$detail->avatar)); ?>" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    <?php echo e($detail->prjTitle); ?> </h4>
                               <p>by <?php echo e($detail->firstName); ?> <?php echo e($detail->lastName); ?></p><br>
 
                               <p><b>Details:</b></p>

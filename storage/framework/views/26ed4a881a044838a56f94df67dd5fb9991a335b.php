@@ -32,7 +32,7 @@
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link" href="<?php echo e(url('/employerprofile ')); ?>" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/<?php echo e(Auth::user()->avatar); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="<?php echo e(asset('/uploads/avatars/'.Auth::user()->avatar)); ?>" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> <?php echo e(Auth::user()->firstName); ?> <?php echo e(Auth::user()->lastName); ?></span>
                         </p>
@@ -81,26 +81,35 @@
                 <div class="col-sm-1"><!--space-->
                 </div>
                 <div class="col-sm-2">
+                    <div class="side-navbar">
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="cointainer" style="color:black;"><br>
-                    <h3>Edit Job Post</h3><br>
                         <div class="card card-plain">    
                                 <form method="POST" action="<?php echo e(url('/SaveProj')); ?>">
                                     <?php echo csrf_field(); ?>
                                     <input type="hidden" id="projectID" name="projectID" value="<?php echo e($projects->projectID); ?>" />
-                                    <div class="row">
+                                    <h3><b>Edit Job Post</b></h3><br>
+
+ 				    <?php if(\Session::has('updated')): ?>
+                                        <div class="alert alert-success" role="alert">
+                                        <?php echo \Session::get('updated'); ?>
+
+                                        </div>
+                                    <?php endif; ?>
+
                                     <!-- Project Title -->
-                                        <label>Project Title:</label>
+                                        <label>Project Title (Max. 100 Characters)</label>
                                         <div class="input-group input-lg">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>
                                           </div>
                                             <input type="text" name="prjTitle" class="form-control" value="<?php echo e($projects->prjTitle); ?>" placeholder="" >
-                                        </div>
+                                        </div><br>
                                     <!-- Description -->
-                                        <label>Description:</label>
+                                        <label>Project Description (Max. 200 Characters)</label>
                                         <div class="input-group input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -108,24 +117,119 @@
                                             </div>
                                             <textarea class="form-control" name="jobDescription" id="jobDescription" rows="3" placeholder="Description.."><?php echo e($projects->jobDescription); ?></textarea>
                                         </div>
-                            <!-- ModelNo -->
-                            <label>Number of Models Needed:</label>
+ 				    <?php if(\Session::has('project')): ?>
+                                        <div class="alert alert-danger" role="alert">
+                                        <?php echo \Session::get('project'); ?>
+
+                                        </div>
+                                    <?php endif; ?>
+					<br>
+			            <div class="row">
+                            <!-- Project Start -->
+                            <div class="col-md-6">
+                                <label>Project Start Date</label>
+                                    <div class="input-group input-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                            </span>
+                                        </div>
+                                        <input type="date" class="form-control" name="jobDate" id="jobDate" value="<?php echo e($projects->jobDate); ?>">
+                                    </div>
+				    <?php if(\Session::has('datestart')): ?>
+                                        <div class="alert alert-danger" role="alert">
+                                        <?php echo \Session::get('datestart'); ?>
+
+                                        </div>
+                                    <?php endif; ?>
+
+                            </div>
+                            <!-- Project End -->
+                            <div class="col-md-6">
+                                <label>Project End Date</label>
+                                <div class="input-group input-lg">
+                                       <div class="input-group-prepend">
+                                           <span class="input-group-text">
+                                           </span>
+                                       </div>
+                                    <input type="date" class="form-control" name="jobEnd" id="jobEnd" value="<?php echo e($projects->jobEnd); ?>">
+                                </div>
+				    <?php if(\Session::has('dateend')): ?>
+                                        <div class="alert alert-danger" role="alert">
+                                        <?php echo \Session::get('dateend'); ?>
+
+                                        </div>
+                                    <?php endif; ?>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                        <!-- ModelNo -->
+                            <div class="col-md-6">
+                                <label>Number of Models needed:</label>
                                 <div class="input-group input-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                         </span>
                                     </div>
-                                    <select size="0.4" class="form-control" name="modelNo" id="modelNo" required>
-                                    <option value="" selected disabled><?php echo e($projects->modelNo); ?></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                </select>
-                              </div>
-                              <!-- Address line 1 -->
-                              <label for="address">Full Address</label>
+                                    <select size="0.4" class="form-control" name="modelNo" id="modelNumber" required>
+                                        <option value="" selected disabled><?php echo e($projects->modelNo); ?></option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                        <!-- Role -->
+                            <div class="col-md-6">
+                                <label>Role of Model/s</label>
+                                <div class="input-group input-lg"><div class="input-group-prepend">
+                                    <span class="input-group-text"></span>
+                                </div> 
+                                    <select size="0.4" class="form-control" name="role" id="role" required>
+                                        <option value="" selected disabled><?php echo e($projects->role); ?></option>
+                                        <option value="Fashion Model">Fashion(Editorial) model</option>
+                                        <option value="Runway Model">Runway model</option>
+                                        <option value="Commercial Model">Commercial model</option>
+                                        <option value="Plus Size Model">Plus size model</option>
+                                        <option value="Petite Model">Petite model</option>
+                                        <option value="Swimsuit Model">Swimsuit Model</option>
+                                        <option value="Lingerie Model">Lingerie Model</option>
+                                        <option value="Glamour Model">Glamour Model</option>
+                                        <option value="Fitness Model">Fitness Model</option>
+                                        <option value="Fitting Model">Fitting Model</option>
+                                        <option value="Parts Model">Parts Model</option>
+                                        <option value="Promotional Model">Promitional Model</option>
+                                        <option value="Mature Model">Mature Model</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <!-- Talent Fee -->
+                             <label>Talent Fee (PHP):</label>
+                                <div class="input-group input-lg">
+                                   <div class="input-group-prepend">
+                                       <span class="input-group-text">
+                                       </span>
+                                   </div>
+                                   <input type="text" class="form-control" name="talentFee" id="talentFee" placeholder="Php" value="<?php echo e($projects->talentFee); ?>" required> 
+                               </div>
+ 				    <?php if(\Session::has('fee')): ?>
+                                        <div class="alert alert-danger" role="alert">
+                                        <?php echo \Session::get('fee'); ?>
+
+                                        </div>
+                                    <?php endif; ?>
+				<br>
+                          
+		<!-- Address line 1 -->
+                              <label for="address">Edit Location (Address) of Project</label>
                               <div class="input-group input-sm">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -222,7 +326,7 @@
                                         </optgroup>
                                     </select>
                                 <!-- City -->
-                                    <select size="0.4" class="form-control" name="city" id="city" required>
+                                    <select size="0.4" class="form-control" name="city" id="city">
                                         <option value="" selected disabled>City..</option>
                                         <optgroup label="Pangasinan" style="color: black;">
                                             <option value="Alaminos City">Alaminos City</option>
@@ -458,41 +562,16 @@
                                     </select>
                                     <!--Zip Code-->
                                         <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="">
-                                        </div><br>
-                                    <!-- Role -->
-                                    <label>Role:</label>
-                                        <div class="input-group input-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <select size="0.4" class="form-control" name="role" id="role" required>
-                                                <option value="" selected disabled><?php echo e($projects->role); ?></option>
-                                                    <option value="Fashion Model">Fashion(Editorial) model</option>
-                                                    <option value="Runway Model">Runway model</option>
-                                                    <option value="Commercial Model">Commercial model</option>
-                                                    <option value="Plus Size Model">Plus size model</option>
-                                                    <option value="Petite Model">Petite model</option>
-                                                    <option value="Swimsuit Model">Swimsuit Model</option>
-                                                    <option value="Lingerie Model">Lingerie Model</option>
-                                                    <option value="Glamour Model">Glamour Model</option>
-                                                    <option value="Fitness Model">Fitness Model</option>
-                                                    <option value="Fitting Model">Fitting Model</option>
-                                                    <option value="Parts Model">Parts Model</option>
-                                                    <option value="Promotional Model">Promitional Model</option>
-                                                    <option value="Mature Model">Mature Model</option>
-                                            </select>
                                         </div>
-                                    <!-- Edit Talent fee-->
-                                        <label>Talent Fee:</label>
-                                        <div class="input-group input-lg">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                </span>
-                                            </div>
-                                            <input type="text" name="talentFee" class="form-control" value="<?php echo e($projects->talentFee); ?>" >
-                                        </div>
+				    <?php if(\Session::has('address')): ?>
+                                        <div class="alert alert-danger" role="alert">
+                                        <?php echo \Session::get('address'); ?>
 
+                                        </div>
+                                    <?php endif; ?>
+
+					<br>
+                                                          
                                          
                                     
                                     <!-- Edit Button -->

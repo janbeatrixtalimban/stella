@@ -35,7 +35,7 @@
                         </li>
                         <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -106,11 +106,17 @@
 
                             <h3>Edit Profile</h3>
                                 
-                                    @if (\Session::has('failure'))
+                                    @if (\Session::has('desc'))
                                         <div class="alert alert-danger" role="alert">
-                                        {!! \Session::get('failure') !!}
+                                        {!! \Session::get('desc') !!}
                                         </div>
                                     @endif
+				    @if (\Session::has('other'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('other') !!}
+                                        </div>
+                                    @endif
+
 
                                 <h4>Your Company Details</h4><br>
                                 <!-- Edit Company Name -->

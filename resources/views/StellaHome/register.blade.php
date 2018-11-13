@@ -1,6 +1,6 @@
 @extends('layouts.registerapp')
 
-<title>@yield('pageTitle') Register Model</title>
+<title>@yield('pageTitle') Register - Model</title>
 
 @section('content')
 
@@ -14,7 +14,7 @@
                 <div class="col-lg-11">
                   <div class="navbar-translate">
                     <img src="<?php echo asset('img/stella icon logo.png')?>" width="40">
-                    <a class="navbar-brand" href="" rel="tooltip" title="Register as a model" data-placement="bottom" target="_blank">
+                    <a class="navbar-brand" href="" rel="tooltip" title="Register as a model" data-placement="bottom">
                       Registration
                     </a>
                 </div>
@@ -50,7 +50,7 @@
 <!-- Body Contents -->
     <!--Left column contents-->
     <h3 class="h3-seo">Model Registration</h3><br><br>
-        <form class="" action="/register" method="post" enctype="multipart/form-data">
+        <form class="" action="{{ url('/register') }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="container-fluid">
                 <div class="row"> <!--row for navpills -->
@@ -63,19 +63,19 @@
                         <a class="nav-link disabled" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">2: Appearance & Measurements</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled hidden" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Attributes</a>
+                        <a class="nav-link disabled hidden" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled hidden" id="measurement-tab" data-toggle="tab" href="#measurement" role="tab" aria-controls="contact" aria-selected="false">Measurements</a>
+                        <a class="nav-link disabled hidden" id="measurement-tab" data-toggle="tab" href="#measurement" role="tab" aria-controls="contact" aria-selected="false"></a>
                     </li>
                 </ul>
                 </div><!-- closing for row navpills--><br><br>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container-fluid">        
-                        @if (\Session::has('failure'))
+                        @if (\Session::has('other'))
                             <div class="alert alert-danger" role="alert">
-                                {!! \Session::get('failure') !!}
+                                {!! \Session::get('other') !!}
                             </div>
                         @endif
                     <div class="row">
@@ -102,6 +102,11 @@
                                             </div>
                                             <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
                                         </div>
+                        			    @if (\Session::has('name'))
+                            				<div class="alert alert-danger" role="alert">
+                                			    {!! \Session::get('name') !!}
+                            				</div>
+                        			    @endif
                                     <!-- Birthdate -->
                                         <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
@@ -110,6 +115,11 @@
                                             </div>
                                             <input type="date" class="form-control" name="birthDate" value="" required>
                                         </div>
+                        			    @if (\Session::has('birthday'))
+                            				<div class="alert alert-danger" role="alert">
+                                			    {!! \Session::get('birthday') !!}
+                            				</div>
+                        			    @endif
                                     <!--Contact number-->
                                         <div class="input-group no-border input-sm">
                                                 <div class="input-group-prepend">
@@ -118,6 +128,11 @@
                                                 </div>
                                                 <input type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
                                         </div>
+                        			    @if (\Session::has('contact'))
+                            				<div class="alert alert-danger" role="alert">
+                                			    {!! \Session::get('contact') !!}
+                            				</div>
+                        			    @endif
                                     <!-- Skill -->
                                             <div class="input-group no-border input-sm">
                                                 <div class="input-group-prepend">
@@ -477,17 +492,29 @@
                                                 </select>
                                             <!-- Zip Code -->
                                                 <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="" required>
-                                            </div><br>
+                                            </div>
+                        			    @if (\Session::has('address'))
+                            				<div class="alert alert-danger" role="alert">
+                                			    {!! \Session::get('address') !!}
+                            				</div>
+                        			    @endif
+						<br>
                                         <!-- Valid ID -->
                                             <label for="validId"><b>Valid Government ID</b></label>
                                             <div class="input-group no-border input-sm">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="now-ui-icons arrows-1_cloud-upload-94"></i>
+                                                    <span class="input-group-text" style="background-color:none;">
+                                                        <i class="now-ui-icons arrows-1_cloud-upload-94" style="background-color:none;"></i>
                                                     </span>
                                                         <input size="0.5" type="file" name="filePath" class="form-control" accept="image/jpeg, image/png" required>
                                                 </div>
                                             </div>
+						    @if (\Session::has('image'))
+                            				<div class="alert alert-danger" role="alert">
+                                			    {!! \Session::get('image') !!}
+                            				</div>
+                        			    @endif
+
                                         </div>
                                     <!-- End of fields for left column -->
 
@@ -510,6 +537,11 @@
                                 </div>
                                 <input type="text" class="form-control" name="emailAddress" placeholder="Enter your E-mail" required>
                                 </div>
+                        			    @if (\Session::has('email'))
+                            				<div class="alert alert-danger" role="alert">
+                                			    {!! \Session::get('email') !!}
+                            				</div>
+                        			    @endif
                             <!-- Password -->
                                 <div class="input-group no-border input-sm">
                                 <div class="input-group-prepend">
@@ -526,11 +558,16 @@
                                 </div>
                                 <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required>
                                 </div> 
+                        			    @if (\Session::has('password'))
+                            				<div class="alert alert-danger" role="alert">
+                                			    {!! \Session::get('password') !!}
+                            				</div>
+                        			    @endif
                                 <br>
                             <!--hidden avatar field -->
                                 <input type="hidden" name="avatar" id="avatar" value="default.png" required>
                             <!-- Register/submit button -->
-                                <button type="button" onclick="checkForm(2)" class="btn btn-maroon btn-round btn-lg" rel="tooltip" title="Proceed to Step 2">Next</button>
+                                <button type="submit" onclick="checkForm(2)" class="btn btn-maroon btn-round btn-lg" rel="tooltip" title="Proceed to Step 2">Next</button>
                                     <hc>
                                         <a href="{{ url('/home') }}" rel="tooltip" title="Cancel Registration" class="link" style="padding:10px;">Cancel</a>
                                     </hc>
@@ -674,12 +711,12 @@
                     <!-- End of left Column -->
                
                     <!-- Right Column Contents -->
-                        @if (\Session::has('failure'))
+                    <div class="col-sm-5">
+                        @if (\Session::has('attribute'))
                             <div class="alert alert-danger" role="alert">
-                                {!! \Session::get('failure') !!}
+                                {!! \Session::get('attribute') !!}
                             </div>
                         @endif
-                    <div class="col-sm-5">
                         <div class="form-group">
                           <div class="card card-login card-plain">
                           <h4>Weight and Measurements</h4>
@@ -803,3 +840,4 @@
 
       </div>
 @endsection
+

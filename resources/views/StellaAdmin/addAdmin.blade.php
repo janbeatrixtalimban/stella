@@ -20,44 +20,44 @@
             </a>
           </li>
           <li>
-            <a href="/admin/ViewAuditLog">
+            <a href="{{ url('/admin/ViewAuditLog') }}">
               <i class="now-ui-icons files_paper"></i>
               <p>Audit Log</p>
             </a>
           </li>
           <li>
-            <a href="/admin/viewAdmin">
+            <a href="{{ url('/admin/viewAdmin') }}">
               <i class="now-ui-icons business_badge"></i>
               <p>Admins</p>
             </a>
           </li>
-          <li class="active ">
-              <a href="/admin/addAdmin">
-                <i class="now-ui-icons users_single-02"></i>
-                <p>Add Admin</p>
-              </a>
-            </li>
           <li>
-            <a href="/admin/ViewModel">
+             <a href="{{ url('/admin/income') }}">
+                <i class="now-ui-icons business_money-coins"></i>
+                <p>Income Report</p>
+             </a>
+          </li>
+          <li>
+            <a href="{{ url('/admin/ViewModel') }}">
               <i class="now-ui-icons users_single-02"></i>
               <p>Models</p>
             </a>
           </li>
           <li>
           <li>
-            <a href="/admin/ViewEmployer">
+            <a href="{{ url('/admin/ViewEmployer') }}">
            <i class="now-ui-icons users_single-02"></i>
             <p>Employers</p>
             </a>
           </li>
           <li>
-            <a href="/admin/reportedJobs">
+            <a href="{{ url('/admin/reportedJobs') }}">
               <i class="now-ui-icons gestures_tap-01"></i>
               <p>Reports - Job Posts</p>
             </a>
           </li>
           <li>
-            <a href="/admin/reportedImg">
+            <a href="{{ url('/admin/reportedImg') }}">
               <i class="now-ui-icons gestures_tap-01"></i>
               <p>Reports - Photos</p>
             </a>
@@ -80,7 +80,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Audit Log</a>
+            <a class="navbar-brand" href="#pablo">Add Admin</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -116,21 +116,14 @@
           <div class="col-md-10">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Add Admin</h4>
-              </div>
+		<div class="row">
+                <h4 class="card-title" style="padding-left:15px;padding-right:30px;">Add Admin</h4> 
+		   <a href="{{ url('/admin/viewAdmin') }}" style="padding-top:17px; color:#003366;">[Go Back]</a>
+              </div></div>
 
                     <div class="card-body">
-                        <form method="POST" action="/admin/addAdmin">
+                        <form method="POST" action="{{ url('/admin/addAdmin') }}">
                             {{ csrf_field() }}
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    @endif
                             <!-- First Name -->
                             <div class="row">
                                     <div class="col-md-4">
@@ -154,11 +147,29 @@
                                     </div>
                                 </div>
                             </div>
+				@if (\Session::has('name'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('name') !!}
+                                    </div>
+                                @endif
+				@if (\Session::has('birthday'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('birthday') !!}
+                                    </div>
+                                @endif
+
+
                             <!-- Contact Number -->
                                 <div class="form-group">
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" id="contactNo" name="contactNo" placeholder="09xx-xxx-xxxx" required>
                                 </div>
+				@if (\Session::has('contact'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('contact') !!}
+                                    </div>
+                                @endif
+
                             <!-- Address -->
                             <label>Address:</label>
                             <div class="row">
@@ -506,11 +517,23 @@
                                         </div>
                                     </div>
                             </div>
+				@if (\Session::has('address'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('address') !!}
+                                    </div>
+                                @endif
+
                             <!-- Email -->
                             <div class="form-group">    
                                 <label>Email</label>   
                                     <input type="text" class="form-control" id="emailAddress" name="emailAddress" value=""  required> 
                             </div> 
+				@if (\Session::has('email'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('email') !!}
+                                    </div>
+                                @endif
+
                             <!-- Password -->
                             <div class="row">
                                 <div class="col-md-6">
@@ -527,6 +550,12 @@
                                     </div> 
                                 </div>
                             </div>
+				@if (\Session::has('password'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('password') !!}
+                                    </div>
+                                @endif
+
                             <!-- Save button -->
                                 <button type="submit" name="button" class="btn btn-info btn-round btn-lg" style="float:right;">Save</button>
 

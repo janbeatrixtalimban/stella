@@ -29,7 +29,7 @@
                 <ul class="navbar-nav">
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/employerprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                      <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                      <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}"s width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                       <p>
                         <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                       </p>
@@ -49,13 +49,13 @@
                           <div class="dropdown-menu dropdown-menu-right" style="right:150px;" aria-labelledby="navbarDropdownMenuLink">
                               <a class="dropdown-header" style="color:grey;">Homepage</a>
                               <a class="dropdown-item" href="{{ url('/employerprofile') }}" style="color:black;"> 
-                              <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
-                              <a class="dropdown-item" href="{{ url('/employer/viewapplicants') }}" style="color:black;">View Applicants</a>
-                              <a class="dropdown-item" href="{{ url('/employer/haggleFee') }}" style="color:black;">View Haggle Offers</a>
-                              <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
-                              <a class="dropdown-item" href="{{ url('/employer/forgotPassword') }}" style="color:black;">Settings</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
+                                <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
+                                <a class="dropdown-item" href="{{ url('/employer/viewapplicants') }}" style="color:black;">View Applicants</a>
+                                <a class="dropdown-item" href="{{ url('/employer/haggleFee') }}" style="color:black;">View Haggle Offers</a>
+                                <a class="dropdown-item" href="{{ url('/subscriptionEmployer') }}" style="color:black;">Subscription</a>
+                                <a class="dropdown-item" href="{{ url('/employer/forgotPassword') }}" style="color:black;">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url('/logout') }}" style="color:black;">Logout</a>
                           </div>
                     </li>
                 </ul>
@@ -91,7 +91,7 @@
                     <h3>Change Password</h3><br>
                     <div class="cointainer" style="color:black;">
                         <div class="card card-plain">
-                            <form method="POST" action="/employer/changePassword">
+                            <form method="POST" action="{{ url('/employer/changePassword') }}">
                                 {{ csrf_field() }}
                                 @if (\Session::has('failure'))
                                     <div class="alert alert-danger" role="alert">

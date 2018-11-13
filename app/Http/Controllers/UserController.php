@@ -46,14 +46,160 @@ class UserController extends Controller
         return view('StellaHome.paypal');
     }
 
+
     public function subscription()
     {
-        return view('StellaHome.subscription');
+        $count = DB::table('transactiondetails')->where('userID', Auth::user()->userID)->count();
+        if($count == 0){
+            $currentUser = Auth::user()->userID;
+            $amount = "0.00";
+            $trial = DB::table('transactiondetails')->where('userID', $currentUser)
+                ->where('amount', $amount)->count();
+            if ($trial > 0)
+            {
+                $hidetrial = "none";
+            }
+            else{
+                $hidetrial = "";
+            }
+            return view('StellaHome.subscription')->with('hidetrial', $hidetrial);
+        }
+        else{
+            $transact = DB::table('transactiondetails')->where('userID', Auth::user()->userID)->latest()->first();
+            $subtype = $transact->transactiondetails;
+            $current = Carbon::now('Asia/Manila');
+            
+          If ($subtype == 1)
+          {
+              $dt = Carbon::parse($transact->created_at)->addDays(7); 
+            $diff = $current->diffInDays($dt);
+              
+          }
+          else {
+              $dt = Carbon::parse($transact->created_at)->addDays(30); 
+            $diff = $current->diffInDays($dt);
+          }
+          $currentUser = Auth::user()->userID;
+          $amount = "0.00";
+          $trial = DB::table('transactiondetails')->where('userID', $currentUser)
+              ->where('amount', $amount)->count();
+          if ($trial > 0)
+          {
+              $hidetrial = "none";
+          }
+          else{
+              $hidetrial = "";
+          }
+          return view('StellaHome.subscription')->with('hidetrial', $hidetrial)->with('diff', $diff);
+        }
+         
     }
+
     public function subscriptionEmp()
     {
-        return view('StellaHome.subscriptionEmployer');
+        $count = DB::table('transactiondetails')->where('userID', Auth::user()->userID)->count();
+        if($count == 0){
+            $currentUser = Auth::user()->userID;
+        $amount = "0.00";
+        $trial = DB::table('transactiondetails')->where('userID', $currentUser)
+            ->where('amount', $amount)->count();
+        if ($trial > 0)
+        {
+            $hidetrial = "none";
+        }
+        else{
+            $hidetrial = "";
+        }
+        return view('StellaHome.subscriptionEmployer')->with('hidetrial', $hidetrial);
+        }
+        else{
+            $transact = DB::table('transactiondetails')->where('userID', Auth::user()->userID)->latest()->first();
+        //dd($transact);
+        $subtype = $transact->transactiondetails;
+          $current = Carbon::now('Asia/Manila');
+          
+        If ($subtype == 1)
+        {
+            $dt = Carbon::parse($transact->created_at)->addDays(7); 
+          $diff = $current->diffInDays($dt);
+            
+        }
+        else {
+            $dt = Carbon::parse($transact->created_at)->addDays(30); 
+          $diff = $current->diffInDays($dt);
+        }
+        $currentUser = Auth::user()->userID;
+        $amount = "0.00";
+        $trial = DB::table('transactiondetails')->where('userID', $currentUser)
+            ->where('amount', $amount)->count();
+        if ($trial > 0)
+        {
+            $hidetrial = "none";
+        }
+        else{
+            $hidetrial = "";
+        }
+        return view('StellaHome.subscriptionEmployer')->with('hidetrial', $hidetrial)->with('diff', $diff);
+        }
+        
     }
+
+    public function freetrial(Request $request)
+    {
+                                $active = 1;
+                                $currentUser = Auth::user()->userID;
+                                DB::table('users')->where('userID', $currentUser)
+                                 ->update(['status' => $active]);
+
+                                 
+                                echo "expired and database has been updated";
+
+        $id =  Auth::user()->userID;
+        $user = user::find($id);
+
+        if (Auth::check()) 
+        {
+
+                                
+
+            //$user = user::where('userID', $id)->update(['status' => '1']);
+
+            $transac['userID'] = Auth::user()->userID;
+            $transac['amount'] = $request->get('amount');
+            $transac['first_name'] = encrypt($request->get('first_name'));
+            $transac['last_name'] = encrypt($request->get('last_name'));
+            $transac['email'] = $request->get('email');
+            $transac['payer_id'] = $request->get('payer_id');
+            $transac['phone'] = $request->get('phone');
+            $transac['transactiondetails'] = $request->get('transactiondetails');
+
+
+            $transacdetail = transactiondetail::create($transac);
+
+            $auditlogs = new auditlogs;
+            $auditlogs->userID =  Auth::user()->userID;
+            $auditlogs->logType = 'Claimed Free Trial';
+    
+            if ($auditlogs->save() && $transac) 
+            {
+                if (Auth::user()->typeID== 3)
+                {
+                    return redirect()->to('modelfeed');
+                }
+                else
+                {
+                    return redirect()->to('employerHome');
+                }
+
+            } else 
+            {
+                return ('fail');
+            }
+            
+        }
+         
+      }
+
 
     // subscription of models/employer
 
@@ -71,6 +217,7 @@ class UserController extends Controller
             $transac['email'] = $request->get('email');
             $transac['payer_id'] = $request->get('payer_id');
             $transac['phone'] = $request->get('phone');
+            $transac['transactiondetails'] = 0;
 
 
             $transacdetail = transactiondetail::create($transac);
@@ -83,11 +230,36 @@ class UserController extends Controller
             {
                 if (Auth::user()->typeID== 3)
                 {
-                    return redirect()->to('/subscription');
+			
+$currentUser = Auth::user()->userID;
+        $amount = "0.00";
+        $trial = DB::table('transactiondetails')->where('userID', $currentUser)
+            ->where('amount', $amount)->count();
+        if ($trial > 0)
+        {
+            $hidetrial = "none";
+        }
+        else{
+            $hidetrial = "";
+        }
+        return view('StellaHome.subscription')->with('hidetrial', $hidetrial);
+                    //return redirect()->to('modelfeed');
                 }
                 else
                 {
-                    return redirect()->to('/subscriptionEmployer');
+        $currentUser = Auth::user()->userID;
+        $amount = "0.00";
+        $trial = DB::table('transactiondetails')->where('userID', $currentUser)
+            ->where('amount', $amount)->count();
+        if ($trial > 0)
+        {
+            $hidetrial = "none";
+        }
+        else{
+            $hidetrial = "";
+        }
+        return view('StellaHome.subscriptionEmployer')->with('hidetrial', $hidetrial);
+                    //return redirect()->to('employerHome');
                 }
 
             } else 
@@ -138,22 +310,48 @@ class UserController extends Controller
         //Validators
         $otherValidator = Validator::make($request->all(), [
 
-            'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
-            'location' => 'required|string|max:50',
             'skill' => 'required|string|max:50',
             'created_at',
             'updated_at',
             'token',
-            'filePath',
+
         ]);
+
+	$contactValidator = Validator::make($request->all(), [
+
+            'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+
+        ]);
+
+
+	$addressValidator = Validator::make($request->all(), [
+
+	   'address', // => 'required|max:150',  //|regex:/(^[-0-9A-Za-z.,\/ ]+$)/',
+           'location', // => 'required|string|max:50',
+	   'zipcode', // => 'required|size:4',
+
+        ]);
+
 
         $birthdateValidator = Validator::make($request->all(), [
              
             'birthDate' => 'required|before:18 years ago',     
 
         ]);
+
+	$imageValidator = Validator::make($request->all(), [
+
+            'filePath' => 'required|image|mimes:jpeg,png,jpg|max:100000',
+
+        ]);
+
+        $nameValidator = Validator::make($request->all(), [
+              
+            'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',     
+
+        ]);
+
 
         $emailValidator = Validator::make($request->all(), [
                       
@@ -167,35 +365,77 @@ class UserController extends Controller
             'confirmpassword' => 'required|same:password',
 
         ]);
+
+ 	$attributeValidator = Validator::make($request->all(), [
+                'eyeColor' => 'string|max:50', 
+                'hairColor' => 'string|max:50', 
+                'hairLength' => 'string|max:50', 
+                'weight' => 'integer|between:30,99', 
+                'height' => 'integer|between:130,230',
+                'complexion' => 'string|max:50', 
+                'gender' => 'string|max:50', 
+                'chest' => 'integer|between:20,50', 
+                'waist' => 'integer|between:15,50', 
+                'hips' => 'integer|between:25,60', 
+                'shoeSize' => 'integer|between:3,15',
+                'tatoo' => 'string|max:50', 
+                'updated_at',
+            ]);
         
                 //error messages if validation fails
                 if ($birthdateValidator->fails()) {
-                    $errormsg = "Oops. You have to be 18 years old or older to register with Stella.";
-                    return redirect()->back()->with('failure', $errormsg);
+                    $errormsg = "*You have to be 18 years old or older to register with Stella.";
+                    return redirect()->back()->with('birthday', $errormsg);
 
                 } 
+
+ 	       else if ($contactValidator->fails()) {
+                    $errormsg = "*Your contact number format is incorrect.";
+                    return redirect()->back()->with('contact', $errormsg);
+                }
+
                 
                 else if ($otherValidator->fails()) {
                     $errormsg = "Oops. Something went wrong with your registration.";
-                    return redirect()->back()->with('failure', $errormsg);
+                    return redirect()->back()->with('other', $errormsg);
                 }
 
-                else if ($emailValidator->fails()) {
-                    $errormsg = "Oops. That email is already registered with Stella.";
-                    return redirect()->back()->with('failure', $errormsg);
-                } 
-                
-                else if ($passwordValidator->fails()) {
-                    $errormsg = "Oops. Your passwords do not match.";
-                    return redirect()->back()->with('failure', $errormsg);
+	       else if ($addressValidator->fails()) {
+                    $errormsg = "*Please check your address format.";
+                    return redirect()->back()->with('address', $errormsg);
                 }
+
+                else if ($nameValidator->fails()) {
+                    $errormsg = "*Numbers and symbols are not allowed on your name.";
+                    return redirect()->back()->with('name', $errormsg);
+                } 
+
+                else if ($emailValidator->fails()) {
+                    $errormsg = "*That email is already registered with Stella.";
+                    return redirect()->back()->with('email', $errormsg);
+                } 
+
+                elseif ($imageValidator->fails()) {
+			$errormsg = "*The image you uploaded is too large.";
+                    	return redirect()->back()->with('image', $errormsg);    	
+		}
+
+                else if ($passwordValidator->fails()) {
+                    $errormsg = "*Your passwords do not match.";
+                    return redirect()->back()->with('password', $errormsg);
+                }
+
+		else if ($attributeValidator->fails()) {
+     		    $errormsg = "Please make sure you have entered your real measurements correctly.";
+                    return redirect()->back()->with('attribute', $errormsg);
+            	}   
                 
         if ($resp->success) 
         {
             $input = $request->all();
             $input['password'] = bcrypt($input['password']);
             $input['typeID'] = '3';
-            $input['status'] = '0';
+            $input['status'] = '404';
             $input['token'] = str_random(25);
             $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
           // $path=$request->file('filePath')->store('upload');
@@ -205,21 +445,22 @@ class UserController extends Controller
           Image::make($path)->resize(200,200)->save( public_path('/uploads/path'.$image_ext) );
           $destination_path = public_path('/uploads/path');
               $path->move($destination_path,$new_path_name);
-              $input['filePath'] = $new_path_name;
-         
+              $input['filePath'] = $new_path_name;      
 
-            $user = User::create($input);
             
+              $user = User::create($input);
             $input2 = $request->only(['eyeColor', 'hairColor','hairLength', 'weight', 'height', 'complexion', 'gender', 'chest', 'waist', 'hips', 'shoeSize','tatoo']);
             $input2['userID'] = $user->userID;
+            
             $attribute = attribute::create($input2);
 
             
+
             $auditlogs = new auditlogs;
             $auditlogs->userID =  $user->userID;
             $auditlogs->logType = 'Register:model';
             
-            $this->basic_email($input['emailAddress']);
+            $this->basic_email($input['emailAddress'], $input['token']);
             if ($auditlogs->save() && $user) 
             {
                 return redirect()->to('/loginUser');
@@ -229,8 +470,8 @@ class UserController extends Controller
             }
 
         //     return view('StellaHome.login');
-        // } else {
-        //     return "FAILED";
+         } else {
+             return "FAILED";
          }
     }
 
@@ -251,66 +492,114 @@ class UserController extends Controller
         curl_close($ch);
 
         //Validators
-        $otherValidator = Validator::make($request->all(), [
+		$nameValidator = Validator::make($request->all(), [
+              
+            		'lastName' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
+            		'firstName'  => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',     
 
-            'lastName' => 'required|string|max:50',
-            'firstName'  => 'required|string|max:50',
-            'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
-            'location' => 'required|string|max:50',
-            'name' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'position' => 'required|string|max:50|regex:/^[a-zA-Z_\-]+$/',
-            'created_at',
-            'updated_at',
-            'token',
-            'filePath',
-        ]);
+        		]);
 
-        $birthdateValidator = Validator::make($request->all(), [
+		$birthdateValidator = Validator::make($request->all(), [
              
-            'birthDate' => 'required|before:18 years ago',     
+            		'birthDate' => 'required|before:18 years ago',     
 
-        ]);
+        		]);
+	
 
-        $emailValidator = Validator::make($request->all(), [
+                  $contactValidator = Validator::make($request->all(), [
+
+                      'contactNo' => 'required|max:11|regex:/^[0-9]+$/',
+
+                  ]);
+
+		$imageValidator = Validator::make($request->all(), [
+
+                      'filePath' => 'required|image|mimes:jpeg,png,jpg|max:100000',
+
+                  ]);
+
+		$addressValidator = Validator::make($request->all(), [
+
+	   		'address',  // => 'required|max:150|regex:/(^[-0-9A-Za-z.,\/ ]+$)/',
+           		'location', // => 'required|string|max:50',
+	   		'zipcode', // => 'required|size:4',
+
+        		]);
+
+		$companyValidator = Validator::make($request->all(), [
+
+                      'name' => 'required|string|max:50',
+            		'position' => 'required|string|max:50',
+
+                  ]);
+
+		$emailValidator = Validator::make($request->all(), [
                       
-            'emailAddress' => 'required|email|unique:users,emailAddress',
+            		'emailAddress' => 'required|email|unique:users,emailAddress',
 
-        ]);
+        		]);
 
-        $passwordValidator = Validator::make($request->all(), [
+        		$passwordValidator = Validator::make($request->all(), [
                       
-            'password' => 'required|string|min:6',
-            'confirmpassword' => 'required|same:password',
+            		'password' => 'required|string|min:6',
+            		'confirmpassword' => 'required|same:password',
 
-        ]);
-        
-                //error messages if validation fails
-                if ($birthdateValidator->fails()) {
-                    $errormsg = "Oops. You have to be 18 years old or older to register with Stella.";
-                    return redirect()->back()->with('failure', $errormsg);
+        		]);
 
+
+
+                  if ($nameValidator->fails()) {
+                        $errormsg = "*Numbers and symbols are not allowed on your name.";
+                    	return redirect()->back()->with('name', $errormsg);          
+                  }
+
+		  elseif ($contactValidator->fails()) {
+			$errormsg = "*Please follow the contact number format";
+                    	return redirect()->back()->with('contact', $errormsg);    	
+		  }
+
+		  elseif ($birthdateValidator->fails()) {
+                    $errormsg = "*You have to be 18 years old or older to register with Stella.";
+                    return redirect()->back()->with('birthday', $errormsg);
                 } 
-                
-                else if ($otherValidator->fails()) {
-                    $errormsg = "Oops. Something went wrong with your registration.";
-                    return redirect()->back()->with('failure', $errormsg);
-                }
 
-                else if ($emailValidator->fails()) {
-                    $errormsg = "Oops. That email is already registered with Stella.";
-                    return redirect()->back()->with('failure', $errormsg);
+		  elseif ($imageValidator->fails()) {
+			$errormsg = "*The image you uploaded is too large.";
+                    	return redirect()->back()->with('image', $errormsg);    	
+		  }
+
+		  elseif ($addressValidator->fails()) {
+			$errormsg = "*Please check your address format.";
+                    	return redirect()->back()->with('address', $errormsg);    	
+		  }
+
+		  elseif ($companyValidator->fails()) {
+			$errormsg = "*Company name or position is too long.";
+                    	return redirect()->back()->with('company', $errormsg);    	
+		  }
+
+		 else if ($emailValidator->fails()) {
+                    $errormsg = "*That email is already registered with Stella.";
+                    return redirect()->back()->with('email', $errormsg);
                 } 
                 
                 else if ($passwordValidator->fails()) {
-                    $errormsg = "Oops. Your passwords do not match.";
-                    return redirect()->back()->with('failure', $errormsg);
+                    $errormsg = "*Your passwords do not match.";
+                    return redirect()->back()->with('password', $errormsg);
                 }
 
+
+
+        
+       
+        
+                
+                
         if ($resp->success) {
             $input = $request->all();
             $input['password'] = bcrypt($input['password']);
             $input['typeID'] = '2';
-            // $input['skillID'] = '1';
+	     $input['status'] = '404';
             $input['address'] = $request->input('unitNo') . ' ' . $request->input('street') . ' ' . $request->input('brgy') . ' ' . $request->input('city') ;
             // $input['company'] = 'N/A';
             $input['token'] = str_random(25);
@@ -329,13 +618,11 @@ class UserController extends Controller
             $user = User::create($input);
             
             $input['userID'] =  $user->userID;
-            $input['description'] = 'N/A';
+            $input['description'] = 'Add company description...';
+            
             $company = company::create($input);
 
-            //Twilio::message($input['contactNo'], 'Welcome to Stella');
-            $this->basic_email($input['emailAddress']);
-            //lahat ng created pinalitan ko ng user
-
+            $this->basic_email($input['emailAddress'], $input['token']);
             $auditlogs = new auditlogs;
             $auditlogs->userID =  $user->userID;
             $auditlogs->logType = 'Register:employer';
@@ -343,14 +630,18 @@ class UserController extends Controller
     
             if ($auditlogs->save() && $user) 
             {
-                return redirect()->to('/loginUser');
+		$successmsg = "Thank you for registering to Stella! 
+				A confirmation email has been sent to your email!";
+
+                return redirect()->to('/loginUser')->with('success', $successmsg);
             } else 
             {
                 return redirect()->to('/');
             }
-        //     return view('StellaHome.login');
-        // } else {
-        //     return "FAILED";
+        
+        } 
+        else {
+            return "FAILED";
         }
     }
     	    //SEARCH
@@ -476,15 +767,109 @@ class UserController extends Controller
                 
                 $rating = feedback::where('reciever', $user->userID)->avg('rate');
                 $rating = round($rating);
+
+                $finishedproj = DB::table('projects')
+                ->join('hires', 'hires.projectID', '=', 'projects.projectID')
+                ->leftjoin('feedback', 'feedback.projectID', '=', 'projects.projectID') //hmmmmmmmmmmmmm
+                ->where('hires.modelID', $user->userID)
+                //->get();
+                //->where('feedback.projectID', '!=', 'projects.projectID')
+                //->where('feedback.userID', '!=', Auth::user()->userID)
+                //->where('feedback.reciever', '!=', $user->userID)
                 
-    	        return view('StellaModel.singleView', compact('user'))->with('details', $details)->with('feedback', $feedback)->with('rating', $rating);
+                ->where([
+                    ['feedback.projectID', null],
+                    ['feedback.userID', null],
+                    ['feedback.reciever', null],
+                ])
+                
+                //->whereNull('feedback.userID')
+                //->whereNull('feedback.reciever')
+                /*->where([
+                    ['status', '=', '1'],
+                    ['subscribed', '<>', '1'],
+                ])*/
+                ->get(['projects.projectID AS projectID', 'projects.*']);
+
+                //$user = Auth::user()->userID;
+                //'feedback.userID', '!=', 'projects.projectID'
+
+                $projcount = DB::table('projects')
+                ->join('hires', 'hires.projectID', '=', 'projects.projectID')
+                ->leftjoin('feedback', 'feedback.projectID', '=', 'projects.projectID') //hmmmmmmmmmmmmm
+                ->where('hires.modelID', $user->userID)
+                ->where([
+                    ['feedback.projectID', null],
+                    ['feedback.userID', null],
+                    ['feedback.reciever', null],
+                ])
+                ->count();
+                //dd($projcount);
+
+                return view('StellaModel.singleView', compact('user'), compact('finishedproj'))->with('details', $details)
+                ->with('feedback', $feedback)->with('rating', $rating)->with('projcount', $projcount);
             }
 
-    public function basic_email($email)
+            //VIEWING AN EMPLOYER'S PROFILE
+    	    public function employerView($userID)
+    	    {
+                
+                if (Auth::check()) {
+                    $user = User::where('userID', $userID)->first();
+                    //$user = Auth::user()->userID;
+                    
+                    
+                    $currentDate = date('Y-m-d');
+                    $employerr = User::where('userID', $userID)->first();
+                    $projects = Project::where('userID', $userID)->where('jobDate', '>', $currentDate)->get();
+                    $feedback = feedback::where('reciever', $user->userID)->paginate(5);
+                    $company = company::where('userID', $userID)->first();
+                    $timestemp = "2016-4-5 05:06:01";
+                    $today = Carbon::today();
+                    $day = Carbon::createFromFormat('Y-m-d H:i:s', $today)->day;
+
+                    $finishedproj = DB::table('projects')
+                    ->join('hires', 'hires.projectID', '=', 'projects.projectID')
+                    ->leftjoin('feedback', 'feedback.projectID', '=', 'projects.projectID') //hmmmm
+                    ->where('projects.userID', $user->userID)
+                    ->where('hires.modelID', Auth::user()->userID)->whereNull('feedback.projectID')->get(['projects.projectID AS projectID', 'projects.*']);
+                    //dd($finishedproj);
+
+                    /*$projcount = DB::table('projects')
+                    ->join('hires', 'hires.projectID', '=', 'projects.projectID')
+                    ->where('projects.userID', $user->userID)
+                    ->where('hires.modelID', Auth::user()->userID)
+                    ->count();*/
+
+                    $projcount = DB::table('projects')
+                    ->join('hires', 'hires.projectID', '=', 'projects.projectID')
+                    ->leftjoin('feedback', 'feedback.projectID', '=', 'projects.projectID') //hmmmm
+                    ->where('projects.userID', $user->userID)
+                    ->where('hires.modelID', Auth::user()->userID)->whereNull('feedback.projectID')
+                    ->count();
+
+
+                    $rating = feedback::where('reciever', $user->userID)->avg('rate');
+                $rating = round($rating);
+                    
+                    //dd($projcount);
+
+
+                   //dd(Auth::user()->status); 
+                    return view('StellaEmployer.employerView', compact('finishedproj'), compact('user'), compact('employerr'), compact('projcount'))
+                    ->with('company', $company)->with('projects', $projects)->with('projcount', $projcount)
+                    ->with('employerr', $employerr)->with('rating', $rating)->with('feedback', $feedback);
+        
+                } else {
+                    return ('fail');
+                }
+            
+            
+            }   
+	public function basic_email($email, $random)
     {
-        //$user = $request->get('emailAddress');
-       
-        $data = array('name' => "hello world");
+
+        $data = array('name' => "hello world", 'code' => $random);
         Mail::send(['html' => 'mail'], $data, function ($message) use ($email) {
             $message->to($email, $email)->subject
                 ('STELLA Account');
@@ -493,6 +878,17 @@ class UserController extends Controller
         echo "Registered! Email Sent. Check your inbox.";
     }
 
+    public function activated($code)
+    {
+	  $success = "Verified!";
+                    
+      	$status = 0;
+        $verify = user::where('token', $code)->update(['status' => $status]);
+        return view('StellaHome.verify')->with('success', $success);
+    }
    
 }
 
+
+
+	

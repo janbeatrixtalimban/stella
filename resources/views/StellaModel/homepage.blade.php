@@ -6,7 +6,7 @@
 
 <body class="landing-page sidebar-collapse" data-spy="scroll">
   <!-- Navigation bar hehe -->
-  <nav class="navbar navbar-expand-lg bg-black" style="width:100%;">
+  <nav class="navbar navbar-expand-lg bg-black fixed-scroll" style="width:100%;">
 						<div class="container">
               
                 <div class="navbar-translate">
@@ -25,7 +25,7 @@
 
             <!-- Search Bar -->
                   <div class="col-sm-6" style="padding-top:10px;">
-                      <form action="/search" method="get">
+                      <form action="{{ url('/search') }}" method="get">
                             {{ csrf_field() }}
                             <div class="input-group" width="100%">
                                     <input name="search" type="search" id="search" class="form-control form-control-search" placeholder="Search..." itemprop="query-input"  style="background:#fffff0;">
@@ -47,7 +47,7 @@
                   <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/modelprofile ') }}" rel="tooltip" title="Go to profile" role="button">
-                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
+                        <img src="{{asset('/uploads/avatars/'.Auth::user()->avatar)}}" width="25" height="25" alt="Thumbnail Image" class="rounded-circle img-raised">
                         <p>
                           <span class="d-lg-none d-md-block"> {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</span>
                         </p>
@@ -70,6 +70,7 @@
                                 <a class="dropdown-item" href="{{ url('/modelprofile') }}" style="color:black;">
                                 <h6>{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h6></a>
                                 <a class="dropdown-item" href="{{ url('/model/viewJobOffers') }}" style="color:black;">View Job Offers</a>
+				<a class="dropdown-item" href="{{ url('/model/viewAcceptedApplication') }}" style="color:black;">View Accepted Applications</a>
                                 <a class="dropdown-item" href="{{ url('/subscription') }}" style="color:black;">Subscription</a>
                                 <a class="dropdown-item" href="{{ url('/model/forgotPassword') }}" style="color:black;">Settings</a>
                                 <div class="dropdown-divider"></div>
@@ -132,12 +133,12 @@
                           <!-- End of Job post dropdown -->
 
                           <div class="card-body" style="color:#1b1b1b;">
-                            <h4 class="card-title"><img src="/uploads/avatars/{{ $project->avatar }}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">   <b>{{ $project->prjTitle }}</b></h4> 
+                            <h4 class="card-title"><img src="{{asset('/uploads/avatars/'.$project->avatar)}}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">   <b>{{ $project->prjTitle }}</b></h4> 
                             <p class="card-text">{{ $project->jobDescription }}</p>
 
                             <!-- Apply form tag -->
 
-                            <form class="" action="/model/apply" method="post">
+                            <form class="" action="{{ url('/model/apply') }}" method="post">
                               {{ csrf_field() }}
                               @if(Auth::user()->status == 1)
                               <a data-toggle="modal" data-target="#{{$project->projectID}}" style="color:white;"class="btn btn-maroon btn-round">View more details</a>
@@ -170,7 +171,7 @@
           </div><!--feed content row closing tag -->
       </div><!-- container fluid closing tag-->
 
-
+</div>
 
  @foreach ($projects as $project)
   <!-- View Job detials Modal -->
@@ -182,8 +183,8 @@
                     <div class="modal-header">
                       <div class="column">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title"><img src="/uploads/avatars/{{ $project->avatar }}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    <b>{{$project->prjTitle}}</b></h4>
-                          <h0>Posted {{ $project->created_at->diffForHumans()}} by <a style="color:#a01919;">{{ $project->name }}</a><h0>
+                          <h4 class="modal-title"><img src="{{asset('/uploads/avatars/'.$project->avatar)}}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">    <b>{{$project->prjTitle}}</b></h4>
+                          <h0>Posted {{ $project->created_at->diffForHumans()}} by <a style="color:#a01919;" href="/employerp/view/{{$project->userID}}">{{ $project->name }}</a><h0>
                       </div>
                     </div>
                     <div class="modal-body">
@@ -239,11 +240,11 @@
                           <div class="modal-body">
                             <h4 class="modal-title">Are you sure you want to apply to <a style="color:#a01919;">{{$project->prjTitle}}</a>?</h4>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
-                              <form class="" action="/model/apply" method="post">
+                              <form class="" action="{{ url('/model/apply') }}" method="post">
                               {{ csrf_field() }}
                               
                               <input type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
@@ -256,6 +257,7 @@
                     </div>
                 </div>
               </form>
+	    </div>
             @endforeach
 <!-- End of Modal -->
 
@@ -272,7 +274,7 @@
                             <h4 class="modal-title">Why are you reporting this post?</h4>
                           </div>
                           <div class="modal-body">
-                          <form class="" action="/model/reportJobPost" method="post">
+                          <form class="" action="{{ url('/model/reportJobPost') }}" method="post">
                               {{ csrf_field() }}
                               <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$project->projectID}}" readonly>
                               <input style="hidden" type="hidden" name="userID" id="userID" value="{{$project->userID}}" readonly>
@@ -290,7 +292,7 @@
                                 </select>
                             </div>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                             <div class="container">
                               <div class="col-sm-3">
                               </div>
@@ -302,6 +304,7 @@
                     </div>
                 </div>
               </form>
+	   </div>
               <!-- End of Modal -->
               @endforeach
 
@@ -309,7 +312,7 @@
             </div>
     </div>
 
-    {!! $projects->links() !!}
+   {{-- {!! $projects->links() !!} --}}
       
 
 @endsection
