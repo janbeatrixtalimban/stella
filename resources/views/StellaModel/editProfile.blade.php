@@ -119,33 +119,42 @@
                                 {{ csrf_field() }}
                         <div class="row">
                         <!-- First Name -->
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <input type="text" class="form-control" name="firstName" value="{{ Auth::user()->firstName}}" required>
                                 </div>
                             </div>
                         <!-- Last Name -->
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Last Name</label>
                                     <input type="text" class="form-control" name="lastName" value="{{ Auth::user()->lastName}}"  required>
                                 </div>
                             </div>
-                        <!-- Birthday -->
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Birthday</label>
-                                    <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true" required>
-                                </div>
-                            </div>
                         </div>
-				@if (\Session::has('name'))
+				        @if (\Session::has('name'))
                         		<div class="alert alert-danger" role="alert">
                         		{!! \Session::get('name') !!}
                          	      	</div>
                			@endif 
-				<br>
+                <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Screen Name -->
+                                <div class="form-group">
+                                    <label>Screen Name (if any)</label>
+                                    <input type="text" class="form-control" name="screenName" value="{{ Auth::user()->screenName}}">
+                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Birthday -->
+                                <div class="form-group">
+                                    <label>Birthday</label>
+                                    <input type="text" class="form-control" name="birthDate" value="{{ Auth::user()->birthDate}}"  readonly="true" required>
+                                </div>
+                        </div>
+                        </div><br>
                         <div class="row">
                         <!-- Contact Number -->
                             <div class="col-md-6">
@@ -195,6 +204,11 @@
                                                 </optgroup>
                                             </select>
                                         </div><br>
+                            <!-- About  -->
+                                    <label>About Myself (Max. 300 Characters)</label>
+                                    <div class="input-group input-lg">
+                                        <textarea class="form-control" name="about" id="about" rows="5" value="">{{Auth::user()->about}}</textarea>
+                                    </div><br>
                         <!-- Address line 1 -->
                               <label for="address">Full Address</label>
                               <div class="input-group input-sm">

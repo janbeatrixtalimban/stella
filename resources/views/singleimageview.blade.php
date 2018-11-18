@@ -57,19 +57,23 @@
                               {{ csrf_field() }}
                             <input type="hidden" name="imageID" id="imageID" value="{{$image->imageID}}" readonly>
                             <input type="hidden" name="userID" id="userID" value="{{$image->userID}}" readonly>
-                              <div class="input-group input-lg" style="color:black;">
-                                <div class="input-group-prepend" style="color:black;">
+                              <div class="input-group input-lg">
+                                <div class="input-group-prepend">
                                 </div>
-                                <select size="0.4" class="form-control" name="reason" id="reason" required>
+                                <select size="0.4" class="form-control" name="reason" id="reason" style="border-top-right-radius: 30px; border-bottom-right-radius: 30px;border-top-left-radius: 30px; border-bottom-left-radius: 30px;" required>
                                     <option value="" selected disabled>Select reason..</option>
-                                        <option value="Nudity" style="color:black;">Nudity</option>
-                                        <option value="Pornography" style="color:black;">Pornography</option>
-                                        <option value="Promotion of Self Harm" style="color:black;">Promotion of Self Harm</option>
-                                        <option value="Promotion of Drugs" style="color:black;">Promotion of Drugs</option>
-                                </select>
+                                        <option value="Nudity" style="-webkit-color:black;">Nudity</option>
+                                        <option value="Pornography" style="-webkit-color:black;">Pornography</option>
+                                        <option value="Promotion of Self Harm" style="-webkit-color:black;">Promotion of Self Harm</option>
+                                        <option value="Promotion of Drugs" style="-webkit-color:black;">Promotion of Drugs</option>
+                                </select><br>
+                                <h5 rel="tooltip" title="Required" style="color:white;">Hi</h5>
+                                <textarea class="hidden" style="height:150px" id="reason" name="reason" placeholder="State your Reason.." required></textarea>
                             </div><br>
+ 				                <h5 rel="tooltip" title="Required">*Other Comments (Max. Characters 300):</h5>
+                                <textarea class="form-control" style="height:80px" id="reason" name="reason" placeholder="State your Reason.." required></textarea><br>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer text-center">
                               <div class="col-sm-3">
                               </div>
                               <button type="submit" name="button" class="btn btn-success btn-round">Report</button>

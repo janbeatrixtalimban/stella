@@ -141,7 +141,7 @@
 				                            @if (\Session::has('haggle'))
                                         <div class="alert alert-danger" role="alert">
                                         {!! \Session::get('haggle') !!}
-                                        </div>
+                                        </div> 
                                     @endif
                                       @if($detail->haggleStatus == 1)  
                                           <button data-toggle="modal" data-target="#haggle{{$detail->hireID}}" name="button" class="btn btn-success btn-round" rel="tooltip" title="Your haggle offer was accepted!" disabled>Haggle</button>

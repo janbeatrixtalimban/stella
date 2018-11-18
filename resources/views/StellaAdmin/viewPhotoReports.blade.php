@@ -145,7 +145,7 @@
                                                             </div>  
                                                     </td>
                                                     <td class="table-text">
-                                                        <div>{{ $detail->reason }}</div>
+                                                        <div>{{ $detail->reason }} - {{ $detail->othercomment }}</div>
                                                     </td>
                                                     <td class="table-text">
                                                             <div>{{ $detail->firstName }} {{ $detail->lastName }}</div>
@@ -162,7 +162,8 @@
                                                     </td>
                                                     <td>
                                                         <div class="row">
-                                                              <button data-toggle="modal" data-target="#archive{{$detail->imageID}}" type="submit" name="button" class="btn btn-round btn-sm btn-info">Archive</button>&nbsp;
+                                                              <button data-toggle="modal" data-target="#archive{{$detail->imageID}}" type="submit" name="button" class="btn btn-round btn-sm btn-info" rel="tooltip" title="Archive Photo"><i class="now-ui-icons files_box"></i></button>
+                                                              <button data-toggle="modal" data-target="#junk{{$detail->imageID}}" type="submit" name="button" class="btn btn-round btn-sm btn-danger" rel="tooltip" title="Junk Report"><i class="now-ui-icons ui-1_simple-remove"></i></button>&nbsp;
                                                               |&nbsp;<a data-toggle="modal" data-target="#details{{$detail->imageID}} " style="color:blue; padding-top:3px;">View</a>
                                                         </div>
                                                     </td>
@@ -243,6 +244,42 @@
               </form>
             @endforeach
       <!-- End of Modal -->
+
+
+      @foreach ($details as $detail)
+          <!-- View job Post details -->
+            <div id="junk{{$detail->imageID}}" class="modal fade" style="padding-top: 130px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+
+                              <h5>Are you sure you want to disregard this photo report?</h5>
+                              <p class="text-center">*If the report is unrelated or irrelevant to the photo or if the photo does not violate the community guidelines, proceed with adding this report to junk.</p>
+
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container text-center">
+                              <form class="" action="{{ url('') }}" method="post">
+                                 {{ csrf_field() }}
+                                <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$detail->projectID}}" readonly>
+                                <button type="submit" class="btn btn-danger btn-round">Junk</button>
+                                <button type="button" class="btn btn-info btn-round" data-dismiss="modal">Cancel</button>
+                              </form>
+                            </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+      <!-- End of Modal -->
+
 
 </body>
 

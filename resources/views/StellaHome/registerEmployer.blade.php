@@ -58,6 +58,7 @@
                             <div class="form-group">
                             <h4>Employer Information</h4>
                             <!-- Employer Form (fields) -->
+                            <label>Full Name</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Fields">*</a>
                                   <!--First Name-->
                                   <div class="card card-login card-plain">
                                       <div class="input-group no-border input-sm">
@@ -65,7 +66,7 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" value="" required>
+                                          <input rel="tooltip" title="Required" type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" value="" required>
                                       </div>
                                   <!--Last Name-->
                                       <div class="input-group no-border input-sm">
@@ -73,50 +74,51 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
-                                      </div>
- 				@if (\Session::has('name'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('name') !!}
-                                	</div>
-                            	@endif
+                                          <input rel="tooltip" title="Required" type="text" class="form-control" name="lastName" placeholder="Last Name" required>
+                                      </div><br>
+                                        @if (\Session::has('name'))
+                                            <div class="alert alert-danger" role="alert">
+                                            {!! \Session::get('name') !!}
+                                            </div>
+                                        @endif
                                   <!-- Birthdate -->
+                                  <label rel="tooltip" title="Must be 18 and older">Birthdate</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Field">*</a>
                                       <div class="input-group no-border input-sm">
                                           <div class="input-group-prepend">
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="date" class="form-control" name="birthDate" value="" required>
-                                      </div>
- 				@if (\Session::has('birthday'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('birthday') !!}
-                                	</div>
-                            	@endif
-                                      <!--Contact number-->
+                                          <input rel="tooltip" title="Required" type="date" class="form-control" name="birthDate" value="" required>
+                                      </div><br>
+                                        @if (\Session::has('birthday'))
+                                            <div class="alert alert-danger" role="alert">
+                                            {!! \Session::get('birthday') !!}
+                                            </div>
+                                        @endif
+                                <!--Contact number-->
+                                <label rel="tooltip" title="e.g - 09121231234">Contact Number</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Field">*</a>
                                       <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
+                                            </div><br>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
+                                        </div><br>
+                                        @if (\Session::has('contact'))
+                                            <div class="alert alert-danger" role="alert">
+                                            {!! \Session::get('contact') !!}
                                             </div>
-                                            <input type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
-                                        </div>
- 				@if (\Session::has('contact'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('contact') !!}
-                                	</div>
-                            	@endif
-				<br>
+                                        @endif
                                 <!-- Address line 1 -->
-                                    <label for="address"><b>Full Address</b></label>
+                                <label>Full Address <a style="color:red;" rel="tooltip" title="Required Fields">*</a></label>
                                       <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="unitNo" id="unitNo" placeholder="Unit No." value="" required>
-                                            <input type="text" class="form-control" name="street" id="street" placeholder="Street" value="" required>
-                                            <input type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="unitNo" id="unitNo" placeholder="Unit No." value="" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="street" id="street" placeholder="Street" value="" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="" required>
                                         </div>
                                   <!-- Address line 2 dropdown -->
                                         <div class="input-group no-border input-sm">
@@ -125,7 +127,7 @@
                                                 </span>
                                             </div>
                                         <!--Province-->
-                                        <select size="0.4" class="form-control" name="location" id="location" required>
+                                        <select rel="tooltip" title="Required" size="0.4" class="form-control" name="location" id="location" required>
                                                 <option value="" selected disabled>Province..</option>
                                                 <optgroup label="Luzon" style="color: black;">
                                                     <option value="Abra">Abra</option>
@@ -202,7 +204,7 @@
                                                 </optgroup>
                                             </select>
                                         <!-- City -->
-                                            <select size="0.4" class="form-control" name="city" id="city" required>
+                                            <select size="0.4" class="form-control" name="city" id="city">
                                                 <option value="" selected disabled>City..</option>
                                                 <optgroup label="Pangasinan" style="color: black;">
                                                     <option value="Alaminos City">Alaminos City</option>
@@ -437,16 +439,16 @@
                                                 </optgroup>
                                             </select>
                                         <!--Zip Code-->
-                                            <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip Code" value="" required>
                                         </div>
- 				@if (\Session::has('address'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('address') !!}
-                                	</div>
-                            	@endif
-					<br>
+                                            @if (\Session::has('address'))
+                                                <div class="alert alert-danger" role="alert">
+                                                {!! \Session::get('address') !!}
+                                                </div>
+                                            @endif
+                                            <br>
                                     <!-- Valid ID -->
-                                        <label for="validId"><b>Valid Government Company Document</b></label>
+                                    <label rel="tooltip" title="Any government proof of company legitimacy">Valid Document (for verification)</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Field">*</a>
                                           <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                   <span class="input-group-text" style="background-color:none;">
@@ -456,11 +458,11 @@
                                               </div>
                                           </div>
 
- 				@if (\Session::has('image'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('image') !!}
-                                	</div>
-                            	@endif
+                                        @if (\Session::has('image'))
+                                            <div class="alert alert-danger" role="alert">
+                                            {!! \Session::get('image') !!}
+                                            </div>
+                                        @endif
 
                                       </div>
                                     <!-- End of fields for left column -->
@@ -471,7 +473,7 @@
                     <!-- Right Column Contents -->
                     <div class="col-sm-5">
                         <div class="form-group">
-                        <h4>Company Information</h4>
+                        <h4>Company Information <a style="color:red;" rel="tooltip" title="Required Fields">*</a> </h4><br>
                             <!-- Employer Form (fields) -->
                                 <!--Company Name-->
                                 <div class="card card-login card-plain">
@@ -480,7 +482,7 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="name" id="name" placeholder="Company Name" value="" required>
+                                          <input rel="tooltip" title="Required" type="text" class="form-control" name="name" id="name" placeholder="Company Name" value="" required>
                                 </div>
                                 <!-- Position -->
                                 <div class="card card-login card-plain">
@@ -489,29 +491,29 @@
                                               <span class="input-group-text">
                                               </span>
                                           </div>
-                                          <input type="text" class="form-control" name="position" id="position" placeholder="Position" value="" required>
+                                          <input rel="tooltip" title="Required" type="text" class="form-control" name="position" id="position" placeholder="Position" value="" required>
                                 </div>
- 				@if (\Session::has('company'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('company') !!}
-                                	</div>
-                            	@endif
-				<br>
-                          <h4>Log In Credentials</h4>
+                                    @if (\Session::has('company'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('company') !!}
+                                        </div>
+                                    @endif
+				            <br>
+                            <h4>Login Credentials <a style="color:red;" rel="tooltip" title="Required Fields">*</a></h4>
                             <!--Email-->
                                 <div class="input-group no-border input-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" name="emailAddress" placeholder="Enter your E-mail" required>
+                                <input rel="tooltip" title="Required" type="text" class="form-control" name="emailAddress" placeholder="Enter your E-mail" required>
                                 </div>
 
- 				@if (\Session::has('email'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('email') !!}
-                                	</div>
-                            	@endif
+                                    @if (\Session::has('email'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('email') !!}
+                                        </div>
+                                    @endif
 
                             <!-- Password -->
                                 <div class="input-group no-border input-sm">
@@ -519,7 +521,7 @@
                                     <span class="input-group-text">
                                     </span>
                                 </div>
-                                <input type="password" class="form-control" name="password" placeholder="Enter your Password" required>
+                                <input rel="tooltip" title="Required" type="password" class="form-control" name="password" placeholder="Enter your Password" required>
                                 </div>
                             <!-- Repeat Password -->
                                 <div class="input-group no-border input-sm">
@@ -530,11 +532,11 @@
                                 <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required>
                                 </div> 
 				
- 				@if (\Session::has('password'))
-                                	<div class="alert alert-danger" role="alert">
-                                	{!! \Session::get('password') !!}
-                                	</div>
-                            	@endif
+                                    @if (\Session::has('password'))
+                                        <div class="alert alert-danger" role="alert">
+                                        {!! \Session::get('password') !!}
+                                        </div>
+                                    @endif
 
                                 <br>
                             <!--Hidden avatar field -->

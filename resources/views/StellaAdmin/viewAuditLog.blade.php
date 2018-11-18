@@ -137,9 +137,10 @@ $('body').html(restorepage);
 
                                         <!-- Table Headings -->
                                         <thead class="text-primary">
-                                            <th>User ID</th>
+                                            <th>User</th>
+                                            <th>Type</th>
                                             <th>Log Type</th>
-                                            <th>Date Registered</th>
+                                            <th>Date Logged</th>
                                         </thead>
 
                                         <!-- Table Body -->
@@ -147,8 +148,16 @@ $('body').html(restorepage);
                                             @foreach ($audit as $audit)
                                                 <tr>
                                                     <td class="table-text">
-                                                        <div>{{ $audit->userID }}</div>
+                                                        {{-- <div>{{ $audit->firstName }} {{ $audit->lastName }}</div> --}}
                                                     </td>
+                                                    <td class="table-text">
+                                                       {{-- @if ($detail->type == '2')
+                                                            <div>Employer</div>
+                                                        @elseif ($detail->type == '3')
+                                                            <div>Model</div>
+                                                        @else
+                                                        @endif --}}
+                                                    </td> 
                                                     <td class="table-text">
                                                         <div>{{ $audit->logType }}</div>
                                                     </td>

@@ -76,7 +76,7 @@
         <div class="content">
           <div class="social-description">
             <h5>{{ $user->age}}</h5>
-            <p>Years old</p>
+            <p>Age</p>
           </div>
           <div class="social-description">
             <h5>{{ $user->location}}</h5>
@@ -121,7 +121,7 @@
                 <h4 class="title">Feedbacks</h4>
                 <h6 class="description text-left" style="color:#1b1b1b;">
                 
-                <img src="/images/{{$rating}}.png">
+                <img src="{{ asset('/images/' . $rating . '.png') }}">
                 <h6>Average rating: {{$rating}}</h6><br><br>
                 @foreach ($feedback as $feedback)
                 "{{$feedback->comment}}"<br><br>

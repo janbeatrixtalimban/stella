@@ -275,7 +275,7 @@
                             <!-- City -->
                                     <div class="col-md-4">
                                         <div class="form-group"> 
-                                        <select size="0.4" class="form-control" name="city" id="city" required>
+                                        <select size="0.4" class="form-control" name="city" id="city">
                                                         <option value="" selected disabled>Select City..</option>
                                                         <optgroup label="Pangasinan" style="color: black;">
                                                             <option value="Alaminos City">Alaminos City</option>

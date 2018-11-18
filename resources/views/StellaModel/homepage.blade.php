@@ -112,7 +112,7 @@
                 </div>
                 <div class="col-sm-7">
 
-                     @foreach ($projects->reverse() as $project)
+                  @foreach ($projects->reverse() as $project)
                       @if($project->hidden > 0) 
                         <div id="jobpost" class="card text-center">
                           <div class="card-header">
@@ -154,8 +154,8 @@
                             {{ $project->created_at->diffForHumans() }}
                           </div>
                         </div>
-                        @else      
-                        @endif
+                      @else      
+                      @endif
                   @endforeach
 
                     
@@ -290,7 +290,9 @@
                                         <option value="Pornography">Pornography</option>
                                         <option value="Promotion of Drugs">Promotion of Drugs</option>
                                 </select>
-                            </div>
+                            </div><br>
+                            <label rel="tooltip" title="Required">*Other Comments (Max. Characters 300):</label>
+                            <textarea class="form-control" style="height:150px" id="othercomment" name="othercomment" placeholder="State your Reason.." required></textarea>
                           </div>
                           <div class="modal-footer text-center">
                             <div class="container">

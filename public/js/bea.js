@@ -8,10 +8,10 @@ function checkForm(i){
                  var element2 = document.getElementById("home-tab");
                  element2.classList.remove("disabled");    
                  $('#myTab li:nth-child(' + i +') a').tab('show')
-            
+                
           break;
           case 2 :    
-          var element = document.getElementById("profile-tab");
+                    var element = document.getElementById("profile-tab");
                     element.classList.remove("disabled");  
                     var element2 = document.getElementById("home-tab");
                     element2.classList.add("disabled");    

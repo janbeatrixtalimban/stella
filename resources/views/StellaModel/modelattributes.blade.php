@@ -273,13 +273,30 @@
                                 </select>
                             </div>
                     <!--Shoe-->
-                        <label>Shoe Size (US)</label>
+                    <label>Shoe Size (US)</label>
                         <div class="input-group input-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                 </span>
                             </div>
-                                <input type="text" class="form-control" name="shoeSize" value="{{$details->shoeSize}}" placeholder="shoe size" required>
+                                <select size="0.5" class="form-control" name="shoeSize" id="shoeSize" required> 
+                                        <optgroup style="color: black;">
+                                                <option value="" selected disabled style="color: black;">{{$details->shoeSize}}</option>
+                                                <option value="US 3">US 3</option>
+                                                <option value="US 4">US 4</option>
+                                                <option value="US 5">US 5</option>
+                                                <option value="US 6">US 6</option>
+                                                <option value="US 7">US 7</option>
+                                                <option value="US 8">US 8</option>
+                                                <option value="US 9">US 9</option>
+                                                <option value="US 10">US 10</option>
+                                                <option value="US 11">US 11</option>
+                                                <option value="US 12">US 12</option>
+                                                <option value="US 13">US 13</option>
+                                                <option value="US 14">US 14</option>
+                                                <option value="US 15">US 15</option>
+                                            </optgroup>
+                                        </select>
                             </div>
                 <!--Tattoo-->
                         <label>Tattoos/Scars</label>

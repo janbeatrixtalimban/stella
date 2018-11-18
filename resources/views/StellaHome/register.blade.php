@@ -85,6 +85,7 @@
                             <!-- Model Form (fields) -->
                                 <h4>Basic Information</h4>
                                 <div class="card card-login card-plain">
+                            <label>Full Name</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Fields">*</a>
                                 <!--First Name-->
                                     <div class="card card-login card-plain">
                                         <div class="input-group no-border input-sm">
@@ -92,7 +93,15 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" value="" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" value="" required>
+                                        </div>
+                                    <!--Middle Name-->
+                                        <div class="input-group no-border input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <input rel="tooltip" title="Optional" type="text" class="form-control" name="middleName" placeholder="Middle Name (optional)">
                                         </div>
                                     <!--Last Name-->
                                         <div class="input-group no-border input-sm">
@@ -100,46 +109,58 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
+                                            <input rel="tooltip" title="Required"  type="text" class="form-control" name="lastName" placeholder="Last Name" required>
                                         </div>
                         			    @if (\Session::has('name'))
                             				<div class="alert alert-danger" role="alert">
                                 			    {!! \Session::get('name') !!}
                             				</div>
                         			    @endif
-                                    <!-- Birthdate -->
+                                    <!--Screen Name-->
+                                    <label>Screen Name (optional)</label>
                                         <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <input type="date" class="form-control" name="birthDate" value="" required>
-                                        </div>
+                                            <input rel="tooltip" title="Optional" type="text" class="form-control" name="screenName" id="screenName" placeholder="Screen Name" value="">
+                                        </div><br>
+                                    <!-- Birthdate -->
+                                    <label rel="tooltip" title="Must be 18 and older">Birthdate</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Field">*</a>
+                                        <div class="input-group no-border input-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                </span>
+                                            </div>
+                                            <input rel="tooltip" title="Required" type="date" class="form-control" name="birthDate" value="" required>
+                                        </div><br>
                         			    @if (\Session::has('birthday'))
                             				<div class="alert alert-danger" role="alert">
                                 			    {!! \Session::get('birthday') !!}
                             				</div>
                         			    @endif
                                     <!--Contact number-->
+                                    <label rel="tooltip" title="e.g - 09121231234">Contact Number</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Field">*</a>
                                         <div class="input-group no-border input-sm">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                     </span>
                                                 </div>
-                                                <input type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
-                                        </div>
+                                                <input rel="tooltip" title="Required" type="text" class="form-control" name="contactNo" placeholder="09xx-xxx-xxxx" required>
+                                        </div><br>
                         			    @if (\Session::has('contact'))
                             				<div class="alert alert-danger" role="alert">
                                 			    {!! \Session::get('contact') !!}
                             				</div>
                         			    @endif
                                     <!-- Skill -->
-                                            <div class="input-group no-border input-sm">
+                                    <label>Model Role</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Field">*</a>
+                                        <div class="input-group no-border input-sm">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                     </span>
                                                 </div>
-                                                <select size="0.4" class="form-control" name="skill" id="skill" required>
+                                                <select rel="tooltip" title="Required" size="0.4" class="form-control" name="skill" id="skill" required>
                                                     <optgroup style="color: black;">
                                                     <option value="" selected disabled style="color: black;">Select Role..</option>
                                                         <option value="Fashion Model">Fashion(Editorial) model</option>
@@ -157,20 +178,34 @@
                                                         <option value="Mature Model">Mature Model</option>
                                                     </optgroup>
                                                 </select>
-                                            </div><br>
-                                    <!-- Address line 1 -->
-                                        <label for="address"><b>Full Address</b></label>
+                                            </div>
+                                    </div>
+                                    <!-- End of fields for left column -->
+
+                                </div> <!-- card closing tag -->
+                            </div> <!--form group closing tag-->
+                        </div> <!-- col-sm-5 closing for left column -->
+                    
+                    <!-- End of left Column -->
+               
+                    <!-- Right Column Contents -->
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                        <br><br>  
+                        <div class="card card-login card-plain">
+                        <!-- Address line 1 -->
+                        <label>Full Address <a style="color:red;" rel="tooltip" title="Required Fields">*</a></label>
                                         <div class="input-group no-border input-sm">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                     </span>
                                                 </div>
                                             <!-- Unit -->
-                                                <input type="text" class="form-control" name="unitNo" id="unitNo" placeholder="Unit No." value="" required>
+                                                <input rel="tooltip" title="Required" type="text" class="form-control" name="unitNo" id="unitNo" placeholder="Unit No." value="" required>
                                             <!-- Street -->
-                                                <input type="text" class="form-control" name="street" id="street" placeholder="Street" value="" required>
+                                                <input rel="tooltip" title="Required" type="text" class="form-control" name="street" id="street" placeholder="Street" value="" required>
                                             <!-- Barangay -->
-                                                <input type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="" required>
+                                                <input rel="tooltip" title="Required" type="text" class="form-control" name="brgy" id="brgy" placeholder="Barangay" value="" required>
                                         </div>
                                     <!-- Address line 2 dropdown -->
                                         <div class="input-group no-border input-sm">
@@ -179,7 +214,7 @@
                                                     </span>
                                                 </div>
                                         <!--Province-->
-                                            <select size="0.4" class="form-control" name="location" id="location" required>
+                                            <select rel="tooltip" title="Required" size="0.4" class="form-control" name="location" id="location" required>
                                                     <option value="" selected disabled>Province..</option>
                                                     <optgroup label="Luzon" style="color: black;">
                                                         <option value="Abra">Abra</option>
@@ -256,7 +291,7 @@
                                                     </optgroup>
                                                 </select>
                                             <!-- City -->
-                                                <select size="0.4" class="form-control" name="city" id="city" required>
+                                                <select size="0.4" class="form-control" name="city" id="city">
                                                     <option value="" selected disabled>City..</option>
                                                     <optgroup label="Pangasinan" style="color: black;">
                                                         <option value="Alaminos City">Alaminos City</option>
@@ -498,9 +533,9 @@
                                 			    {!! \Session::get('address') !!}
                             				</div>
                         			    @endif
-						<br>
+						                <br>
                                         <!-- Valid ID -->
-                                            <label for="validId"><b>Valid Government ID</b></label>
+                                        <label rel="tooltip" title="Any government issued ID">Valid ID (for verification)</label>&nbsp;<a style="color:red;" rel="tooltip" title="Required Field">*</a>
                                             <div class="input-group no-border input-sm">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" style="background-color:none;">
@@ -508,34 +543,20 @@
                                                     </span>
                                                         <input size="0.5" type="file" name="filePath" class="form-control" accept="image/jpeg, image/png" required>
                                                 </div>
-                                            </div>
-						    @if (\Session::has('image'))
+                                            </div><br><br>
+						                @if (\Session::has('image'))
                             				<div class="alert alert-danger" role="alert">
                                 			    {!! \Session::get('image') !!}
                             				</div>
                         			    @endif
-
-                                        </div>
-                                    <!-- End of fields for left column -->
-
-                                </div> <!-- card closing tag -->
-                            </div> <!--form group closing tag-->
-                        </div> <!-- col-sm-5 closing for left column -->
-                    
-                    <!-- End of left Column -->
-               
-                    <!-- Right Column Contents -->
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                          <h4>Log In Credentials</h4>
-                          <div class="card card-login card-plain">
+                          <h4>Login Credentials <a style="color:red;" rel="tooltip" title="Required Fields">*</a></h4>
                             <!--Email-->
-                                <div class="input-group no-border input-sm">
+                            <div class="input-group no-border input-sm">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" name="emailAddress" placeholder="Enter your E-mail" required>
+                                <input rel="tooltip" title="Required" type="text" class="form-control" name="emailAddress" placeholder="Enter your E-mail" required>
                                 </div>
                         			    @if (\Session::has('email'))
                             				<div class="alert alert-danger" role="alert">
@@ -548,7 +569,7 @@
                                     <span class="input-group-text">
                                     </span>
                                 </div>
-                                <input type="password" class="form-control" name="password" placeholder="Enter your Password" required>
+                                <input rel="tooltip" title="Required" type="password" class="form-control" name="password" placeholder="Enter your Password" required>
                                 </div>
                             <!-- Repeat Password -->
                                 <div class="input-group no-border input-sm">
@@ -567,7 +588,7 @@
                             <!--hidden avatar field -->
                                 <input type="hidden" name="avatar" id="avatar" value="default.png" required>
                             <!-- Register/submit button -->
-                                <button type="submit" onclick="checkForm(2)" class="btn btn-maroon btn-round btn-lg" rel="tooltip" title="Proceed to Step 2">Next</button>
+                                <button type="submit" id="next" onclick="return checkForm(2)" class="btn btn-maroon btn-round btn-lg" rel="tooltip" title="Proceed to Step 2">Next</button>
                                     <hc>
                                         <a href="{{ url('/home') }}" rel="tooltip" title="Cancel Registration" class="link" style="padding:10px;">Cancel</a>
                                     </hc>
@@ -592,14 +613,14 @@
                             <div class="form-group">
                             <!-- Model Form (fields) -->
                                   <!-- Eye Color -->
-                            <h4>Physical Appearance</h4>
+                            <h4>Physical Appearance <a style="color:red;" rel="tooltip" title="Required Fields">*</a></h4>
                             <div class="card card-login card-plain">
                                 <div class="input-group no-border input-sm">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="eyeColor" id="eyeColor" required>
+                                            <select rel="tooltip" title="Required" size="0.5" class="form-control" name="eyeColor" id="eyeColor" required>
                                             <optgroup style="color: black;">
                                                 <option value="" selected disabled style="color: black;">Select your Eye Color..</option>
                                                     <option value="Brown">Brown</option>
@@ -617,7 +638,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="hairColor" id="hairColor" required>
+                                            <select rel="tooltip" title="Required" size="0.5" class="form-control" name="hairColor" id="hairColor" required>
                                             <optgroup style="color: black;">
                                                 <option value="" selected disabled style="color: black;">Select your Hair Color.. </option>
                                                     <option value="Black">Black</option>
@@ -642,7 +663,7 @@
                                                 <span class="input-group-text">
                                                 </span>
                                             </div>
-                                            <select size="0.5" class="form-control" name="hairLength" id="hairLength" required>
+                                            <select rel="tooltip" title="Required" size="0.5" class="form-control" name="hairLength" id="hairLength" required>
                                             <optgroup style="color: black;">
                                                 <option value="" selected disabled style="color: black;">Select your hair length..</option>
                                                     <option value="Bald">Bald</option>
@@ -660,7 +681,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                        <select size="0.5" class="form-control" name="complexion" id="complexion" required> 
+                                        <select rel="tooltip" title="Required" size="0.5" class="form-control" name="complexion" id="complexion" required> 
                                         <optgroup style="color: black;">
                                                 <option value="" selected disabled style="color: black;">Select skin tone..</option>
                                                 <option value="Fair">Fair</option>
@@ -679,7 +700,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                        <select size="0.5" class="form-control" name="gender" id="gender" required>
+                                        <select rel="tooltip" title="Required" size="0.5" class="form-control" name="gender" id="gender" required>
                                         <optgroup style="color: black;">
                                                 <option value="" selected disabled style="color: black;">Select Gender..</option>
                                                 <option value="Male">Male</option>
@@ -695,7 +716,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                        <select size="0.5" class="form-control" name="tatoo" id="tatoo" required> <optgroup style="color: black;">
+                                        <select rel="tooltip" title="Required" size="0.5" class="form-control" name="tatoo" id="tatoo" required> <optgroup style="color: black;">
                                                 <option value="" selected disabled style="color: black;">Select Tattoo Marks/Scars..</option>
                                                 <option value="Tatooed">Tatoo/s</option>
                                                 <option value="Scarred">Scar/s</option>
@@ -719,14 +740,14 @@
                         @endif
                         <div class="form-group">
                           <div class="card card-login card-plain">
-                          <h4>Weight and Measurements</h4>
+                          <h4>Weight and Measurements <a style="color:red;" rel="tooltip" title="Required Fields">*</a></h4>
                                 <!--Weight-->
                                 <div class="input-group no-border input-sm">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="weight" value="" placeholder="Weight (KG)" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="weight" value="" placeholder="Weight (KG)" required>
                                         </div>
                                 <!--Height-->
                                 <div class="input-group no-border input-sm">
@@ -734,7 +755,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="height" value="" placeholder="Height (CM)" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="height" value="" placeholder="Height (CM)" required>
                                         </div>
                                 <!--Waist-->
                                 <div class="input-group no-border input-sm">
@@ -742,7 +763,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="waist" value="" placeholder="Waist (Inch)" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="waist" value="" placeholder="Waist (Inch)" required>
                                         </div>
                                 <!--hips-->
                                 <div class="input-group no-border input-sm">
@@ -750,7 +771,7 @@
                                             <span class="input-group-text">
                                             </span>
                                         </div>
-                                            <input type="text" class="form-control" name="hips" value="" placeholder="Hips (Inch)" required>
+                                            <input rel="tooltip" title="Required" type="text" class="form-control" name="hips" value="" placeholder="Hips (Inch)" required>
                                         </div>
                     <!-- Chest-->
                             <div class="input-group no-border input-sm">
@@ -758,7 +779,7 @@
                                     <span class="input-group-text">
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" name="chest" value="" placeholder="Chest (CM)" required>
+                                <input rel="tooltip" title="Required" type="text" class="form-control" name="chest" value="" placeholder="Chest (Inch)" required>
                             </div>
                     <!--Shoe-->
                         <div class="input-group no-border input-sm">
@@ -766,7 +787,24 @@
                                 <span class="input-group-text">
                                 </span>
                             </div>
-                                <input type="text" class="form-control" name="shoeSize" value="" placeholder="Shoe Size (US)" required>
+                                <select rel="tooltip" title="Required" size="0.5" class="form-control" name="shoeSize" id="shoeSize" required> 
+                                        <optgroup style="color: black;">
+                                                <option value="" selected disabled style="color: black;">Select Shoe Size (US)..</option>
+                                                <option value="US 3">US 3</option>
+                                                <option value="US 4">US 4</option>
+                                                <option value="US 5">US 5</option>
+                                                <option value="US 6">US 6</option>
+                                                <option value="US 7">US 7</option>
+                                                <option value="US 8">US 8</option>
+                                                <option value="US 9">US 9</option>
+                                                <option value="US 10">US 10</option>
+                                                <option value="US 11">US 11</option>
+                                                <option value="US 12">US 12</option>
+                                                <option value="US 13">US 13</option>
+                                                <option value="US 14">US 14</option>
+                                                <option value="US 15">US 15</option>
+                                            </optgroup>
+                                        </select>
                             </div><br>
                 
                           <!-- ReCaptcha--> 

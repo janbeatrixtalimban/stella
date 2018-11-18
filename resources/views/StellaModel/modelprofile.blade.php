@@ -96,11 +96,12 @@
                 @endif  
 
         <h3 class="headtitle">{{ Auth::user()->firstName}} {{ Auth::user()->lastName}}</h3>
+        <h5>{{ Auth::user()->screenName}}</h5>
         <p class="category">{{ Auth::user()->skill}}</p>
         <div class="content" style="width:100%;">
           <div class="social-description">
             <h5>{{ Auth::user()->age}}</h5>
-            <p>Years old</p>
+            <p>Age</p>
           </div>
           <div class="social-description">
             <h5>{{ Auth::user()->location}}</h5>
@@ -128,7 +129,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-2">
-			@if (\Session::has('success'))
+			                  @if (\Session::has('success'))
                              <div class="alert alert-success" role="alert">
                                   {!! \Session::get('success') !!}
                              </div>
@@ -152,8 +153,7 @@
                 <h4 class="title">Feedbacks</h4>
                 <h6 class="description text-left" style="color:#1b1b1b;">
                 
-                <img src="/images/{{$rating}}.png">
-
+                <img src="{{ asset('/images/' . $rating . '.png') }}">
                 <h6>Average rating: {{$rating}}</h6><br><br>
                 @foreach ($feedback as $feedback)
                 "{{$feedback->comment}}"<br><br>
@@ -165,6 +165,14 @@
                       </div>
 
             <div class="col-sm-9 text-center">
+              <div id="aboutme" class="card text-center" style="margin-top:30px;">
+                  <div class="card-title" style="color:#1b1b1b;">
+                      <h3 class="title" style="margin-top:0px;">About Me</h3>
+                  </div>
+                  <div class="card-body">
+                      <p class="description">{{ Auth::user()->about}}</p>
+                  </div>
+              </div>
               <div style="display:inline;">
                 <h4 class="title">View My Portfolio</h4>
                 <a href="{{ url('/model/viewPortfolio') }}" rel="tooltip" title="Edit Portfolio" >[Edit]</a><br><br>

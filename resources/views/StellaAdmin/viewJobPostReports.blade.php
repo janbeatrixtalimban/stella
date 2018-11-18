@@ -159,7 +159,8 @@
                                                     <td>
                                                        
                                                           <div class="row">
-                                                              <button data-toggle="modal" data-target="#archive{{$detail->projectID}}" type="submit" name="button" class="btn btn-round btn-sm btn-info">Archive</button>&nbsp;
+                                                              <button data-toggle="modal" data-target="#archive{{$detail->projectID}}" type="submit" name="button" class="btn btn-round btn-sm btn-info" rel="tooltip" title="Archive Post"><i class="now-ui-icons files_box"></i></button>
+                                                              <button data-toggle="modal" data-target="#junk{{$detail->projectID}}" type="submit" name="button" class="btn btn-round btn-sm btn-danger" rel="tooltip" title="Junk Report"><i class="now-ui-icons ui-1_simple-remove"></i></button>&nbsp;
                                                               |&nbsp;<a data-toggle="modal" data-target="#details{{$detail->projectID}} " style="color:blue; padding-top:3px;">View</a>
                                                           </div>
                                                         
@@ -183,7 +184,7 @@
 
     @foreach ($details as $detail)
           <!-- View job Post details -->
-            <div id="details{{$detail->projectID}}" class="modal fade" style="padding-top: 130px;" tabindex="-1" role="dialog">
+            <div id="details{{$detail->projectID}}" class="modal fade" style="padding-top: 100px;" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
 
                   <!-- Modal content-->
@@ -194,7 +195,9 @@
                           <div class="modal-body">
                               <h4><img src="{{asset('/uploads/avatars/'.$detail->avatar)}}" width="40" height="40" alt="Thumbnail Image" class="rounded-circle">&nbsp;&nbsp;{{$detail->prjTitle}}</h4><br>
 
-                              <p><b>Reason for report:</b>{{$detail->reason}}</p>
+                              <p><b>Reason for report:</b>&nbsp;{{$detail->reason}}</p>
+
+                              <p><b>Other comments:</b>&nbsp;{{$detail->othercomment}}</p>
 
                               <p><b>Post Description:</b>&nbsp;{{$detail->jobDescription}}</p>
 
@@ -236,6 +239,41 @@
                                  {{ csrf_field() }}
                                 <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$detail->projectID}}" readonly>
                                 <button type="submit" class="btn btn-danger btn-round">Archive</button>
+                                <button type="button" class="btn btn-info btn-round" data-dismiss="modal">Cancel</button>
+                              </form>
+                            </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            @endforeach
+      <!-- End of Modal -->
+
+
+      @foreach ($details as $detail)
+          <!-- View job Post details -->
+            <div id="junk{{$detail->projectID}}" class="modal fade" style="padding-top: 130px;" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                      <div class="modal-content" style="color:black;">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+
+                              <h5>Are you sure you want to disregard the report on {{$detail->prjTitle}}?</h5>
+                              <p class="text-center">*If the report is unrelated or irrelevant to the job post or if the job post does not violate the community guidelines, proceed with adding report to junk.</p>
+
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container text-center">
+                              <form class="" action="{{ url('') }}" method="post">
+                                 {{ csrf_field() }}
+                                <input style="hidden" type="hidden" name="projectID" id="projectID" value="{{$detail->projectID}}" readonly>
+                                <button type="submit" class="btn btn-danger btn-round">Junk</button>
                                 <button type="button" class="btn btn-info btn-round" data-dismiss="modal">Cancel</button>
                               </form>
                             </div>
